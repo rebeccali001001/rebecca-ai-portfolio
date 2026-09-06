@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grounding · AI Knowledge</title>
+<link rel="stylesheet" href="topic.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap">
+<a class="back" href="ai-knowledge.html#rag">← Back to AI Knowledge</a>
+<div style="margin-top:52px" class="eyebrow">05 · Embeddings, RAG &amp; Vector Search</div>
+<h1>What is Grounding?</h1>
+<p class="lede">Grounding connects a model’s response to trusted, task-relevant evidence so the answer can be checked against a source.</p>
+<section class="grid">
+<article class="card">
+<h2>Detail</h2>
+<p class="muted">A grounded workflow retrieves evidence, places it clearly in the model’s context, and instructs the model to answer within that evidence. The application can then preserve citations, confidence signals, and the retrieved source IDs.</p>
+<p class="muted">Grounding reduces unsupported claims, but it does not guarantee correctness: the source may be stale, incomplete, or misinterpreted.</p>
+<p class="note">A citation makes an answer inspectable; it does not make it automatically true.</p>
+</article>
+<article class="card">
+<h2>Key takeaway</h2>
+<p class="muted"><b>Grounding is an evidence contract.</b> Define what sources are trusted, how they are selected, how answers cite them, and when the system should abstain.</p>
+</article>
+<article class="card wide">
+<h2>Sample</h2>
+<p class="muted">An operations assistant answers a question about a settlement exception. It passes the current policy excerpt into the prompt, cites the policy section, and says it cannot confirm the exception when no approved source is retrieved.</p>
+<div class="sample">
+<div><b>Evidence</b><br><span class="muted">Policy v4.2 · §3.1</span></div>
+<div><b>Answer</b><br><span class="muted">Exception applies after approval</span></div>
+<div><b>Trace</b><br><span class="muted">Source ID + timestamp</span></div>
+</div>
+</article>
+<article class="card wide">
+<div class="eyebrow">Video sample</div>
+<h2>Watch the grounding explainer</h2>
+<video controls preload="metadata" poster="vedio/rag.png" aria-label="Grounding and retrieval explainer">
+<source src="vedio/rag.mp4" type="video/mp4">
+Your browser does not support video playback.
+</video>
+</article>
+</section>
+</main>
+</body>
+</html>

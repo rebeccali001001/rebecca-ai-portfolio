@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Embeddings · AI Knowledge</title>
+<link rel="stylesheet" href="topic.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap">
+<a class="back" href="ai-knowledge.html#rag">← Back to AI Knowledge</a>
+<div style="margin-top:52px" class="eyebrow">05 · Embeddings, RAG &amp; Vector Search</div>
+<h1>What are Embeddings?</h1>
+<p class="lede">Embeddings turn text, images, or other content into vectors that preserve useful relationships in a machine-readable space.</p>
+<section class="grid">
+<article class="card">
+<h2>Detail</h2>
+<p class="muted">An embedding model maps an input to a list of numbers. Inputs with similar meaning tend to land closer together, which makes semantic search possible even when the wording is different.</p>
+<p class="muted">Good retrieval still depends on the embedding model, chunking strategy, metadata, distance metric, and the domain represented in the source data.</p>
+<p class="note">Meaning becomes searchable when it has a location in vector space.</p>
+</article>
+<article class="card">
+<h2>Key takeaway</h2>
+<p class="muted"><b>Embeddings are representations, not answers.</b> They help an application find relevant content; a model or downstream system still has to use and validate that content.</p>
+</article>
+<article class="card wide">
+<h2>Sample</h2>
+<p class="muted">A user asks, “Can I cancel after the vessel sails?” The query and policy chunks are embedded separately. The closest chunk is selected because it discusses post-departure cancellation, even though it never uses the exact word “sails.”</p>
+<div class="sample">
+<div><b>Query vector</b><br><span class="muted">[0.21, -0.08, 0.74, …]</span></div>
+<div><b>Nearby chunk</b><br><span class="muted">Post-departure cancellation</span></div>
+<div><b>Similarity</b><br><span class="muted">0.91 cosine score</span></div>
+</div>
+</article>
+<article class="card wide">
+<div class="eyebrow">Video sample</div>
+<h2>Watch the retrieval explainer</h2>
+<video controls preload="metadata" poster="vedio/rag.png" aria-label="Embeddings and retrieval explainer">
+<source src="vedio/rag.mp4" type="video/mp4">
+Your browser does not support video playback.
+</video>
+</article>
+</section>
+</main>
+</body>
+</html>

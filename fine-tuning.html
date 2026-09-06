@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fine-tuning · AI Knowledge</title>
+<meta name="description" content="A practical explainer for fine-tuning language models with task-specific examples and evaluation.">
+<link rel="stylesheet" href="topic.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap">
+<a class="back" href="ai-knowledge.html#llms">← Back to AI Knowledge</a>
+<div style="margin-top:52px" class="eyebrow">02 · LLMs &amp; Transformers</div>
+<h1>What is Fine-tuning?</h1>
+<p class="lede">Fine-tuning adapts a pre-trained model with focused examples so it follows a task, format, style, or domain behavior more consistently.</p>
+<section class="grid">
+<article class="card">
+<h2>Detail</h2>
+<p class="muted">Fine-tuning continues training from an existing checkpoint using a smaller, curated dataset. Depending on the goal, teams may use supervised examples, preference data, or parameter-efficient methods such as adapters.</p>
+<p class="note">Start with a capable base; specialize with evidence.</p>
+<h3>What it can change</h3>
+<p class="muted">It can improve format adherence, tone, task consistency, and domain conventions. It is not a magic way to inject constantly changing facts or fix a weak base model.</p>
+</article>
+<article class="card">
+<h2>Key takeaway</h2>
+<p class="muted"><b>Fine-tuning changes how a model behaves on a target task; retrieval and tools are often better for fresh facts and actions.</b></p>
+<h3>Guardrails</h3>
+<p class="muted">Use representative data, hold out evaluation cases, watch for overfitting or forgetting, and compare against a prompt-only baseline.</p>
+</article>
+<article class="card wide">
+<h2>Sample</h2>
+<p class="muted">A company wants consistent JSON for support triage. It collects high-quality examples with the desired schema, labels edge cases, fine-tunes a base model, and then evaluates invalid inputs, ambiguous tickets, and policy-sensitive cases.</p>
+<div class="sample">
+<div><b>Base model</b><br><span class="muted">General language ability</span></div>
+<div><b>Curated examples</b><br><span class="muted">Task + ideal output</span></div>
+<div><b>Evaluation</b><br><span class="muted">Accuracy + failure behavior</span></div>
+</div>
+</article>
+<article class="card wide">
+<div class="eyebrow">Video sample · 16 sec</div><h2>Watch the explainer</h2>
+<video controls preload="metadata" poster="vedio/fine-tuning.png" aria-label="What is Fine-tuning explainer"><source src="vedio/fine-tuning.mp4" type="video/mp4">Your browser does not support video playback.</video>
+<div class="asset-row"><a class="asset-link" href="vedio/fine-tuning.mp4" download>↓ Download MP4</a><a class="asset-link" href="vedio/fine-tuning.png" download>↓ Download cover</a></div>
+<details class="script"><summary>Video script &amp; visual direction</summary><div class="script-body"><p><b>Voiceover:</b> “Fine-tuning starts with a pre-trained model and teaches it a narrower behavior using curated examples. The goal might be a reliable format, tone, or task workflow. Evaluate the result carefully—and use retrieval for facts that change.”</p><div class="scene-list"><div class="scene"><time>0–4s</time><div><b>Start</b><br>Show a broad base-model card narrowing into a focused task lane.</div></div><div class="scene"><time>4–10s</time><div><b>Adapt</b><br>Cycle through input-and-ideal-output pairs, then tint the model card green.</div></div><div class="scene"><time>10–16s</time><div><b>Validate</b><br>Split the screen into “behavior” and “fresh facts”; route fresh facts to retrieval.</div></div></div></div></details>
+</article>
+</section>
+</main>
+</body>
+</html>

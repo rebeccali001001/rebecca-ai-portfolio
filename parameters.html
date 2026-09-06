@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parameters · AI Knowledge</title>
+<meta name="description" content="A practical explainer for model parameters, capacity, and deployment trade-offs.">
+<link rel="stylesheet" href="topic.css">
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap">
+<a class="back" href="ai-knowledge.html#llms">← Back to AI Knowledge</a>
+<div style="margin-top:52px" class="eyebrow">02 · LLMs &amp; Transformers</div>
+<h1>What are Parameters?</h1>
+<p class="lede">Parameters are the learned numerical values inside a model. They shape how the network turns input tokens into useful predictions.</p>
+<section class="grid">
+<article class="card">
+<h2>Detail</h2>
+<p class="muted">During training, the model repeatedly adjusts its weights and biases to reduce prediction error. Across many layers, those numbers encode useful statistical relationships—how words, concepts, syntax, and patterns tend to interact.</p>
+<p class="note">Training updates the numbers; inference uses them.</p>
+<h3>What scale changes</h3>
+<p class="muted">A larger parameter count can provide more capacity, but it also increases memory use, latency, and serving cost. Quality depends on data, architecture, training, and the task—not size alone.</p>
+</article>
+<article class="card">
+<h2>Key takeaway</h2>
+<p class="muted"><b>Parameters are a model’s learned adjustable memory. More parameters may increase capacity, but deployment fit is the real decision.</b></p>
+<h3>Deployment lens</h3>
+<p class="muted">When comparing models, check task quality, context needs, throughput, privacy, hardware, and total cost together.</p>
+</article>
+<article class="card wide">
+<h2>Sample</h2>
+<p class="muted">Suppose a support team is choosing between a small local model and a much larger hosted model. The larger model may answer edge cases better, while the smaller one may win on latency, privacy, and cost.</p>
+<div class="sample">
+<div><b>Weights</b><br><span class="muted">Learned numerical values</span></div>
+<div><b>Capacity</b><br><span class="muted">Patterns the model can represent</span></div>
+<div><b>Trade-off</b><br><span class="muted">Quality ↔ memory ↔ latency</span></div>
+</div>
+</article>
+<article class="card wide">
+<div class="eyebrow">Video sample · 16 sec</div><h2>Watch the explainer</h2>
+<video controls preload="metadata" poster="vedio/parameters.png" aria-label="What are Parameters explainer"><source src="vedio/parameters.mp4" type="video/mp4">Your browser does not support video playback.</video>
+<div class="asset-row"><a class="asset-link" href="vedio/parameters.mp4" download>↓ Download MP4</a><a class="asset-link" href="vedio/parameters.png" download>↓ Download cover</a></div>
+<details class="script"><summary>Video script &amp; visual direction</summary><div class="script-body"><p><b>Voiceover:</b> “What lives inside a language model? Parameters: learned numbers that shape how the model connects patterns. More parameters can mean more capacity, but they also cost more memory, latency, and compute. Choose for the task—not the headline number.”</p><div class="scene-list"><div class="scene"><time>0–4s</time><div><b>Hook</b><br>Animate a field of glowing weight nodes under the title “Parameters = learned numbers”.</div></div><div class="scene"><time>4–10s</time><div><b>Explain</b><br>Show input tokens flowing through compact matrix blocks and changing the output signal.</div></div><div class="scene"><time>10–16s</time><div><b>Decision</b><br>Balance three labels on screen: capacity, memory, latency. End on “fit beats size”.</div></div></div></div></details>
+</article>
+</section>
+</main>
+</body>
+</html>
