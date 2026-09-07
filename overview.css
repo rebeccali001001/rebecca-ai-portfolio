@@ -16,3 +16,10 @@ main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%}
 .overview-page .module-map,.overview-page .rag-pipeline,.overview-page .enterprise-flow{min-width:0}.overview-page .concept-grid,.overview-page .explore-grid,.overview-page .learning-order{grid-template-columns:repeat(auto-fit,minmax(var(--overview-card-min),1fr));gap:var(--overview-gap)}.overview-page .concept-card,.overview-page .explore-card,.overview-page .learning-step{min-width:0}.overview-page .module-map-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));min-height:0}.overview-page .enterprise-flow,.overview-page .story-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--overview-gap)}
 @media(max-width:1050px){.overview-page{padding-top:28px}.overview-map{padding:22px}.overview-page .module-map-grid{min-height:0}}
 @media(max-width:760px){.overview-page{padding:22px 0 64px}.overview-section{margin-top:32px}.overview-map{padding:17px;border-radius:18px}.overview-map-stage,.overview-page .map-taxonomy .overview-map-stage,.overview-page .map-flow .overview-map-stage,.overview-page .map-landscape .overview-map-stage,.overview-page .concept-grid,.overview-page .explore-grid,.overview-page .learning-order,.overview-page .enterprise-flow,.overview-page .story-steps{grid-template-columns:1fr}.overview-flow{display:grid;grid-template-columns:1fr}.overview-map-connector{transform:rotate(90deg);justify-self:center}.overview-title{font-size:clamp(38px,12vw,54px)}.overview-lede{font-size:18px}.overview-section-title{font-size:27px}.overview-page .concept-card,.overview-page .explore-card,.overview-page .learning-step{min-height:0}}
+
+/* overview-page is a body class. Never constrain the page itself: the shared sidebar
+   layout owns the available width, while the main element owns the page spacing. */
+body.overview-page{max-width:none;margin:0;padding:0}
+body.overview-page>main{padding:44px 0 90px}
+@media(max-width:1050px){body.overview-page>main{padding-top:28px}}
+@media(max-width:760px){body.overview-page>main{padding:22px 0 64px}}
