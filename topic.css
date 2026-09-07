@@ -118,7 +118,8 @@ main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%;min-width:
 .sidebar-nav summary.active-module{color:#fff;text-shadow:0 0 16px rgba(120,229,189,.35)}
 .sidebar-nav summary.active-module:after{content:' · ACTIVE';color:var(--green);font-size:9px;letter-spacing:.06em}
 .sidebar-nav details.expanded{border-top-color:rgba(120,229,189,.35)}
-.sidebar-nav a.active{font-weight:800}
+.sidebar-nav a.active{position:relative;margin:1px 0 2px;padding:7px 9px;color:#fff;background:linear-gradient(90deg,rgba(127,177,255,.18),rgba(120,229,189,.08));border:1px solid var(--blue);border-radius:7px;font-weight:800;box-shadow:0 0 0 1px rgba(120,229,189,.16),0 0 16px rgba(127,177,255,.14)}
+.sidebar-nav a.active::before{content:'';position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:var(--green)}
 
 /* Sidebar layout refinement: wider directory, calmer hierarchy, compact badges. */
 #site-directory{width:310px;max-height:calc(100vh - 114px);scrollbar-width:thin;scrollbar-color:#38516d transparent}
@@ -140,6 +141,22 @@ main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%;min-width:
 
 /* The directory is a nav element, but must not inherit the global header nav layout. */
 nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justify-content:initial;flex-direction:initial}
+/* Fixed directory pages reserve a complete content lane, including homepage and
+   library headers. Without this, their hero copy sits underneath the directory. */
+@media(min-width:1051px){
+  .has-site-directory>header>.wrap{
+    margin-left:372px!important;
+    margin-right:24px!important;
+    width:calc(100vw - 396px)!important;
+    max-width:none!important;
+  }
+}
+@media(min-width:1051px) and (max-width:1250px){
+  .has-site-directory>header>.wrap{
+    margin-left:350px!important;
+    width:calc(100vw - 374px)!important;
+  }
+}
 /* Shared directory layout: Overview pages must use the full content lane beside the fixed directory. */
 @media(min-width:1051px){
   body.overview-page.has-site-directory>main{

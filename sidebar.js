@@ -6,11 +6,13 @@
     .then((response) => { if (!response.ok) throw new Error('Sidebar unavailable'); return response.text(); })
     .then((html) => {
       mount.innerHTML = html;
-      const current = decodeURIComponent(location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      // Compare resolved pathnames rather than the raw href. This also works when
+      // a page is served from a directory URL instead of a literal .html URL.
+      const current = new URL(location.href).pathname.replace(/\/$/, '/index.html').toLowerCase();
       let activeDetails;
       mount.querySelectorAll('a[href]').forEach((link) => {
         const url = new URL(link.getAttribute('href'), base);
-        if (url.pathname.split('/').pop().toLowerCase() === current) {
+        if (decodeURIComponent(url.pathname).toLowerCase() === decodeURIComponent(current)) {
           link.classList.add('active');
           link.setAttribute('aria-current', 'page');
           activeDetails = link.closest('details');
@@ -19,6 +21,8 @@
         if (status) addStatus(link, status);
       });
       mount.querySelectorAll('details').forEach((detail) => {
+        // The module containing the current page is always expanded on arrival.
+        // Other modules retain their normal, independently collapsible behaviour.
         detail.open = detail === activeDetails;
         const summary = detail.querySelector(':scope > summary');
         if (summary) summary.classList.toggle('active-module', detail === activeDetails);
