@@ -142,8 +142,22 @@ main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%;min-width:
 nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justify-content:initial;flex-direction:initial}
 /* Shared directory layout: Overview pages must use the full content lane beside the fixed directory. */
 @media(min-width:1051px){
-  .has-site-directory>main.overview-page{margin-left:372px!important;margin-right:24px!important;width:calc(100vw - 396px)!important;max-width:none!important}
-  .has-site-directory>main.overview-page>.wrap{max-width:none;margin-left:0;margin-right:0;padding-left:0;padding-right:24px}
+  body.overview-page.has-site-directory>main{
+    margin-left:372px!important;
+    margin-right:24px!important;
+    width:calc(100vw - 396px)!important;
+    max-width:none!important;
+  }
+  /* Older overview files still use topic-shell. It must not reserve an empty sidebar grid column. */
+  body.overview-page.has-site-directory>main.topic-shell{
+    display:block!important;
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body.overview-page.has-site-directory>main>.wrap{max-width:none;margin-left:0;margin-right:0;padding-left:0;padding-right:24px}
+}
+
+@media(min-width:1051px) and (max-width:1250px){
+  body.overview-page.has-site-directory>main{margin-left:350px!important;width:calc(100vw - 374px)!important}
 }
 
 /* Keep every non-overview topic on the same readable, centred content rail. */
