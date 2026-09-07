@@ -4,7 +4,7 @@ WEBVTT
 Machine learning finds useful patterns in data, then applies them to new inputs.
 
 00:00:04.852 --> 00:00:09.704
-Labeled cards show the helper what ingredients led to which outcome.
+Examples pair inputs with expected outcomes so the system can learn patterns.
 
 00:00:09.704 --> 00:00:14.556
 The model compares examples and adjusts until its patterns become useful.

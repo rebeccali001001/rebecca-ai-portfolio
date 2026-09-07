@@ -1,19 +1,23 @@
 1
-00:00:00,000 --> 00:00:08,424
-A system prompt is the standing brief an assistant sees before the user's request.
+00:00:00,000 --> 00:00:14,856
+System Prompts. A system prompt is a set of instructions sent by an application to guide the model's behavior. It can define a role, rules, boundaries, tone, or output format, but it does not retrain the model.
 
 2
-00:00:08,424 --> 00:00:15,240
-Start with a plain role so the model knows the job it is here to do.
+00:00:14,856 --> 00:00:30,072
+Workplace handbook. Think of a system prompt like a workplace handbook. It gives an AI application guidance before it handles the current request. The model is not a person, and the rules do not guarantee every response.
 
 3
-00:00:15,240 --> 00:00:22,320
-Add boundaries that name allowed actions, forbidden actions, and the shape of a safe answer.
+00:00:30,072 --> 00:00:42,408
+How it works. The application prepares system instructions, receives the user's request, adds relevant documents or tool results, runs the model, and reviews important output.
 
 4
-00:00:22,320 --> 00:00:29,976
-A useful prompt also tells the assistant how to pause, ask, or hand off.
+00:00:42,408 --> 00:00:55,920
+Support and invoices. For a refund question, the system can follow company policy and avoid inventing rules. For an invoice, it can extract fields and mark uncertain values for review.
 
 5
-00:00:29,976 --> 00:00:36,600
-Good system prompts turn vague behavior into a repeatable interface contract.
+00:00:55,920 --> 00:01:09,888
+What it is not. A system prompt is application-level guidance, not the user's current request and not model training. It guides likely behavior, but it cannot guarantee that every output follows every rule.
+
+6
+00:01:09,888 --> 00:01:21,216
+Remember. A system prompt guides an AI application's behavior at runtime. It does not guarantee the output, so important results may still need validation.

@@ -13,6 +13,7 @@ import re
 import subprocess
 import tempfile
 import urllib.request
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -63,27 +64,63 @@ TOPICS = {
         "title": "EVALUATION",
         "slug": "evaluation",
         "voice": [
-            ("Evaluation", "Keywords: tasks, metrics, traces", "Prove that the workflow works before scaling it."),
-            ("Definition", "Compare real scenarios with an agreed quality bar.", "Evaluation uses representative tasks, expected outcomes, failure cases, latency, cost, and trace evidence to support a deployment decision."),
-            ("Plain English", "Test the job, not just the answer.", "A fluent response is not enough if the wrong record was updated, a source was missed, or a human was skipped."),
-            ("Life sample", "Like taste-testing a meal before serving guests.", "You check the recipe, the normal plate, the allergy case, the delayed ingredient, and whether the cook knows when to ask for help."),
-            ("Key point", "Include failures and handoffs in the scorecard.", "A reliable system detects uncertainty, recovers safely, and leaves evidence that a person can inspect."),
-            ("Conclusion", "Evidence tells you whether to launch, change, or stop.", "Evaluation turns a prototype conversation into a clear decision about quality, risk, cost, and the next experiment."),
+            ("Evaluation", "Keywords: expectations, evidence, decision", "Evaluation measures an AI system against defined expectations."),
+            ("Definition", "Measure usefulness, reliability, and safety.", "It can assess task success, quality, latency, cost, safety, robustness, and user outcomes."),
+            ("Think of it like", "Like inspecting a machine before trusting it.", "You test normal operation, edge cases, and safety conditions before people depend on the result."),
+            ("How it works", "Connect inputs, outputs, metrics, and traces.", "Use representative tasks, expected outcomes, failure cases, and trace evidence to compare the system with its quality bar."),
+            ("What it is not", "A fluent answer is not proof of a successful workflow.", "The wrong record, a missed source, or a skipped human handoff can still make the system fail."),
+            ("Remember", "Evidence tells you whether to launch, change, or stop.", "Evaluation makes quality, risk, cost, and the next experiment explicit."),
         ],
     },
-    "adoption": {
-        "title": "ADOPTION",
-        "slug": "adoption",
+    "functional-tests": {
+        "title": "FUNCTIONAL TESTS",
+        "slug": "functional-tests",
         "voice": [
-            ("Adoption", "Keywords: users, training, feedback", "Make the new workflow easy to trust and easy to use."),
-            ("Definition", "Help people change how work gets done.", "Adoption covers user roles, training, rollout steps, feedback loops, ownership, support, and the incentives around the new AI workflow."),
-            ("Plain English", "AI is a teammate, not a magic button.", "People need to know what the system can do, when to check it, how to correct it, and who owns the final decision."),
-            ("Life sample", "Like introducing a new appliance to a family kitchen.", "Start with one cook, show the safe settings, keep the old method nearby, collect feedback, and expand only when it helps."),
-            ("Key point", "Start with visible value and a safe fallback.", "Shadow mode, clear review steps, short training, and fast feedback make trust something the team can build."),
-            ("Conclusion", "Adoption is part of the system design.", "A deployment succeeds when people choose it because it makes their work clearer, safer, or faster—not because a demo looked impressive."),
+            ("Functional Tests", "Keywords: behavior, inputs, outputs", "Functional tests check whether an AI workflow behaves as specified."),
+            ("Definition", "Test the functions the system promises to perform.", "Check inputs, outputs, tool calls, validations, permissions, and expected behavior for representative cases."),
+            ("Think of it like", "Like checking every button on a new appliance.", "You do not only admire the appliance; you press the controls and verify the expected result."),
+            ("How it works", "Define a case, run it, compare the result, record evidence.", "Include common paths, difficult cases, and risky cases, then check the observable workflow outcome."),
+            ("What it is not", "A successful demo is not a complete test suite.", "A demo can show one limited path; functional tests look for repeatable behavior across cases."),
+            ("Remember", "Test the behavior the workflow depends on.", "Functional evidence is one part of deciding whether an AI system is ready."),
+        ],
+    },
+    "failure-modes": {
+        "title": "FAILURE MODES", "slug": "failure-modes",
+        "voice": [
+            ("Failure Modes", "Keywords: patterns, risk, control", "Failure modes are the ways an AI system can produce an incorrect, unsafe, or unusable result."),
+            ("Definition", "Name a specific way the workflow can fail.", "Examples include hallucination, omission, unsafe action, wrong tool use, refusal, bias, timeout, and invalid format."),
+            ("Think of it like", "Like inspecting weak points in a machine.", "Ask how the machine could fail before an accident happens; apply the same question to the AI workflow."),
+            ("How it works", "Map, predict, prioritize, test, and control.", "List inputs, decisions, tools, and outputs; assess likelihood, impact, and detectability; then add validation, fallback, review, or limits."),
+            ("What it is not", "A failure mode is not only a software bug.", "It can come from the model, data, process, or integration, and it is different from the response plan."),
+            ("Remember", "Naming failure modes makes risks specific enough to test and control.", "A recognizable risk pattern is more useful than a vague warning that AI might make mistakes."),
+        ],
+    },
+    "failure-handling": {
+        "title": "FAILURE HANDLING", "slug": "failure-handling",
+        "voice": [
+            ("Failure Handling", "Keywords: detect, recover, record", "Failure handling defines what an AI system should do when the expected result is not produced."),
+            ("Definition", "Choose the next safe action after a failure.", "Possible responses include retrying, using a fallback, asking for missing information, returning an error, requesting human review, or stopping safely."),
+            ("Think of it like", "Like an emergency plan.", "A building defines what people do when power fails or a route is blocked; AI systems need clear paths for failure too."),
+            ("How it works", "Detect, classify, choose, recover, and record.", "Check errors, timeouts, schema, and evidence; separate transient, input, tool, and safety failures; then log the event."),
+            ("Example", "An invalid response should not become a fabricated result.", "Retry or return a validation error for invalid JSON; use a fallback or ask the user to try later after a tool timeout."),
+            ("Remember", "Reliability includes a plan for missing or invalid results.", "Retry is only one response; safe handling also includes fallback, review, and stop."),
+        ],
+    },
+    "deployment-readiness": {
+        "title": "DEPLOYMENT READINESS", "slug": "deployment-readiness",
+        "voice": [
+            ("Deployment Readiness", "Keywords: evidence, controls, operation", "Deployment readiness means an AI system is prepared for real users and real operating conditions."),
+            ("Definition", "Check the whole operating system, not only the model.", "Readiness includes quality, functional tests, safety controls, monitoring, failure handling, access, cost, latency, ownership, and rollback plans."),
+            ("Think of it like", "Like opening a new shop.", "The shop needs working equipment, trained staff, safety procedures, supplies, and a plan for problems before customers depend on it."),
+            ("How it works", "Define, validate, operate, prepare, and release.", "Set criteria, run evaluations, confirm monitoring and access, plan failure response, and deploy gradually while reviewing live evidence."),
+            ("What it is not", "A demo or model score is not deployment readiness.", "Readiness requires repeatable evidence and controls; it makes risks known and manageable rather than pretending there is no risk."),
+            ("Remember", "Readiness is evidence that the whole AI system can operate safely and reliably.", "A controlled pilot is a release decision grounded in quality, safeguards, owners, and rollback."),
         ],
     },
 }
+
+# Module 11 only: do not regenerate Overview, NEW, or topics from other modules.
+ACTIVE_SLUGS = ["evaluation", "functional-tests", "failure-modes", "failure-handling", "deployment-readiness"]
 
 
 def read_env(path: Path) -> dict[str, str]:
@@ -228,8 +265,11 @@ def main() -> None:
     OUT.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="enterprise-ai-video-") as tmp:
         tmp_path = Path(tmp)
-        for topic_index, data in enumerate(TOPICS.values()):
+        for topic_index, slug in enumerate(ACTIVE_SLUGS):
+            data = TOPICS[slug]
             pieces: list[Path] = []
+            captions: list[tuple[float, float, str]] = []
+            elapsed = 0.0
             for stage, (heading, caption, spoken) in enumerate(data["voice"]):
                 audio = tmp_path / f"{data['slug']}-{stage}.mp3"
                 segment = tmp_path / f"{data['slug']}-{stage}.mp4"
@@ -239,13 +279,27 @@ def main() -> None:
                 duration = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(audio)], text=True).strip())
                 frame.write_text(svg_for(stage, heading, caption, topic_index), encoding="utf-8")
                 run(["sips", "-s", "format", "png", str(frame), "--out", str(png)])
+                if stage == 0:
+                    shutil.copyfile(png, OUT / f"{data['slug']}.png")
                 frames = max(1, round(duration * 30))
                 run(["ffmpeg", "-y", "-loop", "1", "-i", str(png), "-i", str(audio), "-t", f"{duration:.3f}", "-vf", f"zoompan=z='min(zoom+0.0009,1.035)':d=1:s={W}x{H}:fps=30", "-c:v", "libx264", "-preset", "medium", "-crf", "21", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-shortest", str(segment)])
                 pieces.append(segment)
+                captions.append((elapsed, elapsed + duration, f"{heading}. {spoken}"))
+                elapsed += duration
             concat = tmp_path / f"{data['slug']}.txt"
             concat.write_text("\n".join(f"file '{p}'" for p in pieces), encoding="utf-8")
             target = OUT / f"{data['slug']}.mp4"
             run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(concat), "-c", "copy", "-movflags", "+faststart", str(target)])
+            def stamp(seconds: float) -> str:
+                whole = int(seconds)
+                ms = int(round((seconds - whole) * 1000))
+                if ms == 1000:
+                    whole += 1; ms = 0
+                return f"{whole // 3600:02d}:{(whole % 3600) // 60:02d}:{whole % 60:02d}.{ms:03d}"
+            vtt = ["WEBVTT", ""]
+            for start, end, text in captions:
+                vtt += [f"{stamp(start)} --> {stamp(end)}", text, ""]
+            (OUT / f"{data['slug']}.vtt").write_text("\n".join(vtt), encoding="utf-8")
             print(f"generated {target.name}")
 
 

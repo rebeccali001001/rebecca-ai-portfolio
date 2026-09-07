@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:09.144
+Agent Loop. An agent loop is the control cycle that lets an AI system take a step, observe the result, and choose what to do next.
+
+00:00:09.144 --> 00:00:19.776
+Route check. Think of it like checking a route after every turn. A navigation system observes the road and updates the next turn when conditions change.
+
+00:00:19.776 --> 00:00:27.984
+Set the goal. First, the application defines the goal, constraints, and a clear stopping rule for the task.
+
+00:00:27.984 --> 00:00:36.648
+Decide and act. The model selects a next step from the allowed options, and the system carries out that approved tool action.
+
+00:00:36.648 --> 00:00:47.640
+Observe and validate. The tool result becomes new context. Validation and limits keep the loop from continuing blindly or taking an unsafe action.
+
+00:00:47.640 --> 00:00:57.744
+Remember. An agent loop repeats decisions and actions until it reaches a controlled stop condition, returns a result, or asks a person to review.

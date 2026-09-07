@@ -31,22 +31,22 @@ const C = {bg:'#071019', panel:'#102032', panel2:'#0b1723', text:'#f7fafc', mute
 const common = {
   'artificial-intelligence': {
     title:'Artificial Intelligence',
-    voice:'Artificial intelligence is the big goal: a computer system performs a task that seems intelligent. Think of a kitchen helper. It sees an order, chooses a recipe, and asks for help when unsure. AI is an umbrella, not a promise of human-like thinking. The practical test is simple: what task, what evidence, and where does a person stay in the loop?',
+    voice:'Artificial intelligence is technology that allows computers to perform tasks that normally require human intelligence. AI can recognize patterns, make predictions, generate content, make recommendations, or take actions. Think of it like a student who has studied millions of examples: when something new arrives, it looks for useful patterns and produces a result. The important question is not whether AI thinks like a person, but what task it performs, what evidence supports the result, and where a human reviews it.',
     scenes:[
-      ['THE BIG UMBRELLA','AI is the broad field of making systems perform useful intelligent tasks.','umbrella',['AI','patterns','language','actions']],
-      ['A KITCHEN HELPER','Imagine a robot that sees an order, chooses a recipe, and responds.','flow',['order','understand','decide','help']],
-      ['MANY WAYS TO BUILD IT','Rules, data, and learned patterns can all power an AI system.','cards',['rules','data','models']],
-      ['KEEP A PERSON IN THE LOOP','A clear task, evidence, and review path make AI useful and safer.','shield',['task','evidence','review']],
-      ['FROM INPUT TO ACTION','AI connects what comes in to a decision or action that helps someone.','pipeline',['input','AI task','useful action']],
-      ['KEY IDEA','AI is a system designed to perform an intelligent task—not a claim of human thinking.','takeaway',['task','evidence','human review']],
+      ['WHAT AI CAN DO','AI can recognize patterns, predict, recommend, generate, and take actions.','umbrella',['patterns','prediction','generation','action']],
+      ['THINK OF IT LIKE A STUDENT','A system learns from many examples, then applies patterns to something new.','flow',['examples','patterns','new input','result']],
+      ['FROM INPUT TO OUTPUT','A photo, document, message, or sensor reading becomes a useful result.','pipeline',['input','process','decision','output']],
+      ['REAL-WORLD EXAMPLES','Photo recognition labels a scene; invoice processing extracts fields and flags exceptions.','cards',['photo','invoice','review']],
+      ['KEEP A PERSON IN THE LOOP','Important or uncertain results need evidence, review, and a safe handoff.','shield',['task','evidence','human review']],
+      ['KEY IDEA','AI performs tasks associated with intelligence, but it is not ChatGPT, fixed-rule automation, or the human mind.','takeaway',['task','evidence','human review']],
     ],
   },
   'machine-learning': {
     title:'Machine Learning',
-    voice:'Machine learning is a way for a system to learn patterns from examples instead of receiving every rule by hand. Imagine teaching a kitchen helper with labeled recipe cards: ingredients, steps, and outcomes. During training it finds patterns; with a new order it predicts a next step. Good machine learning needs representative data, a clear target, testing, and a human path for uncertain results.',
+    voice:'Machine learning is a way for computers to learn patterns from examples instead of receiving every rule by hand. Think of teaching with worked examples: show many examples of spam and not spam, and the learner uses those examples to classify a new message. Training turns examples into a model; inference applies that model to new data. The result may be a label, score, rank, or forecast.',
     scenes:[
       ['LEARN FROM EXAMPLES','Machine learning finds useful patterns in data, then applies them to new inputs.','cards',['examples','patterns','prediction']],
-      ['RECIPE CARDS','Labeled cards show the helper what ingredients led to which outcome.','stack',['ingredients','steps','outcome']],
+      ['WORKED EXAMPLES','Examples pair inputs with expected outcomes so the system can learn patterns.','stack',['input','outcome','pattern']],
       ['TRAINING','The model compares examples and adjusts until its patterns become useful.','training',['data','learn','pattern']],
       ['A NEW ORDER','A new order is an input; the learned pattern produces a prediction.','flow',['new order','model','next step']],
       ['CHECK THE GUESS','Testing measures where predictions work—and where a person should review.','check',['test','confidence','review']],
@@ -63,6 +63,30 @@ const common = {
       ['LATER LAYERS','Later layers recognize a whole object, word, or intent.','layers',['parts','object','intent']],
       ['THE TRADE-OFF','Richer patterns need enough examples, compute, and careful evaluation.','balance',['data','compute','testing']],
       ['KEY IDEA','Deep learning learns increasingly useful representations through many connected layers.','takeaway',['simple signals','richer patterns','task output']],
+    ],
+  },
+  'unsupervised-learning': {
+    title:'Unsupervised Learning',
+    voice:'Unsupervised learning is a machine-learning method that learns from unlabeled data. Instead of receiving a correct answer for each example, the system looks for structure such as similar groups, relationships, recurring patterns, or unusual data points. Think of sorting a mixed box without labels: similarities in the data create the groups, but people interpret whether that structure is useful.',
+    scenes:[
+      ['NO PREDEFINED LABELS','Unsupervised learning finds structure in data without being given the correct labels in advance.','umbrella',['unlabeled data','patterns','structure']],
+      ['THE MIXED BOX','Sorting a mixed box means grouping objects by similarities, without names supplied in advance.','cards',['round','metal','small']],
+      ['MEASURE SIMILARITY','The system compares examples using measurable features, then detects recurring relationships.','training',['examples','similarity','relationships']],
+      ['FORM GROUPS','A clustering algorithm may form groups, but the groups do not automatically mean “cat” or “dog.”','flow',['data','clusters','human meaning']],
+      ['FIND THE UNUSUAL','Normal activity patterns can help flag unusual examples as possible anomalies.','check',['normal','unusual','inspect']],
+      ['KEY IDEA','Unsupervised learning finds structure in data without predefined labels; people inspect whether the result is useful.','takeaway',['structure','no labels','inspect']],
+    ],
+  },
+  'reinforcement-learning': {
+    title:'Reinforcement Learning',
+    voice:'Reinforcement learning is a machine-learning method where an agent learns by interacting with an environment. The agent observes a state, chooses an action, the environment changes, and the agent receives a reward. Over many attempts, behavior is updated toward a policy that produces better long-term reward. Think of learning a game by playing it: good decisions may lead to rewards, while bad decisions may lead to poor outcomes.',
+    scenes:[
+      ['AGENT AND ENVIRONMENT','An agent is the decision-making system; the environment is the world it interacts with.','flow',['agent','environment','state']],
+      ['CHOOSE AN ACTION','The agent observes the current state and chooses what to do next.','pipeline',['state','action','change']],
+      ['RECEIVE FEEDBACK','The environment changes and returns a reward: feedback about the result.','training',['action','environment','reward']],
+      ['LEARN THROUGH PLAY','Like learning a game, repeated attempts reveal which actions tend to work better.','cards',['try','result','learn']],
+      ['LONG-TERM REWARD','The goal is a policy that produces better long-term reward, not a supplied correct answer.','balance',['policy','short term','long term']],
+      ['KEY IDEA','Reinforcement learning teaches an agent which actions work better through interaction and reward.','takeaway',['interact','reward','better actions']],
     ],
   },
   'foundation-models': {
@@ -87,6 +111,30 @@ const common = {
       ['CHECK BEFORE USE','Validation checks structure, rules, and required details before anything moves on.','check',['format','policy','evidence']],
       ['HUMAN APPROVAL','A person confirms the final dish when the decision or risk calls for it.','handoff',['model','review','action']],
       ['KEY IDEA','Generative AI can create fluently; a safe workflow makes facts, checks, and handoff visible.','takeaway',['generate','validate','approve']],
+    ],
+  },
+  'llm': {
+    title:'Large Language Models',
+    voice:'A Large Language Model, or LLM, learns patterns in language and uses them to predict likely next tokens. It can summarize, translate, answer, classify, or generate text, but an output is not automatically true. Think of it like an extremely well-read autocomplete system: it uses the current context and instructions to continue language. Tokens enter, the Transformer processes relationships between them, and the model generates a response one token at a time. Good applications add relevant context, tools, and evaluation.',
+    scenes:[
+      ['WHAT AN LLM IS','An LLM learns language patterns and predicts likely next tokens.','foundation',['language data','language model','text output']],
+      ['THE AUTOCOMPLETE ANALOGY','Think of it like an extremely well-read autocomplete system using the current context.','chef',['context','learned patterns','continuation']],
+      ['FROM TEXT TO TOKENS','A prompt becomes tokens, the small units the model processes.','flow',['text','tokens','context','model']],
+      ['PROCESS THE CONTEXT','Transformer layers process relationships between tokens and score possible continuations.','adapt',['tokens','relationships','scores']],
+      ['GENERATE ONE STEP AT A TIME','Selected tokens are added one by one until the system stops.','tools',['prompt','next token','response']],
+      ['KEY IDEA','An LLM generates language from learned patterns and current context; fluency is not proof of truth.','takeaway',['learned patterns','context','check']],
+    ],
+  },
+  'parameters': {
+    title:'Parameters',
+    voice:'Parameters are the learned numerical values inside a model. Training adjusts many of them so the model becomes better at its task. Think of parameters like the settings inside a large mixing desk: training changes many tiny controls, and inference uses the final settings. During training, the model makes a prediction, compares it with a target, and an optimizer updates the values. During inference, those trained values shape responses to new inputs. Parameter count describes scale, not guaranteed quality, truthfulness, or speed.',
+    scenes:[
+      ['WHAT PARAMETERS ARE','Parameters are learned numerical values inside a model.','foundation',['model','learned values','behavior']],
+      ['THE MIXING DESK ANALOGY','Think of many tiny settings that training adjusts gradually.','chef',['many settings','training','response']],
+      ['START WITH A PREDICTION','A model receives an example and produces an output using its current values.','flow',['example','current values','prediction']],
+      ['COMPARE AND UPDATE','The system measures error, then an optimizer changes many parameters slightly.','adapt',['prediction','error','update']],
+      ['USE THE TRAINED VALUES','During inference, the values stay fixed while they shape results for new inputs.','tools',['new input','trained values','output']],
+      ['KEY IDEA','Parameters shape model behavior; more parameters do not automatically mean better quality.','takeaway',['learned values','model behavior','task fit']],
     ],
   },
 };
@@ -211,4 +259,5 @@ async function makeTopic(topic, data) {
 
 fs.mkdirSync(outDir, {recursive:true});
 fs.mkdirSync(workDir, {recursive:true});
-for (const [topic, data] of Object.entries(common)) await makeTopic(topic, data);
+const requestedTopics = ['artificial-intelligence', 'machine-learning', 'unsupervised-learning', 'reinforcement-learning', 'deep-learning'];
+for (const topic of requestedTopics) await makeTopic(topic, common[topic]);

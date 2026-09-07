@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.662
+A token is a small unit of text processed by a language model. Models process tokens rather than reading text exactly the way humans see words and sentences.
+
+2
+00:00:10.662 --> 00:00:23.637
+Tokenization can split text in different ways. A familiar English word may be one token or several, long words can be divided into pieces, and Chinese text can use different token units.
+
+3
+00:00:23.637 --> 00:00:34.087
+Think of tokens as pieces in a model's input stream. The model receives those pieces, predicts token pieces, and turns the sequence back into readable text.
+
+4
+00:00:34.087 --> 00:00:42.925
+A token is not the same as a word, a character, or a parameter. The exact boundaries depend on the tokenizer and the text.
+
+5
+00:00:42.925 --> 00:00:54.912
+Remember this: AI models process tokens, not text exactly the way humans see words. Token counts affect context size and usage, but they are not a direct count of words.

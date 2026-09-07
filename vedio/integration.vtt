@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.120
+Integration. Connect AI to the systems and controls people already rely on.
+
+00:00:06.120 --> 00:00:16.440
+Definition. Integration links a model to source systems, identity, business rules, APIs, events, logs, and human approvals.
+
+00:00:16.440 --> 00:00:24.768
+Plain English. The user should not have to copy information between five tools or wonder whether an action really happened.
+
+00:00:24.768 --> 00:00:33.744
+Life sample. The translator reads the menu, sends the order to the kitchen, checks the result, and records who approved the change.
+
+00:00:33.744 --> 00:00:43.776
+Key point. Least-privilege access, validation, retries, and observable tool calls keep useful automation from becoming hidden risk.
+
+00:00:43.776 --> 00:00:53.280
+Conclusion. When systems, people, and evidence line up, evaluation can measure the whole outcome—not just the model's words.

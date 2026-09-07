@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.500
+Fine-tuning is additional training that adapts a pre-trained model for a more specific behavior or task.
+
+00:00:06.500 --> 00:00:16.500
+Think of it like specialist training after general education. The learner keeps broad skills and practices a narrower job with focused examples.
+
+00:00:16.500 --> 00:00:28.000
+Start with a base model, prepare target input and output examples, update parameters or adapters, and evaluate quality, safety, and general behavior.
+
+00:00:28.000 --> 00:00:38.500
+Examples include more consistent support categories, a preferred writing tone, or predictable fields from a document.
+
+00:00:38.500 --> 00:00:50.500
+Fine-tuning is not prompting or RAG. It changes learned behavior through additional training; prompting changes runtime instructions, while RAG retrieves external information at query time.
+
+00:00:50.500 --> 00:00:54.520
+Remember: fine-tuning makes a pre-trained model more consistent for a specific task. It is not a live knowledge update.

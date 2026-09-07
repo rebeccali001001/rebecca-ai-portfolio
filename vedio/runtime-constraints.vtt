@@ -1,19 +1,21 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:08.000
-Runtime constraints are the real product boundary. The model is only one part of a usable local system.
+1
+00:00:00.000 --> 00:00:16.613
+Runtime constraints are limits on the resources, time, cost, and environment available while an AI system is running. They can include memory, compute, latency, token limits, power, network access, concurrency, and deployment location.
 
-00:00:08.000 --> 00:00:16.000
-The budget includes memory, context, latency, concurrency, thermals, and protocol fit.
+2
+00:00:16.613 --> 00:00:26.962
+Think of it like cooking in a small kitchen. The kitchen limits tools, counter space, ingredients, and time, so the plan must fit the resources available.
 
-00:00:16.000 --> 00:00:24.000
-A short prompt can be fast; tools and conversation history add load to a local agent.
+3
+00:00:26.962 --> 00:00:38.787
+The workflow is measure the limits, match a model, configure the workload, test real behavior, and adjust the design. Context, batch size, and concurrency can all matter.
 
-00:00:24.000 --> 00:00:32.000
-Think of a small elevator: capacity and waiting time shape the experience even when it works.
+4
+00:00:38.787 --> 00:00:49.525
+With limited memory, a system might use quantization or a smaller model. With a strict response-time target, it might limit context and use caching or streaming.
 
-00:00:32.000 --> 00:00:40.000
-It runs is only a smoke test. Measure time to first token, steady speed, headroom, stability, and recovery.
-
-00:00:40.000 --> 00:00:48.042
-Treat runtime constraints as a measurable budget, not a checkbox to tick.
+5
+00:00:49.525 --> 00:00:59.837
+Remember: a runtime constraint is not model quality, a product requirement, or a permanent rule. It turns model choice into a real system design decision.

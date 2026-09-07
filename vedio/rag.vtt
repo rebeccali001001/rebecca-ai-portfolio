@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.338
+Retrieval-Augmented Generation, or RAG, retrieves relevant evidence before a language model writes an answer. Retrieve first, generate second.
+
+2
+00:00:10.338 --> 00:00:19.062
+A RAG system prepares source pages, searches for useful passages, and puts those passages beside the question in the model context.
+
+3
+00:00:19.062 --> 00:00:29.400
+Imagine an operations assistant asked about a settlement exception. It opens the current policy card first, then drafts an answer and keeps the source with it.
+
+4
+00:00:29.400 --> 00:00:37.025
+The everyday analogy is a librarian bringing the right page to your desk instead of asking you to trust a memory from years ago.
+
+5
+00:00:37.025 --> 00:00:47.987
+RAG is useful when knowledge changes, but it cannot repair a missing, stale, inaccessible, or badly chunked source. Retrieval quality needs its own tests.

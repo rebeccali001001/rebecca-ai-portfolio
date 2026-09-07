@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.280
+An agent is the decision-making system; the environment is the world it interacts with.
+
+00:00:05.280 --> 00:00:10.560
+The agent observes the current state and chooses what to do next.
+
+00:00:10.560 --> 00:00:15.840
+The environment changes and returns a reward: feedback about the result.
+
+00:00:15.840 --> 00:00:21.120
+Like learning a game, repeated attempts reveal which actions tend to work better.
+
+00:00:21.120 --> 00:00:26.400
+The goal is a policy that produces better long-term reward, not a supplied correct answer.
+
+00:00:26.400 --> 00:00:31.680
+Reinforcement learning teaches an agent which actions work better through interaction and reward.

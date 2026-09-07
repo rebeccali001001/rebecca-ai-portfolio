@@ -1,0 +1,25 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:13.100
+A Transformer is a neural-network architecture that processes relationships between tokens. Its attention mechanism lets the model weigh which parts of the input are useful for each representation or output token.
+
+2
+00:00:13.100 --> 00:00:20.188
+Think of it like a reading group where every word can look around the table and decide which other words matter for the current task.
+
+3
+00:00:20.188 --> 00:00:39.188
+The flow is tokens, attention, a repeated stack of attention and feed-forward layers, output scores, and decoding. Text becomes token IDs and vectors; each position weighs relevant context; the stack refines the signal; a final layer scores possible next tokens or task labels.
+
+4
+00:00:39.188 --> 00:00:52.150
+For pronoun resolution, attention can weigh nearby words and references when a sentence contains it or they. In translation, Transformer layers map relationships across tokens to produce translated text.
+
+5
+00:00:52.150 --> 00:01:04.662
+A Transformer is an architecture, not an LLM or a product. Attention is one mechanism inside the broader architecture, and a product can use Transformer-based models plus other systems.
+
+6
+00:01:04.662 --> 00:01:12.362
+Remember this: a Transformer uses attention and stacked neural-network layers to process relationships between tokens.

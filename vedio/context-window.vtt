@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.350
+The context window is the model's working space. It contains the tokens currently available to the model.
+
+2
+00:00:07.350 --> 00:00:20.737
+That working space can include system instructions, user messages, uploaded content, retrieved information, tool results, and generated text. Context size is usually measured in tokens.
+
+3
+00:00:20.737 --> 00:00:31.037
+Think of a context window like a working desk. A long conversation, a large document, or a coding agent can place many items on the desk at once.
+
+4
+00:00:31.037 --> 00:00:42.837
+A context window is not the same as memory, model knowledge, or maximum answer length. If the desk is full, information may need to be removed, summarized, or retrieved again.
+
+5
+00:00:42.837 --> 00:00:53.287
+Remember this: the context window is the amount of information a model can work with at one time. It is a runtime boundary, not a guarantee of permanent memory.

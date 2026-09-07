@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.448
+Deployment Readiness. Deployment readiness means an AI system is prepared for real users and real operating conditions.
+
+00:00:08.448 --> 00:00:21.432
+Definition. Readiness includes quality, functional tests, safety controls, monitoring, failure handling, access, cost, latency, ownership, and rollback plans.
+
+00:00:21.432 --> 00:00:32.088
+Think of it like. The shop needs working equipment, trained staff, safety procedures, supplies, and a plan for problems before customers depend on it.
+
+00:00:32.088 --> 00:00:43.800
+How it works. Set criteria, run evaluations, confirm monitoring and access, plan failure response, and deploy gradually while reviewing live evidence.
+
+00:00:43.800 --> 00:00:53.448
+What it is not. Readiness requires repeatable evidence and controls; it makes risks known and manageable rather than pretending there is no risk.
+
+00:00:53.448 --> 00:01:01.584
+Remember. A controlled pilot is a release decision grounded in quality, safeguards, owners, and rollback.

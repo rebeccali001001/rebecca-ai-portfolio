@@ -1,21 +1,19 @@
 WEBVTT
 
-1
-00:00:00.000 --> 00:00:06.936
-Structured output is a response shaped for the next step in a workflow.
+00:00.000 --> 00:13.032
+Structured Outputs. A structured output is a model response that follows a defined schema or format. The shape can specify fields, types, required values, and allowed options.
 
-2
-00:00:06.936 --> 00:00:14.760
-A schema names the required fields. types. and allowed values.
+00:13.032 --> 00:28.248
+Like filling out a form. Think of structured output like filling out a form. The form tells you which fields to complete and what each field means. A schema gives the model a similar shape, but the response still needs validation.
 
-3
-00:00:14.760 --> 00:00:22.776
-Validation checks the slip before anything downstream acts on it.
+00:28.248 --> 00:41.760
+How it works. The application writes a schema, sends the task, asks the model to fill the defined shape, checks types and required values, and then continues or recovers from a validation failure.
 
-4
-00:00:22.776 --> 00:00:29.184
-Once valid. the application can route each field to the right system.
+00:41.760 --> 00:55.728
+Contacts and invoices. A message can become a contact object with name, email, and phone fields. An invoice can become the fields required by a finance system, or an error when validation fails.
 
-5
-00:00:29.184 --> 00:00:35.424
-A schema is a shared handoff: predictable for software and understandable for people.
+00:55.728 --> 01:11.040
+What it is not. Structured output is not plain text, guaranteed accuracy, or database storage. It checks the response's shape and types; the application still needs to check whether values are correct and decide what to store.
+
+01:11.040 --> 01:24.936
+Remember. Structured outputs make model responses easier for software to validate and use. The related flow is user request, model response, schema validation, then application action.

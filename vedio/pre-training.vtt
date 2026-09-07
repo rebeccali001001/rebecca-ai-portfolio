@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.500
+Pre-training is the broad initial training stage that teaches a model general patterns from large amounts of data.
+
+00:00:06.500 --> 00:00:16.000
+Think of it like general education. A student studies many subjects before choosing one job, and a model first learns from broad material.
+
+00:00:16.000 --> 00:00:27.500
+The loop is simple: turn language into tokens, predict a missing or next token, compare the prediction with the target, and update parameters.
+
+00:00:27.500 --> 00:00:38.500
+For example, given “The trader closed the position because it was,” the model may learn that a continuation such as “risky” is likely.
+
+00:00:38.500 --> 00:00:48.500
+Pre-training is not fine-tuning, prompting, or RAG. It changes model parameters during broad initial training; the others are different adaptation or runtime choices.
+
+00:00:48.500 --> 00:00:51.338
+Remember: pre-training teaches broad patterns from large amounts of data before task-specific adaptation.

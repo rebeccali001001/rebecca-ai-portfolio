@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:13.088
+Latency is the time between an AI request and the result becoming available. It can include receiving the request, preparing context, running the model, generating tokens, and sending the response.
+
+2
+00:00:13.088 --> 00:00:23.613
+Think of latency like waiting for a reply on a phone call. The first pause is like time to first token, and the full conversation is like waiting for the complete response.
+
+3
+00:00:23.613 --> 00:00:36.550
+The path is request, prepare, start, generate, and finish. The application sends prompt and context, the system prepares tokens, then returns output as it grows token by token.
+
+4
+00:00:36.550 --> 00:00:48.050
+A short chat question with small context and streaming may show first words quickly. A question with a large document may require more context processing before the answer starts.
+
+5
+00:00:48.050 --> 00:00:59.100
+Remember: latency is not throughput, model quality, or only model speed. It is the total user wait from request to response, including system and network work.

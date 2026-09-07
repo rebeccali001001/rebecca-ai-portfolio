@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.944
+Parameters are learned numerical values inside a model.
+
+00:00:04.944 --> 00:00:09.888
+Think of many tiny settings that training adjusts gradually.
+
+00:00:09.888 --> 00:00:14.832
+A model receives an example and produces an output using its current values.
+
+00:00:14.832 --> 00:00:19.776
+The system measures error, then an optimizer changes many parameters slightly.
+
+00:00:19.776 --> 00:00:24.720
+During inference, the values stay fixed while they shape results for new inputs.
+
+00:00:24.720 --> 00:00:29.664
+Parameters shape model behavior; more parameters do not automatically mean better quality.

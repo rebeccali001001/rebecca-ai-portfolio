@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.600
+Grounding connects a model response to trusted, task-relevant evidence so a person can inspect the claim.
+
+2
+00:00:06.600 --> 00:00:15.812
+A grounded workflow selects a source, places it in context, tells the model to stay within that evidence, and preserves a citation or source ID.
+
+3
+00:00:15.812 --> 00:00:25.337
+For a settlement exception, the answer can cite policy version four point two, section three point one. A reviewer can follow the receipt.
+
+4
+00:00:25.337 --> 00:00:34.325
+The everyday analogy is a receipt beside a purchase. If the receipt is missing, the honest response is that the claim cannot be confirmed.
+
+5
+00:00:34.325 --> 00:00:44.163
+Grounding reduces unsupported claims, but it does not make stale or misunderstood evidence automatically correct. Evidence is an honest contract.

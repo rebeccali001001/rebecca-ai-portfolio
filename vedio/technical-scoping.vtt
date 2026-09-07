@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.288
+Technical Scoping. Turn a promising idea into a small system that can be tested.
+
+00:00:06.288 --> 00:00:17.088
+Definition. Technical scoping names the inputs, outputs, model capabilities, integrations, constraints, and safety checks required for a pilot.
+
+00:00:17.088 --> 00:00:27.936
+Plain English. It is the difference between saying 'use AI for invoices' and specifying one document type, one output, one owner, and one review path.
+
+00:00:27.936 --> 00:00:37.800
+Life sample. You check the room, power, water, tools, cooking steps, and safety rules before promising a working dinner service.
+
+00:00:37.800 --> 00:00:45.888
+Key point. A narrow pilot with representative data teaches more than a large demo with unclear success criteria.
+
+00:00:45.888 --> 00:00:54.672
+Conclusion. When the boundaries are explicit, the team can choose the right model, integration path, and evaluation plan.

@@ -1,21 +1,19 @@
 WEBVTT
 
-1
-00:00:00.000 --> 00:00:07.752
-Reliable AI design assumes that some requests will be wrong. incomplete. or impossible.
+00:00:00.000 --> 00:00:07.824
+Failure Handling. Failure handling defines what an AI system should do when the expected result is not produced.
 
-2
-00:00:07.752 --> 00:00:14.688
-First detect the problem with validation. confidence checks. timeouts. or explicit refusal signals.
+00:00:07.824 --> 00:00:19.800
+Definition. Possible responses include retrying, using a fallback, asking for missing information, returning an error, requesting human review, or stopping safely.
 
-3
-00:00:14.688 --> 00:00:20.856
-Then try a bounded recovery such as a correction request. retry. or safe alternative.
+00:00:19.800 --> 00:00:29.376
+Think of it like. A building defines what people do when power fails or a route is blocked; AI systems need clear paths for failure too.
 
-4
-00:00:20.856 --> 00:00:29.040
-If recovery cannot make the task safe. hand it to a person with the evidence attached.
+00:00:29.376 --> 00:00:40.560
+How it works. Check errors, timeouts, schema, and evidence; separate transient, input, tool, and safety failures; then log the event.
 
-5
-00:00:29.040 --> 00:00:36.480
-A good fallback preserves trust by making the next safe action obvious.
+00:00:40.560 --> 00:00:50.592
+Example. Retry or return a validation error for invalid JSON; use a fallback or ask the user to try later after a tool timeout.
+
+00:00:50.592 --> 00:00:58.632
+Remember. Retry is only one response; safe handling also includes fallback, review, and stop.

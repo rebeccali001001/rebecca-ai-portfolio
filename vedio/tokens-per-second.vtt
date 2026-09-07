@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:11.137
+Tokens per second, or TPS, is the number of output tokens a model generates in one second. It measures generation speed, and tokens are not the same as words.
+
+2
+00:00:11.137 --> 00:00:22.137
+Think of tokens per second like a printer's pages per minute. A faster printer produces pages sooner, but startup time, document size, and connection also matter.
+
+3
+00:00:22.137 --> 00:00:35.038
+The loop is input, predict, emit, repeat, and measure. The model receives a request, predicts the next token, returns it, repeats, and divides generated tokens by generation time.
+
+4
+00:00:35.038 --> 00:00:46.438
+A short answer at forty tokens per second can finish quickly. A detailed report at twenty tokens per second can still take longer because it contains many more output tokens.
+
+5
+00:00:46.438 --> 00:00:57.538
+Remember: TPS is not words per second, time to first token, or total response time. It is one generation-speed metric inside the whole request experience.

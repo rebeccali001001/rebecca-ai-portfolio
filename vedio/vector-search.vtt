@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.575
+Vector search finds items closest to a query in embedding space. It turns a question into a ranked list of candidate evidence.
+
+2
+00:00:08.575 --> 00:00:19.562
+The basic flow is query, index, and top K. The system can then filter or rerank results using keywords, metadata, permissions, or freshness.
+
+3
+00:00:19.562 --> 00:00:29.312
+For a delayed shipment claim, the closest cards might describe required documents and the delay policy. A region filter keeps only the current version.
+
+4
+00:00:29.312 --> 00:00:37.675
+Think of walking to the nearest shelf in a library. The closest book is a strong lead, but you still read the label before using it.
+
+5
+00:00:37.675 --> 00:00:47.787
+Vector search is a candidate-finding step, not proof. Ranking, access control, freshness, and source quality remain part of retrieval design.

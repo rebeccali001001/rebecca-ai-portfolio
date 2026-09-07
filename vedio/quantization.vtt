@@ -1,19 +1,21 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:08.000
-Quantization stores model values with fewer bits, trading precision for a smaller footprint.
+1
+00:00:00.000 --> 00:00:13.363
+Quantization reduces the numerical precision of a model so it uses less memory and can sometimes run faster. Model parameters are stored as numbers, and quantization represents those values with fewer bits.
 
-00:00:08.000 --> 00:00:16.000
-Fewer bits can shrink the weights and leave more room for context and the rest of the application.
+2
+00:00:13.363 --> 00:00:25.875
+Think of it like image compression: a high-resolution image has more detail and a larger file, while a compressed image is smaller but may lose some detail. This is an analogy, not ZIP compression.
 
-00:00:16.000 --> 00:00:24.000
-On a 24 GB laptop, model weights, runtime, context, and tools must fit together.
+3
+00:00:25.875 --> 00:00:38.175
+The path is original high precision, quantization, a lower-precision representation, and deployment on more limited hardware. Actual behavior depends on the method, runtime, and hardware.
 
-00:00:24.000 --> 00:00:32.000
-Think of packing a suitcase with smaller containers: you fit more, but detail can change.
+4
+00:00:38.175 --> 00:00:47.600
+A quantized model may fit on a laptop where full precision does not. It may also help an edge device run a model that would otherwise be impractical.
 
-00:00:32.000 --> 00:00:40.000
-A smaller download is not a universal speed guarantee. Benchmark the whole workflow.
-
-00:00:40.000 --> 00:00:48.042
-Choose the smallest checkpoint that still passes your quality and latency gates.
+5
+00:00:47.600 --> 00:00:58.825
+Remember: quantization saves memory and compute by reducing numerical precision, usually with some trade-off in quality. It is not fine-tuning or a smaller architecture.

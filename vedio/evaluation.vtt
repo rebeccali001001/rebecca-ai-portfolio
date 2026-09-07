@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.768
+Evaluation. Evaluation measures an AI system against defined expectations.
+
+00:00:06.768 --> 00:00:16.224
+Definition. It can assess task success, quality, latency, cost, safety, robustness, and user outcomes.
+
+00:00:16.224 --> 00:00:24.768
+Think of it like. You test normal operation, edge cases, and safety conditions before people depend on the result.
+
+00:00:24.768 --> 00:00:34.872
+How it works. Use representative tasks, expected outcomes, failure cases, and trace evidence to compare the system with its quality bar.
+
+00:00:34.872 --> 00:00:42.648
+What it is not. The wrong record, a missed source, or a skipped human handoff can still make the system fail.
+
+00:00:42.648 --> 00:00:50.112
+Remember. Evaluation makes quality, risk, cost, and the next experiment explicit.

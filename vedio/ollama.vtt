@@ -1,19 +1,21 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:08.000
-What is Ollama? It is a local model runtime that makes serving feel like an app boundary.
+1
+00:00:00.000 --> 00:00:08.625
+Ollama is software that helps you download, run, and manage AI models locally. It provides a runtime around AI models.
 
-00:00:08.000 --> 00:00:16.000
-Your app talks to a local runtime, which loads the model and streams the response.
+2
+00:00:08.625 --> 00:00:17.212
+Think of Ollama like a media player. The model file is like the movie file, while Ollama is the software that loads and plays it.
 
-00:00:16.000 --> 00:00:24.000
-A private notes assistant can keep its prompt on the device and stream the answer back.
+3
+00:00:17.212 --> 00:00:28.337
+A person or local application sends a request to the Ollama API. Ollama loads and manages the selected model, which uses available hardware to generate a response.
 
-00:00:24.000 --> 00:00:32.000
-Think of Ollama as a kitchen pass: it coordinates the order, but it is not the recipe or the kitchen.
+4
+00:00:28.337 --> 00:00:37.725
+For example, Ollama can load a Qwen model for a local chat, serve a local web app through its API, or help switch between several installed models.
 
-00:00:32.000 --> 00:00:40.000
-Memory, context, concurrency, thermals, and access control still decide whether local serving works.
-
-00:00:40.000 --> 00:00:48.042
-Ollama simplifies the serving boundary. You still own the deployment.
+5
+00:00:37.725 --> 00:00:47.850
+Remember: Ollama is not an LLM, model weights, an agent, or ChatGPT. It is software for running and managing AI models locally.

@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.792
+Functional Tests. Functional tests check whether an AI workflow behaves as specified.
+
+00:00:06.792 --> 00:00:16.680
+Definition. Check inputs, outputs, tool calls, validations, permissions, and expected behavior for representative cases.
+
+00:00:16.680 --> 00:00:24.504
+Think of it like. You do not only admire the appliance; you press the controls and verify the expected result.
+
+00:00:24.504 --> 00:00:33.336
+How it works. Include common paths, difficult cases, and risky cases, then check the observable workflow outcome.
+
+00:00:33.336 --> 00:00:41.688
+What it is not. A demo can show one limited path; functional tests look for repeatable behavior across cases.
+
+00:00:41.688 --> 00:00:48.096
+Remember. Functional evidence is one part of deciding whether an AI system is ready.

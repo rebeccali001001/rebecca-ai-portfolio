@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.272
+Unsupervised learning finds structure in data without being given the correct labels in advance.
+
+00:00:06.272 --> 00:00:12.544
+Sorting a mixed box means grouping objects by similarities, without names supplied in advance.
+
+00:00:12.544 --> 00:00:18.816
+The system compares examples using measurable features, then detects recurring relationships.
+
+00:00:18.816 --> 00:00:25.088
+A clustering algorithm may form groups, but the groups do not automatically mean “cat” or “dog.”
+
+00:00:25.088 --> 00:00:31.360
+Normal activity patterns can help flag unusual examples as possible anomalies.
+
+00:00:31.360 --> 00:00:37.632
+Unsupervised learning finds structure in data without predefined labels; people inspect whether the result is useful.

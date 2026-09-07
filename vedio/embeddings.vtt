@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.625
+An embedding turns content into coordinates that preserve useful relationships. It helps a machine place similar meanings near each other.
+
+2
+00:00:08.625 --> 00:00:19.300
+For example, after the vessel sails can land near post-departure cancellation even though the words are different. Embeddings are representations, not answers.
+
+3
+00:00:19.300 --> 00:00:28.125
+Imagine a librarian pinning every sentence onto a meaning map. A question lands near the policy card that talks about the same idea.
+
+4
+00:00:28.125 --> 00:00:39.163
+The useful workflow is question to vector, nearby policy chunk, then a careful inspection of the source. Similarity finds a candidate; it does not prove the claim.
+
+5
+00:00:39.163 --> 00:00:49.750
+The key takeaway is simple: embeddings make meaning searchable. Model choice, chunking, metadata, and source quality still decide whether retrieval works.

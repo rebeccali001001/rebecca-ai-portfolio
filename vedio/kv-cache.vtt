@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:11.025
+KV cache is temporary memory used during generation to reuse attention information from earlier tokens. In a Transformer, attention uses key and value states.
+
+2
+00:00:11.025 --> 00:00:20.738
+Think of KV cache like keeping notes while reading a long document. When you continue reading, you use the notes instead of rereading every earlier page.
+
+3
+00:00:20.738 --> 00:00:29.488
+The runtime reads the context, creates key and value states, stores them, and uses those cached states when it generates the next token.
+
+4
+00:00:29.488 --> 00:00:38.413
+As each new token is generated, its key and value states join the cache. The cache uses memory and grows as the sequence grows.
+
+5
+00:00:38.413 --> 00:00:50.050
+KV cache is not the context window, long-term memory, or model parameters. Remember this: it reuses earlier attention states to make ongoing generation more efficient.

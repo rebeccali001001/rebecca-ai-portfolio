@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.113
+Retrieval is the process of finding and selecting information that is relevant to a query. It returns evidence for a person, an application, or a model.
+
+2
+00:00:10.113 --> 00:00:20.050
+A retrieval system can combine keywords, vectors, metadata, and filters. It starts by identifying what information the request needs.
+
+3
+00:00:20.050 --> 00:00:31.663
+The workflow is query, search, rank, filter, and return. Ranking puts useful candidates first; filters can respect access, freshness, and source rules.
+
+4
+00:00:31.663 --> 00:00:41.612
+Think of finding the right pages in a library. The library holds many pages, but a question needs only a small selection before the next step uses it.
+
+5
+00:00:41.612 --> 00:00:53.775
+Retrieval finds existing information; it is not generation, and it is not the whole of RAG. Remember: retrieval selects useful evidence before another system or model uses it.

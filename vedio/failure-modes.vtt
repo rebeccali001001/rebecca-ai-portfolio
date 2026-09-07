@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.448
+Failure Modes. Failure modes are the ways an AI system can produce an incorrect, unsafe, or unusable result.
+
+00:00:08.448 --> 00:00:19.584
+Definition. Examples include hallucination, omission, unsafe action, wrong tool use, refusal, bias, timeout, and invalid format.
+
+00:00:19.584 --> 00:00:27.984
+Think of it like. Ask how the machine could fail before an accident happens; apply the same question to the AI workflow.
+
+00:00:27.984 --> 00:00:40.992
+How it works. List inputs, decisions, tools, and outputs; assess likelihood, impact, and detectability; then add validation, fallback, review, or limits.
+
+00:00:40.992 --> 00:00:49.512
+What it is not. It can come from the model, data, process, or integration, and it is different from the response plan.
+
+00:00:49.512 --> 00:00:57.120
+Remember. A recognizable risk pattern is more useful than a vague warning that AI might make mistakes.
