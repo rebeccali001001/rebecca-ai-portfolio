@@ -140,3 +140,28 @@ main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%;min-width:
 
 /* The directory is a nav element, but must not inherit the global header nav layout. */
 nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justify-content:initial;flex-direction:initial}
+/* Shared directory layout: Overview pages must use the full content lane beside the fixed directory. */
+@media(min-width:1051px){
+  .has-site-directory>main.overview-page{margin-left:372px!important;margin-right:24px!important;width:calc(100vw - 396px)!important;max-width:none!important}
+  .has-site-directory>main.overview-page>.wrap{max-width:none;margin-left:0;margin-right:0;padding-left:0;padding-right:24px}
+}
+
+/* Keep every non-overview topic on the same readable, centred content rail. */
+@media (min-width:1051px){
+  body.has-site-directory.standard-topic>main.topic-main,
+  body.has-site-directory>main.detail-page{
+    width:min(1120px, calc(100vw - 396px))!important;
+    max-width:none!important;
+    margin-left:max(372px, calc((100vw - 772px) / 2))!important;
+    margin-right:24px!important;
+  }
+}
+
+/* Match the slightly narrower sidebar used on MacBook-sized desktop screens. */
+@media (min-width:1051px) and (max-width:1250px){
+  body.has-site-directory.standard-topic>main.topic-main,
+  body.has-site-directory>main.detail-page{
+    width:calc(100vw - 374px)!important;
+    margin-left:350px!important;
+  }
+}

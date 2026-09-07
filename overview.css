@@ -4,6 +4,7 @@
 .overview-page main.topic-shell{display:block;min-width:0}
 .overview-page main.topic-shell>.topic-main{min-width:0;width:100%}
 main.topic-shell>.topic-main:only-child{grid-column:1 / -1;width:100%}
+.has-site-directory>main.overview-page>.wrap{min-width:0}
 .overview-page *{min-width:0}.overview-main{min-width:0}.overview-section{margin-top:var(--overview-section-gap)}
 .overview-hero{padding:8px 0 4px}.overview-eyebrow,.overview-section-eyebrow{color:var(--green);font-weight:850;text-transform:uppercase;letter-spacing:.12em;font-size:12px}.overview-title{margin:16px 0 14px;font-size:clamp(42px,6vw,72px);line-height:1;letter-spacing:-.055em}.overview-lede{max-width:780px;margin:0;color:var(--muted);font-size:20px}.overview-intro-note{max-width:780px;margin:20px 0 0;padding:13px 16px;border-left:3px solid var(--green);color:var(--muted);background:rgba(7,17,26,.55)}
 .overview-section-header{margin-bottom:18px}.overview-section-title{margin:4px 0 8px;font-size:clamp(25px,3vw,34px);line-height:1.12;letter-spacing:-.035em}.overview-section-description{max-width:820px;margin:0;color:var(--muted)}
