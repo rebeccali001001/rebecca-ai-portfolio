@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.328
+Deep learning uses many neural-network layers to transform input into a useful result.
+
+00:00:05.328 --> 00:00:10.656
+Early layers notice simple signals, like edges, colors, or short sounds.
+
+00:00:10.656 --> 00:00:15.984
+Middle layers combine simple pieces into shapes, parts, or sound patterns.
+
+00:00:15.984 --> 00:00:21.312
+Later layers recognize a whole object, word, or intent.
+
+00:00:21.312 --> 00:00:26.640
+Richer patterns need enough examples, compute, and careful evaluation.
+
+00:00:26.640 --> 00:00:31.968
+Deep learning learns increasingly useful representations through many connected layers.

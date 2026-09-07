@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.852
+Machine learning finds useful patterns in data, then applies them to new inputs.
+
+00:00:04.852 --> 00:00:09.704
+Labeled cards show the helper what ingredients led to which outcome.
+
+00:00:09.704 --> 00:00:14.556
+The model compares examples and adjusts until its patterns become useful.
+
+00:00:14.556 --> 00:00:19.408
+A new order is an input; the learned pattern produces a prediction.
+
+00:00:19.408 --> 00:00:24.260
+Testing measures where predictions work—and where a person should review.
+
+00:00:24.260 --> 00:00:29.112
+Machine learning learns from examples, then applies learned patterns to new inputs.

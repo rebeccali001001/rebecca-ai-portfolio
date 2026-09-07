@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.540
+A foundation model learns from large, varied data before it is adapted to a job.
+
+00:00:05.540 --> 00:00:11.080
+Think of a chef with many cuisines in their memory—not a finished restaurant.
+
+00:00:11.080 --> 00:00:16.620
+A prompt gives direction; retrieval adds fresh facts; fine-tuning changes habits.
+
+00:00:16.620 --> 00:00:22.160
+Tools connect model output to actions, with permissions around the boundary.
+
+00:00:22.160 --> 00:00:27.700
+Validation and human handoff turn broad capability into a reliable product.
+
+00:00:27.700 --> 00:00:33.240
+A foundation model is a reusable base; the product is the model plus its controls and workflow.

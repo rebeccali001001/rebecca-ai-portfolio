@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+Quantization stores model values with fewer bits, trading precision for a smaller footprint.
+
+00:00:08.000 --> 00:00:16.000
+Fewer bits can shrink the weights and leave more room for context and the rest of the application.
+
+00:00:16.000 --> 00:00:24.000
+On a 24 GB laptop, model weights, runtime, context, and tools must fit together.
+
+00:00:24.000 --> 00:00:32.000
+Think of packing a suitcase with smaller containers: you fit more, but detail can change.
+
+00:00:32.000 --> 00:00:40.000
+A smaller download is not a universal speed guarantee. Benchmark the whole workflow.
+
+00:00:40.000 --> 00:00:48.042
+Choose the smallest checkpoint that still passes your quality and latency gates.

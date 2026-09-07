@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+What is Ollama? It is a local model runtime that makes serving feel like an app boundary.
+
+00:00:08.000 --> 00:00:16.000
+Your app talks to a local runtime, which loads the model and streams the response.
+
+00:00:16.000 --> 00:00:24.000
+A private notes assistant can keep its prompt on the device and stream the answer back.
+
+00:00:24.000 --> 00:00:32.000
+Think of Ollama as a kitchen pass: it coordinates the order, but it is not the recipe or the kitchen.
+
+00:00:32.000 --> 00:00:40.000
+Memory, context, concurrency, thermals, and access control still decide whether local serving works.
+
+00:00:40.000 --> 00:00:48.042
+Ollama simplifies the serving boundary. You still own the deployment.

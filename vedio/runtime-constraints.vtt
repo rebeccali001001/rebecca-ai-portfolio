@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+Runtime constraints are the real product boundary. The model is only one part of a usable local system.
+
+00:00:08.000 --> 00:00:16.000
+The budget includes memory, context, latency, concurrency, thermals, and protocol fit.
+
+00:00:16.000 --> 00:00:24.000
+A short prompt can be fast; tools and conversation history add load to a local agent.
+
+00:00:24.000 --> 00:00:32.000
+Think of a small elevator: capacity and waiting time shape the experience even when it works.
+
+00:00:32.000 --> 00:00:40.000
+It runs is only a smoke test. Measure time to first token, steady speed, headroom, stability, and recovery.
+
+00:00:40.000 --> 00:00:48.042
+Treat runtime constraints as a measurable budget, not a checkbox to tick.
