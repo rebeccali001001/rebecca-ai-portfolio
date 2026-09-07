@@ -1,0 +1,21 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.424
+A system prompt is the standing brief an assistant sees before the user's request.
+
+2
+00:00:08.424 --> 00:00:15.240
+Start with a plain role so the model knows the job it is here to do.
+
+3
+00:00:15.240 --> 00:00:22.320
+Add boundaries that name allowed actions. forbidden actions. and the shape of a safe answer.
+
+4
+00:00:22.320 --> 00:00:29.976
+A useful prompt also tells the assistant how to pause. ask. or hand off.
+
+5
+00:00:29.976 --> 00:00:36.600
+Good system prompts turn vague behavior into a repeatable interface contract.

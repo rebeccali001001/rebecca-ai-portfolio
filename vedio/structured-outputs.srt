@@ -1,0 +1,19 @@
+1
+00:00:00,000 --> 00:00:06,936
+Structured output is a response shaped for the next step in a workflow.
+
+2
+00:00:06,936 --> 00:00:14,760
+A schema names the required fields, types, and allowed values.
+
+3
+00:00:14,760 --> 00:00:22,776
+Validation checks the slip before anything downstream acts on it.
+
+4
+00:00:22,776 --> 00:00:29,184
+Once valid, the application can route each field to the right system.
+
+5
+00:00:29,184 --> 00:00:35,424
+A schema is a shared handoff: predictable for software and understandable for people.
