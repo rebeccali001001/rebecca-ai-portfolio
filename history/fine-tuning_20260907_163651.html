@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fine-tuning · AI Foundations</title>
+<meta name="description" content="A plain-language explainer for fine-tuning language models.">
+<link rel="stylesheet" href="topic.css?v=20260907">
+<style>
+.topic-main .fine-tuning-grid > *{order:0!important}
+.fine-tuning-grid .analogy{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(220px,.95fr);gap:24px;align-items:center}
+.fine-tuning-grid figure{margin:0}.fine-tuning-grid figure img{display:block;width:100%;border:1px solid #2b4058;border-radius:14px}.fine-tuning-grid figcaption{color:var(--muted);font-size:12px;margin-top:8px}
+.process-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}.process-step{position:relative;min-height:150px;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.process-step:not(:last-child):after{content:'→';position:absolute;right:-18px;top:50%;z-index:1;color:var(--green);font-size:22px;font-weight:900}.process-step strong{display:block;color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}.process-step b{display:block;font-size:17px;line-height:1.25;margin-bottom:7px}.process-step span{color:var(--muted);font-size:14px;line-height:1.45}
+.examples-grid,.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.related-grid{grid-template-columns:repeat(2,1fr)}.example-card,.related-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.example-card b,.related-card b{display:block;font-size:17px;margin-bottom:6px}.example-card p,.related-card p{margin:0;color:var(--muted);font-size:14px}.related-card a{color:var(--green)}
+.misconception-stack{display:grid;gap:12px;margin-top:20px}.misconception-card{display:grid;grid-template-columns:180px minmax(0,1fr);gap:20px;align-items:center;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.misconception-pair{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.misconception-pair b{font-size:18px;line-height:1.25}.misconception-pair span{color:var(--green);font-size:24px;font-weight:900;line-height:1.1}.misconception-card p{margin:0;color:var(--muted)}
+.remember-card{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.remember-card p{font-size:20px;color:#fff}
+.fine-tuning-grid .video-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-top:12px}
+@media(max-width:900px){.process-flow{grid-template-columns:1fr}.process-step:not(:last-child):after{content:'↓';right:auto;top:auto;bottom:-22px;left:50%;font-size:20px}.examples-grid{grid-template-columns:1fr}.misconception-card{grid-template-columns:1fr;gap:12px}.misconception-pair{align-items:flex-start;text-align:left}.related-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.fine-tuning-grid .analogy{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap topic-shell">
+<aside class="directory" aria-label="Complete site directory">
+<h2>Site directory · 01–09</h2>
+<div class="directory-group"><b>01 · AI Foundations</b><a href="ai-foundations.html">Module overview</a><a href="artificial-intelligence.html">Artificial Intelligence</a><a href="machine-learning.html">Machine Learning</a><a href="deep-learning.html">Deep Learning</a><a href="foundation-models.html">Foundation Models</a><a href="generative-ai.html">Generative AI</a></div>
+<div class="directory-group"><b>02 · LLMs &amp; Transformers</b><a href="ai-knowledge.html#llms">Module overview</a><a href="llm.html">LLM</a><a href="transformer.html">Transformer</a><a href="parameters.html">Parameters</a><a href="pre-training.html">Pre-training</a><a class="active" href="fine-tuning.html" aria-current="page">Fine-tuning</a></div>
+<div class="directory-group"><b>03 · Tokens, Context &amp; Inference</b><a href="ai-knowledge.html#inference">Module overview</a><a href="token.html">Token</a><a href="context-window.html">Context Window</a><a href="ai-knowledge.html#inference">KV Cache · Latency · Tokens/sec</a></div>
+<div class="directory-group"><b>04 · Prompting &amp; System Design</b><a href="ai-knowledge.html#prompting">Module overview</a><a href="ai-knowledge.html#prompting">System Prompts · Structured Outputs</a></div>
+<div class="directory-group"><b>05 · Embeddings, RAG &amp; Vector Search</b><a href="ai-knowledge.html#rag">Module overview</a><a href="embeddings.html">Embeddings</a><a href="rag.html">RAG</a><a href="vector-search.html">Vector Search</a><a href="grounding.html">Grounding</a></div>
+<div class="directory-group"><b>06 · Agents, Tools &amp; MCP</b><a href="ai-knowledge.html#agents">Module overview</a><a href="ai-agent.html">AI Agent</a><a href="tool-calling.html">Tool Calling</a><a href="agent-loop.html">Agent Loop</a></div>
+<div class="directory-group"><b>07 · Model Serving &amp; Local AI</b><a href="ai-knowledge.html#local">Module overview</a><a href="ollama.html">Ollama</a><a href="quantization.html">Quantization</a></div>
+<div class="directory-group"><b>08 · Evaluation &amp; Reliability</b><a href="ai-knowledge.html#eval">Module overview</a><a href="functional-tests.html">Functional Tests</a><a href="failure-modes.html">Failure Modes</a><a href="deployment-readiness.html">Deployment Readiness</a></div>
+<div class="directory-group"><b>09 · Enterprise AI Deployment</b><a href="ai-knowledge.html#enterprise">Module overview</a><a href="ai-knowledge.html#enterprise">Workflow Discovery · Integration</a></div>
+</aside>
+<section class="topic-main">
+<a class="back" href="llms-transformers.html">← Back to LLMs &amp; Transformers</a>
+<div style="margin-top:44px" class="eyebrow">02 · LLMs &amp; Transformers · Topic 5 of 5</div>
+<h1>What is Fine-tuning?</h1>
+<p class="lede">Fine-tuning is additional training that adapts a capable base model to follow a focused task, format, style, or domain behavior more consistently.</p>
+<section class="grid fine-tuning-grid">
+<article class="card wide">
+<h2>What is it?</h2>
+<p class="muted">A base model learns broad language patterns during pre-training. Fine-tuning continues that training with a smaller, carefully chosen set of examples that show the behavior you want.</p>
+<p class="muted">The result is a model that is more likely to respond in a particular way without repeating the same instructions in every prompt. It can improve consistency, but it does not automatically make the model current, correct, or safe.</p>
+<p class="note">Fine-tuning changes learned behavior; it is not a live knowledge update.</p>
+</article>
+<article class="card wide analogy-card">
+<h2>Think of it like…</h2>
+<div class="analogy"><div><p class="muted">Think of a person who completes general education before receiving professional training. School builds broad reading and reasoning skills; an apprenticeship then uses coached practice to build habits for one role.</p><p class="muted">Fine-tuning is that focused apprenticeship for a model: the examples demonstrate how a specialist should handle recurring situations.</p></div><figure><img src="vedio/fine-tuning-analogy.png" alt="A general education student moving into specialist training, illustrating fine-tuning"><figcaption>Dedicated illustration for this topic.</figcaption></figure></div>
+</article>
+<article class="card wide">
+<h2>How it works</h2>
+<p class="muted">A typical workflow moves from a reusable model to a measurable specialized behavior:</p>
+<div class="process-flow" aria-label="Fine-tuning process">
+<div class="process-step"><strong>01 · Start</strong><b>Base model</b><span>Choose a pre-trained checkpoint with the right general capability.</span></div>
+<div class="process-step"><strong>02 · Prepare</strong><b>Curated examples</b><span>Collect representative inputs paired with high-quality target outputs.</span></div>
+<div class="process-step"><strong>03 · Update</strong><b>Additional updates</b><span>Train on those examples so selected parameters or adapters shift.</span></div>
+<div class="process-step"><strong>04 · Specialize</strong><b>Specialized behavior</b><span>Expect more consistent format, tone, or task handling.</span></div>
+<div class="process-step"><strong>05 · Check</strong><b>Evaluation</b><span>Test quality, edge cases, regressions, and safety before release.</span></div>
+</div>
+</article>
+<article class="card wide">
+<h2>Real-world examples</h2>
+<p class="muted">Fine-tuning is most useful when the desired behavior is stable, repeatable, and clear enough to demonstrate in examples.</p>
+<div class="examples-grid">
+<div class="example-card"><b>Support triage</b><p>Classify incoming tickets into a known set of queues and return the same JSON shape every time.</p></div>
+<div class="example-card"><b>Writing style</b><p>Draft internal updates in a consistent voice, structure, and level of detail.</p></div>
+<div class="example-card"><b>Domain workflow</b><p>Apply a specialist’s labeling conventions to documents or requests that follow a recurring pattern.</p></div>
+</div>
+</article>
+<article class="card wide">
+<h2>What it is NOT</h2>
+<div class="misconception-stack">
+<div class="misconception-card"><div class="misconception-pair"><b>Fine-tuning</b><span aria-hidden="true">≠</span><b>Prompting</b></div><p>Prompting changes the instructions supplied at runtime. Fine-tuning changes the model’s learned parameters or adapter behavior through additional training.</p></div>
+<div class="misconception-card"><div class="misconception-pair"><b>Fine-tuning</b><span aria-hidden="true">≠</span><b>RAG</b></div><p>RAG retrieves external context at runtime. Fine-tuning is a training change; use retrieval when answers need current or source-specific facts.</p></div>
+<div class="misconception-card"><div class="misconception-pair"><b>Fine-tuning</b><span aria-hidden="true">≠</span><b>Guaranteed truth</b></div><p>More consistent behavior does not guarantee factual accuracy. Evaluation, grounding, monitoring, and human review still matter.</p></div>
+</div>
+</article>
+<article class="card wide">
+<h2>Related concepts</h2>
+<div class="related-grid">
+<div class="related-card"><b><a href="llm.html">LLM ↗</a></b><p>The language model that predicts and generates text.</p></div>
+<div class="related-card"><b><a href="pre-training.html">Pre-training ↗</a></b><p>The broad learning phase that creates a reusable base model.</p></div>
+<div class="related-card"><b><a href="rag.html">RAG ↗</a></b><p>A runtime pattern for retrieving relevant external information.</p></div>
+<div class="related-card"><b><a href="evaluation.html">Evaluation ↗</a></b><p>The tests and evidence used to decide whether behavior is ready.</p></div>
+</div>
+</article>
+<article class="card wide remember-card">
+<h2>Remember this</h2>
+<p>Fine-tuning is specialist training after general education: teach a stable behavior with representative examples, then evaluate it. It can make a model more consistent, but it cannot promise fresh facts or guaranteed truth.</p>
+</article>
+<article class="card wide video-card">
+<div class="video-label"><div><div class="eyebrow">Independent video · Azure Neural TTS</div><h2>Video: Fine-tuning</h2></div><small>visual explainer · transcript included</small></div>
+<video controls preload="metadata" poster="vedio/fine-tuning.png" aria-label="Fine-tuning explainer video"><source src="vedio/fine-tuning.mp4" type="video/mp4">Your browser does not support video playback.</video>
+<div class="video-meta"><span>Base model · curated examples · specialized behavior · evaluation</span><span>MP4 · H.264 + AAC</span></div>
+<div class="asset-row"><a class="asset-link" href="vedio/fine-tuning.mp4" download>↓ Download MP4</a><a class="asset-link" href="vedio/fine-tuning.png" download>↓ Download cover</a></div>
+<details class="script"><summary>Transcript</summary><div class="script-body"><p>Fine-tuning is additional training after a model has learned broad language patterns. Like professional training after general education, curated examples teach a stable task, format, or style. The model is then evaluated for quality, edge cases, and safety. Fine-tuning changes behavior; it does not guarantee truth or replace retrieval for fresh facts.</p></div></details>
+</article>
+</section>
+</section>
+</main>
+</body>
+</html>

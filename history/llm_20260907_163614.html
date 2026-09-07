@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LLM · AI Knowledge</title>
+<meta name="description" content="A beginner-friendly explanation of large language models, their token-by-token process, and common misconceptions.">
+<link rel="stylesheet" href="topic.css?v=20260907">
+</head>
+<body class="llm-page">
+<nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<main class="wrap topic-shell">
+<aside class="directory" aria-label="Complete site directory">
+<h2>Site directory · 01–09</h2>
+<div class="directory-group"><b>01 · AI Foundations</b><a href="ai-foundations.html">Module overview</a><a href="artificial-intelligence.html">Artificial Intelligence</a><a href="machine-learning.html">Machine Learning</a><a href="deep-learning.html">Deep Learning</a><a href="foundation-models.html">Foundation Models</a><a href="generative-ai.html">Generative AI</a></div>
+<div class="directory-group"><b>02 · LLMs &amp; Transformers</b><a href="ai-knowledge.html#llms">Module overview</a><a class="active" href="llm.html">LLM</a><a href="transformer.html">Transformer</a><a href="parameters.html">Parameters</a><a href="pre-training.html">Pre-training</a><a href="fine-tuning.html">Fine-tuning</a></div>
+<div class="directory-group"><b>03 · Tokens, Context &amp; Inference</b><a href="ai-knowledge.html#inference">Module overview</a><a href="token.html">Token</a><a href="context-window.html">Context Window</a><a href="ai-knowledge.html#inference">KV Cache · Latency · Tokens/sec</a></div>
+<div class="directory-group"><b>04 · Prompting &amp; System Design</b><a href="ai-knowledge.html#prompting">Module overview</a><a href="ai-knowledge.html#prompting">System Prompts · Structured Outputs</a></div>
+<div class="directory-group"><b>05 · Embeddings, RAG &amp; Vector Search</b><a href="ai-knowledge.html#rag">Module overview</a><a href="embeddings.html">Embeddings</a><a href="rag.html">RAG</a><a href="vector-search.html">Vector Search</a><a href="grounding.html">Grounding</a></div>
+<div class="directory-group"><b>06 · Agents, Tools &amp; MCP</b><a href="ai-knowledge.html#agents">Module overview</a><a href="ai-agent.html">AI Agent</a><a href="tool-calling.html">Tool Calling</a><a href="agent-loop.html">Agent Loop</a></div>
+<div class="directory-group"><b>07 · Model Serving &amp; Local AI</b><a href="ai-knowledge.html#local">Module overview</a><a href="ollama.html">Ollama</a><a href="quantization.html">Quantization</a></div>
+<div class="directory-group"><b>08 · Evaluation &amp; Reliability</b><a href="ai-knowledge.html#eval">Module overview</a><a href="functional-tests.html">Functional Tests</a><a href="failure-modes.html">Failure Modes</a><a href="deployment-readiness.html">Deployment Readiness</a></div>
+<div class="directory-group"><b>09 · Enterprise AI Deployment</b><a href="ai-knowledge.html#enterprise">Module overview</a><a href="ai-knowledge.html#enterprise">Workflow Discovery · Integration</a></div>
+</aside>
+<section class="topic-main">
+<a class="back" href="llms-transformers.html">← Back to LLMs &amp; Transformers</a>
+<div style="margin-top:44px" class="eyebrow">02 · LLMs &amp; Transformers · Topic 01</div>
+<h1>What is an LLM?</h1>
+<p class="lede">A Large Language Model (LLM) predicts the next token from the context it can see, then repeats that small decision to generate language.</p>
+<section class="grid">
+<article class="card wide topic-block">
+<h2>What is it?</h2>
+<p>An LLM is a neural network trained on large collections of text and code. During use, it reads an input as tokens, estimates what token should come next, and turns those predictions into an answer, draft, summary, or program.</p>
+<p class="note">An LLM is a language-pattern engine. The quality of its output depends on its training, its context, and how the surrounding application checks the result.</p>
+</article>
+<article class="card wide topic-block analogy-card">
+<h2>Think of it like...</h2>
+<p>Imagine a writer completing a sentence one small tile at a time. Before choosing the next tile, the writer looks back at the words already on the page and picks a likely continuation. An LLM does this with tokens and learned patterns, so each new choice becomes part of the context for the next one.</p>
+</article>
+<article class="card wide topic-block">
+<h2>How it works</h2>
+<p>The generation loop is a sequence of small predictions. A Transformer helps the model weigh relationships between tokens so it can use the surrounding context.</p>
+<div class="process-flow" aria-label="LLM generation process">
+<div class="step-card"><strong>01</strong><b>Input tokens</b><span class="muted">Your prompt and any supplied context are split into tokens.</span></div>
+<div class="step-card"><strong>02</strong><b>Transformer processing</b><span class="muted">The model compares token relationships and builds a contextual representation.</span></div>
+<div class="step-card"><strong>03</strong><b>Predict next token</b><span class="muted">It scores possible continuations and selects or samples one.</span></div>
+<div class="step-card"><strong>04</strong><b>Repeat</b><span class="muted">The new token is added to the context, and the loop runs again.</span></div>
+<div class="step-card"><strong>05</strong><b>Output</b><span class="muted">The token sequence is decoded into text you can read or use.</span></div>
+</div>
+</article>
+<article class="card wide topic-block">
+<h2>Real-world examples</h2>
+<div class="sample-steps">
+<div><b>Customer support</b><span class="muted">Draft a reply from a question, policy, and conversation history.</span></div>
+<div><b>Writing and coding</b><span class="muted">Turn an outline into prose or translate a plain-language request into code.</span></div>
+<div><b>Summarization</b><span class="muted">Condense a long document into key points, actions, or a structured record.</span></div>
+</div>
+</article>
+<article class="card wide topic-block">
+<h2>What it is NOT</h2>
+<p>An LLM is one component in a broader AI product. These distinctions prevent common category mistakes.</p>
+<div class="misconceptions">
+<div class="misconception-card"><div class="misconception-pair"><b>LLM</b><span aria-hidden="true">≠</span><b>ChatGPT</b></div><p class="muted">An LLM is the model; ChatGPT is an application that wraps a model with an interface, instructions, safety systems, and other product features.</p></div>
+<div class="misconception-card"><div class="misconception-pair"><b>LLM</b><span aria-hidden="true">≠</span><b>AI</b></div><p class="muted">An LLM is one kind of AI system. AI also includes vision, recommendation, robotics, rules, search, and many other approaches.</p></div>
+<div class="misconception-card"><div class="misconception-pair"><b>LLM</b><span aria-hidden="true">≠</span><b>Search engine</b></div><p class="muted">An LLM generates a likely continuation. A search engine retrieves and ranks documents; an LLM may still need retrieval or citations for current facts.</p></div>
+</div>
+</article>
+<article class="card wide topic-block">
+<h2>Related concepts</h2>
+<div class="steps">
+<a class="step-card" href="transformer.html"><strong>Next layer</strong><b>Transformer</b><span class="muted">The architecture that helps process relationships between tokens.</span></a>
+<a class="step-card" href="token.html"><strong>Smallest unit</strong><b>Token</b><span class="muted">A piece of text the model reads and predicts.</span></a>
+<a class="step-card" href="context-window.html"><strong>Working space</strong><b>Context Window</b><span class="muted">The amount of input and generated text available at once.</span></a>
+<a class="step-card" href="generative-ai.html"><strong>Broader family</strong><b>Generative AI</b><span class="muted">Systems that create new text, images, audio, code, or other outputs.</span></a>
+</div>
+</article>
+<article class="card wide topic-block key-takeaway">
+<h2>Remember this</h2>
+<p>An LLM generates language by predicting one token at a time from context. That simple loop can support powerful products, but it does not guarantee truth, current knowledge, or independent judgment.</p>
+</article>
+<article class="card wide video-card">
+<div class="video-label"><div><div class="eyebrow">Independent video · Azure Neural voice</div><h2>Video: What is an LLM?</h2></div><small>visual explainer</small></div>
+<video controls preload="metadata" poster="vedio/llm.png" aria-label="What is an LLM explainer video"><source src="vedio/llm.mp4" type="video/mp4">Your browser does not support video playback.</video>
+<div class="video-meta"><span>Definition · token prediction · autocomplete analogy · examples</span><span>MP4 · H.264 + AAC</span></div>
+</article>
+</section>
+</section>
+</main>
+<footer class="footer"><div class="wrap">Rebecca Li · AI Knowledge Base</div></footer>
+</body>
+</html>

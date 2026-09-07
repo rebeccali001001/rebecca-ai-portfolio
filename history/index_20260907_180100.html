@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Rebecca Li — Forward-Deployed AI Portfolio</title>
+<meta name="description" content="Rebecca Li — Forward-Deployed AI / AI Product & Deployment Builder. Enterprise workflows, AI systems, local LLMs, agents, deployment and evaluation."/>
+<style>
+:root{
+  --bg:#071019;
+  --panel:#0c1722;
+  --panel2:#101d2b;
+  --text:#f7fafc;
+  --muted:#9fb0c3;
+  --line:#233447;
+  --accent:#7fb1ff;
+  --accent2:#78e5bd;
+  --accent3:#ffd47f;
+  --danger:#ff9d9d;
+  --shadow:0 20px 60px rgba(0,0,0,.30);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.58;
+  background:
+    radial-gradient(900px 520px at 95% -5%,rgba(82,127,255,.18),transparent 55%),
+    radial-gradient(720px 460px at 5% 5%,rgba(84,230,179,.10),transparent 60%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:auto;padding:0 24px}
+nav{
+  position:sticky;top:0;z-index:30;background:rgba(7,16,25,.80);
+  backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)
+}
+.navin{height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:850;letter-spacing:-.03em}.brand span{color:var(--accent2)}
+.links{display:flex;gap:18px;color:var(--muted);font-size:14px}
+.links a:hover{color:#fff}
+.hero{padding:92px 0 54px}
+.kicker{display:inline-flex;align-items:center;gap:9px;padding:7px 11px;border:1px solid #30465e;border-radius:999px;color:#c9d7e6;background:#0b1621;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);box-shadow:0 0 14px var(--accent2)}
+h1{font-size:clamp(48px,7.7vw,86px);line-height:.98;letter-spacing:-.058em;margin:26px 0 22px;max-width:1100px}
+.grad{background:linear-gradient(90deg,#fff,#bfd2ff 48%,#81ecc3);-webkit-background-clip:text;color:transparent}
+.lede{font-size:clamp(18px,2.2vw,24px);color:#c3cedb;max-width:930px;margin:0 0 28px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 17px;border-radius:12px;border:1px solid var(--line);background:#131f2c;font-weight:780;transition:.18s}
+.btn.primary{background:#f5f8fb;color:#111821;border-color:#f5f8fb}
+.btn:hover{transform:translateY(-1px)}
+.hero-panels{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:46px}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,#0f1b28,#0b1520);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.eyebrow{color:var(--accent2);font-weight:850;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+.card h3{font-size:21px;margin:10px 0 8px}
+.card p{color:var(--muted);margin:0}
+.about p{font-size:17px;color:#d6dfea;margin:0 0 14px}
+.about p:last-child{margin-bottom:0}
+.value-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.value{padding:16px;border:1px solid #26384b;border-radius:15px;background:#09131d}
+.value b{display:block;font-size:16px}.value span{color:var(--muted);font-size:13px}
+section{padding:60px 0}
+h2{font-size:clamp(34px,4.7vw,54px);line-height:1.05;letter-spacing:-.045em;margin:10px 0 16px}
+.sub{color:var(--muted);max-width:820px;margin:0 0 30px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.project{padding:0;overflow:hidden}
+.visual{min-height:190px;padding:22px;display:flex;align-items:flex-end;background:linear-gradient(135deg,rgba(127,177,255,.14),rgba(120,229,189,.06)),#09131d;border-bottom:1px solid var(--line)}
+.visual pre{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#dce8f7;white-space:pre-wrap}
+.project-body{padding:22px}
+.tags{margin-bottom:12px}
+.tag{display:inline-block;font-size:12px;color:#dbe5f2;border:1px solid #33465c;padding:5px 9px;border-radius:999px;margin:4px 5px 0 0}
+.project h3{font-size:22px;line-height:1.18;margin:8px 0 10px;letter-spacing:-.02em}
+.project-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.project-links a{font-size:12px;padding:8px 10px;border:1px solid #36495f;border-radius:999px;color:#d7e2ef}
+.project-links a:hover{border-color:#7c94b0;color:#fff}
+.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cap{padding:22px}
+.cap h3{margin:8px 0 12px}
+.cap ul{padding-left:18px;margin:0;color:#cbd6e3}
+.cap li{margin:7px 0}
+.skillbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.skill{font-size:12px;border:1px solid #32445a;padding:7px 9px;border-radius:999px;color:#d7e2ee;background:#0a141f}
+.case-feature{display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
+.case-row{display:grid;grid-template-columns:160px 1fr;gap:18px;padding:18px 0;border-top:1px solid #223246}
+.case-row:first-child{border-top:0}
+.case-label{color:#7f92a8;text-transform:uppercase;font-size:12px;letter-spacing:.09em}
+.case-content{color:#dbe3ec}
+.arch{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#07111a;border:1px solid #24384d;border-radius:15px;padding:18px;white-space:pre;overflow:auto;color:#d8e6f7}
+.video{aspect-ratio:16/9;border:1px dashed #425a75;border-radius:18px;display:grid;place-items:center;text-align:center;background:#08121b;color:#96a6ba;padding:24px}
+.play{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:auto auto 12px;border:1px solid #536b87;color:white;font-size:20px}
+.metrics{display:grid;gap:9px;margin-top:16px}
+.metric{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid #26384a;border-radius:10px;background:#09131d;color:#cad5e2}
+.test{color:var(--accent3);font-weight:800}
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cert h3{font-size:19px;margin:7px 0 8px}
+.cert .issuer{font-size:13px;color:#8fa2b6;margin-bottom:14px}
+.applied{margin-top:14px;padding-top:14px;border-top:1px solid #243447}
+.applied b{display:block;font-size:12px;color:var(--accent2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.applied span{font-size:13px;color:#c5d0dc}
+.timeline{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px}
+.bubble{width:38px;height:38px;border-radius:11px;background:#162536;border:1px solid #334d68;display:grid;place-items:center;color:var(--accent2);font-weight:850}
+.step b{display:block;margin-bottom:3px}.step span{color:var(--muted);font-size:14px}
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:34px}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.social{border:1px solid #354b63;background:#0a1520;border-radius:12px;padding:11px 14px;font-weight:750;font-size:14px;color:#d6e0ec}
+.footer{padding:40px 0 70px;border-top:1px solid #1c2a38;color:#7d8ea1;font-size:13px}
+.note{font-size:12px;color:#7d8ea1;margin-top:10px}
+@media(max-width:900px){
+  .hero-panels,.case-feature,.contact,.grid3,.cert-grid,.cap-grid{grid-template-columns:1fr}
+  .links{display:none}
+}
+@media(max-width:650px){
+  .value-grid{grid-template-columns:1fr}
+  .case-row{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap navin">
+    <div class="brand">Rebecca <span>Forward-Deployed AI</span></div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#deployments">Projects</a>
+      <a href="#capabilities">FDE Skills</a>
+      <a href="ai-knowledge.html">AI Knowledge</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker"><span class="dot"></span> Enterprise Product → Hands-on AI Deployment → Forward-Deployed Engineering</div>
+    <h1><span class="grad">I turn complex enterprise workflows into practical AI systems.</span></h1>
+    <p class="lede">
+      I’m Rebecca Li, a product manager moving into Forward-Deployed AI and hands-on AI deployment.
+      I work at the intersection of enterprise workflows, solution architecture, local LLMs, agents,
+      APIs, evaluation, and rapid prototyping — translating ambiguous business problems into systems
+      that can actually be tested, deployed, and used.
+    </p>
+    <div class="ctas">
+      <a class="btn primary" href="#deployments">View deployments</a>
+      <a class="btn" href="#capabilities">FDE capabilities</a>
+      <a class="btn" href="#certifications">View certifications</a>
+      <a class="btn" href="#contact">Contact me</a>
+    </div>
+
+    <div class="hero-panels" id="about">
+      <div class="card about">
+        <div class="eyebrow">About me</div>
+        <h3>Business depth + technical execution</h3>
+        <p>
+          My background is in product management and complex enterprise systems, including commodity trading,
+          pricing, risk, settlement, finance, supply chain, approval workflows, and operational platforms.
+          That experience trained me to understand messy real-world workflows, stakeholder constraints,
+          dependencies, and the difference between a good demo and a system people can actually operate.
+        </p>
+        <p>
+          I’m now deliberately building the engineering depth required for Forward-Deployed AI roles:
+          Python, APIs, local model deployment, agents, tool calling, AI application architecture,
+          document AI, speech AI, evaluation, and deployment troubleshooting.
+        </p>
+        <p>
+          I use public projects to demonstrate the complete FDE loop:
+          discovery → technical scoping → architecture → prototyping → debugging → evaluation → deployment thinking.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">What I bring</div>
+        <h3>Why my background fits FDE work</h3>
+        <div class="value-grid">
+          <div class="value"><b>Enterprise Domain Depth</b><span>Trading · finance · settlement · operations</span></div>
+          <div class="value"><b>Customer & Workflow Discovery</b><span>Turning operational problems into product scope</span></div>
+          <div class="value"><b>Hands-on AI Systems</b><span>LLMs · agents · tools · APIs · local deployment</span></div>
+          <div class="value"><b>Cross-functional Delivery</b><span>Business ↔ product ↔ engineering translation</span></div>
+        </div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid #26384b">
+          <b style="display:block;margin-bottom:8px">Current positioning</b>
+          <p style="color:#d9e2ec">
+            Forward-Deployed AI / AI Product & Deployment Builder focused on enterprise workflows,
+            agent systems, and practical deployment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="deployments">
+  <div class="wrap">
+    <div class="eyebrow">Featured deployments & case studies</div>
+    <h2>Evidence of how I scope, build, debug, and deploy.</h2>
+    <p class="sub">
+      These projects are selected to demonstrate the exact capabilities required in Forward-Deployed AI:
+      customer problem framing, technical scoping, solution architecture, hands-on implementation,
+      deployment troubleshooting, evaluation, and enterprise domain understanding.
+    </p>
+
+    <div class="grid3">
+
+      <article class="card project">
+        <div class="visual"><pre>Claude Code CLI
+      ↓
+Local Proxy
+      ↓
+Ollama
+      ↓
+Qwen 27B Q3</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">LLM Deployment</span><span class="tag">Agent Runtime</span><span class="tag">Debugging</span></div>
+          <h3>Can a 24GB MacBook run Claude Code with Qwen 27B?</h3>
+          <p>Testing whether a consumer Mac can run a usable local coding agent — not just load a language model.</p>
+          <div class="project-links"><a href="#flagship">Case Study</a><a href="#">90s Demo</a><a href="#">GitHub</a><a href="#">YouTube</a></div>
+        </div>
+      </article>
+
+      <article class="card project">
+        <div class="visual"><pre>Local Agent
+  ├─ safe_file_editor
+  └─ safe_bash
+        ↓
+Qwen / Ollama</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">Agent Safety</span><span class="tag">Tool Calling</span><span class="tag">Least Privilege</span></div>
+          <h3>Building a safer local AI agent with controlled tools</h3>
+          <p>Designing a local agent that can operate on files and shell commands while restricting unsafe paths and destructive actions.</p>
+          <div class="project-links"><a href="#">Case Study</a><a href="#">Demo</a><a href="#">GitHub</a></div>
+        </div>
+      </article>
+
+      <article class="card project">
+        <div class="visual"><pre>Trade
+  ↓
+Pricing / Risk
+  ↓
+Allocation / Payment
+  ↓
+Settlement / Invoice
+  ↓
+AI Assist / Automation</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">Enterprise AI</span><span class="tag">Workflow Design</span><span class="tag">Domain</span></div>
+          <h3>Designing an AI-native commodity trading workflow</h3>
+          <p>Mapping where AI agents, recommendation systems, document AI, and automation can create value across a real trading lifecycle.</p>
+          <div class="project-links"><a href="#">Case Study</a><a href="#">Architecture</a></div>
+        </div>
+      </article>
+
+      <article class="card project">
+        <div class="visual"><pre>KYC → Orders → Pricing
+      ↓
+Allocation → Delivery
+      ↓
+Payment → Settlement
+      ↓
+Risk → Audit</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">Enterprise Product</span><span class="tag">Commodity Trading</span></div>
+          <h3>End-to-end commodity trading platform</h3>
+          <p>Designing a complex enterprise platform spanning customer onboarding, trading, settlement, logistics, finance, risk, and operational controls.</p>
+          <div class="project-links"><a href="#">Case Study</a><a href="#">Workflow Map</a></div>
+        </div>
+      </article>
+
+      <article class="card project">
+        <div class="visual"><pre>PDF / Image
+     ↓
+OCR / API
+     ↓
+Parse / Validate
+     ↓
+Structured Business Data</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">Document AI</span><span class="tag">Automation</span><span class="tag">Reliability</span></div>
+          <h3>OCR-to-structured-data business automation pipeline</h3>
+          <p>Turning unstructured documents into validated business data through OCR, APIs, parsing, retries, and structured extraction.</p>
+          <div class="project-links"><a href="#">Case Study</a><a href="#">Demo</a></div>
+        </div>
+      </article>
+
+      <article class="card project">
+        <div class="visual"><pre>DeepSeek Harness
+      ↓
+Cordis Tool Layer
+      ↓
+Safe Tools
+      ↓
+Local Qwen Agent</pre></div>
+        <div class="project-body">
+          <div class="tags"><span class="tag">Agent Framework</span><span class="tag">Runtime</span><span class="tag">Tools</span></div>
+          <h3>Lightweight local agent runtime with Qwen</h3>
+          <p>Exploring how model size, token limits, tool registration, and runtime architecture affect local agent reliability and performance.</p>
+          <div class="project-links"><a href="#">Case Study</a><a href="#">Technical Notes</a></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div style="margin-top:18px">
+      <a class="btn" href="#contact">View all 10 projects →</a>
+    </div>
+  </div>
+</section>
+
+<section id="flagship">
+  <div class="wrap">
+    <div class="eyebrow">Flagship FDE case study</div>
+    <h2>24GB MacBook + Qwen 27B + Claude Code</h2>
+    <p class="sub">
+      A systems-level experiment showing why “the model fits in memory” and “the agent is usable”
+      are two very different engineering questions.
+    </p>
+
+    <div class="case-feature">
+      <div class="card">
+        <div class="case-row">
+          <div class="case-label">Customer-style question</div>
+          <div class="case-content">Can a normal 24GB MacBook run a local coding agent capable of practical file and shell operations?</div>
+        </div>
+        <div class="case-row">
+          <div class="case-label">Scope</div>
+          <div class="case-content">Chat, file read, file write, Bash execution, multi-turn behavior, context stress, latency, and runtime compatibility.</div>
+        </div>
+        <div class="case-row">
+          <div class="case-label">Architecture</div>
+          <div class="case-content">
+            <div class="arch">Claude Code CLI
+        ↓
+Anthropic-compatible local proxy
+        ↓
+Ollama
+        ↓
+Qwen 27B Q3</div>
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="case-label">Key failure</div>
+          <div class="case-content">Real agent requests exceeded a 32K context window, showing how system prompts and tool schemas can become deployment bottlenecks.</div>
+        </div>
+        <div class="case-row">
+          <div class="case-label">FDE lesson</div>
+          <div class="case-content">The bottleneck was not only model capability. System design, protocol compatibility, tool overhead, and operational constraints determined usability.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="eyebrow">90-second recruiter demo</div>
+          <h3>Show outcome before detail</h3>
+          <div class="video">
+            <div>
+              <div class="play">▶</div>
+              <b>Embed demo video here</b><br>
+              <span>Problem → architecture → live action → result</span>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <div class="eyebrow">Evidence checklist</div>
+          <h3>Deployment scorecard</h3>
+          <div class="metrics">
+            <div class="metric"><span>Chat</span><span class="test">TEST</span></div>
+            <div class="metric"><span>Read local file</span><span class="test">TEST</span></div>
+            <div class="metric"><span>Edit file</span><span class="test">TEST</span></div>
+            <div class="metric"><span>Bash</span><span class="test">TEST</span></div>
+            <div class="metric"><span>5-turn agent task</span><span class="test">TEST</span></div>
+            <div class="metric"><span>Context stress test</span><span class="test">TEST</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="wrap">
+    <div class="eyebrow">Forward-Deployed capabilities</div>
+    <h2>The skills I’m building around the FDE delivery loop.</h2>
+    <p class="sub">My goal is not to present isolated technologies, but to show the full set of capabilities required to move from a customer problem to a working AI deployment.</p>
+
+    <div class="cap-grid">
+      <div class="card cap">
+        <h3>01 · Customer discovery & technical scoping</h3>
+        <ul>
+          <li>Workflow mapping</li><li>Problem framing</li><li>Use-case prioritization</li><li>Requirements & constraints</li><li>Cross-functional communication</li>
+        </ul>
+      </div>
+      <div class="card cap">
+        <h3>02 · AI systems & agents</h3>
+        <ul>
+          <li>LLMs & local LLM deployment</li><li>Agent workflows</li><li>Tool calling</li><li>Context management</li><li>Prompt / system design</li><li>RAG fundamentals</li>
+        </ul>
+      </div>
+      <div class="card cap">
+        <h3>03 · Hands-on engineering</h3>
+        <div class="skillbar">
+          <span class="skill">Python</span><span class="skill">REST APIs</span><span class="skill">JSON</span><span class="skill">Git / GitHub</span><span class="skill">SQL</span><span class="skill">Supabase</span><span class="skill">PostgreSQL</span><span class="skill">Ollama</span>
+        </div>
+      </div>
+      <div class="card cap">
+        <h3>04 · Deployment & integration</h3>
+        <ul>
+          <li>Local model serving</li><li>API integration</li><li>Cloud deployment basics</li><li>Runtime troubleshooting</li><li>Authentication / parsing / retries</li><li>Performance trade-offs</li>
+        </ul>
+      </div>
+      <div class="card cap">
+        <h3>05 · Evaluation & reliability</h3>
+        <ul>
+          <li>Functional test design</li><li>Latency & context testing</li><li>Failure-mode analysis</li><li>Output validation</li><li>Safe tool access</li><li>Deployment readiness thinking</li>
+        </ul>
+      </div>
+      <div class="card cap">
+        <h3>06 · Enterprise domain expertise</h3>
+        <ul>
+          <li>Commodity trading</li><li>Pricing & exposure</li><li>Settlement</li><li>Finance / accounting workflows</li><li>Supply chain</li><li>Risk & controls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="eyebrow">Certifications & continuous learning</div>
+    <h2>Structured learning, connected to real projects.</h2>
+    <p class="sub">
+      Certifications are supporting evidence — each credential is paired with the skills it developed
+      and the projects where those skills are being applied.
+    </p>
+
+    <div class="cert-grid">
+      <div class="card cert">
+        <div class="eyebrow">AI Foundations</div>
+        <h3>Introduction to Artificial Intelligence (AI)</h3>
+        <div class="issuer">Coursera / IBM</div>
+        <div class="skillbar"><span class="skill">AI Fundamentals</span><span class="skill">ML Concepts</span></div>
+        <div class="applied"><b>Applied in</b><span>AI product architecture · enterprise AI use-case design</span></div>
+      </div>
+
+      <div class="card cert">
+        <div class="eyebrow">Generative AI</div>
+        <h3>Generative AI: Introduction and Applications</h3>
+        <div class="issuer">Coursera / IBM</div>
+        <div class="skillbar"><span class="skill">Generative AI</span><span class="skill">Foundation Models</span><span class="skill">LLMs</span></div>
+        <div class="applied"><b>Applied in</b><span>Local LLM experiments · AI IELTS Tutor · enterprise AI workflow</span></div>
+      </div>
+
+      <div class="card cert">
+        <div class="eyebrow">Prompt Engineering</div>
+        <h3>Start Writing Prompts like a Pro</h3>
+        <div class="issuer">Coursera</div>
+        <div class="skillbar"><span class="skill">Prompt Design</span><span class="skill">Structured Interaction</span></div>
+        <div class="applied"><b>Applied in</b><span>Agent workflows · IELTS feedback loops · AI content systems</span></div>
+      </div>
+
+      <div class="card cert">
+        <div class="eyebrow">Python</div>
+        <h3>Python for Data Science, AI & Development</h3>
+        <div class="issuer">Coursera / IBM</div>
+        <div class="skillbar"><span class="skill">Python</span><span class="skill">APIs</span><span class="skill">Data Processing</span></div>
+        <div class="applied"><b>Applied in</b><span>OCR pipeline · English AI app · agent experiments</span></div>
+      </div>
+
+      <div class="card cert">
+        <div class="eyebrow">LLM Engineering</div>
+        <h3>Generative AI Engineering / LLM Learning Track</h3>
+        <div class="issuer">Coursera / IBM · ongoing</div>
+        <div class="skillbar"><span class="skill">Transformers</span><span class="skill">Hugging Face</span><span class="skill">RAG</span><span class="skill">Agents</span></div>
+        <div class="applied"><b>Applied in</b><span>Local Qwen deployment · Claude Code integration · agent runtime work</span></div>
+      </div>
+
+      <div class="card cert">
+        <div class="eyebrow">More credentials</div>
+        <h3>Full Coursera Certificate Portfolio</h3>
+        <div class="issuer">Credential library</div>
+        <p>Add your complete verified Coursera credential links here once finalized.</p>
+        <div class="project-links"><a href="#">View all certificates →</a></div>
+      </div>
+    </div>
+
+    <div class="note">Before publishing, replace any “ongoing” or inferred course titles with your exact Coursera credential names and credential URLs.</div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">Professional experience</div>
+    <h2>Enterprise product experience is the foundation of my FDE profile.</h2>
+
+    <div class="card">
+      <div class="timeline">
+        <div class="step">
+          <div class="bubble">1</div>
+          <div><b>Enterprise Product Management</b><span>Designing complex business systems across trading, finance, supply chain, settlement, risk, and operations.</span></div>
+        </div>
+        <div class="step">
+          <div class="bubble">2</div>
+          <div><b>Workflow & stakeholder discovery</b><span>Translating operational pain points, controls, approvals, and business constraints into system requirements and product workflows.</span></div>
+        </div>
+        <div class="step">
+          <div class="bubble">3</div>
+          <div><b>AI product prototyping</b><span>Building AI applications, agent workflows, OCR pipelines, knowledge systems, and local model experiments.</span></div>
+        </div>
+        <div class="step">
+          <div class="bubble">4</div>
+          <div><b>Hands-on AI deployment</b><span>Moving deeper into model serving, APIs, tooling, context management, runtime debugging, safety, and evaluation.</span></div>
+        </div>
+        <div class="step">
+          <div class="bubble">5</div>
+          <div><b>Forward-Deployed AI</b><span>Target role: combine domain depth, customer discovery, hands-on engineering, and deployment ownership.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="card contact">
+      <div>
+        <div class="eyebrow">Let’s connect</div>
+        <h2>Building or hiring for enterprise AI?</h2>
+        <p class="sub" style="margin-bottom:0">
+          I’m especially interested in Forward-Deployed Engineer, Applied AI, AI Deployment,
+          and AI Product roles where deep customer workflows and hands-on technical execution meet.
+        </p>
+      </div>
+      <div>
+        <div class="socials">
+          <a class="social" href="#" target="_blank">LinkedIn ↗</a>
+          <a class="social" href="#" target="_blank">GitHub ↗</a>
+          <a class="social" href="#" target="_blank">YouTube ↗</a>
+          <a class="social" href="#" target="_blank">X ↗</a>
+          <a class="social" href="mailto:your-email@example.com">Email ↗</a>
+        </div>
+        <div class="note">Replace placeholders with your real profile links before publishing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">Rebecca Li · Forward-Deployed AI / AI Product & Deployment Builder</div>
+</footer>
+
+</body>
+</html>
