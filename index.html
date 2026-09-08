@@ -117,9 +117,27 @@ h2{font-size:clamp(34px,4.7vw,54px);line-height:1.05;letter-spacing:-.045em;marg
   .value-grid{grid-template-columns:1fr}
   .case-row{grid-template-columns:1fr;gap:6px}
 }
+@media(min-width:1101px){
+  body.portfolio-page .hero>.wrap,
+  body.portfolio-page section>.wrap,
+  body.portfolio-page .footer>.wrap{
+    box-sizing:border-box;
+    width:min(1200px,calc(100vw - 352px));
+    max-width:1200px;
+    margin-left:calc(304px + max(0px,(100vw - 1552px)/2));
+    margin-right:0;
+    padding-left:24px;
+    padding-right:24px;
+  }
+}
+@media(max-width:1100px){
+  body.portfolio-page .hero>.wrap,
+  body.portfolio-page section>.wrap,
+  body.portfolio-page .footer>.wrap{max-width:1200px;margin-left:auto;margin-right:auto}
+}
 </style>
 <script defer src="sidebar.js"></script></head>
-<body class="has-site-directory"><aside id="site-directory" aria-label="Site directory"></aside>
+<body class="has-site-directory portfolio-page"><aside id="site-directory" aria-label="Site directory"></aside>
 
 <nav>
   <div class="wrap navin">

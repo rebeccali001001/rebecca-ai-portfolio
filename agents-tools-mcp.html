@@ -1,1 +1,103 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>09 · Agents, Tools &amp; MCP</title><link rel="stylesheet" href="topic.css"><link rel="stylesheet" href="overview.css?v=20260907-2"><link rel="stylesheet" href="site-directory.css"></head><body class="overview-page has-site-directory"><aside id="site-directory"></aside><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><main class="overview-page"><div class="wrap"><a class="back" href="index.html">← AI Knowledge Home</a><p class="eyebrow">09 · Agents, Tools &amp; MCP</p><h1>Agents turn models into systems that act.</h1><p class="lede">A map of loops, tools, planning, memory, and control boundaries.</p><section class="overview-section"><h2>Chapter Introduction</h2><p>Start with the agent loop, then add tools, state, planning, and safety controls.</p></section><section class="overview-section"><h2>The Big Picture</h2><div class="overview-map"><div class="overview-map-stage">Observe → Reason → Act → Verify</div></div></section><section class="overview-section"><h2>Core Concepts</h2><div class="overview-concept-grid"><a class="overview-map-node" href="ai-agent.html">AI Agent</a><a class="overview-map-node" href="tool-calling.html">Tool Calling</a><a class="overview-map-node" href="agent-loop.html">Agent Loop</a><div class="overview-map-node">MCP <i class="status status-new">NEW</i></div></div></section><section class="overview-section"><h2>How These Concepts Connect</h2><p>Tools extend capability, loops coordinate decisions, and state lets an agent continue work over time.</p></section><section class="overview-section"><h2>Recommended Learning Order</h2><ol class="learning-path-list"><li>AI Agent</li><li>Tool Calling</li><li>Agent Loop</li></ol></section><section class="overview-section"><h2>Explore Topics</h2><div class="explore-grid"><a href="ai-agent.html">AI Agent</a><a href="tool-calling.html">Tool Calling</a><a href="agent-loop.html">Agent Loop</a></div></section></div></main><script src="sidebar.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>09 · Agents, Tools &amp; MCP</title>
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="overview.css?v=20260908-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .agent-lesson{max-width:1200px}.agent-copy{max-width:760px}.agent-section{margin:76px 0}.agent-section h2{font-size:clamp(1.75rem,3vw,2.2rem);margin:0 0 22px}.agent-kicker{font-size:.72rem;letter-spacing:.12em;color:#6ff0c7;font-weight:800}.agent-key{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:30px;font-weight:700}.agent-key span{border:1px solid #315273;border-radius:999px;padding:9px 13px}.agent-key b{color:#74e0c0}.agent-problem{display:grid;grid-template-columns:1fr 1.2fr;gap:24px}.agent-note{padding:26px;background:linear-gradient(135deg,#11253a,#0b1825);border-radius:18px}.agent-note p{margin:10px 0}.agent-note ul{padding-left:18px;margin:12px 0}.arch{position:relative;padding:34px;border:1px solid #284966;background:#0c1927;border-radius:22px}.arch-top,.arch-bottom{text-align:center}.arch-node{display:inline-flex;flex-direction:column;gap:5px;padding:15px 20px;border:1px solid #365e82;border-radius:14px;background:#102438;min-width:150px}.arch-node small{color:#a7c4de;font-size:.78rem}.arch-teal{border-color:#5bdab9;background:#10343b}.arch-blue{border-color:#5596cf;background:#10283e}.arch-purple{border-color:#9e80c9;background:#251d39}.arch-amber{border-color:#d9af63;background:#382c17}.arch-line{height:24px;width:1px;background:#547a9d;margin:0 auto}.arch-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center;margin:0 auto;max-width:800px}.arch-loop{max-width:440px;margin:22px auto;border:2px solid #5bdab9;border-radius:999px;padding:17px;text-align:center;color:#c6f5e8}.arch-tools{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.arch-side{display:flex;justify-content:space-between;gap:12px;margin-top:24px}.arch-side .arch-node{flex:1}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:20px;border-top:2px solid #5bdab9;background:#102034}.step b{display:block;font-size:.76rem;letter-spacing:.1em;color:#72e5c6}.step h3{font-size:1.1rem;margin:8px 0}.scenario{padding:30px;border-radius:22px;background:linear-gradient(135deg,#10283a,#111b2c)}.scenario-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:22px;align-items:stretch}.scenario-step{padding:15px;border:1px solid #3b6486;border-radius:12px;background:#0b1725}.scenario-step b{display:block;color:#7be7cb;font-size:.78rem;margin-bottom:8px}.scenario-step:nth-child(2n){border-color:#6a94bc}.scenario-step:nth-child(7){border-color:#d9af63;background:#342915}.layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.layer{padding:20px;border-radius:15px;background:#101e2e;border-top:2px solid #5bdab9}.layer:nth-child(2n){border-color:#639acf}.layer:nth-child(3n){border-color:#9c80c7}.layer h3{font-size:1.02rem;margin:0 0 8px}.layer p{font-size:.94rem;color:#bdd0e1;margin:0}.comparison{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.comparison-row{padding:23px 0;border-top:1px solid #315273}.comparison-row h3{margin:0 0 16px}.compare-sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare-sides div{padding:13px;background:#102033;border-radius:10px}.compare-sides b{display:block;color:#7ce8ca;font-size:.78rem;margin-bottom:6px}.why{margin:13px 0 0;color:#a9c6df}.loop-focus{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}.loop-card{padding:28px;border-radius:18px;background:#102033}.loop-card.accent{border:1px solid #5bdab9}.tool-flow{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:22px}.tool-flow div{padding:12px;border:1px solid #3b6486;border-radius:10px;background:#102033}.tool-flow i{font-style:normal;color:#70ddbE}.takeaway{padding:28px;border-left:4px solid #72e5c6;background:#0e1b29;font-size:clamp(1.2rem,2vw,1.55rem);max-width:100%}@media(max-width:900px){.arch-columns,.timeline,.scenario-flow,.layer-grid{grid-template-columns:repeat(2,1fr)}.arch-side,.loop-focus{display:grid;grid-template-columns:1fr 1fr}}@media(max-width:620px){.agent-section{margin:52px 0}.agent-problem,.arch-columns,.timeline,.scenario-flow,.layer-grid,.comparison,.loop-focus,.arch-side{grid-template-columns:1fr}.arch{padding:20px}.arch-loop{border-radius:16px}.agent-key{font-size:.84rem}.scenario{padding:20px}}
+  </style>
+</head>
+<body class="overview-page has-site-directory">
+  <aside id="site-directory"></aside>
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <main class="overview-page">
+    <div class="wrap agent-lesson">
+      <a class="back" href="index.html">← AI Knowledge Home</a>
+      <header class="agent-copy">
+        <p class="eyebrow">09 · AGENTS, TOOLS &amp; MCP</p>
+        <h1>How does a model become an agent that can act?</h1>
+        <p class="lede">A model generates responses. An agent can pursue a goal, use tools, observe results, and continue through multiple steps.</p>
+        <div class="agent-key"><span><b>MODEL</b> · intelligence</span><strong>+</strong><span><b>TOOLS</b> · capabilities</span><strong>+</strong><span><b>AGENT LOOP</b> · coordination</span><strong>=</strong><span><b>AGENT SYSTEM</b></span></div>
+      </header>
+
+      <section class="agent-section">
+        <p class="agent-kicker">THE PROBLEM THIS MODULE SOLVES</p>
+        <div class="agent-problem">
+          <div class="agent-note"><span class="agent-kicker">USER REQUEST</span><h2>“Check order 123 and send the customer an update.”</h2></div>
+          <div class="agent-note"><span class="agent-kicker">WHY A MODEL ALONE IS NOT ENOUGH</span><p>A model can understand the request and draft text. By itself it cannot:</p><ul><li>query the order system</li><li>execute an external action</li><li>track workflow state</li><li>ask for approval</li><li>continue a multi-step task</li></ul><p><b>That extra system is the agent layer.</b></p></div>
+        </div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">THE BIG PICTURE</p><h2>Agent Architecture</h2>
+        <div class="arch">
+          <div class="arch-top"><div class="arch-node arch-teal"><b>USER GOAL</b><small>What needs to happen?</small></div></div><div class="arch-line"></div>
+          <div class="arch-top"><div class="arch-node arch-teal"><b>AGENT SYSTEM</b><small>Coordinates the work</small></div></div><div class="arch-line"></div>
+          <div class="arch-columns"><div class="arch-node"><b>MODEL</b><small>Provides intelligence</small></div><div class="arch-node"><b>PLANNING</b><small>Chooses next action</small></div><div class="arch-node arch-purple"><b>STATE</b><small>Tracks task status</small></div></div>
+          <div class="arch-loop"><b>AGENT LOOP</b><br>OBSERVE → DECIDE → ACT → OBSERVE RESULT ↺</div>
+          <div class="arch-tools"><div class="arch-node arch-blue"><b>TOOLS</b><small>Search · Files · Email · DB</small></div><div class="arch-node arch-blue"><b>MCP / API</b><small>Connection layer</small></div><div class="arch-node arch-blue"><b>EXTERNAL SYSTEMS</b><small>CRM · ERP · Browser · Database</small></div></div>
+          <div class="arch-side"><div class="arch-node arch-amber"><b>HUMAN APPROVAL</b><small>Review when required</small></div><div class="arch-node"><b>SKILLS / PLUGINS</b><small>Packaged capabilities</small></div><div class="arch-node"><b>MULTI-AGENT</b><small>Agents coordinate work</small></div></div>
+        </div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">HOW THE AGENT LOOP WORKS</p><h2>From a goal to a completed task</h2>
+        <div class="timeline">
+          <article class="step"><b>01 · GOAL</b><h3>User defines the outcome.</h3></article>
+          <article class="step"><b>02 · PLAN</b><h3>Agent chooses the next action.</h3></article>
+          <article class="step"><b>03 · ACT</b><h3>Agent requests a tool.</h3></article>
+          <article class="step"><b>04 · EXECUTE</b><h3>Application performs the action.</h3></article>
+          <article class="step"><b>05 · OBSERVE</b><h3>Tool result comes back.</h3></article>
+          <article class="step"><b>06 · CONTINUE OR FINISH</b><h3>Update state, repeat, or ask approval.</h3></article>
+        </div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">ONE REAL EXAMPLE</p><h2>Order-status update</h2>
+        <div class="scenario"><b>SCENARIO · “Check order 123 and send the customer an update.”</b>
+          <div class="scenario-flow"><div class="scenario-step"><b>USER</b>Check order 123</div><div class="scenario-step"><b>AGENT</b>Needs order status</div><div class="scenario-step"><b>TOOL CALL</b>get_order_status(“123”)</div><div class="scenario-step"><b>APPLICATION</b>Executes Order API</div><div class="scenario-step"><b>RESULT</b>“Shipped”</div><div class="scenario-step"><b>STATE UPDATE</b>Status is known</div><div class="scenario-step"><b>AGENT</b>Drafts customer email</div><div class="scenario-step"><b>HUMAN APPROVAL</b>Approve before send</div><div class="scenario-step"><b>FINAL ACTION</b>Email sent / prepared</div></div>
+        </div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">UNDERSTAND EACH LAYER</p><h2>Different roles, one agent system</h2>
+        <div class="layer-grid">
+          <article class="layer"><h3>THINK</h3><p>Agent · Planning · Agent Loop<br>Decides what should happen next.</p></article>
+          <article class="layer"><h3>ACT</h3><p>Tool Calling · Tools · Skills<br>Does something outside the model.</p></article>
+          <article class="layer"><h3>REMEMBER</h3><p>State · Memory<br>Keeps useful task information.</p></article>
+          <article class="layer"><h3>CONNECT</h3><p>MCP<br>Connects AI applications to tools and resources.</p></article>
+          <article class="layer"><h3>CONTROL</h3><p>Human in the Loop<br>Adds review or approval.</p></article>
+          <article class="layer"><h3>COORDINATE</h3><p>Multi-Agent Systems<br>Lets multiple agents work together.</p></article>
+        </div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">WHY THE LOOP MATTERS</p><h2>One response is not an agent loop</h2>
+        <div class="loop-focus"><div class="loop-card"><b>ONE-SHOT MODEL</b><p>Input<br>↓<br>Output</p></div><div class="loop-card accent"><b>AGENT LOOP</b><p>Goal → Action → Result → New decision → Action ↺</p><p>Agents can adapt after seeing intermediate results.</p></div></div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">TOOL CALLING</p><h2>A request is not the real-world action</h2>
+        <div class="tool-flow"><div><b>MODEL</b><br>“I need order status.”</div><i>↓</i><div><b>TOOL CALL</b><br>get_order_status({order_id: “123”})</div><i>↓</i><div><b>APPLICATION / RUNTIME</b><br>executes</div><i>↓</i><div><b>ORDER SYSTEM</b></div><i>↓</i><div><b>RESULT</b><br>{status: “shipped”}</div><i>↓</i><div><b>MODEL CONTINUES</b></div></div>
+      </section>
+
+      <section class="agent-section">
+        <p class="agent-kicker">KEY DISTINCTIONS</p><h2>What not to confuse</h2>
+        <div class="comparison">
+          <article class="comparison-row"><h3>MODEL vs AGENT</h3><div class="compare-sides"><div><b>MODEL</b>Generates or reasons.</div><div><b>AGENT</b>Uses model + tools + state + loop.</div></div><p class="why">A model can answer. An agent can carry out a task.</p></article>
+          <article class="comparison-row"><h3>TOOL CALLING vs TOOL EXECUTION</h3><div class="compare-sides"><div><b>CALLING</b>Requests an action.</div><div><b>EXECUTION</b>Actually performs the action.</div></div><p class="why">Model: get_order_status(“123”). Application: calls the Order API.</p></article>
+          <article class="comparison-row"><h3>STATE vs MEMORY vs CONTEXT</h3><div class="compare-sides"><div><b>STATE</b>Current task status.</div><div><b>MEMORY</b>Information that may persist.</div></div><p class="why"><b>CONTEXT</b> is information visible to the model right now.</p></article>
+          <article class="comparison-row"><h3>MCP vs TOOL</h3><div class="compare-sides"><div><b>MCP</b>Connection standard.</div><div><b>TOOL</b>Actual capability.</div></div><p class="why">MCP can connect an AI app to a file-search tool.</p></article>
+        </div>
+      </section>
+
+      <section class="agent-section"><p class="agent-kicker">REMEMBER THIS</p><div class="takeaway">An agent is a controlled system around a model: it plans, acts through tools, observes results, keeps state, and loops until the goal is complete or a human must decide.</div></section>
+    </div>
+  </main>
+  <script src="sidebar.js"></script>
+</body>
+</html>
