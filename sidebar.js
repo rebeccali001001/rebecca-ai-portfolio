@@ -8,11 +8,20 @@
       mount.innerHTML = html;
       // Compare resolved pathnames rather than the raw href. This also works when
       // a page is served from a directory URL instead of a literal .html URL.
-      const current = new URL(location.href).pathname.replace(/\/$/, '/index.html').toLowerCase();
+      // Cloudflare serves clean URLs such as `/ai-foundations`, while the
+      // directory links use `ai-foundations.html`. Normalize both forms so
+      // the matching module is found in local and deployed environments.
+      const canonicalPath = (pathname) => {
+        let path = decodeURIComponent(pathname).replace(/\/$/, '/index.html').toLowerCase();
+        const leaf = path.slice(path.lastIndexOf('/') + 1);
+        if (leaf && !leaf.includes('.')) path += '.html';
+        return path;
+      };
+      const current = canonicalPath(new URL(location.href).pathname);
       let activeDetails;
       mount.querySelectorAll('a[href]').forEach((link) => {
         const url = new URL(link.getAttribute('href'), base);
-        if (decodeURIComponent(url.pathname).toLowerCase() === decodeURIComponent(current)) {
+        if (canonicalPath(url.pathname) === current) {
           link.classList.add('active');
           link.setAttribute('aria-current', 'page');
           activeDetails = link.closest('details');
