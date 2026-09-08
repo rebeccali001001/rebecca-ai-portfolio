@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>What Is Text Generation? · AI Foundations</title><meta name="description" content="Text generation creates language by repeatedly predicting and selecting the next token from available context."><link rel="stylesheet" href="topic.css?v=20260907-3"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js"></script></head>
+<body id="top" class="standard-topic concept-detail has-site-directory"><nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+<aside id="site-directory" aria-label="Site directory"></aside><main class="wrap topic-main"><a class="back" href="generative-multimodal-ai.html">← Generative &amp; Multimodal AI</a><div class="eyebrow">07 · Generative &amp; Multimodal AI</div><h1>What Is Text Generation?</h1><p class="lede">Text generation is the process of using an AI model to create new text from a prompt or other context. Modern language models usually generate text one token at a time.</p>
+<nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#core">Core idea</a><a href="#analogy">Think of it like...</a><a href="#example">Example</a><a href="#process">How it works</a><a href="#compare">Compare</a><a href="#output">Output</a><a href="#wrong">Why it can be wrong</a><a href="#uses">Use map</a><a href="#not">What it is NOT</a><a href="#related">Related</a><a href="#remember">Remember this</a><a href="#video">Video</a></nav>
+<section class="grid">
+<article id="core" class="card wide topic-definition"><h2>Core idea</h2><p class="definition">Text generation builds a response one selected token at a time.</p><div class="concept-tree" aria-label="Text generation loop">PROMPT
+↓
+CONTEXT
+System instructions + User request + Other relevant information
+↓
+LANGUAGE MODEL → NEXT-TOKEN PREDICTION → TOKEN SELECTED
+↓
+ADD TO OUTPUT → REPEAT ↺
+↓
+FINAL TEXT</div><p class="muted">This connects to Module 05’s Next-token Prediction concept without repeating that page: prediction is one step; generation is the repeated loop.</p></article>
+<article id="analogy" class="card wide topic-analogy"><h2>Think of it like...</h2><div class="analogy-box text-only"><div><p class="analogy-lede">Building a sentence one piece at a time.</p><p>“AI can help us ...”</p><p>Possible continuation: <b>understand</b> · <b>analyze</b> · <b>create</b></p><p>Then the model selects one token and continues with the next part.</p><p class="muted">This analogy is simplified. Real generation depends on learned probabilities across the available context.</p></div></div></article>
+<article id="example" class="card wide topic-example"><h2>One simple example</h2><div class="example-grid"><div><h3>INPUT</h3><p>“Write one sentence about the ocean.”</p></div><div><h3>MODEL GENERATION</h3><p class="concept-tree">The → ocean → covers → most → of → Earth → ...</p></div><div><h3>FINAL OUTPUT</h3><p>“The ocean covers most of Earth’s surface.”</p></div></div><p class="muted">The exact generated text can vary.</p></article>
+<article id="process" class="card wide topic-process"><h2>How text generation works</h2><div class="process-flow"><div class="step-card"><strong>01</strong><b>Read prompt and context</b></div><div class="step-card"><strong>02</strong><b>Run inference</b></div><div class="step-card"><strong>03</strong><b>Predict possible next tokens</b></div><div class="step-card"><strong>04</strong><b>Select a token</b></div><div class="step-card"><strong>05</strong><b>Add it and repeat</b></div></div><p class="muted">This loop continues until the response ends.</p></article>
+<article id="compare" class="card wide topic-comparison"><h2>Text Generation vs related concepts</h2><div class="misconceptions"><div class="misconception-card"><h3>Next-token Prediction</h3><p><b>One internal generation step:</b> What token could come next?</p><p><b>Text Generation:</b> The full repeated process that produces a complete response.</p></div><div class="misconception-card"><h3>LLM</h3><p><b>LLM:</b> A type of model focused on language.</p><p><b>Text Generation:</b> A capability or task performed using a model.</p></div><div class="misconception-card"><h3>Generative AI</h3><p><b>Generative AI:</b> A broad capability area that creates new content, including text, image, audio, video, or code.</p><p><b>Text Generation:</b> One specific generative capability.</p></div><div class="misconception-card"><h3>Code Generation</h3><p><b>Text Generation:</b> Natural-language text such as summaries, emails, and answers.</p><p><b>Code Generation:</b> Source code or code-like output such as Python, JavaScript, or SQL.</p></div></div><div class="concept-tree">Next-token Prediction = one step
+Text Generation = the whole repeated process
+LLM = model
+Text Generation = what the model can do</div></article>
+<article id="output" class="card wide topic-process"><h2>What changes the output?</h2><div class="concept-tree">SAME MODEL
+│
+├─ PROMPT
+├─ CONTEXT
+├─ SYSTEM INSTRUCTIONS
+├─ SAMPLING SETTINGS
+├─ TEMPERATURE
+└─ AVAILABLE INFORMATION</div><p class="muted">Sampling settings influence which token choices are selected; temperature is not simply “creativity.”</p></article>
+<article id="wrong" class="card wide topic-comparison"><h2>Why generated text can be wrong</h2><p>Text generation produces likely continuations based on model learning and supplied context. It does not automatically verify every statement against reality.</p><div class="examples"><div><h3>Can be fluent, relevant, useful</h3><p>The response may read naturally and fit the prompt.</p></div><div><h3>But still unsupported, outdated, incorrect</h3><p>Check evidence and use grounding or RAG when the task requires reliable facts.</p></div></div><p class="muted">Cross-reference: <a class="chip" href="grounding.html">Grounding</a> <a class="chip" href="rag.html">RAG</a> <a class="chip" href="evaluation.html">Evaluation</a></p></article>
+<article id="uses" class="card wide topic-example"><h2>One real-world use map</h2><div class="example-grid"><div><h3>Q&amp;A</h3><p>Answer questions</p></div><div><h3>SUMMARIZATION</h3><p>Condense documents</p></div><div><h3>WRITING</h3><p>Draft emails or articles</p></div><div><h3>REWRITING</h3><p>Change tone or structure</p></div><div><h3>TRANSLATION</h3><p>Generate text in another language</p></div><div><h3>STRUCTURED TEXT</h3><p>Produce labels, fields, or JSON-like outputs</p></div></div></article>
+<article id="not" class="card wide topic-comparison"><h2>What it is NOT</h2><div class="misconceptions"><div class="misconception-card"><h3>Generation vs Search</h3><p><b>Generation:</b> creates output. <b>Search:</b> finds existing information.</p></div><div class="misconception-card"><h3>Generation vs Retrieval</h3><p><b>Generation:</b> produces language. <b>Retrieval:</b> finds source information.</p></div><div class="misconception-card"><h3>Generation vs Training</h3><p><b>Generation:</b> happens during inference. <b>Training:</b> changes model parameters.</p></div><div class="misconception-card"><h3>Fluent vs Correct</h3><p><b>Fluent:</b> reads naturally. <b>Correct:</b> matches reality or evidence.</p></div></div></article>
+<article id="related" class="card wide topic-related"><h2>Related concepts</h2><div class="concept-tree">Generative AI
+↓
+Text Generation
+
+Depends on: Token · Context Window · Inference · Next-token Prediction · Sampling / Temperature
+Can combine with: RAG · Grounding · Structured Outputs</div><p class="muted">Explore next</p><div class="chips"><a class="chip" href="token.html">Token</a><a class="chip" href="context-window.html">Context Window</a><a class="chip" href="inference.html">Inference</a><a class="chip" href="next-token-prediction.html">Next-token Prediction</a><a class="chip" href="sampling-temperature.html">Sampling / Temperature</a><a class="chip" href="structured-outputs.html">Structured Outputs</a></div></article>
+<article id="remember" class="card wide topic-takeaway"><h2>Remember this</h2><p class="note">Text generation creates language by repeatedly predicting and selecting the next token from the available context.</p></article>
+<article id="video" class="card wide video-card"><div class="video-label"><div><div class="eyebrow">Independent explainer</div><h2>Video</h2></div><small>not yet available</small></div><p class="video-caption">A Text Generation explainer video is not available yet.</p></article>
+</section></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

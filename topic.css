@@ -241,3 +241,21 @@ nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justi
     min-width: 0;
   }
 }
++
+/* Next-token prediction detail page */
+.next-token-page .lede{max-width:780px;margin:0 0 4px}.generation-loop{max-width:1100px;margin:22px auto 0;display:grid;grid-template-columns:1fr 42px 1.25fr 42px 1fr 42px 1fr 42px 1fr 42px 1fr;align-items:stretch;gap:10px}.loop-block{display:flex;flex-direction:column;justify-content:center;min-height:118px;padding:18px;border:1px solid #38516d;border-radius:16px;background:#07111a;text-align:center}.loop-block small,.comparison-grid small,.temperature-grid small{color:var(--green);font-weight:850;letter-spacing:.08em;font-size:11px}.loop-block b{margin-top:7px}.loop-arrow{display:grid;place-items:center;color:var(--green);font-size:24px}.model-block{background:linear-gradient(145deg,rgba(127,177,255,.12),rgba(120,229,189,.06)),#07111a}.selected-block{border-color:var(--green);background:rgba(120,229,189,.09)}.repeat-block{border-color:#7fb1ff}.probability-list{display:grid;gap:3px;margin-top:8px;text-align:left;font-size:13px;color:var(--muted)}.probability-list span{display:flex;justify-content:space-between}.probability-list i{font-style:normal;color:#fff}.visual-caption{text-align:center;font-size:13px;margin-top:14px}.next-token-steps{grid-template-columns:repeat(5,minmax(0,1fr))}.next-token-steps .step-card{min-height:150px}.next-token-steps .step-card strong{font-size:20px}.comparison-grid,.temperature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.comparison-grid>div,.temperature-grid>div{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.comparison-grid h3{margin:8px 0 7px}.comparison-grid p,.temperature-grid span{color:var(--muted)}.temperature-grid{max-width:900px}.temperature-grid b,.temperature-grid span{display:block;margin-top:8px}.temperature-grid>div:first-child{border-color:#7fb1ff}.temperature-grid>div:last-child{border-color:#ffd47f}.mini-example{max-width:740px;padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.mini-distribution{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}.mini-distribution span{padding:12px 10px;border-radius:10px;background:#102335;color:#dbe7f4}.mini-distribution b{float:right;color:var(--green)}.arrow-line{color:var(--muted)}.arrow-line strong{color:#fff}.next-token-page .chips{display:flex;gap:8px;flex-wrap:wrap}.next-token-page .chip{padding:7px 11px;border:1px solid #38516d;border-radius:999px;color:#dbe7f4;font-size:13px}.next-token-page .chip:hover{border-color:var(--green)}
++@media(max-width:1100px){.generation-loop{grid-template-columns:1fr;max-width:700px}.loop-arrow{min-height:20px}.next-token-steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
++@media(max-width:760px){.next-token-steps,.comparison-grid,.temperature-grid{grid-template-columns:1fr}.mini-distribution{grid-template-columns:1fr 1fr}.loop-block{min-height:90px}}
+.hitl-page .detail-sections{max-width:none}
+.comparison-page,.hitl-page{max-width:1180px!important}
+
+/* Keep comparison/detail topics on the same centered content rail as Context Engineering. */
+@media(min-width:1051px){
+  body.has-site-directory>main.detail-page.comparison-page,
+  body.hitl-page.has-site-directory>main.detail-page{
+    width:min(1180px,calc(100vw - var(--directory-left) - var(--directory-width) - var(--directory-gap) - 24px))!important;
+    max-width:1180px!important;
+    margin-left:calc(var(--directory-left) + var(--directory-width) + var(--directory-gap) + max(0px,(100vw - 1560px)/2))!important;
+    margin-right:auto!important;
+  }
+}
