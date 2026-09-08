@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preference Learning / RLHF</title>
+<link rel="stylesheet" href="topic.css">
+<link rel="stylesheet" href="site-directory.css">
+<script defer src="sidebar.js">
+</script>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+<nav>
+<div class="wrap">
+<a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span>
+</a>
+</div>
+</nav>
+<aside id="site-directory" aria-label="Site directory">
+</aside>
+<main class="wrap topic-shell">
+<section class="topic-main">
+<a class="back" href="training-model-adaptation.html">← Training &amp; Model Adaptation</a>
+<div class="eyebrow">04 · Training &amp; Model Adaptation · Preference Learning / RLHF</div>
+<h1>What is Preference Learning?</h1>
+<p class="lede">Preference learning trains a model using feedback about which outputs are more desirable.</p>
+<nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#definition">What is it?</a><a href="#analogy">Think of it like...</a><a href="#process">How it works</a><a href="#examples">Real-world examples</a><a href="#not">What it is NOT</a><a href="#related">Related concepts</a><a href="#remember">Remember this</a><a href="#video">Video</a></nav>
+<section class="grid">
+<article id="definition" class="card wide topic-definition">
+<h2>What is it?</h2>
+<p class="muted">Preference learning uses comparisons or feedback to teach a model which responses are preferred.</p>
+<p class="muted">RLHF means Reinforcement Learning from Human Feedback. It is one preference-alignment approach, not the only possible method.</p>
+</article>
+<article id="analogy" class="card wide topic-analogy">
+<h2>Think of it like...</h2>
+<p class="muted">A writing coach comparing two answers. The coach says, “This answer is better than that one.” Over many comparisons, the learner begins to understand which style is preferred.</p>
+</article>
+<article id="process" class="card wide topic-process">
+<h2>How it works</h2>
+<div class="steps">
+<div class="step-card">
+<strong>1 · Prompt</strong>
+<b>Give the task</b>
+<span class="muted">A model receives a question or instruction.</span>
+</div>
+<div class="step-card">
+<strong>2 · Candidates</strong>
+<b>Produce responses</b>
+<span class="muted">Candidate outputs can be compared.</span>
+</div>
+<div class="step-card">
+<strong>3 · Feedback</strong>
+<b>Choose a preference</b>
+<span class="muted">People or another process supplies a preference signal.</span>
+</div>
+<div class="step-card">
+<strong>4 · Training</strong>
+<b>Shape behavior</b>
+<span class="muted">The signal is used in further training; implementations differ.</span>
+</div>
+</div>
+</article>
+<article id="examples" class="card wide topic-example">
+<h2>Real-world examples</h2>
+<div class="enterprise-cases">
+<div>
+<b>Helpful answers</b>
+<p class="muted">Prefer direct, useful responses.</p>
+</div>
+<div>
+<b>Safety behavior</b>
+<p class="muted">Prefer responses that follow policy boundaries.</p>
+</div>
+<div>
+<b>Style</b>
+<p class="muted">Prefer concise or clearly structured responses.</p>
+</div>
+</div>
+</article>
+<article id="not" class="card wide topic-comparison">
+<h2>What it is NOT</h2>
+<div class="misconceptions">
+<div class="misconception-card">
+<h3>RLHF ≠ Reinforcement Learning in Every Form</h3>
+<p>RLHF uses human feedback; reinforcement learning is the broader family.</p>
+</div>
+<div class="misconception-card">
+<h3>Preference Learning ≠ Fine-tuning in General</h3>
+<p>Preference learning specifically uses preference or feedback signals.</p>
+</div>
+<div class="misconception-card">
+<h3>Human Preference ≠ Objective Truth</h3>
+<p>People can disagree, and preference data can contain bias.</p>
+</div>
+</div>
+</article>
+<article id="related" class="card wide topic-related">
+<h2>Related concepts</h2>
+<div class="concept-tree">
+<span>Pre-training</span>
+<span>↓</span>
+<span>Instruction Tuning</span>
+<span>↓</span>
+<b>Preference Learning</b>
+</div>
+<div class="chips">
+<a class="chip" href="pre-training.html">Pre-training</a>
+<a class="chip" href="instruction-tuning.html">Instruction Tuning</a>
+<a class="chip" href="fine-tuning.html">Fine-tuning</a>
+<a class="chip" href="reinforcement-learning.html">Reinforcement Learning</a>
+</div>
+</article>
+<article id="remember" class="card wide topic-takeaway">
+<h2>Remember this</h2>
+<p class="note">Preference learning uses feedback about better and worse outputs to shape model behavior.</p>
+</article>
+<article id="video" class="card wide video-card">
+<div class="video-label">
+<div>
+<div class="eyebrow">Video</div>
+<h2>Video</h2>
+</div>
+<small>暂无视频</small>
+</div>
+</article>
+</section>
+</section>
+</main>
+<a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What is a Multi-Agent System? · Agents, Tools &amp; MCP</title>
+<meta name="description" content="A multi-agent system coordinates multiple agents rather than relying on one agent to do everything.">
+<link rel="stylesheet" href="topic.css?v=20260907-2">
+<link rel="stylesheet" href="site-directory.css">
+<script defer src="sidebar.js">
+</script>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+<nav>
+<div class="wrap">
+<a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span>
+</a>
+</div>
+</nav>
+<aside id="site-directory" aria-label="Site directory">
+</aside>
+<main class="wrap topic-main">
+<a class="back" href="agents-tools-mcp.html">← Agents, Tools &amp; MCP</a>
+<div class="eyebrow">09 · Agents, Tools &amp; MCP · Topic 10</div>
+<h1>What is a Multi-Agent System?</h1>
+<p class="lede">A multi-agent system uses more than one agent to divide, coordinate, or collaborate on a task.</p>
+<nav class="on-page" aria-label="On this page">
+<b>On this page</b>
+<a href="#definition">What is it?</a>
+<a href="#analogy">Think of it like...</a>
+<a href="#process">How it works</a>
+<a href="#examples">Real-world examples</a>
+<a href="#not">What it is NOT</a>
+<a href="#related">Related concepts</a>
+<a href="#remember">Remember this</a>
+<a href="#video">Video</a>
+</nav>
+<section class="grid">
+<article id="definition" class="card wide topic-definition">
+<h2>What is it?</h2>
+<p class="definition">A multi-agent system contains multiple agents that interact while working toward one or more goals.</p>
+<p class="muted">Agents may have specialized roles, delegate tasks, work in parallel, review one another, or coordinate through shared state. More agents does not automatically mean better.</p>
+</article>
+<article id="analogy" class="card wide topic-analogy">
+<h2>Think of it like...</h2>
+<div class="analogy-box text-only">
+<p class="analogy-lede">Think of it like a project team.</p>
+<p class="muted">A researcher finds useful information, a writer turns it into a draft, and a reviewer checks the result. Each person has a different role, and they exchange information to complete one deliverable.</p>
+</div>
+</article>
+<article id="process" class="card wide topic-process">
+<h2>How it works</h2>
+<div class="process-flow">
+<div class="step-card">
+<strong>1 · Goal</strong>
+<b>Set the objective</b>
+<span class="muted">Define the shared task and constraints.</span>
+</div>
+<div class="step-card">
+<strong>2 · Assign</strong>
+<b>Choose roles</b>
+<span class="muted">A coordinator or shared task connects the work.</span>
+</div>
+<div class="step-card">
+<strong>3 · Work</strong>
+<b>Run agents</b>
+<span class="muted">Agents solve parts of the task, sometimes in parallel.</span>
+</div>
+<div class="step-card">
+<strong>4 · Exchange</strong>
+<b>Share results</b>
+<span class="muted">Agents pass messages, artifacts, or state to one another.</span>
+</div>
+<div class="step-card">
+<strong>5 · Review</strong>
+<b>Coordinate output</b>
+<span class="muted">The system combines, checks, and returns the result.</span>
+</div>
+</div>
+<p class="muted">Some systems use decentralized coordination instead of one central coordinator.</p>
+</article>
+<article id="examples" class="card wide topic-example">
+<h2>Real-world examples</h2>
+<div class="example-grid">
+<div>
+<h3>Everyday example · Research and writing</h3>
+<p>
+<b>Input:</b> a request for a short report</p>
+<p>
+<b>AI / System:</b> research, writing, and review agents collaborate</p>
+<p>
+<b>Output:</b> a checked draft with sources</p>
+</div>
+<div>
+<h3>Business example · Software development</h3>
+<p>
+<b>Input:</b> a feature request</p>
+<p>
+<b>AI / System:</b> planning, coding, testing, and review roles exchange work</p>
+<p>
+<b>Output:</b> a proposed change with test evidence</p>
+</div>
+</div>
+</article>
+<article id="not" class="card wide topic-comparison">
+<h2>What it is NOT</h2>
+<div class="misconceptions">
+<div class="misconception-card">
+<h3>Multi-Agent System ≠ One Agent with Many Tools</h3>
+<p>
+<b>Multi-agent system:</b> has multiple interacting agent roles or loops.</p>
+<p>
+<b>One agent with tools:</b> has one decision-maker using several capabilities.</p>
+</div>
+<div class="misconception-card">
+<h3>Multi-Agent System ≠ Multiple LLM Calls</h3>
+<p>
+<b>Multi-agent system:</b> coordinates distinct roles or agents.</p>
+<p>
+<b>Multiple LLM calls:</b> may simply be a sequence without agent interaction.</p>
+</div>
+<div class="misconception-card">
+<h3>More Agents ≠ Better Performance</h3>
+<p>
+<b>More agents:</b> can add coordination cost, errors, and latency.</p>
+<p>
+<b>Better performance:</b> depends on task fit, communication, and evaluation.</p>
+</div>
+</div>
+</article>
+<article id="related" class="card wide topic-related">
+<h2>Related concepts</h2>
+<div class="concept-tree">AI Agent → Agent Loop<br>Multi-Agent Systems → multiple agent loops / roles interacting</div>
+<p class="muted">Also related</p>
+<div class="chips">
+<a class="chip" href="ai-agent.html">AI Agent</a>
+<a class="chip" href="agent-loop.html">Agent Loop</a>
+<a class="chip" href="tool-calling.html">Tool Calling</a>
+<a class="chip" href="planning.html">Planning</a>
+<a class="chip" href="memory-state.html">Memory &amp; State</a>
+<span class="chip unavailable">Human in the Loop <em class="status status-new">Coming soon</em></span>
+</div>
+</article>
+<article id="remember" class="card wide topic-takeaway">
+<h2>Remember this</h2>
+<p class="note">A multi-agent system coordinates multiple agents rather than relying on one agent to do everything.</p>
+</article>
+<article id="video" class="card wide video-card">
+<div class="video-label">
+<div>
+<div class="eyebrow">Video</div>
+<h2>Video</h2>
+</div>
+<small>暂无视频</small>
+</div>
+<p class="video-caption">A video explainer is not available yet.</p>
+</article>
+</section>
+</main>
+<a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>
