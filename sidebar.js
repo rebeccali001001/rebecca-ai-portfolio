@@ -28,6 +28,17 @@
         if (summary) summary.classList.toggle('active-module', detail === activeDetails);
         detail.classList.toggle('expanded', detail === activeDetails);
       });
+      mount.querySelectorAll('a[href]').forEach((link) => {
+        link.addEventListener('click', () => {
+          const selected = link.closest('details');
+          mount.querySelectorAll('details').forEach((detail) => {
+            detail.open = detail === selected;
+            const summary = detail.querySelector(':scope > summary');
+            if (summary) summary.classList.toggle('active-module', detail === selected);
+            detail.classList.toggle('expanded', detail === selected);
+          });
+        });
+      });
       if (activeDetails) activeDetails.scrollIntoView({ block: 'nearest' });
     })
     .catch((error) => { mount.innerHTML = '<p class="directory-note">Site directory is temporarily unavailable.</p>'; console.error(error); });
