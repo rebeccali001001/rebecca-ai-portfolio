@@ -203,3 +203,41 @@ nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justi
 /* Overview pages use the same centred desktop rail as detail pages. Body copy
    can remain narrow inside a module, while maps and grids use the full rail. */
 @media(min-width:1101px){body.overview-page.has-site-directory>main.overview-page{box-sizing:border-box!important;width:min(1200px,calc(100vw - 352px))!important;max-width:1200px!important;margin-left:calc(304px + max(0px,(100vw - 1552px)/2))!important;margin-right:0!important;padding-left:24px!important;padding-right:24px!important}body.overview-page.has-site-directory>main.overview-page>.overview-hero{max-width:780px}body.overview-page.has-site-directory>main.overview-page>.map-section,body.overview-page.has-site-directory>main.overview-page>.overview-section,body.overview-page.has-site-directory>main.overview-page>.takeaway-strip{max-width:1152px}}
+
+/* Authoritative fixed-directory layout.  Keep the directory out of document
+   flow, then reserve its full footprint for every standard topic page. */
+@media (min-width: 1051px) {
+  :root {
+    --directory-left: 22px;
+    --directory-width: 310px;
+    --directory-gap: 24px;
+  }
+
+  body.has-site-directory #site-directory {
+    left: var(--directory-left);
+    width: var(--directory-width);
+  }
+
+  body.has-site-directory > nav .wrap,
+  body.has-site-directory > main,
+  body.has-site-directory > main.detail-page,
+  body.has-site-directory > main.topic-shell,
+  body.has-site-directory > main.topic-main {
+    box-sizing: border-box;
+    margin-left: calc(var(--directory-left) + var(--directory-width) + var(--directory-gap)) !important;
+    margin-right: 24px !important;
+    width: calc(100vw - var(--directory-left) - var(--directory-width) - var(--directory-gap) - 24px) !important;
+    max-width: none !important;
+  }
+
+  body.has-site-directory > main {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  body.has-site-directory > main.detail-page .detail-sections,
+  body.has-site-directory > main.topic-shell .topic-main,
+  body.has-site-directory > main.topic-main {
+    min-width: 0;
+  }
+}
