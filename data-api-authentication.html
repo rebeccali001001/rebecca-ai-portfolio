@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Data, APIs &amp; Authentication · Product Architecture</title>
+  <meta name="description" content="A beginner-friendly guide to databases, file storage, APIs, authentication, and authorization.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .data-flow,.api-flow,.example-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:22px;border:1px solid #38516d;border-radius:16px;background:#07111a}
+    .data-flow div,.api-flow div,.example-flow div{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#0b1723;text-align:center;font-weight:800;letter-spacing:.04em}
+    .data-flow small,.api-flow small,.example-flow small{display:block;color:var(--muted);font-weight:500;letter-spacing:0;margin-top:4px}
+    .data-flow .accent,.api-flow .accent,.example-flow .accent{border-color:rgba(120,229,189,.7);background:rgba(120,229,189,.1)}
+    .flow-arrow{color:var(--green);font-size:23px;font-weight:800}
+    .side-note{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:var(--muted);background:rgba(7,17,26,.55)}
+    .two-up,.example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .mini-card{padding:18px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .mini-card h3{margin:0 0 7px;color:#fff;font-size:18px}.mini-card p{margin:7px 0;color:var(--muted)}
+    .mini-card b{color:var(--green)}
+    @media(max-width:760px){.two-up,.example-grid{grid-template-columns:1fr}.data-flow,.api-flow,.example-flow{display:grid}.flow-arrow{transform:rotate(90deg)}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="ai-knowledge.html">← AI Knowledge</a>
+    <div class="eyebrow">17 · Product Architecture</div>
+    <h1>Data, APIs &amp; Authentication</h1>
+    <p class="lede">Products need ways to store information, communicate between systems, identify users, and control access.</p>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#map">How they fit</a><a href="#storage">Database vs storage</a><a href="#api">What is an API?</a><a href="#identity">Authentication vs authorization</a><a href="#example">Real example</a><a href="#platforms">Examples</a><a href="#remember">Remember this</a></nav>
+
+    <section class="grid">
+      <article id="map" class="card wide"><h2>How the pieces fit</h2><div class="data-flow"><div>USER</div><span class="flow-arrow">↓</span><div class="accent">AUTHENTICATION<small>Who are you?</small></div><span class="flow-arrow">↓</span><div>APPLICATION</div><span class="flow-arrow">↓</span><div class="accent">API<small>How systems communicate</small></div><span class="flow-arrow">↓</span><div>DATABASE<small>Structured data</small></div><span class="flow-arrow">＋</span><div>STORAGE<small>Files / media</small></div></div><p class="side-note"><b>AUTHORIZATION</b> · What are you allowed to do?</p></article>
+
+      <article id="storage" class="card wide"><h2>Database vs Storage</h2><div class="two-up"><div class="mini-card"><h3>DATABASE</h3><p>Structured application data</p><p><b>Examples:</b> user · order · lesson progress</p></div><div class="mini-card"><h3>STORAGE</h3><p>Files</p><p><b>Examples:</b> image · video · PDF · audio</p></div></div><p class="side-note"><b>Database ≠ File Storage</b></p></article>
+
+      <article id="api" class="card wide"><h2>What Is an API?</h2><div class="api-flow"><div>APP A</div><span class="flow-arrow">↓</span><div>REQUEST</div><span class="flow-arrow">↓</span><div class="accent">API</div><span class="flow-arrow">↓</span><div>APP B / SERVICE</div><span class="flow-arrow">↓</span><div>RESPONSE</div></div><p class="side-note">API is a defined way for software systems to communicate.</p></article>
+
+      <article id="identity" class="card wide"><h2>Authentication vs Authorization</h2><div class="two-up"><div class="mini-card"><h3>AUTHENTICATION</h3><p>Who are you?</p><p><b>Example:</b> Login</p></div><div class="mini-card"><h3>AUTHORIZATION</h3><p>What are you allowed to do?</p><p><b>Example:</b> Admin can delete record</p></div></div></article>
+
+      <article id="example" class="card wide"><h2>One Real Example · AI Learning App</h2><div class="example-flow"><div>USER LOGS IN</div><span class="flow-arrow">↓</span><div class="accent">AUTHENTICATION<small>confirms identity</small></div><span class="flow-arrow">↓</span><div>APP REQUESTS LESSON</div><span class="flow-arrow">↓</span><div class="accent">API<small>communicates with backend</small></div><span class="flow-arrow">↓</span><div>DATABASE<small>returns progress</small></div><span class="flow-arrow">↓</span><div>AI API<small>generates feedback</small></div><span class="flow-arrow">＋</span><div>STORAGE<small>provides audio file</small></div></div></article>
+
+      <article id="platforms" class="card wide"><h2>Common Platform Examples</h2><div class="example-grid"><div class="mini-card"><b>Supabase</b></div><div class="mini-card"><b>Firebase</b></div><div class="mini-card"><b>PostgreSQL</b></div><div class="mini-card"><b>Cloud Storage</b></div><div class="mini-card"><b>REST APIs</b></div></div><p class="muted">These are examples of tools and patterns you may encounter. Detailed comparisons come later.</p></article>
+
+      <article id="remember" class="card wide topic-takeaway"><h2>Remember This</h2><p class="note">Data systems store information, APIs connect software, and authentication controls who can access the product.</p></article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

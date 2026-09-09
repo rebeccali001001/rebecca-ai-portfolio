@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Frontend &amp; Backend · Product Architecture</title>
+  <meta name="description" content="Frontend and backend are the two connected layers that make an AI product work.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js"></script>
+  <style>
+    .architecture-visual{display:grid;gap:10px;padding:22px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#f7f4ed,#fff)}
+    .arch-node{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;padding:16px 18px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+    .arch-node strong{letter-spacing:.08em;font-size:.76rem;color:#6c6255}.arch-node span{font-weight:650}.arch-node.front{border-left:4px solid #c86b45}.arch-node.back{border-left:4px solid #3c7381}.arch-node.ai{border-left:4px solid #a8893b}.arch-arrow{text-align:center;color:#8e8375;font-size:1.3rem;line-height:1}
+    .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.tag{padding:6px 10px;border-radius:999px;background:#f1eee7;color:#5f574d;font-size:.86rem}
+    .mini-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:stretch}.mini-flow div{padding:14px;border-radius:12px;background:#f7f4ed;border:1px solid var(--line);font-size:.9rem}.mini-flow b{display:block;color:#a45839;font-size:.72rem;letter-spacing:.08em;margin-bottom:8px}
+    .compare-list{display:grid;gap:0}.compare-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);padding:13px 0;gap:18px}.compare-row b{color:#3c7381}.compare-row div:last-child b{color:#a45839}
+    @media(max-width:700px){.arch-node{grid-template-columns:1fr;gap:6px}.mini-flow{grid-template-columns:1fr}.compare-row{grid-template-columns:1fr;gap:5px}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="ai-knowledge.html">← Product Architecture</a>
+    <div class="eyebrow">17 · Product Architecture</div>
+    <h1>Frontend &amp; Backend</h1>
+    <p class="lede">Frontend is the part users interact with, while backend is the part that processes logic, data, and services behind the scenes.</p>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#visual">How they connect</a><a href="#frontend">Frontend</a><a href="#backend">Backend</a><a href="#example">Simple example</a><a href="#compare">Compare</a><a href="#full-stack">Full Stack</a><a href="#remember">Remember this</a></nav>
+    <section class="grid">
+      <article id="visual" class="card wide topic-process"><h2>How they connect</h2><div class="architecture-visual" aria-label="User, frontend, request, backend, response, frontend flow"><div class="arch-node"><strong>USER</strong><span>opens the product and takes an action</span></div><div class="arch-arrow">↓</div><div class="arch-node front"><strong>FRONTEND</strong><span>Page · Form · Button · Dashboard</span></div><div class="arch-arrow">↓ <small>REQUEST</small></div><div class="arch-node back"><strong>BACKEND</strong><span>Business Logic · Database · Authentication · AI · External APIs</span></div><div class="arch-arrow">↓ <small>RESPONSE</small></div><div class="arch-node front"><strong>FRONTEND</strong><span>shows the result back to the user</span></div></div></article>
+      <article id="frontend" class="card"><h2>Frontend</h2><p class="definition">Frontend = the user-facing layer.</p><p>It is what people see and touch: a website, mobile interface, dashboard, or form. Frontend frameworks help teams organize these visible product experiences.</p><div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Vue</span><span class="tag">Next.js</span></div><p class="muted">These are examples, not a coding lesson. Detailed technologies belong in Module 19.</p></article>
+      <article id="backend" class="card"><h2>Backend</h2><p class="definition">Backend = server-side processing / application logic.</p><p>It works behind the interface: saving an account, checking permission, retrieving an order, calling an AI model, or processing a payment.</p><div class="tag-row"><span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Django</span></div><p class="muted">Backend frameworks are organized ways to build these behind-the-scenes services.</p></article>
+      <article id="example" class="card wide topic-example"><h2>One simple example</h2><div class="mini-flow"><div><b>USER CLICKS</b>“Generate Summary”</div><div><b>FRONTEND</b>sends request</div><div><b>BACKEND + AI</b>retrieves document, generates summary</div><div><b>BACKEND</b>returns result</div><div><b>FRONTEND</b>shows summary</div></div></article>
+      <article id="compare" class="card wide topic-comparison"><h2>Frontend vs Backend</h2><div class="compare-list"><div class="compare-row"><b>Visible to user</b><div><b>Frontend:</b> yes, directly visible</div><div><b>Backend:</b> mostly hidden</div></div><div class="compare-row"><b>Main responsibility</b><div><b>Frontend:</b> user experience and interaction</div><div><b>Backend:</b> logic, data, and services</div></div><div class="compare-row"><b>Typical data</b><div><b>Frontend:</b> inputs, screens, displayed results</div><div><b>Backend:</b> accounts, records, permissions, model responses</div></div><div class="compare-row"><b>Typical technologies</b><div><b>Frontend:</b> HTML, CSS, JavaScript, React</div><div><b>Backend:</b> Node.js, Python, FastAPI</div></div></div></article>
+      <article id="full-stack" class="card"><h2>What is Full Stack?</h2><p class="definition">Full Stack = working across both frontend and backend layers.</p><p>A full-stack product connects the experience users see with the logic and services that make it work. The phrase describes coverage across the system, not a separate kind of product.</p></article>
+      <article id="remember" class="card wide topic-takeaway"><h2>Remember this</h2><p class="note">Frontend handles the user experience, while backend handles the logic and services that make the product work.</p></article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

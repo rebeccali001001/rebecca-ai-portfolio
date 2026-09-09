@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>What Are AI Guardrails? · Evaluation, Safety &amp; Reliability</title>
+  <meta name="description" content="Guardrails are controls designed to reduce unsafe, unwanted, or invalid AI behavior.">
+  <link rel="stylesheet" href="topic.css?v=20260909-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory guardrails-page">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="AI Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <a class="back" href="evaluation-safety-reliability.html">← Evaluation, Safety &amp; Reliability</a>
+    <div class="eyebrow">11 · Evaluation, Safety &amp; Reliability</div>
+    <h1>What Are AI Guardrails?</h1>
+    <p class="lede">Guardrails are controls designed to reduce unsafe, unwanted, or invalid AI behavior.</p>
+    <p class="lede">They can check inputs, restrict actions, validate outputs, or require additional approval.</p>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On this page</b>
+      <a href="#visual">How guardrails fit</a>
+      <a href="#types">Types</a>
+      <a href="#example">Real example</a>
+      <a href="#distinctions">Key distinctions</a>
+      <a href="#defense">Defense in depth</a>
+      <a href="#related">Related concepts</a>
+      <a href="#remember">Remember this</a>
+      <a href="#video">Video</a>
+    </nav>
+
+    <section class="detail-sections">
+      <article id="visual" class="card detail-section">
+        <h2>Where guardrails fit</h2>
+        <div class="guardrail-architecture" aria-label="AI guardrails can be placed throughout the system">
+          <div class="guardrail-main-flow">
+            <div class="guardrail-node">USER INPUT</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node guardrail-control">INPUT GUARDRAIL</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node">MODEL</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node">PROPOSED ACTION</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node guardrail-control">TOOL / PERMISSION CONTROL</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node">OUTPUT</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node guardrail-control">OUTPUT VALIDATION</div>
+            <div class="guardrail-arrow">↓</div>
+            <div class="guardrail-node">USER / SYSTEM</div>
+          </div>
+          <div class="guardrail-approval"><small>HUMAN APPROVAL</small>when required</div>
+        </div>
+        <p class="flow-caption">Guardrails can exist at multiple points in an AI system.</p>
+      </article>
+
+      <article id="types" class="card detail-section">
+        <h2>Types of guardrails</h2>
+        <div class="guardrail-types">
+          <div><h3>Input controls</h3><p>Check or filter incoming content.</p><p><b>Example:</b> block an unsafe or manipulative request.</p></div>
+          <div><h3>Output controls</h3><p>Validate generated results.</p><p><b>Example:</b> reject an answer that contains unsupported claims.</p></div>
+          <div><h3>Tool controls</h3><p>Limit the actions an agent can call.</p><p><b>Example:</b> allow search but not deletion.</p></div>
+          <div><h3>Permission controls</h3><p>Restrict access to systems and data.</p><p><b>Example:</b> deny payment release.</p></div>
+          <div><h3>Human approval</h3><p>Require review for sensitive actions.</p><p><b>Example:</b> approve a large refund.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section">
+        <h2>One real example · AI refund agent</h2>
+        <p class="definition">User: “Refund $10,000 immediately.”</p>
+        <div class="refund-flow">
+          <div class="step-card"><strong>USER</strong><b>Refund $10,000</b></div>
+          <div class="arrow">→</div>
+          <div class="step-card"><strong>CHECK</strong><b>Amount check</b></div>
+          <div class="arrow">→</div>
+          <div class="step-card"><strong>CONTROL</strong><b>Permission check</b></div>
+          <div class="arrow">→</div>
+          <div class="step-card"><strong>REVIEW</strong><b>Human approval</b></div>
+          <div class="arrow">→</div>
+          <div class="step-card"><strong>RESULT</strong><b>Execute only if allowed</b></div>
+        </div>
+        <p class="note"><b>Core idea:</b> The model can propose an action. Guardrails determine whether the system may continue.</p>
+      </article>
+
+      <article id="distinctions" class="card detail-section">
+        <h2>Guardrails and related controls</h2>
+        <div class="misconceptions">
+          <div class="misconception-card"><h3>Guardrail vs Guarantee</h3><p><b>Guardrail:</b> reduces risk.</p><p><b>Guarantee:</b> would mean failure cannot happen.</p><p>Guardrails improve safety, but they do not make an AI system infallible.</p></div>
+          <div class="misconception-card"><h3>Guardrail vs Permission</h3><p><b>Guardrail:</b> a broader control concept.</p><p><b>Permission:</b> a specific rule about what an action or resource allows.</p><p><b>Example:</b> guardrail: high-value payment requires control; permission: agent cannot release payment.</p></div>
+          <div class="misconception-card"><h3>Guardrail vs Validation</h3><p><b>Validation:</b> checks whether something meets defined rules.</p><p><b>Guardrail:</b> broader system control that may include validation, permissions, filters, or approval gates.</p></div>
+          <div class="misconception-card"><h3>Guardrail vs Human approval</h3><p><b>Guardrail:</b> can be automated or human-controlled.</p><p><b>Human approval:</b> a person explicitly reviews an action.</p><p>Human approval can be one type of guardrail.</p></div>
+        </div>
+      </article>
+
+      <article id="defense" class="card detail-section">
+        <h2>Defense in depth</h2>
+        <div class="guardrail-layers">
+          <div class="guardrail-layer">INPUT CHECK <span>screen the request</span></div>
+          <div class="guardrail-layer">SYSTEM INSTRUCTION <span>define safe behavior</span></div>
+          <div class="guardrail-layer">TOOL RESTRICTION <span>limit capabilities</span></div>
+          <div class="guardrail-layer">PERMISSION <span>enforce access</span></div>
+          <div class="guardrail-layer">OUTPUT VALIDATION <span>check the result</span></div>
+          <div class="guardrail-layer">HUMAN APPROVAL <span>review when needed</span></div>
+        </div>
+        <p class="layered-safety">↓ <b>Layered safety</b></p>
+        <p class="muted">No single control handles every risk.</p>
+      </article>
+
+      <article id="related" class="card detail-section">
+        <h2>Related concepts</h2>
+        <div class="related-chips">
+          <a class="chip" href="prompt-injection.html">Prompt Injection</a>
+          <a class="chip" href="permissions-safety.html">Permissions &amp; Safety</a>
+          <a class="chip" href="human-in-the-loop.html">Human in the Loop</a>
+          <a class="chip" href="failure-handling.html">Failure Handling</a>
+          <a class="chip" href="deployment-readiness.html">Deployment Readiness</a>
+          <a class="chip" href="evaluation.html">Evaluation</a>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section remember">
+        <h2>Remember this</h2>
+        <p>Guardrails reduce AI system risk by constraining inputs, outputs, actions, and access.</p>
+      </article>
+
+      <article id="video" class="card detail-section video-card">
+        <div class="video-label"><div><div class="eyebrow">Independent explainer</div><h2>Video</h2></div><small>visual explainer · captions included</small></div>
+        <video controls preload="metadata" poster="vedio/guardrails.png" aria-label="AI Guardrails explainer video"><source src="vedio/guardrails.mp4" type="video/mp4"><track kind="captions" src="vedio/guardrails.vtt" srclang="en" label="English captions" default>Your browser does not support video playback.</video>
+        <div class="video-meta"><span>controls · layers · approval</span><span>MP4 · H.264 + AAC</span></div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Deployment &amp; Operations · Product Architecture</title>
+  <meta name="description" content="A beginner-friendly explanation of deployment, hosting, domains, CI/CD, and monitoring.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2"><link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="product-architecture.html">← Product Architecture</a>
+    <div class="eyebrow">17 · Product Architecture</div>
+    <h1>Deployment &amp; Operations</h1>
+    <p class="lede">Building a product is only the beginning. Deployment makes it available to users, while operations keep it running reliably.</p>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#release">The release path</a><a href="#hosting">Hosting vs deployment</a><a href="#web">Domain, DNS &amp; CDN</a><a href="#cicd">CI/CD</a><a href="#monitoring">Monitoring</a><a href="#example">Real example</a><a href="#remember">Remember this</a></nav>
+    <section class="grid">
+      <article id="release" class="card wide topic-process"><h2>The release path</h2><div class="deployment-flow"><div>CODE</div><span>↓</span><div>GITHUB / REPOSITORY</div><span>↓</span><div>BUILD</div><span>↓</span><div class="flow-release">DEPLOY</div><span>↓</span><div>CLOUD / HOSTING</div><span>↓</span><div>DOMAIN</div><span>↓</span><div>USERS</div></div><p class="note">MONITORING · LOGGING · UPDATES happen alongside the live product.</p></article>
+      <article id="hosting" class="card wide topic-comparison"><h2>Hosting vs Deployment</h2><div class="compare-pair"><div><h3>HOSTING</h3><p class="definition">Where the application runs.</p></div><div><h3>DEPLOYMENT</h3><p class="definition">The process of releasing it there.</p></div></div></article>
+      <article id="web" class="card wide"><h2>Domain, DNS &amp; CDN</h2><div class="example-grid"><div><h3>DOMAIN</h3><p>Human-friendly address.</p><p class="muted">example.com</p></div><div><h3>DNS</h3><p>Points the domain to infrastructure.</p></div><div><h3>CDN</h3><p>Helps deliver content efficiently across locations.</p></div></div></article>
+      <article id="cicd" class="card wide topic-process"><h2>What Is CI/CD?</h2><div class="deployment-flow"><div>CODE CHANGE</div><span>↓</span><div>TEST / BUILD</div><span>↓</span><div class="flow-release">DEPLOY</div></div><p class="note">CI/CD automates parts of testing and releasing software.</p></article>
+      <article id="monitoring" class="card wide"><h2>Monitoring after release</h2><div class="misconceptions"><div class="misconception-card"><h3>IS IT ONLINE?</h3></div><div class="misconception-card"><h3>ARE REQUESTS FAILING?</h3></div><div class="misconception-card"><h3>IS IT SLOW?</h3></div><div class="misconception-card"><h3>ARE USERS SEEING ERRORS?</h3></div></div><p class="note">Monitoring helps teams understand production behavior.</p></article>
+      <article id="example" class="card wide topic-example"><h2>One real example</h2><div class="process-flow"><div class="step-card"><strong>01</strong><b>Developer updates website</b></div><div class="step-card"><strong>02</strong><b>Push to GitHub</b></div><div class="step-card"><strong>03</strong><b>Build triggered</b></div><div class="step-card"><strong>04</strong><b>Cloudflare / Vercel deploys site</b></div><div class="step-card"><strong>05</strong><b>Users receive new version</b></div></div><p class="muted">This is one example, not the only architecture.</p></article>
+      <article id="remember" class="card wide topic-takeaway"><h2>Remember this</h2><p class="note">Deployment releases a product to users, while operations keep it available, observable, and maintainable.</p></article>
+    </section>
+  </main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body></html>
