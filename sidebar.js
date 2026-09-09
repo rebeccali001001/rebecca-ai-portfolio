@@ -1,6 +1,24 @@
 (function () {
   const mount = document.getElementById('site-directory');
   if (!mount) return;
+  const headerNav = document.querySelector('body > nav');
+  const headerWrap = headerNav && headerNav.querySelector(':scope > .wrap');
+  if (headerWrap && !headerWrap.querySelector('.site-global-links')) {
+    headerNav.classList.add('site-header-nav');
+    const globalLinks = document.createElement('div');
+    globalLinks.className = 'site-global-links';
+    globalLinks.setAttribute('aria-label', 'Portfolio navigation');
+    globalLinks.innerHTML = [
+      '<a href="index.html#about">About</a>',
+      '<a href="index.html#deployments">Projects</a>',
+      '<a href="index.html#capabilities">FDE Skills</a>',
+      '<a href="ai-knowledge.html">AI Knowledge</a>',
+      '<a href="index.html#certifications">Certifications</a>',
+      '<a href="index.html#experience">Experience</a>',
+      '<a href="index.html#contact">Contact</a>'
+    ].join('');
+    headerWrap.append(globalLinks);
+  }
   const base = new URL('.', document.baseURI);
   fetch(new URL('sidebar.html', base))
     .then((response) => { if (!response.ok) throw new Error('Sidebar unavailable'); return response.text(); })

@@ -259,3 +259,7 @@ nav.sidebar-nav{display:block;height:auto;min-height:0;align-items:initial;justi
     margin-right:auto!important;
   }
 }
+
+/* Shared portfolio navigation for every AI Knowledge overview and topic page. */
+.site-header-nav{height:auto;min-height:76px}.site-header-nav>.wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px}.site-global-links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 20px}.site-global-links a{color:var(--muted);font-size:14px;white-space:nowrap}.site-global-links a:hover,.site-global-links a:focus-visible{color:var(--green)}
+@media(max-width:760px){.site-header-nav>.wrap{align-items:flex-start;flex-direction:column;padding-top:16px;padding-bottom:16px;gap:10px}.site-global-links{justify-content:flex-start;gap:6px 14px}.site-global-links a{font-size:12px}}
