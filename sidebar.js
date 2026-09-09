@@ -12,14 +12,28 @@
       '<a href="index.html#about">About</a>',
       '<a href="index.html#deployments">Projects</a>',
       '<a href="index.html#capabilities">FDE Skills</a>',
-      '<a href="ai-knowledge.html">AI Knowledge</a>',
+      '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>',
       '<a href="index.html#certifications">Certifications</a>',
       '<a href="index.html#experience">Experience</a>',
       '<a href="index.html#contact">Contact</a>'
     ].join('');
     headerWrap.append(globalLinks);
+    const trigger = globalLinks.querySelector('.site-nav-trigger');
+    const dropdown = globalLinks.querySelector('.site-nav-dropdown');
+    trigger.addEventListener('click', () => { const open = dropdown.classList.toggle('is-open'); trigger.setAttribute('aria-expanded', String(open)); });
+    document.addEventListener('click', (event) => { if (!dropdown.contains(event.target)) { dropdown.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); } });
+    const menu = document.createElement('button'); menu.className = 'knowledge-menu-toggle'; menu.type = 'button'; menu.textContent = '☰ Menu'; menu.setAttribute('aria-expanded','false');
+    menu.addEventListener('click', () => { const open = document.body.classList.toggle('directory-open'); menu.setAttribute('aria-expanded', String(open)); });
+    headerWrap.append(menu);
   }
   const base = new URL('.', document.baseURI);
+  const pathname = location.pathname.toLowerCase();
+  const requestedType = new URL(location.href).searchParams.get('type');
+  const knowledgeType = requestedType || (pathname.includes('software-knowledge') || pathname.includes('/software/') ? 'software' : pathname.includes('syntax') || pathname.includes('/language/') ? 'syntax' : 'ai');
+  document.body.dataset.knowledgeType = knowledgeType;
+  const knowledgeTrigger = document.querySelector('.site-nav-trigger');
+  if (knowledgeTrigger) knowledgeTrigger.classList.add('active');
+  if (knowledgeType !== 'ai') { renderKnowledgeSidebar(mount, knowledgeType); return; }
   fetch(new URL('sidebar.html', base))
     .then((response) => { if (!response.ok) throw new Error('Sidebar unavailable'); return response.text(); })
     .then((html) => {
@@ -192,5 +206,29 @@
     if (videoCard) {
       videoCard.innerHTML = `<div class="video-label"><div><div class="eyebrow">Independent video · Azure Neural voice</div><h2>Video</h2></div><small>visual explainer · captions included</small></div><video controls preload="metadata" poster="vedio/${location.pathname.split('/').pop().replace('.html', '')}.png" aria-label="${videoConfig[0]} explainer video"><source src="vedio/${location.pathname.split('/').pop().replace('.html', '')}.mp4" type="video/mp4"><track kind="captions" src="vedio/${location.pathname.split('/').pop().replace('.html', '')}.vtt" srclang="en" label="English captions" default></video><div class="video-meta"><span>${videoConfig[1]}</span><span>MP4 · H.264 + AAC</span></div>`;
     }
+  }
+
+  function renderKnowledgeSidebar(target, type) {
+    const software = {
+      '01 · How Software Works':['Glossary','Overview','Software','Application','Client','Server','Frontend','Backend','API','Request','Response','Business Logic','Database','JSON','Runtime','State'],
+      '02 · Frontend & Browser':['Glossary','Overview','Frontend','Browser','Web Page','HTML','CSS','JavaScript','DOM','Element','Attribute','Class','ID','Form','Input','Button','Event','Event Listener','Responsive Design','Local Storage','Cookie','Developer Tools'],
+      '03 · HTTP & APIs':['Glossary','Overview','HTTP','HTTPS','URL','API','REST API','Endpoint','Method','GET','POST','PUT','PATCH','DELETE','Request','Response','Header','Body','Query Parameter','Path Parameter','Status Code','JSON','API Documentation','Swagger / OpenAPI','Webhook','Timeout','Retry','Rate Limit','Idempotency'],
+      '04 · Backend':['Glossary','Overview','Backend','Server','Python','Framework','FastAPI','Route','Function','Parameter','Validation','Business Logic','Service','Repository / DAO','Dependency','Package','Environment Variable','Configuration','Exception','Error Handling','Logging','External API','Middleware','Background Job'],
+      '05 · Database & SQL':['Glossary','Overview','Database','DBMS','Relational Database','PostgreSQL','MySQL','Table','Row','Column','Field','Schema','Primary Key','Foreign Key','Relationship','One-to-Many','Index','Constraint','Transaction','NULL','Normalization','Migration','SQL'],
+      '06 · Authentication & Security':['Glossary','Overview','Authentication','Authorization','Login','Password','Session','Cookie','Token','JWT','OAuth','SSO','Role','Permission','RBAC','API Key','Secret','Encryption','Hashing','CORS','CSRF','XSS','Least Privilege'],
+      '07 · System Architecture':['Glossary','Overview','Architecture','Component','Service','Monolith','Microservices','API Gateway','Load Balancer','Cache','Redis','Message Queue','Event','Event-driven','Synchronous','Asynchronous','CDN','Object Storage','File Storage','Scaling','Horizontal Scaling','Vertical Scaling','High Availability','Fault Tolerance'],
+      '08 · Development & Git':['Glossary','Overview','Source Code','Repository','Git','GitHub','Commit','Branch','Main','Pull Request','Code Review','Merge','Conflict','Version','Release','Build','Dependency','Package','Environment'],
+      '09 · Cloud & Deployment':['Glossary','Overview','Cloud','Server','Hosting','Deployment','Domain','DNS','IP Address','CDN','Docker','Container','Image','CI','CD','CI/CD','Development','Test','UAT','Staging','Production','Serverless','Environment Variable','Artifact'],
+      '10 · Testing & Observability':['Glossary','Overview','Testing','Test Case','Unit Test','Integration Test','E2E Test','Regression Test','QA','Bug','Error','Exception','Log','Log Level','Metric','Monitoring','Alert','Tracing','Observability','Root Cause','Incident']
+    };
+    const syntax = {Python:['Overview','Glossary','01 · Python Basics','02 · Data Types','03 · Collections','04 · Operators','05 · Conditions','06 · Loops','07 · Functions','08 · Strings','09 · Modules & Packages','10 · Files','11 · Exceptions','12 · Classes & Objects','13 · Comprehensions','14 · Iterators & Generators','15 · JSON & CSV','16 · API Requests','17 · Virtual Environments','18 · Useful Libraries'],SQL:['Overview','Glossary','01 · Query Basics','02 · Filtering','03 · Sorting & Aggregation','04 · Joining Tables','05 · Logic','06 · Data Modification','07 · Database Definition'],Web:['HTML','CSS','JavaScript']};
+    const current = new URL(location.href).searchParams.get('title') || document.title.split(' · ')[0];
+    const item = (label) => `<li><a href="knowledge-placeholder.html?type=${type}&title=${encodeURIComponent(label)}" class="${current === label ? 'active' : ''}">${label}</a></li>`;
+    const group = (name, items) => `<details><summary>${name}</summary><ul>${items.map(item).join('')}</ul></details>`;
+    const mapLink = `<a class="sidebar-map ${current === 'Software Knowledge Map' ? 'active' : ''}" href="software-knowledge.html">Software Knowledge Map</a>`;
+    if (type === 'software') target.innerHTML = `<nav class="sidebar-nav" aria-label="Software Knowledge site directory"><div class="sidebar-heading"><span>Software Knowledge</span><small>Site directory</small></div>${mapLink}${Object.entries(software).map(([name,items])=>group(name,items)).join('')}${group('Real System Flows',['Overview','Load a Web Page','Save Data','Login','Search','Create Order','Update Data','Delete Data','Upload File','Download / Export','Approval Workflow','Payment','Notification','Webhook','Batch / Scheduled Job','Async Processing'])}<a class="sidebar-map" href="knowledge-placeholder.html?title=Do%20Not%20Confuse">Do Not Confuse</a></nav>`;
+    else target.innerHTML = `<nav class="sidebar-nav" aria-label="Language and Syntax site directory"><div class="sidebar-heading"><span>Language &amp; Syntax</span><small>Site directory</small></div><a class="sidebar-map ${current === 'Language & Syntax Overview' ? 'active' : ''}" href="syntax-overview.html">Overview</a>${Object.entries(syntax).map(([name,items])=>group(name,items)).join('')}</nav>`;
+    const active = target.querySelector('a.active'); const activeGroup = active?.closest('details'); target.querySelectorAll('details').forEach(d => { d.open = d === activeGroup; });
+    target.querySelectorAll('summary').forEach(s => s.addEventListener('click', () => { target.querySelectorAll('details').forEach(d => { if (d !== s.parentElement) d.open = false; }); }));
   }
 })();
