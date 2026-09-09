@@ -3,3 +3,6 @@
 @media(max-width:1050px){.has-site-directory>nav .wrap,.has-site-directory>main{margin-left:auto;max-width:1180px;margin-right:auto}}
 .chip.unavailable{color:#7d8da0;border-color:#2b4058;cursor:default}
 .site-directory .directory-note{color:#6f8297;font-size:12px;font-style:italic}
+/* Keep collapsed module groups from reserving vertical space between Parts. */
+.site-directory .sidebar-part{height:auto;min-height:0;margin-bottom:0}
+.site-directory .sidebar-part details:not([open]) > ul{display:none}
