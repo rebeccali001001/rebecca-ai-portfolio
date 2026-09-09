@@ -20,8 +20,19 @@
     headerWrap.append(globalLinks);
     const trigger = globalLinks.querySelector('.site-nav-trigger');
     const dropdown = globalLinks.querySelector('.site-nav-dropdown');
-    trigger.addEventListener('click', () => { const open = dropdown.classList.toggle('is-open'); trigger.setAttribute('aria-expanded', String(open)); });
-    document.addEventListener('click', (event) => { if (!dropdown.contains(event.target)) { dropdown.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); } });
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const open = dropdown.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', String(open));
+    });
+    dropdown.querySelector('.site-nav-menu').addEventListener('click', (event) => event.stopPropagation());
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
     const menu = document.createElement('button'); menu.className = 'knowledge-menu-toggle'; menu.type = 'button'; menu.textContent = '☰ Menu'; menu.setAttribute('aria-expanded','false');
     menu.addEventListener('click', () => { const open = document.body.classList.toggle('directory-open'); menu.setAttribute('aria-expanded', String(open)); });
     headerWrap.append(menu);
