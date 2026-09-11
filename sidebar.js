@@ -11,7 +11,7 @@
       globalLinks.innerHTML = [
         '<a href="portfolio-home.html#profile">Profile</a>',
         '<a href="articles.html">Blog</a>',
-        '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="file:///C:/Users/rebecca.li/Desktop/codex/my%20profile/ai-knowledge-summary.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>'
+        '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge-summary.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>'
       ].join('');
       headerWrap.append(globalLinks);
       const trigger = globalLinks.querySelector('.site-nav-trigger');
