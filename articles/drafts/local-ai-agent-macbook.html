@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <title>How I Built a Local AI Agent on My MacBook — Draft</title>
+  <meta name="description" content="Draft skeleton for a practical local AI agent build log.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="articles.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body class="article-page">
+  <nav>
+    <div class="wrap navin">
+      <div class="brand">Rebecca <span>Forward-Deployed AI</span></div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article-reading" data-article-slug="local-ai-agent-macbook" data-article-status="draft">
+      <a class="article-breadcrumb" href="articles.html?drafts=1">← Back to local draft workspace</a>
+
+      <header class="article-header">
+        <div class="eyebrow">Build Log · Local AI</div>
+        <h1>How I Built a Local AI Agent on My MacBook</h1>
+        <p class="article-subtitle">What I learned combining a local model, an agent harness, and local tools.</p>
+        <div class="article-meta">
+          <span><strong>Status:</strong> Draft</span>
+          <span><strong>Publish date:</strong> Coming Soon</span>
+          <span><strong>Reading time:</strong> To be estimated</span>
+          <span class="article-status">Local preview only</span>
+        </div>
+        <div class="article-card-tags" aria-label="Article tags">
+          <span class="article-chip">Local AI</span>
+          <span class="article-chip">AI Agent</span>
+          <span class="article-chip">Ollama</span>
+          <span class="article-chip">Qwen</span>
+        </div>
+      </header>
+
+      <div class="article-body">
+        <p class="todo">Draft rule: this page is a structure, not a finished story. Replace every TODO with verified notes, measurements, screenshots, or links before publishing.</p>
+
+        <section data-article-section="tldr">
+          <h2>TL;DR</h2>
+          <p class="todo">TODO: Summarize the experiment, the most important result, and the main limitation in two to four sentences.</p>
+        </section>
+
+        <section data-article-section="why">
+          <h2>Why I Wanted a Local Agent</h2>
+          <p class="todo">TODO: Explain the question I wanted to answer—privacy, control, cost, latency, learning, or a specific workflow—and what would count as a useful result.</p>
+        </section>
+
+        <section data-article-section="simple-explanation">
+          <h2>What a Local AI Agent Actually Is</h2>
+          <p class="todo">TODO: Explain the distinction between a model, an agent harness, tools, and the runtime. Link the basic definitions instead of copying the Knowledge pages.</p>
+        </section>
+
+        <section data-article-section="architecture">
+          <h2>My Architecture</h2>
+          <p>
+            The existing project case study records this working shape:
+            Claude Code CLI → an Anthropic-compatible local proxy → Ollama → Qwen 27B Q3.
+            Confirm the exact components, versions, and local tool boundary before publication.
+          </p>
+          <figure class="article-figure is-wide">
+            <div class="article-flow" aria-label="Draft local AI agent architecture">
+              <div class="article-flow-step">User / Task</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Claude Code CLI</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Local Proxy</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Ollama + Qwen</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Local Tools</div>
+            </div>
+            <figcaption>Figure 1 · Draft architecture. Verify the protocol, model file, and tool path before publishing.</figcaption>
+          </figure>
+        </section>
+
+        <section data-article-section="setup">
+          <h2>My Setup</h2>
+          <ul>
+            <li>Hardware: <span class="todo">TODO: Confirm MacBook model, memory, operating system, and available storage.</span></li>
+            <li>Model: <span class="todo">TODO: Confirm the exact Qwen model, quantization, context setting, and file name.</span></li>
+            <li>Runtime: <span class="todo">TODO: Confirm Ollama version, proxy version, agent harness version, and configuration.</span></li>
+            <li>Tools: <span class="todo">TODO: List the local tools, permissions, and safe-path rules actually used.</span></li>
+          </ul>
+        </section>
+
+        <section data-article-section="request-flow">
+          <h2>How the Request Flows Through the System</h2>
+          <ol>
+            <li class="todo">TODO: Show the initial user request and the system instructions that are sent to the model.</li>
+            <li class="todo">TODO: Explain how the model proposes a tool call and how the harness validates it.</li>
+            <li class="todo">TODO: Explain how the local tool result returns to the model and how the next turn is formed.</li>
+            <li class="todo">TODO: Mark where tokens, latency, memory, and failure handling accumulate.</li>
+          </ol>
+        </section>
+
+        <section data-article-section="implementation">
+          <h2>Implementation / Experiment</h2>
+          <p class="todo">TODO: Add the smallest reproducible setup, commands, configuration excerpt, and test task. Remove secrets and private paths.</p>
+          <pre class="article-code"><code># TODO: Add a verified, redacted command sequence.
+# Keep measured output beside the date and environment that produced it.</code></pre>
+        </section>
+
+        <section data-article-section="worked">
+          <h2>What Worked</h2>
+          <p class="todo">TODO: Record which tasks completed reliably, under what context size, and with which tool permissions.</p>
+        </section>
+
+        <section data-article-section="slow">
+          <h2>What Became Slow</h2>
+          <p class="todo">TODO: Separate model generation time, tool execution time, proxy overhead, and any queue or disk effects.</p>
+        </section>
+
+        <section data-article-section="context">
+          <h2>Context Window Problems</h2>
+          <p>
+            The existing portfolio case study notes that real agent requests exceeded a 32K context window.
+            The article should explain the exact request shape, what entered the context, and what changed after diagnosis.
+          </p>
+          <p class="todo">TODO: Add the request trace, token estimates, system/tool schema contribution, and reproducible boundary.</p>
+        </section>
+
+        <section data-article-section="memory">
+          <h2>Memory Constraints</h2>
+          <p class="todo">TODO: Document model memory, runtime overhead, KV-cache growth, operating-system pressure, and what was measured versus inferred.</p>
+        </section>
+
+        <section data-article-section="did-not-work">
+          <h2>What Did Not Work</h2>
+          <p class="todo">TODO: Include failed configurations, unexpected behavior, and the evidence that distinguishes a model limitation from a harness or protocol issue.</p>
+        </section>
+
+        <section data-article-section="limitations">
+          <h2>Problems / Limitations</h2>
+          <p class="todo">TODO: State what this experiment cannot prove. Include hardware, model, task, version, and measurement limits.</p>
+        </section>
+
+        <section data-article-section="comparison">
+          <h2>Local Agent vs Cloud Agent</h2>
+          <p class="todo">TODO: Compare only dimensions that were tested or can be grounded in reliable sources. Do not turn this into a generic vendor ranking.</p>
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <thead><tr><th>Dimension</th><th>Local agent</th><th>Cloud agent</th><th>Evidence / TODO</th></tr></thead>
+              <tbody>
+                <tr><td>Where inference runs</td><td>Local hardware</td><td class="todo">TODO: Name the service boundary</td><td class="todo">TODO: Verify the request path</td></tr>
+                <tr><td>Privacy and control</td><td class="todo">TODO</td><td class="todo">TODO</td><td class="todo">TODO: Cite policy or test result</td></tr>
+                <tr><td>Speed and quality</td><td class="todo">TODO</td><td class="todo">TODO</td><td class="todo">TODO: Add comparable task results</td></tr>
+                <tr><td>Setup complexity</td><td class="todo">TODO</td><td class="todo">TODO</td><td class="todo">TODO: Record the actual steps</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-article-section="changed">
+          <h2>What I Changed</h2>
+          <p class="todo">TODO: Show the architecture or configuration before and after the changes, and explain why each change was made.</p>
+        </section>
+
+        <section data-article-section="learned">
+          <h2>What I Learned</h2>
+          <p class="todo">TODO: Write the personal lessons in first person. Explain what changed in my mental model of local agents.</p>
+        </section>
+
+        <section data-article-section="use">
+          <h2>When I Would Use Local AI Again</h2>
+          <p class="todo">TODO: Define the use cases where local control is worth the setup and the cases where a hosted service is the better choice.</p>
+        </section>
+
+        <section data-article-section="final">
+          <h2>Final Thoughts</h2>
+          <p class="todo">TODO: Close with the practical decision boundary and the next experiment, not a claim that the system is universally better.</p>
+        </section>
+
+        <section data-article-section="related-knowledge">
+          <h2>Related Knowledge</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Fundamentals</h3>
+              <a href="token.html">Token</a>
+              <a href="context-window.html">Context Window</a>
+              <a href="kv-cache.html">KV Cache</a>
+              <a href="inference.html">Inference</a>
+              <a href="quantization.html">Quantization</a>
+              <a href="ollama.html">Ollama</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Why these links exist</h3>
+              <p>Knowledge explains the underlying concepts. This draft focuses on the experiment, system behavior, decisions, and lessons learned.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="related-projects">
+          <h2>Related Projects</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Local deployment case study</h3>
+              <a href="portfolio-home.html#flagship">24GB MacBook + Qwen 27B + Claude Code</a>
+              <a href="portfolio-home.html#projects">Featured deployments and case studies</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Project / article boundary</h3>
+              <p>Projects show what I built. This article will document how I built it and what the evidence changed.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="references">
+          <h2>References / Sources</h2>
+          <p class="todo">TODO: Add official documentation for the model/runtime/protocol claims and link personal measurements or screenshots separately.</p>
+        </section>
+
+        <footer class="article-footer">
+          Draft skeleton · Not published · Run <code>article.qa</code> before changing the metadata status.
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Rebecca Li · Articles</div>
+  </footer>
+</body>
+</html>

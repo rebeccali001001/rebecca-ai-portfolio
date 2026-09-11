@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" role="img" aria-labelledby="diagram-title diagram-desc">
+  <title id="diagram-title">Three common ways to use AI models</title>
+  <desc id="diagram-desc">Three side-by-side deployment paths: a local model runs through Ollama on hardware I control, a cloud-hosted model runs behind an AWS endpoint, and a direct API model runs in a provider's infrastructure.</desc>
+  <defs>
+    <linearGradient id="card-fill" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#102234"/>
+      <stop offset="1" stop-color="#0b1622"/>
+    </linearGradient>
+    <linearGradient id="node-fill" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#152b40"/>
+      <stop offset="1" stop-color="#0d1d2c"/>
+    </linearGradient>
+    <style>
+      .kicker{font:800 18px Arial,sans-serif;letter-spacing:3px;fill:#78e5bd}
+      .axis{font:400 21px Arial,sans-serif;fill:#aec2d8}
+      .cardTitle{font:800 25px Arial,sans-serif;letter-spacing:1.4px;fill:#f7fafc}
+      .cardNote{font:600 18px Arial,sans-serif;fill:#78e5bd}
+      .node{font:700 20px Arial,sans-serif;fill:#f7fafc}
+      .nodeSmall{font:600 17px Arial,sans-serif;fill:#d5e1ed}
+      .arrow{font:800 28px Arial,sans-serif;fill:#78e5bd}
+      .footer{font:600 17px Arial,sans-serif;fill:#92a7bd}
+    </style>
+  </defs>
+
+  <rect width="1400" height="800" rx="26" fill="#07111a"/>
+  <text x="48" y="54" class="kicker">DEPLOYMENT / ACCESS</text>
+  <text x="48" y="91" class="axis">Where inference runs is one axis. Model openness is a separate axis.</text>
+
+  <g>
+    <rect x="42" y="132" width="410" height="598" rx="24" fill="url(#card-fill)" stroke="#38516d" stroke-width="2"/>
+    <rect x="42" y="132" width="410" height="7" rx="3.5" fill="#78e5bd"/>
+    <text x="70" y="181" class="cardTitle">LOCAL MODEL</text>
+    <text x="70" y="211" class="cardNote">Runs on hardware I control</text>
+
+    <rect x="70" y="254" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="247" y="293" text-anchor="middle" class="node">My App</text>
+    <text x="247" y="343" text-anchor="middle" class="arrow">↓</text>
+    <rect x="70" y="363" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="247" y="402" text-anchor="middle" class="node">Agent / Client</text>
+    <text x="247" y="452" text-anchor="middle" class="arrow">↓</text>
+    <rect x="70" y="472" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="247" y="511" text-anchor="middle" class="node">Ollama</text>
+    <text x="247" y="561" text-anchor="middle" class="arrow">↓</text>
+    <rect x="70" y="581" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="247" y="608" text-anchor="middle" class="nodeSmall">Qwen / Llama</text>
+    <text x="247" y="629" text-anchor="middle" class="nodeSmall">open-weight release</text>
+    <text x="247" y="674" text-anchor="middle" class="arrow">↓</text>
+    <text x="247" y="708" text-anchor="middle" class="footer">My Mac / Local GPU</text>
+  </g>
+
+  <g>
+    <rect x="495" y="132" width="410" height="598" rx="24" fill="url(#card-fill)" stroke="#38516d" stroke-width="2"/>
+    <rect x="495" y="132" width="410" height="7" rx="3.5" fill="#7fb1ff"/>
+    <text x="523" y="181" class="cardTitle">CLOUD-HOSTED MODEL</text>
+    <text x="523" y="211" class="cardNote">Runs in cloud infrastructure</text>
+
+    <rect x="523" y="254" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="700" y="293" text-anchor="middle" class="node">My App</text>
+    <text x="700" y="343" text-anchor="middle" class="arrow">↓</text>
+    <rect x="523" y="363" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="700" y="402" text-anchor="middle" class="node">Internet</text>
+    <text x="700" y="452" text-anchor="middle" class="arrow">↓</text>
+    <rect x="523" y="472" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="700" y="511" text-anchor="middle" class="node">AWS</text>
+    <text x="700" y="561" text-anchor="middle" class="arrow">↓</text>
+    <rect x="523" y="581" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="700" y="620" text-anchor="middle" class="node">Model Endpoint</text>
+    <text x="700" y="674" text-anchor="middle" class="arrow">↓</text>
+    <text x="700" y="708" text-anchor="middle" class="footer">Qwen / Llama / Managed Model</text>
+  </g>
+
+  <g>
+    <rect x="948" y="132" width="410" height="598" rx="24" fill="url(#card-fill)" stroke="#38516d" stroke-width="2"/>
+    <rect x="948" y="132" width="410" height="7" rx="3.5" fill="#ffd47f"/>
+    <text x="976" y="181" class="cardTitle">DIRECT API MODEL</text>
+    <text x="976" y="211" class="cardNote">Provider runs the infrastructure</text>
+
+    <rect x="976" y="254" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="1153" y="293" text-anchor="middle" class="node">My App</text>
+    <text x="1153" y="343" text-anchor="middle" class="arrow">↓</text>
+    <rect x="976" y="363" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="1153" y="402" text-anchor="middle" class="node">Internet</text>
+    <text x="1153" y="452" text-anchor="middle" class="arrow">↓</text>
+    <rect x="976" y="472" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="1153" y="511" text-anchor="middle" class="nodeSmall">Model Provider API</text>
+    <text x="1153" y="561" text-anchor="middle" class="arrow">↓</text>
+    <rect x="976" y="581" width="354" height="62" rx="13" fill="url(#node-fill)" stroke="#38516d"/>
+    <text x="1153" y="608" text-anchor="middle" class="nodeSmall">Claude / GPT</text>
+    <text x="1153" y="629" text-anchor="middle" class="nodeSmall">provider-hosted model</text>
+    <text x="1153" y="708" text-anchor="middle" class="footer">No model server to operate</text>
+  </g>
+</svg>

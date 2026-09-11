@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Knowledge Layout QA</title>
+  <style>
+    :root{--bg:#071019;--panel:#0d1b29;--panel-soft:#09131d;--text:#f7fafc;--muted:#aab9c9;--line:#2b4058;--green:#78e5bd;--blue:#7fb1ff;--red:#ff9d9d}
+    *{box-sizing:border-box}
+    body{margin:0;color:var(--text);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(900px 520px at 96% -8%,rgba(82,127,255,.18),transparent 58%),var(--bg)}
+    main{width:min(1180px,calc(100% - 36px));margin:0 auto;padding:42px 0 80px}
+    .eyebrow{color:var(--green);font-size:12px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+    h1{margin:12px 0 8px;font-size:clamp(34px,5vw,62px);line-height:1;letter-spacing:-.06em}
+    .lede{max-width:780px;color:var(--muted);margin:0}
+    .toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(13,27,41,.82)}
+    button{border:1px solid var(--line);border-radius:9px;padding:8px 12px;color:#08131e;background:#f7fafc;font:inherit;font-weight:800;cursor:pointer}
+    button:disabled{opacity:.6;cursor:wait}
+    #status{color:var(--muted);min-height:24px}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+    .stat{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel-soft)}
+    .stat strong{display:block;color:#fff;font-size:25px;line-height:1.1}.stat span{display:block;margin-top:4px;color:var(--muted);font-size:12px}
+    .panel{margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(13,27,41,.82)}
+    .panel h2{margin:0 0 12px;font-size:22px}.panel p{margin:0;color:var(--muted)}
+    table{width:100%;margin-top:16px;border-collapse:collapse;font-size:13px}th,td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.09);text-align:left;vertical-align:top}th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}td{color:var(--muted)}td:first-child{color:#fff;font-weight:750}td.bad{color:var(--red)}
+    .pass{color:var(--green)!important}.empty{padding:18px 0;color:var(--green)!important}.small{font-size:12px;color:var(--muted)}
+    @media(max-width:700px){main{width:min(100% - 28px,1180px);padding-top:28px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}table{font-size:12px;display:block;overflow:auto;white-space:nowrap}}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Local QA · Knowledge layout</div>
+    <h1>Every Knowledge page, one centered template.</h1>
+    <p class="lede">This QA collects the live AI Knowledge and Software Knowledge directory links, loads each page in an isolated desktop viewport, and checks the main content rail at 1850px and 1280px.</p>
+    <div class="toolbar"><button id="run" type="button">Run layout QA</button><span id="status">Ready.</span></div>
+    <div class="stats" aria-live="polite">
+      <div class="stat"><strong id="total">—</strong><span>pages checked</span></div>
+      <div class="stat"><strong id="passed">—</strong><span>passed both desktop widths</span></div>
+      <div class="stat"><strong id="failed">—</strong><span>pages needing repair</span></div>
+      <div class="stat"><strong id="widths">1850 / 1280</strong><span>viewport widths in px</span></div>
+    </div>
+    <section class="panel" aria-labelledby="failure-title">
+      <h2 id="failure-title">Pages needing repair</h2>
+      <p id="rule">Pass criteria: bounded main rail, at least 12px clearance from the directory, and no more than 130px center drift inside the available right-hand lane.</p>
+      <div id="results"><p class="small">Run the QA to inspect every linked page.</p></div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const widths = [1850, 1280];
+      const runButton = document.getElementById('run');
+      const status = document.getElementById('status');
+      const results = document.getElementById('results');
+      const total = document.getElementById('total');
+      const passed = document.getElementById('passed');
+      const failed = document.getElementById('failed');
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      const withQaParam = (value) => {
+        const url = new URL(value, location.href);
+        url.searchParams.set('__layout_qa', '1');
+        return url.href;
+      };
+      const canonical = (value) => {
+        const url = new URL(value, location.href);
+        return `${url.pathname}${url.search.replace(/(?:^|&)__layout_qa=1&?/g, '').replace(/^\?$/, '')}`;
+      };
+      const waitFor = async (test, timeout = 2600) => {
+        const started = performance.now();
+        while (performance.now() - started < timeout) {
+          if (test()) return true;
+          await wait(50);
+        }
+        return false;
+      };
+      const refreshStylesheets = async (frame) => {
+        const doc = frame.contentDocument;
+        const style = doc?.createElement('style');
+        if (!style) return;
+        style.dataset.layoutQa = 'shared-directory-css';
+        const links = [...doc.querySelectorAll('link[rel="stylesheet"][href]')];
+        const css = await Promise.all(links.map(async (link) => {
+          const url = new URL(link.href);
+          url.searchParams.set('__layout_qa_css', String(Date.now()));
+          try {
+            const response = await fetch(url.href);
+            return response.ok ? response.text() : '';
+          } catch (_) {
+            return '';
+          }
+        }));
+        style.textContent = (await Promise.all(css)).join('\n');
+        doc.head.appendChild(style);
+      };
+      const loadFrame = (url, width) => new Promise((resolve) => {
+        const frame = document.createElement('iframe');
+        frame.setAttribute('aria-hidden', 'true');
+        frame.style.cssText = `position:fixed;left:-20000px;top:0;width:${width}px;height:900px;border:0;visibility:hidden;pointer-events:none`;
+        let finished = false;
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          resolve(frame);
+        };
+        frame.addEventListener('load', async () => {
+          await refreshStylesheets(frame);
+          await waitFor(() => frame.contentDocument?.querySelector('#site-directory .sidebar-nav') || frame.contentDocument?.querySelector('main'), 2800);
+          try { await frame.contentDocument?.fonts?.ready; } catch (_) {}
+          await wait(70);
+          finish();
+        }, {once:true});
+        frame.addEventListener('error', finish, {once:true});
+        document.body.appendChild(frame);
+        frame.src = withQaParam(url);
+        setTimeout(finish, 8000);
+      });
+      const collectDirectoryLinks = async (url) => {
+        const frame = await loadFrame(url, widths[0]);
+        const doc = frame.contentDocument;
+        const links = [...(doc?.querySelectorAll('#site-directory a[href]') || [])]
+          .map((link) => new URL(link.getAttribute('href'), new URL(url, location.href)).href)
+          .filter((href) => new URL(href).origin === location.origin && new URL(href).pathname.endsWith('.html'))
+          .map(canonical);
+        frame.remove();
+        return links;
+      };
+      const measure = (frame, requestedWidth) => {
+        const doc = frame.contentDocument;
+        const win = frame.contentWindow;
+        const main = doc?.querySelector('body > main') || doc?.querySelector('main');
+        const directory = doc?.querySelector('#site-directory');
+        if (!main) return {ok:false, reason:'no main element'};
+        const mainBox = main.getBoundingClientRect();
+        const dirBox = directory?.getBoundingClientRect();
+        const mainStyle = win.getComputedStyle(main);
+        const viewport = win?.innerWidth || requestedWidth;
+        const railLeft = dirBox ? dirBox.right + 24 : 24;
+        const railRight = viewport - 24;
+        const mainCenter = (mainBox.left + mainBox.right) / 2;
+        const railCenter = (railLeft + railRight) / 2;
+        const gap = dirBox ? mainBox.left - dirBox.right : null;
+        const centerDrift = Math.round(Math.abs(mainCenter - railCenter));
+        const bounded = mainBox.width <= 1240 && mainBox.left >= -1 && mainBox.right <= viewport + 1;
+        const hasClearance = gap === null || gap >= 12;
+        const centered = centerDrift <= 130;
+        return {
+          ok: bounded && hasClearance && centered,
+          width: Math.round(mainBox.width),
+          left: Math.round(mainBox.left),
+          right: Math.round(mainBox.right),
+          gap: gap === null ? '—' : Math.round(gap),
+          drift: centerDrift,
+          cssLeft: mainStyle.marginLeft,
+          cssWidth: mainStyle.width,
+          reason: !bounded ? 'main rail is too wide or overflows' : !hasClearance ? 'main overlaps the directory' : !centered ? 'main rail is off-center' : ''
+        };
+      };
+      const inspectPage = async (path, index, count) => {
+        const checks = [];
+        let title = path;
+        let template = 'unknown';
+        for (const width of widths) {
+          status.textContent = `Checking ${index + 1}/${count} · ${path} · ${width}px`;
+          const frame = await loadFrame(path, width);
+          const doc = frame.contentDocument;
+          title = doc?.title || title;
+          template = doc?.body?.className || template;
+          checks.push({width, ...measure(frame, width)});
+          frame.remove();
+        }
+        return {path, title, template, checks, ok:checks.every((check) => check.ok)};
+      };
+      const mapLimit = async (items, limit, worker) => {
+        const output = new Array(items.length);
+        let cursor = 0;
+        const runWorker = async () => {
+          while (cursor < items.length) {
+            const index = cursor++;
+            output[index] = await worker(items[index], index);
+          }
+        };
+        await Promise.all(Array.from({length:Math.min(limit, items.length)}, runWorker));
+        return output;
+      };
+      const renderFailures = (items) => {
+        if (!items.length) {
+          results.innerHTML = '<p class="empty">All collected Knowledge pages passed both desktop layout checks.</p>';
+          return;
+        }
+        const rows = items.map((item) => {
+          const details = item.checks.map((check) => `${check.width}px: ${check.width}w / left ${check.left} / gap ${check.gap} / drift ${check.drift} / CSS ${check.cssLeft} · ${check.cssWidth}`).join('<br>');
+          const reasons = [...new Set(item.checks.filter((check) => !check.ok).map((check) => `${check.width}px ${check.reason}`))].join('; ');
+          return `<tr><td>${item.path}</td><td>${item.title}</td><td class="bad">${reasons}</td><td>${details}</td></tr>`;
+        }).join('');
+        results.innerHTML = `<table><thead><tr><th>Page</th><th>Title</th><th>Failure</th><th>Measurements</th></tr></thead><tbody>${rows}</tbody></table>`;
+      };
+      const run = async () => {
+        runButton.disabled = true;
+        results.innerHTML = '<p class="small">Collecting the live directory links…</p>';
+        try {
+          const collected = await Promise.all(['/ai-knowledge.html','/software-knowledge.html'].map(collectDirectoryLinks));
+          const pages = [...new Set(['/ai-knowledge.html','/software-knowledge.html', ...collected.flat()])].sort();
+          total.textContent = pages.length;
+          status.textContent = `Collected ${pages.length} pages. Checking…`;
+          const checked = await mapLimit(pages, 6, inspectPage);
+          const bad = checked.filter((item) => !item.ok);
+          passed.textContent = checked.length - bad.length;
+          failed.textContent = bad.length;
+          renderFailures(bad);
+          document.title = `Knowledge Layout QA · ${bad.length ? `${bad.length} failures` : 'PASS'}`;
+          status.textContent = bad.length ? `Finished: ${bad.length} page(s) need a shared-layout repair.` : `Finished: all ${checked.length} pages passed.`;
+          window.__knowledgeLayoutQa = {pages, checked, failures:bad};
+        } catch (error) {
+          failed.textContent = 'QA error';
+          status.textContent = error.message;
+          results.innerHTML = `<p class="bad">${error.stack || error}</p>`;
+        } finally {
+          runButton.disabled = false;
+        }
+      };
+      runButton.addEventListener('click', run);
+      run();
+    })();
+  </script>
+</body>
+</html>

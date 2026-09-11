@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <title>Article template — Rebecca Li</title>
+  <meta name="description" content="Reusable long-form technical article template.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="articles.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body class="article-page">
+  <nav>
+    <div class="wrap navin">
+      <div class="brand">Rebecca <span>Forward-Deployed AI</span></div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article-reading" data-article-status="draft">
+      <a class="article-breadcrumb" href="articles.html">← Back to Articles</a>
+
+      <header class="article-header">
+        <div class="eyebrow">Article type · Build Log / Comparison / Concept / Experiment / Architecture</div>
+        <h1>[Article title]</h1>
+        <p class="article-subtitle">[Write a clear one-sentence subtitle that tells the reader what they will understand or learn.]</p>
+        <div class="article-meta">
+          <span><strong>Status:</strong> Draft</span>
+          <span><strong>Publish date:</strong> Coming Soon</span>
+          <span><strong>Reading time:</strong> To be estimated</span>
+          <span class="article-status">Local preview only</span>
+        </div>
+      </header>
+
+      <div class="article-body">
+        <p class="todo">Template note: keep only the sections that help this article. Replace every TODO before moving the metadata status to review or published.</p>
+
+        <section data-article-section="tldr">
+          <h2>TL;DR</h2>
+          <p class="todo">TODO: State the central observation, result, or lesson in two to four sentences.</p>
+        </section>
+
+        <section data-article-section="why">
+          <h2>Why I Built / Explored This</h2>
+          <p class="todo">TODO: Explain the real question, constraint, or problem that motivated the work.</p>
+        </section>
+
+        <section data-article-section="simple-explanation">
+          <h2>The Simple Explanation</h2>
+          <p class="todo">TODO: Explain the idea for a reader who knows the problem space but not the implementation details.</p>
+        </section>
+
+        <section data-article-section="architecture">
+          <h2>System Architecture</h2>
+          <p class="todo">TODO: Name the components and state what is verified, assumed, or still needs checking.</p>
+          <figure class="article-figure is-wide">
+            <div class="article-flow" aria-label="Replace with the article architecture">
+              <div class="article-flow-step">User / Trigger</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Orchestrator</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Model / Service</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Tool / Data</div>
+              <div class="article-flow-arrow">→</div>
+              <div class="article-flow-step">Result / Review</div>
+            </div>
+            <figcaption>Figure 1 · Replace this placeholder with a readable, technically useful diagram.</figcaption>
+          </figure>
+        </section>
+
+        <section data-article-section="how-it-works">
+          <h2>How It Works</h2>
+          <ol>
+            <li class="todo">TODO: Describe the request lifecycle step by step.</li>
+            <li class="todo">TODO: Explain the handoff between each component.</li>
+            <li class="todo">TODO: Call out the point where failure, latency, or cost enters the system.</li>
+          </ol>
+        </section>
+
+        <section data-article-section="setup">
+          <h2>My Setup / Environment</h2>
+          <p class="todo">TODO: Record hardware, software, model, versions, configuration, and important constraints. Do not guess missing values.</p>
+        </section>
+
+        <section data-article-section="implementation">
+          <h2>Implementation / Experiment</h2>
+          <p class="todo">TODO: Describe what you actually changed or tested, including the smallest useful reproduction.</p>
+          <pre class="article-code"><code># TODO: Add a verified command or small code example.
+# Keep secrets, private paths, and unverified output out of the article.</code></pre>
+        </section>
+
+        <section data-article-section="worked">
+          <h2>What Worked</h2>
+          <p class="todo">TODO: List observed successes and the conditions under which they worked.</p>
+        </section>
+
+        <section data-article-section="did-not-work">
+          <h2>What Did Not Work</h2>
+          <p class="todo">TODO: Include failed approaches, unexpected behavior, and what evidence supports the conclusion.</p>
+        </section>
+
+        <section data-article-section="limitations">
+          <h2>Problems / Limitations</h2>
+          <p class="todo">TODO: Separate known limitations from open questions. Include reproducibility and scope limits.</p>
+        </section>
+
+        <section data-article-section="comparison">
+          <h2>Comparison / Alternatives</h2>
+          <p class="todo">TODO: Compare the relevant alternatives using dimensions that matter to the actual decision.</p>
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <thead><tr><th>Dimension</th><th>Option A</th><th>Option B</th><th>What I observed</th></tr></thead>
+              <tbody><tr><td>Where it runs</td><td>TODO</td><td>TODO</td><td>TODO</td></tr><tr><td>Trade-off</td><td>TODO</td><td>TODO</td><td>TODO</td></tr></tbody>
+            </table>
+          </div>
+          <p class="todo">TODO: Remove the table if this article does not benefit from a comparison.</p>
+        </section>
+
+        <section data-article-section="learned">
+          <h2>What I Learned</h2>
+          <p class="todo">TODO: Write the personal lessons in first person. Distinguish what you tested from general technical facts.</p>
+        </section>
+
+        <section data-article-section="use">
+          <h2>When I Would Use This</h2>
+          <p class="todo">TODO: Describe suitable use cases, unsuitable use cases, and the decision boundary.</p>
+        </section>
+
+        <section data-article-section="final">
+          <h2>Final Thoughts</h2>
+          <p class="todo">TODO: Close with the practical conclusion, not a generic AI statement.</p>
+        </section>
+
+        <section data-article-section="related-knowledge">
+          <h2>Related Knowledge</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Concepts</h3>
+              <a href="context-window.html">TODO: Link a relevant Knowledge concept</a>
+              <a href="token.html">TODO: Link another relevant Knowledge concept</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Why this link matters</h3>
+              <p>Use Knowledge for definitions and fundamentals; keep this article focused on the specific experience, experiment, or design decision.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="related-projects">
+          <h2>Related Projects</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Projects</h3>
+              <a href="portfolio-home.html#projects">TODO: Link the project or case study</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Connection</h3>
+              <p>Use Projects for what was built; use Articles for how it was built and what was learned.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="references">
+          <h2>References / Sources</h2>
+          <p class="todo">TODO: Add primary or otherwise reliable sources for general technical claims. Link personal evidence separately.</p>
+        </section>
+
+        <footer class="article-footer">
+          Draft template · Run <code>article.qa</code> before changing the metadata status.
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Rebecca Li · Articles</div>
+  </footer>
+</body>
+</html>

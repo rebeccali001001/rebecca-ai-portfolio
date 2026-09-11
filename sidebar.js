@@ -1,6 +1,53 @@
 (function () {
   const mount = document.getElementById('site-directory');
-  if (!mount) return;
+  const installGlobalNav = () => {
+    const headerNav = document.querySelector('body > nav');
+    const headerWrap = headerNav && headerNav.querySelector(':scope > .wrap');
+    if (headerWrap && !headerWrap.querySelector('.site-global-links')) {
+      headerNav.classList.add('site-header-nav');
+      const globalLinks = document.createElement('div');
+      globalLinks.className = 'site-global-links';
+      globalLinks.setAttribute('aria-label', 'Portfolio navigation');
+      globalLinks.innerHTML = [
+        '<a href="portfolio-home.html#profile">Profile</a>',
+        '<a href="portfolio-home.html#projects">Projects</a>',
+        '<a href="articles.html">Articles</a>',
+        '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>'
+      ].join('');
+      headerWrap.append(globalLinks);
+      const trigger = globalLinks.querySelector('.site-nav-trigger');
+      const dropdown = globalLinks.querySelector('.site-nav-dropdown');
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const open = dropdown.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', String(open));
+      });
+      dropdown.querySelector('.site-nav-menu').addEventListener('click', (event) => event.stopPropagation());
+      document.addEventListener('click', (event) => {
+        if (!dropdown.contains(event.target)) {
+          dropdown.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+      if (mount) {
+        const menu = document.createElement('button');
+        menu.className = 'knowledge-menu-toggle';
+        menu.type = 'button';
+        menu.textContent = '☰ Menu';
+        menu.setAttribute('aria-expanded', 'false');
+        menu.addEventListener('click', () => {
+          const open = document.body.classList.toggle('directory-open');
+          menu.setAttribute('aria-expanded', String(open));
+        });
+        headerWrap.append(menu);
+      }
+    }
+  };
+  if (!mount) {
+    installGlobalNav();
+    return;
+  }
   mount.classList.add('site-directory');
   const authenticationMapCard = [...document.querySelectorAll('.map-support article')].find((card) => card.textContent.includes('Authentication & Security'));
   if (authenticationMapCard && !authenticationMapCard.querySelector('a[href="session.html"]')) {
@@ -66,48 +113,14 @@
     const overviewTopicLinks = {Database: 'database.html', Request: 'request.html', JSON: 'json.html', State: 'state.html'};
     topicList.innerHTML = topics.map(([name, description]) => `<a href="${overviewTopicLinks[name] || `knowledge-placeholder.html?type=software&amp;title=${encodeURIComponent(name)}`}" ><b>${name}</b><span>${description}</span><em>Open →</em></a>`).join('');
   }
-  const headerNav = document.querySelector('body > nav');
-  const headerWrap = headerNav && headerNav.querySelector(':scope > .wrap');
-  if (headerWrap && !headerWrap.querySelector('.site-global-links')) {
-    headerNav.classList.add('site-header-nav');
-    const globalLinks = document.createElement('div');
-    globalLinks.className = 'site-global-links';
-    globalLinks.setAttribute('aria-label', 'Portfolio navigation');
-    globalLinks.innerHTML = [
-      '<a href="portfolio-home.html#about">About</a>',
-      '<a href="portfolio-home.html#deployments">Projects</a>',
-      '<a href="portfolio-home.html#capabilities">FDE Skills</a>',
-      '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>',
-      '<a href="portfolio-home.html#certifications">Certifications</a>',
-      '<a href="portfolio-home.html#experience">Experience</a>',
-      '<a href="portfolio-home.html#contact">Contact</a>'
-    ].join('');
-    headerWrap.append(globalLinks);
-    const trigger = globalLinks.querySelector('.site-nav-trigger');
-    const dropdown = globalLinks.querySelector('.site-nav-dropdown');
-    trigger.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      const open = dropdown.classList.toggle('is-open');
-      trigger.setAttribute('aria-expanded', String(open));
-    });
-    dropdown.querySelector('.site-nav-menu').addEventListener('click', (event) => event.stopPropagation());
-    document.addEventListener('click', (event) => {
-      if (!dropdown.contains(event.target)) {
-        dropdown.classList.remove('is-open');
-        trigger.setAttribute('aria-expanded', 'false');
-      }
-    });
-    const menu = document.createElement('button'); menu.className = 'knowledge-menu-toggle'; menu.type = 'button'; menu.textContent = '☰ Menu'; menu.setAttribute('aria-expanded','false');
-    menu.addEventListener('click', () => { const open = document.body.classList.toggle('directory-open'); menu.setAttribute('aria-expanded', String(open)); });
-    headerWrap.append(menu);
-  }
+  installGlobalNav();
   const base = new URL('.', document.baseURI);
   const pathname = location.pathname.toLowerCase();
   const requestedType = new URL(location.href).searchParams.get('type');
   if (pathname.endsWith('/response.html')) document.body.dataset.forceKnowledgeType = 'software';
     const softwareTopicSlugs = ['frontend-browser','http-apis','http-apis-glossary','module03-glossary','module04-glossary','module05-glossary','module06-glossary','module-05','module-06','module-05-glossary','module-06-glossary','module-07','module-07-glossary','module-08','module-08-glossary','version','release','build','scaling','horizontal-scaling','vertical-scaling','high-availability','fault-tolerance','cdn','object-storage','file-storage','load-balancer','cache','redis','authentication','authorization','backend-overview','backend-glossary','authentication-security','patch','get','rest-api','post','http','https','url','put','browser','server','event','responsive-design','cookie','form','input','button','id','local-storage','event-listener','dom','developer-tools','web-page','client','frontend','request','method','html','attribute','class','javascript','api','runtime','business-logic','validation','database','dbms','relational-database','postgresql','mysql','table','row','column','field','schema','primary-key','foreign-key','relationship','one-to-many','index','constraint','transaction','null','normalization','migration','sql','json','query-parameter','header','backend','python','framework','fastapi','route','function','parameters','parameter','service','repository-dao','dependency','package','environment-variable','configuration','exception','error-handling','logging','external-api','middleware','background-job','api-key','rbac','secret','encryption','hashing','commit'];
     softwareTopicSlugs.push('css');
+    softwareTopicSlugs.push('application');
     softwareTopicSlugs.push('environment');
     softwareTopicSlugs.push('element');
     softwareTopicSlugs.push('state');
@@ -285,6 +298,7 @@
   }
 
   function renderKnowledgeSidebar(target, type) {
+    const requestedModule = new URL(location.href).searchParams.get('module');
     const software = {
       '01 · How Software Works':['Glossary','Overview','Software','Application','Client','Server','Frontend','Backend','API','Request','Response','Business Logic','Database','JSON','Runtime','State'],
       '02 · Frontend & Browser':['Glossary','Overview','Frontend','Browser','Web Page','HTML','CSS','JavaScript','DOM','Element','Attribute','Class','ID','Form','Input','Button','Event','Event Listener','Responsive Design','Local Storage','Cookie','Developer Tools'],
@@ -456,6 +470,13 @@
       'High Availability': 'high-availability.html'
     };
     const item = (label, moduleName) => {
+      const moduleId = (moduleName.match(/^\d+/) || [])[0];
+      const withModuleContext = (value) => {
+        if (type !== 'software' || !moduleId) return value;
+        const [pathAndQuery, hash] = value.split('#');
+        const separator = pathAndQuery.includes('?') ? '&' : '?';
+        return `${pathAndQuery}${separator}module=${moduleId}${hash ? `#${hash}` : ''}`;
+      };
       const apiHttpPage = pathname.endsWith('/api-http.html');
       const href = type === 'software' && label === 'Glossary' && moduleName === '03 · HTTP & APIs' ? 'http-apis-glossary.html' : type === 'software' && label === 'Glossary' && moduleName === '04 · Backend' ? 'module04-glossary.html' : type === 'software' && label === 'Glossary' && moduleName === '05 · Database & SQL' ? 'module-05-glossary.html' : type === 'software' && label === 'Glossary' && moduleName === '06 · Authentication & Security' ? 'module-06-glossary.html' : type === 'software' && label === 'Glossary' && moduleName === '07 · System Architecture' ? 'module-07-glossary.html' : type === 'software' && label === 'Glossary' && moduleName === '08 · Development & Git' ? 'module-08-glossary.html' : type === 'software' && label === 'Glossary' ? 'software-glossary.html' : type === 'software' && label === 'Overview' && moduleName === '03 · HTTP & APIs' ? 'http-apis.html' : type === 'software' && label === 'Overview' && moduleName === '04 · Backend' ? 'backend-overview.html' : type === 'software' && label === 'Overview' && moduleName === '05 · Database & SQL' ? 'module-05.html' : type === 'software' && label === 'Overview' && moduleName === '06 · Authentication & Security' ? 'module-06.html' : type === 'software' && label === 'Overview' && moduleName === '07 · System Architecture' ? 'module-07.html' : type === 'software' && label === 'Overview' && moduleName === '08 · Development & Git' ? 'module-08.html' : type === 'software' && moduleName === '04 · Backend' && module04TopicPages[label] ? module04TopicPages[label] : type === 'software' && moduleName === '05 · Database & SQL' && module05TopicPages[label] ? module05TopicPages[label] : type === 'software' && moduleName === '06 · Authentication & Security' && module06TopicPages[label] ? module06TopicPages[label] : type === 'software' && moduleName === '07 · System Architecture' && module07TopicPages[label] ? module07TopicPages[label] : type === 'software' && moduleName === '08 · Development & Git' && module08TopicPages[label] ? module08TopicPages[label] : type === 'software' && label === 'Software' ? 'software.html' : type === 'software' && label === 'Application' ? 'application.html' : type === 'software' && moduleName === '01 · How Software Works' && label === 'Backend' ? 'backend.html' : type === 'software' && completedSoftwareTopics[label] ? completedSoftwareTopics[label] : type === 'software' && moduleName === '03 · HTTP & APIs' && httpTopicPages[label] ? httpTopicPages[label] : `knowledge-placeholder.html?type=${type}&title=${encodeURIComponent(label)}`;
       const module08Href = type === 'software' && moduleName === '08 · Development & Git' && label === 'Glossary' ? 'module-08-glossary.html' : type === 'software' && moduleName === '08 · Development & Git' && label === 'Overview' ? 'module-08.html' : type === 'software' && moduleName === '08 · Development & Git' && module08TopicPages[label] ? module08TopicPages[label] : null;
@@ -493,12 +514,16 @@
       const exceptionPage = pathname.endsWith('/exception.html');
       const environmentVariablePage = pathname.endsWith('/environment-variable.html');
       const resolvedHref = module08Href || (apiHttpPage && moduleName === '03 · HTTP & APIs' && label === 'API' ? 'api-http.html' : href);
+      const contextualHref = withModuleContext(resolvedHref);
       const module04Active = moduleName === '04 · Backend' && href.split('#')[0] === pathname.split('/').pop();
       const module08Active = moduleName === '08 · Development & Git' && resolvedHref.split('#')[0] === pathname.split('/').pop();
       const active = module04Active ? true : databasePage ? (label === 'Database' && moduleName === '01 · How Software Works') : pathname.endsWith('/normalization.html') ? (label === 'Normalization' && moduleName === '05 · Database & SQL') : nullPage ? (label === 'NULL' && moduleName === '05 · Database & SQL') : constraintPage ? (label === 'Constraint' && moduleName === '05 · Database & SQL') : businessLogicPage ? (label === 'Business Logic' && moduleName === '04 · Backend') : serverPage ? (label === 'Server' && moduleName === '04 · Backend') : packagePage ? (label === 'Package' && moduleName === '04 · Backend') : pythonPage ? (label === 'Python' && moduleName === '04 · Backend') : externalApiPage ? (label === 'External API' && moduleName === '04 · Backend') : backendPage ? (label === 'Backend' && moduleName === '04 · Backend') : backendOverviewPage ? (label === 'Overview' && moduleName === '04 · Backend') : backendGlossaryPage ? (label === 'Glossary' && moduleName === '04 · Backend') : module06OverviewPage ? (label === 'Overview' && moduleName === '06 · Authentication & Security') : module06GlossaryPage ? (label === 'Glossary' && moduleName === '06 · Authentication & Security') : module07OverviewPage ? (label === 'Overview' && moduleName === '07 · System Architecture') : module07GlossaryPage ? (label === 'Glossary' && moduleName === '07 · System Architecture') : routePage ? (label === 'Route' && moduleName === '04 · Backend') : servicePage ? (label === 'Service' && moduleName === '04 · Backend') : exceptionPage ? (label === 'Exception' && moduleName === '04 · Backend') : frontendPage ? (label === 'Frontend' && moduleName === '02 · Frontend & Browser') : httpPage ? (label === 'HTTP' && moduleName === '03 · HTTP & APIs') : httpOverviewPage ? (label === 'Overview' && moduleName === '03 · HTTP & APIs') : httpGlossaryPage ? (label === 'Glossary' && moduleName === '03 · HTTP & APIs') : pathname.endsWith('/cookie.html') ? (label === 'Cookie' && moduleName === '06 · Authentication & Security') : current === label && (!['Request','Response'].includes(label) || moduleName === ((responsePage || requestPage) ? '03 · HTTP & APIs' : '01 · How Software Works'));
       const resolvedActive = errorHandlingPage ? (label === 'Error Handling' && moduleName === '04 · Backend') : frameworkPage ? (label === 'Framework' && moduleName === '04 · Backend') : environmentVariablePage ? (label === 'Environment Variable' && moduleName === '04 · Backend') : module05OverviewPage ? (label === 'Overview' && moduleName === '05 · Database & SQL') : module05GlossaryPage ? (label === 'Glossary' && moduleName === '05 · Database & SQL') : schemaPage ? (label === 'Schema' && moduleName === '05 · Database & SQL') : primaryKeyPage ? (label === 'Primary Key' && moduleName === '05 · Database & SQL') : postgresqlPage ? (label === 'PostgreSQL' && moduleName === '05 · Database & SQL') : apiHttpPage ? (label === 'API' && moduleName === '03 · HTTP & APIs') : componentPage ? (label === 'Component' && moduleName === '07 · System Architecture') : active;
+      const currentPath = pathname.replace(/\/$/, '').replace(/\.html$/, '');
+      const linkPath = new URL(resolvedHref, base).pathname.replace(/\/$/, '').replace(/\.html$/, '');
+      const contextActive = requestedModule ? moduleId === requestedModule && currentPath === linkPath : resolvedActive || module08Active;
       const unavailableModule08Topic = moduleName === '08 · Development & Git' && resolvedHref.startsWith('knowledge-placeholder.html');
-      return `<li>${unavailableModule08Topic ? `<span>${label}</span>` : `<a href="${resolvedHref}" class="${resolvedActive || module08Active ? 'active' : ''}">${label}</a>`}</li>`;
+      return `<li>${unavailableModule08Topic ? `<span>${label}</span>` : `<a href="${contextualHref}" class="${contextActive ? 'active' : ''}">${label}</a>`}</li>`;
     };
     const group = (name, items) => `<details><summary>${name}</summary><ul>${items.map((label) => {
       if (type === 'software' && name === '01 · How Software Works' && label === 'Overview') {

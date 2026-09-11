@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <title>Local Models vs Cloud-Hosted Models vs Direct API Models — Draft</title>
+  <meta name="description" content="A beginner-friendly comparison of local models, cloud-hosted models, direct model APIs, and the separate open-weight versus proprietary dimension.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="articles.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body class="article-page">
+  <nav>
+    <div class="wrap navin">
+      <div class="brand">Rebecca <span>Forward-Deployed AI</span></div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article-reading" data-article-slug="local-vs-cloud-api-models" data-article-status="draft">
+      <a class="article-breadcrumb" href="articles.html?drafts=1">← Back to local draft workspace</a>
+
+      <header class="article-header">
+        <div class="eyebrow">Comparison · AI Systems</div>
+        <h1>Local Models vs Cloud-Hosted Models vs Direct API Models</h1>
+        <p class="article-subtitle">Understanding where AI models run, how you access them, and how open-source and closed-source models fit into the picture.</p>
+        <div class="article-meta">
+          <span><strong>Status:</strong> Draft</span>
+          <span><strong>Category:</strong> AI Systems</span>
+          <span><strong>Publish date:</strong> Coming Soon</span>
+          <span><strong>Reading time:</strong> To be estimated</span>
+          <span class="article-status">Local preview only</span>
+        </div>
+        <div class="article-card-tags" aria-label="Article tags">
+          <span class="article-chip">Local LLM</span>
+          <span class="article-chip">Cloud AI</span>
+          <span class="article-chip">AWS</span>
+          <span class="article-chip">API</span>
+          <span class="article-chip">Open-Weight Models</span>
+          <span class="article-chip">Claude</span>
+          <span class="article-chip">Ollama</span>
+        </div>
+      </header>
+
+      <div class="article-body">
+        <section data-article-section="tldr">
+          <h2>TL;DR</h2>
+          <p>Local, cloud-hosted, and direct API describe where inference runs and who operates it. Open-weight and proprietary describe model access. Choose those dimensions separately, then match them to your data boundary and operational capacity.</p>
+        </section>
+
+        <section data-article-section="introduction">
+          <h2>Introduction</h2>
+          <p>When people compare AI models, they often mix together two different questions. The first question is about deployment: where does the model run, and how does an application reach it? The second is about openness: can people inspect, download, and run the model weights, or is the model available only as a controlled service?</p>
+          <p>Those questions are related, but they are not the same. An open-weight model can run on a local computer or a cloud GPU. A proprietary model can be reached through a direct API or a managed cloud service. Keeping the two dimensions separate makes architecture decisions easier to explain.</p>
+        </section>
+
+        <section data-article-section="three-ways">
+          <h2>The Three Common Ways to Use AI Models</h2>
+          <p>There are three common access patterns:</p>
+          <ol>
+            <li><strong>Local model:</strong> the application sends requests to a model running on hardware that the builder controls, such as a Mac, workstation, or local GPU server.</li>
+            <li><strong>Cloud-hosted model:</strong> the builder runs or deploys the model in cloud infrastructure, such as an AWS compute environment, and exposes it through an endpoint.</li>
+            <li><strong>Direct API model:</strong> the application sends a request to a model provider’s API. The provider operates the model-serving infrastructure behind that API.</li>
+          </ol>
+          <h3>One Architecture Diagram</h3>
+          <figure class="article-figure is-wide">
+            <div style="overflow-x:auto;border-radius:18px;">
+              <img src="articles/assets/diagrams/local-cloud-api-models.svg" alt="Three side-by-side paths: a local app uses an agent client and Ollama to reach Qwen or Llama on a Mac or local GPU; a cloud-hosted app reaches AWS and a model endpoint; a direct API app reaches a provider API for Claude or GPT." style="display:block;width:100%;min-width:760px;height:auto;border:1px solid #2b4058;border-radius:18px;background:#07111a;">
+            </div>
+            <figcaption>Figure 1. Three common ways to use AI models: running them locally, hosting them in the cloud, or accessing them directly through a provider API.</figcaption>
+          </figure>
+          <p>The diagram describes the deployment and access boundary only. It does not decide whether a model is open-weight or proprietary. That is a separate label we will add later.</p>
+        </section>
+
+        <section data-article-section="local-models">
+          <h2>Local Models</h2>
+          <p>A local model runs on hardware that I can see and control. A simple setup might be an application or agent client calling Ollama, which loads an open-weight Qwen or Llama release on a Mac or local GPU. The important boundary is the same: inference happens close to the application.</p>
+          <p>Local deployment gives the builder direct control over the runtime, model files, network path, and data boundary. It can be useful for learning, offline work, private experiments, or workflows where keeping requests on a controlled machine matters. Memory pressure, model loading, context limits, and generation speed become visible engineering constraints.</p>
+          <p>The trade-off is operational responsibility. Someone must choose a compatible model, install the runtime, manage updates, watch memory, protect local files, and decide how the application handles a slow or unavailable model. Local does not mean cost-free. The cost may appear as hardware, electricity, storage, setup time, and the opportunity cost of maintaining the stack.</p>
+          <p>“Local” also does not automatically mean “open.” A proprietary model could theoretically be exposed through a local wrapper, while an open-weight model could be hosted by a third party. The location of inference and the openness of the weights are different properties.</p>
+        </section>
+
+        <section data-article-section="cloud-hosted-models">
+          <h2>Cloud-Hosted Models</h2>
+          <p>A cloud-hosted model runs in infrastructure rented or managed in the cloud. For example, a team could place an open-weight Qwen or Llama model on AWS compute, add a model-serving runtime, and expose a private or public endpoint for the application. The execution boundary is no longer the developer’s laptop.</p>
+          <p>This pattern is useful when the application needs a reachable service, more capacity than one local machine can provide, or a place to connect model inference with the rest of a production system. The cloud can also provide a consistent environment for deployment, networking, identity, monitoring, storage, and access controls. The engineering work still exists; it moves into a managed infrastructure boundary.</p>
+          <p>Cloud-hosted does not mean proprietary. A cloud endpoint may serve an open-weight model that the team selected and deployed. It may also expose a managed model service where the provider controls more of the model lifecycle. The useful question is: who controls the model runtime, and who is responsible for the surrounding service?</p>
+          <blockquote><strong>Why use AWS if I can call the model API directly?</strong><br>Direct API access is usually simpler when the job is only inference. AWS becomes useful when the model is one component inside a larger production system that also needs servers, databases, identity, networking, monitoring, storage, security, private networking, or multiple AI services. AWS is not always better; it is a broader infrastructure boundary.</blockquote>
+        </section>
+
+        <section data-article-section="direct-api-models">
+          <h2>Direct API Models</h2>
+          <p>With a direct model API, the application sends an authenticated request over the internet and receives a generated response. The provider runs the model infrastructure, manages the serving layer, and exposes a documented interface. Claude and GPT are familiar examples of provider-hosted models accessed in this way.</p>
+          <p>This is often the shortest path from an idea to a working feature. The application team can focus on prompts, product behavior, data handling, retries, and user experience instead of selecting a GPU and operating an inference server. The boundary is clear: the application owns the client integration, while the provider owns the model service.</p>
+          <p>The convenience comes with a different set of dependencies. The application needs network access, credentials, a provider account, and a plan for rate limits, outages, privacy requirements, and provider changes. The team also has less control over the underlying model runtime and usually cannot inspect or download the model weights. They are the trade-offs of a managed interface.</p>
+          <p>A direct API is therefore an access pattern, not a quality ranking. It does not mean the model is always more capable, and it does not mean the provider is the only possible host. It simply says that the application calls the provider’s API instead of operating the model server itself.</p>
+        </section>
+
+        <section data-article-section="open-proprietary">
+          <h2>Open Models vs Proprietary Models</h2>
+          <p>“Open” is used casually in AI discussions, so it helps to be precise. For this comparison, <strong>open-weight model</strong> means that model weights are made available for people to download and run under stated terms. A release can still have restrictions, separate code or data licenses, and practical limits. Open-weight does not automatically mean every part of the training data, code, or governance is open.</p>
+          <p><strong>Proprietary model</strong> means that the model is controlled by an organization and is generally accessed as a service or through a restricted distribution channel. The weights are not available for ordinary users to download and operate. Claude and GPT are useful examples of proprietary, provider-hosted model families in this article. Their current products, terms, and access options should still be checked before publication.</p>
+          <p>This dimension cuts across the three deployment patterns. Open-weight + local is a common learning setup. Open-weight + AWS is a common way to create a team-managed endpoint. Proprietary + direct API is a common application integration. Proprietary + managed cloud service is also possible when a cloud platform exposes a provider-controlled model through its own service boundary.</p>
+          <p>The key mental model is a two-axis grid: <em>where the model runs</em> and <em>who can control or inspect the model assets</em>. “Cloud AI” cannot answer both.</p>
+        </section>
+
+        <section data-article-section="comparison-table">
+          <h2>Comparison Table</h2>
+          <p>The following table compares the deployment boundary. The open-weight versus proprietary distinction should be evaluated alongside it, not hidden inside it.</p>
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <thead>
+                <tr><th>Dimension</th><th>Local model</th><th>Cloud-hosted model</th><th>Direct API model</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Where inference runs</td><td>My Mac, workstation, or local GPU</td><td>Cloud compute or a managed cloud endpoint</td><td>Provider infrastructure</td></tr>
+                <tr><td>Who operates the runtime</td><td>Application builder or team</td><td>Application team plus cloud platform</td><td>Model provider</td></tr>
+                <tr><td>Network dependency</td><td>Can work locally, depending on the app</td><td>Usually needs network access to the cloud</td><td>Needs network access to the provider</td></tr>
+                <tr><td>Control</td><td>Highest control over files and runtime</td><td>More control with more infrastructure work</td><td>Less control over the model server</td></tr>
+                <tr><td>Operational work</td><td>Hardware, runtime, updates, and memory</td><td>Deployment, networking, security, and monitoring</td><td>Client integration, credentials, limits, and provider changes</td></tr>
+                <tr><td>Typical fit</td><td>Learning, offline use, private experiments</td><td>Team services and larger integrated systems</td><td>Fast product integration and managed inference</td></tr>
+                <tr><td>Openness</td><td>Often open-weight, but not required</td><td>Open-weight or proprietary</td><td>Often proprietary, but access pattern alone is not proof</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section data-article-section="choose">
+          <h2>Which One Should You Choose?</h2>
+          <p>Start with the constraint that is hardest to change. If data must stay on a controlled machine, begin with a local model and test the real memory and latency limits. If the application needs a shared service and integration with databases or identity, consider a cloud-hosted model or managed cloud service. If the goal is to add inference quickly, a direct API may be the most practical first step.</p>
+          <p>Then ask the separate openness question. Do you need to inspect or move the model weights? Do you need to choose the runtime and serving stack? Are the model terms compatible with the product? If the answer is yes, an open-weight option may be worth the extra deployment work. If the answer is no, a proprietary API or managed model service may reduce the amount of infrastructure your team has to operate.</p>
+          <p>Finally, test the workflow rather than choosing from labels. Measure representative tasks, check the data path, document failure handling, and estimate the work required to keep the system safe and available. A small local proof of concept and a direct API proof of concept can reveal more than an abstract debate.</p>
+        </section>
+
+        <section data-article-section="final-takeaway">
+          <h2>Final Takeaway</h2>
+          <p>Local, cloud-hosted, and direct API models describe <strong>how an application reaches inference</strong>. Open-weight and proprietary models describe <strong>how the model assets are controlled and distributed</strong>. Treating those as two separate dimensions prevents misleading comparisons.</p>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Open-weight + Local</h3>
+              <p>Run Qwen or Llama through Ollama on hardware you control.</p>
+            </div>
+            <div class="article-related-card">
+              <h3>Open-weight + AWS</h3>
+              <p>Deploy a selected model in cloud infrastructure and own the endpoint.</p>
+            </div>
+            <div class="article-related-card">
+              <h3>Proprietary + Direct API</h3>
+              <p>Call a provider-hosted model such as Claude or GPT from the application.</p>
+            </div>
+            <div class="article-related-card">
+              <h3>Proprietary + Managed Cloud Service</h3>
+              <p>Use a cloud platform’s managed access while the provider controls the model.</p>
+            </div>
+          </div>
+          <p>The best choice is the combination that matches the data boundary, operational capacity, product need, and model terms you can actually support.</p>
+        </section>
+
+        <section data-article-section="related-knowledge">
+          <h2>Related Knowledge</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Concepts</h3>
+              <a href="llm.html">LLM</a>
+              <a href="inference.html">Inference</a>
+              <a href="api.html">API</a>
+              <a href="local-vs-cloud.html">Local vs Cloud</a>
+              <a href="open-closed-local-models.html">Open vs Closed / Local Models</a>
+              <a href="ai-agent.html">AI Agent</a>
+              <a href="ollama.html">Ollama</a>
+              <a href="development-cloud-platforms.html">Cloud Platforms</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Why these links exist</h3>
+              <p>Knowledge pages define the concepts. This article keeps the focus on deployment boundaries, model openness, and the decision between them.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="related-projects">
+          <h2>Related Projects</h2>
+          <div class="article-related">
+            <div class="article-related-card">
+              <h3>Local deployment case study</h3>
+              <a href="portfolio-home.html#flagship">24GB MacBook + Qwen 27B + Claude Code</a>
+            </div>
+            <div class="article-related-card">
+              <h3>Project / article boundary</h3>
+              <p>The project page records the build context; this article explains the choice.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-article-section="references">
+          <h2>References / Sources</h2>
+          <p>This draft avoids provider pricing, exact model versions, performance numbers, and broad licensing claims. Before publication, verify current provider names, model terms, and service boundaries against official documentation.</p>
+        </section>
+
+        <footer class="article-footer">
+          Draft · Not published · Run <code>article.qa</code> before changing the metadata status.
+        </footer>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Rebecca Li · Articles</div>
+  </footer>
+</body>
+</html>

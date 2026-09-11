@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rebecca Li article metadata",
+  "type": "object",
+  "required": [
+    "slug",
+    "title",
+    "summary",
+    "category",
+    "tags",
+    "status",
+    "published_at",
+    "reading_time",
+    "path",
+    "cover",
+    "related_knowledge",
+    "related_projects",
+    "need_diagrams",
+    "need_comparison_table"
+  ],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "category": { "type": "string", "minLength": 1 },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "status": { "enum": ["draft", "review", "published"] },
+    "published_at": { "type": ["string", "null"], "format": "date" },
+    "reading_time": { "type": ["string", "null"] },
+    "path": { "type": ["string", "null"] },
+    "cover": { "type": ["string", "null"] },
+    "related_knowledge": { "type": "array", "items": { "type": "string" } },
+    "related_projects": { "type": "array", "items": { "type": "string" } },
+    "need_diagrams": { "type": "boolean" },
+    "need_comparison_table": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

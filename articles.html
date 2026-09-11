@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles — Rebecca Li</title>
+  <meta name="description" content="Notes from building, testing, and understanding AI systems.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="articles.css">
+  <script defer src="articles.js"></script>
+  <script defer src="sidebar.js"></script>
+</head>
+<body class="article-index">
+  <nav>
+    <div class="wrap navin">
+      <div class="brand">Rebecca <span>Forward-Deployed AI</span></div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="articles-hero wrap">
+      <div class="eyebrow">Articles · Field Notes</div>
+      <h1><span>Articles</span></h1>
+      <p class="articles-subtitle">Notes from building, testing, and understanding AI systems.</p>
+      <p class="articles-lede">
+        Practical writing about local AI, agents, AI infrastructure, and the business systems
+        around them—grounded in experiments, trade-offs, and what still needs verification.
+      </p>
+      <div class="articles-hero-meta" aria-label="Article themes">
+        <span>Build logs</span>
+        <span>System explanations</span>
+        <span>Comparisons</span>
+        <span>Experiments</span>
+      </div>
+    </header>
+
+    <section class="articles-section wrap" aria-labelledby="article-list-title">
+      <div class="article-section-heading">
+        <div>
+          <div class="eyebrow">The library</div>
+          <h2 id="article-list-title" data-article-heading>Published articles</h2>
+          <p><span data-article-count>0 published articles</span> · Each article connects practical work back to the relevant Knowledge pages and Projects.</p>
+        </div>
+        <a class="btn" href="articles.html?drafts=1">Preview local drafts →</a>
+      </div>
+
+      <div class="article-grid" data-article-grid aria-live="polite"></div>
+
+      <div class="article-empty" data-article-empty hidden>
+        <h3>No articles published yet.</h3>
+        <p>
+          The publishing system is ready. Drafts stay local until the story, evidence,
+          sources, and links are reviewed.
+        </p>
+        <a href="articles.html?drafts=1">Open the local draft workspace →</a>
+      </div>
+    </section>
+
+    <section class="article-queue wrap" data-draft-panel hidden aria-labelledby="draft-list-title">
+      <div class="draft-notice" data-draft-notice>
+        Coming Soon · planned topics are shown as metadata-only cards; unfinished article pages remain local-only.
+      </div>
+      <div class="article-section-heading">
+        <div>
+          <div class="eyebrow">Writing queue</div>
+          <h2 id="draft-list-title">Drafts and planned topics.</h2>
+          <p>Coming Soon cards define the reusable article system without inventing the final stories.</p>
+        </div>
+      </div>
+      <div class="article-grid" data-article-grid-drafts></div>
+    </section>
+
+    <div class="articles-footer-note wrap">
+      Articles are the explanation layer: Projects show what I built, while Knowledge explains the underlying concepts.
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Rebecca Li · Articles</div>
+  </footer>
+</body>
+</html>
