@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.rebecca.module09-batch</string>
+  <key>ProgramArguments</key><array><string>/Users/rebecca/Desktop/my websit/run_module09_at_2am.sh</string></array>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>2</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>/Users/rebecca/Desktop/my websit/module09-batch.log</string>
+  <key>StandardErrorPath</key><string>/Users/rebecca/Desktop/my websit/module09-batch-error.log</string>
+  <key>RunAtLoad</key><false/>
+</dict></plist>

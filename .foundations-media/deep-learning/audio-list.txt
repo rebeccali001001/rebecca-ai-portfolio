@@ -1,0 +1,6 @@
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-0.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-1.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-2.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-3.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-4.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/deep-learning/audio-5.mp3'

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of a field in a database record and how it relates to columns, rows, and SQL.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="field.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory field-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Field</h1>
+      <p class="lede">One individual data value inside a record; sometimes, the same word is used for a column.</p>
+    </header>
+
+    <section class="detail-sections">
+      <article id="definition" class="card wide detail-section">
+        <div class="section-number">01</div>
+        <h2>What is it?</h2>
+        <p class="definition">A field usually means one individual data value in a record.</p>
+        <p class="muted">For example, <code>status = "paid"</code> is one field value in an order record. In database conversations, people sometimes also use “field” to mean a column.</p>
+        <p class="note"><strong>Simple Definition:</strong> A field is one piece of data inside a record.</p>
+      </article>
+
+      <article id="analogy" class="card wide detail-section">
+        <div class="section-number">02</div>
+        <h2>Think of it like…</h2>
+        <p class="definition">Think of a record as one completed paper form.</p>
+        <p class="muted">Each labeled answer on that form is a field. If you place many forms side by side, the same question becomes a column.</p>
+        <div class="field-analogy" aria-label="One order record contains labeled fields such as status and total">
+          <div class="analogy-record"><small>ONE COMPLETED FORM</small><b>Order record</b><span>id: 42</span><span>status: paid</span><span>total: 89.00</span></div>
+          <div class="analogy-arrow" aria-hidden="true">→</div>
+          <div class="analogy-field"><small>ONE ANSWER</small><b>Field</b><span>status = paid</span><em>One value in this record</em></div>
+        </div>
+      </article>
+
+      <article id="does" class="card wide detail-section">
+        <div class="section-number">03</div>
+        <h2>What does it do?</h2>
+        <div class="field-purpose-grid">
+          <div><b>Hold one value</b><span>Stores one item of information for a record.</span></div>
+          <div><b>Label data</b><span>Gives a value a name such as <code>status</code> or <code>total</code>.</span></div>
+          <div><b>Describe a record</b><span>Combines with other fields to describe one object.</span></div>
+          <div><b>Support operations</b><span>Can be read, filtered, sorted, updated, or validated.</span></div>
+        </div>
+      </article>
+
+      <article id="used" class="card wide detail-section">
+        <div class="section-number">04</div>
+        <h2>Where is it used?</h2>
+        <p class="muted">Fields appear wherever software stores or passes structured information.</p>
+        <div class="field-use-grid">
+          <div><b>Database tables</b><span>Each record contains values for named data fields.</span></div>
+          <div><b>Forms and APIs</b><span>Inputs and JSON objects carry named fields.</span></div>
+          <div><b>Filters and reports</b><span>Queries select fields to find or display useful data.</span></div>
+          <div><b>Application code</b><span>Code reads and changes fields while processing a record.</span></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide detail-section">
+        <div class="section-number">05</div>
+        <h2>Example</h2>
+        <h3>One order record</h3>
+        <div class="code-card"><pre><code>orders
+────────────────────────────────────
+id │ customer_id │ status │ total
+42 │ 7           │ paid   │ 89.00</code></pre></div>
+        <div class="example-explanation">
+          <p><strong>Record:</strong> the complete row for order 42.</p>
+          <p><strong>Fields:</strong> <code>id</code>, <code>customer_id</code>, <code>status</code>, and <code>total</code>.</p>
+          <p><strong>Field value:</strong> <code>paid</code> is the value stored in the <code>status</code> field.</p>
+        </div>
+      </article>
+
+      <article id="connects" class="card wide detail-section">
+        <div class="section-number">06</div>
+        <h2>How it connects</h2>
+        <div class="responsive-flow" aria-label="Table to record to field to column and SQL">
+          <div>Table</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Record</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Field</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Column / SQL</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Application data</div>
+        </div>
+        <p class="muted">A field is the individual value; a column describes the same kind of field across many records. SQL can select or change either view.</p>
+      </article>
+
+      <article id="confuse" class="card wide detail-section">
+        <div class="section-number">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card highlight"><h3>Field</h3><p>One named piece of information in a record, or sometimes the value stored there.</p></div>
+          <div class="comparison-card"><h3>Column</h3><p>One category of information represented across every record in a table.</p></div>
+          <div class="comparison-card"><h3>Record</h3><p>The complete group of related field values for one item.</p></div>
+        </div>
+        <p class="note">The word “field” is used loosely in some teams. Check whether the speaker means one value, one named data item, or a whole column.</p>
+      </article>
+
+      <article id="glossary" class="card wide detail-section">
+        <div class="section-number">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Field</td><td>字段</td><td>One named piece of information within a record.</td><td>一条记录中的一个具体数据项。</td></tr>
+              <tr><td>Record</td><td>记录</td><td>A complete set of related values for one item.</td><td>描述一个对象的一整组相关数据。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One type of information stored for many records.</td><td>多条记录中保存同一种信息的一列。</td></tr>
+              <tr><td>Row</td><td>行</td><td>Another common name for one record in a table.</td><td>数据表中代表一条记录的一行。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores records in rows and columns.</td><td>用行和列保存多条记录的数据结构。</td></tr>
+              <tr><td>Value</td><td>值</td><td>The actual data held by a field.</td><td>字段里真正保存的内容。</td></tr>
+              <tr><td>Data Type</td><td>数据类型</td><td>The kind of value a field can store.</td><td>规定字段可以保存什么类型数据的规则。</td></tr>
+              <tr><td>NULL</td><td>空值</td><td>A marker meaning that a value is missing or unknown.</td><td>表示没有值或暂时不知道值，不等于零或空字符串。</td></tr>
+              <tr><td>SQL</td><td>结构化查询语言</td><td>A language used to read and change relational database data.</td><td>用来查询和修改关系型数据库数据的语言。</td></tr>
+              <tr><td>Query</td><td>查询</td><td>A request to read or change data in a database.</td><td>向数据库发出的读数据或改数据的指令。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide detail-section remember-card">
+        <div class="section-number">09</div>
+        <h2>What to Remember</h2>
+        <p>A field is one individual piece of data in a record.</p>
+        <p>Across many records, the same kind of field forms a column.</p>
+        <p>When someone says “field,” confirm whether they mean a value, a named data item, or a column.</p>
+        <div class="remember-flow" aria-label="Record contains fields and columns organize fields"><span>Record</span><b>→</b><span>Field value</span><b>→</b><span>Column across records</span></div>
+      </article>
+    </section>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="column.html">← <small>Previous</small><br>Column</a>
+      <a href="schema.html"><small>Next</small> →<br>Schema</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

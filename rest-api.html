@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>REST API · HTTP &amp; APIs · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly guide to REST APIs, resources, endpoints, and HTTP methods.">
+  <link rel="stylesheet" href="topic.css?v=20260909">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .rest-api-page .hero{padding-bottom:34px}
+    .rest-api-page .hero .eyebrow{margin-bottom:14px}
+    .rest-api-page .hero h1{margin-bottom:12px}
+    .rest-api-page .lede{max-width:780px}
+    .rest-api-page .section-lede{max-width:840px;color:var(--muted);margin:0 0 18px}
+    .rest-api-page .definition{font-size:20px;color:#fff;max-width:850px}
+    .rest-api-page .analogy-copy{max-width:840px}
+    .rest-api-page .resource-map{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1.3fr);gap:12px;align-items:center;margin-top:20px}
+    .rest-api-page .resource-map>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff}
+    .rest-api-page .resource-map strong{display:block;color:var(--green);margin-bottom:10px}
+    .rest-api-page .resource-map ul{margin:0;padding-left:20px;color:var(--muted)}
+    .rest-api-page .resource-map .map-arrow{padding:0;border:0;background:transparent;color:var(--green);font-size:26px;text-align:center}
+    .rest-api-page .method-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+    .rest-api-page .method-card{padding:18px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;text-align:center}
+    .rest-api-page .method-card code{display:block;color:var(--green);font:800 17px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .rest-api-page .method-card span{display:block;margin-top:9px;color:var(--muted);font-size:13px}
+    .rest-api-page .use-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+    .rest-api-page .use-card{padding:16px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:800}
+    .rest-api-page .example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .rest-api-page .example-card{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .rest-api-page .example-card code{display:block;color:var(--green);font:800 17px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .rest-api-page .example-card p{margin:9px 0 0;color:var(--muted)}
+    .rest-api-page .connect-flow{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:20px}
+    .rest-api-page .connect-flow span{padding:13px 15px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+    .rest-api-page .connect-flow span:nth-of-type(2),.rest-api-page .connect-flow span:nth-of-type(4){border-color:var(--green);color:var(--green)}
+    .rest-api-page .connect-flow i{font-style:normal;color:var(--green);font-size:22px}
+    .rest-api-page .confusion-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .rest-api-page .confusion-card{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .rest-api-page .confusion-card h3{margin:0 0 8px;color:var(--green)}
+    .rest-api-page .confusion-card p{margin:0;color:var(--muted)}
+    .rest-api-page .bottom-line{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent)}
+    .rest-api-page .glossary-wrap{overflow:auto;margin-top:18px}
+    .rest-api-page table{width:100%;min-width:820px;border-collapse:collapse;font-size:14px}
+    .rest-api-page th,.rest-api-page td{padding:13px 12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .rest-api-page th{color:var(--green);font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+    .rest-api-page td{color:var(--muted)}
+    .rest-api-page td:first-child{color:#fff;font-weight:800}
+    .rest-api-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .rest-api-page .remember p{font-size:20px;color:#fff;max-width:860px}
+    .rest-api-page .pager{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+    .rest-api-page .pager a{display:flex;flex-direction:column;gap:3px;min-width:150px;color:var(--muted)}
+    .rest-api-page .pager a:last-child{text-align:right;align-items:flex-end}
+    .rest-api-page .pager a:hover{color:#fff}
+    .rest-api-page .pager small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .rest-api-page .pager strong{color:var(--green);font-size:15px}
+    @media(max-width:900px){.rest-api-page .method-grid,.rest-api-page .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.rest-api-page .resource-map,.rest-api-page .method-grid,.rest-api-page .use-grid,.rest-api-page .example-grid,.rest-api-page .confusion-grid{grid-template-columns:1fr}.rest-api-page .resource-map .map-arrow{transform:rotate(90deg)}.rest-api-page .connect-flow{flex-direction:column;align-items:stretch}.rest-api-page .connect-flow i{transform:rotate(90deg);text-align:center}.rest-api-page .pager a{min-width:0}}
+  </style>
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic rest-api-page has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">PART III · HTTP &amp; APIs</div>
+      <h1>REST API</h1>
+      <p class="lede">A common way to design APIs around resources and HTTP methods.</p>
+    </header>
+
+    <section class="grid">
+      <article class="card wide">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A REST API is a common style for designing web APIs.</p>
+        <p class="section-lede">It usually represents business data as resources and uses HTTP methods to perform actions on those resources.</p>
+        <p class="note"><strong>Simple Definition：</strong><br>A REST API organizes API operations around resources.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-copy">
+          <p class="definition">Think of an API resource as a collection of business objects.</p>
+          <p>Orders</p>
+          <p>Customers</p>
+          <p>Products</p>
+          <p>Each resource has an address and common actions.</p>
+        </div>
+        <div class="resource-map" aria-label="Orders resource and common actions">
+          <div><strong>Orders</strong><span>A collection of business objects</span></div>
+          <div class="map-arrow" aria-hidden="true">→</div>
+          <div><strong>Common actions</strong><ul><li>Get Orders</li><li>Create Order</li><li>Update Order</li><li>Delete Order</li></ul></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">A REST API commonly uses these HTTP methods to work with resources.</p>
+        <div class="method-grid"><div class="method-card"><code>GET</code><span>Retrieve</span></div><div class="method-card"><code>POST</code><span>Create</span></div><div class="method-card"><code>PUT</code><span>Replace</span></div><div class="method-card"><code>PATCH</code><span>Partially update</span></div><div class="method-card"><code>DELETE</code><span>Remove</span></div></div>
+      </article>
+
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">REST APIs are commonly used in:</p>
+        <div class="use-grid"><div class="use-card">Web Applications</div><div class="use-card">Mobile Applications</div><div class="use-card">Business Systems</div><div class="use-card">Cloud Services</div><div class="use-card">System Integrations</div></div>
+      </article>
+
+      <article class="card wide">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card"><code>GET /api/orders</code><p>Retrieve orders.</p></div>
+          <div class="example-card"><code>GET /api/orders/1001</code><p>Retrieve one order.</p></div>
+          <div class="example-card"><code>POST /api/orders</code><p>Create an order.</p></div>
+          <div class="example-card"><code>PATCH /api/orders/1001</code><p>Update part of an order.</p></div>
+          <div class="example-card"><code>DELETE /api/orders/1001</code><p>Delete an order.</p></div>
+        </div>
+        <p class="note">These examples show the design pattern. They are not implementation code.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connect-flow" aria-label="REST API operation flow"><span>Resource</span><i>→</i><span>Endpoint</span><i>→</i><span>HTTP Method</span><i>→</i><span>Backend Action</span></div>
+        <div class="connect-flow" aria-label="Create order example flow"><span>Orders</span><i>→</i><span>/api/orders</span><i>→</i><span>POST</span><i>→</i><span>Create Order</span></div>
+        <p class="note">REST APIs combine resource-oriented URLs with HTTP methods.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid"><div class="confusion-card"><h3>API</h3><p>The broader concept of a software interface.</p></div><div class="confusion-card"><h3>REST API</h3><p>One common way to design a web API.</p></div></div>
+        <p class="bottom-line">REST is an API design style.<br>Not every API is REST.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap"><table><thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>REST API</td><td>REST API</td><td>A common way to design web APIs around resources.</td><td>一种以资源为中心设计 Web API 的常见方式。</td></tr>
+          <tr><td>Resource</td><td>资源</td><td>A business object or data exposed through an API.</td><td>API 中可以被访问和操作的数据或业务对象。</td></tr>
+          <tr><td>Endpoint</td><td>接口地址</td><td>A specific URL used to access a resource.</td><td>用来访问某个 API 资源的具体地址。</td></tr>
+          <tr><td>GET</td><td>获取</td><td>Usually used to retrieve a resource.</td><td>通常用于获取资源数据。</td></tr>
+          <tr><td>POST</td><td>创建 / 提交</td><td>Usually used to create a new resource.</td><td>通常用于创建新的资源。</td></tr>
+          <tr><td>PUT</td><td>完整更新</td><td>Usually used to replace a resource.</td><td>通常用于完整替换一个资源。</td></tr>
+          <tr><td>PATCH</td><td>部分更新</td><td>Usually used to change part of a resource.</td><td>通常用于修改资源的一部分。</td></tr>
+          <tr><td>DELETE</td><td>删除</td><td>Usually used to remove a resource.</td><td>通常用于删除一个资源。</td></tr>
+          <tr><td>HTTP</td><td>HTTP 协议</td><td>The protocol commonly used by REST APIs.</td><td>REST API 常用的基础通信协议。</td></tr>
+          <tr><td>JSON</td><td>JSON 数据格式</td><td>A common format for REST API data.</td><td>REST API 常用的数据交换格式。</td></tr>
+        </tbody></table></div>
+      </article>
+
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>REST API is one common API design style.</p>
+        <p>REST APIs organize operations around resources.</p>
+        <p>HTTP methods describe what action should be performed.</p>
+        <p class="note"><strong>Final：</strong><br>Resource + Endpoint + HTTP Method = REST API Operation</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Software Knowledge topic navigation">
+      <a href="api-http.html"><small>Previous</small><strong>← API</strong></a>
+      <a href="endpoint.html"><small>Next</small><strong>Endpoint →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

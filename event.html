@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Event · Frontend &amp; Browser · Software Knowledge</title>
+  <meta name="description" content="An event is an action or change that software can detect and respond to.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .event-flow,.event-connection-flow{display:grid;align-items:center;gap:10px;margin-top:20px}
+    .event-flow{grid-template-columns:1fr 42px 1fr 42px 1.2fr}
+    .event-connection-flow{grid-template-columns:repeat(9,minmax(0,1fr))}
+    .event-flow>div:not(.event-arrow),.event-connection-flow>div:not(.event-arrow){min-height:86px;display:flex;align-items:center;justify-content:center;padding:16px;border:1px solid #38516d;border-radius:15px;background:#07111a;text-align:center;font-weight:800;color:#fff}
+    .event-flow>div:last-child,.event-connection-flow>div:last-child{border-color:var(--green);background:rgba(120,229,189,.09)}
+    .event-arrow{color:var(--green);font-size:24px;text-align:center}
+    .event-chip-grid,.event-example-grid,.event-confusion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .event-chip-grid>div,.event-example-grid>div,.event-confusion-grid>div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .event-chip-grid b,.event-example-grid b{display:block;color:var(--green);font-size:16px}
+    .event-example-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .event-code-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);gap:18px;align-items:start;margin-top:18px}
+    pre{margin:0;padding:20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+    code{color:#dbe7f4}.event-explanation{display:grid;gap:10px}.event-explanation div{padding:13px 15px;border-left:3px solid var(--blue);background:#07111a;color:var(--muted)}.event-explanation b{color:#fff}
+    .event-connection-flow>div:not(.event-arrow){min-height:78px;padding:12px 8px;font-size:14px}.event-connection-flow .event-arrow{font-size:20px}
+    .event-confusion-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.event-confusion-grid h3{margin:0 0 6px;color:#fff;font-size:18px}.event-confusion-grid p{margin:7px 0 0;color:var(--muted);font-size:14px}
+    .event-glossary-wrap{overflow-x:auto;margin-top:18px}.event-glossary{width:100%;min-width:760px;border-collapse:collapse;font-size:14px}.event-glossary th,.event-glossary td{padding:12px 14px;border:1px solid #38516d;vertical-align:top;text-align:left}.event-glossary th{color:var(--green);background:#07111a;font-size:12px;letter-spacing:.06em;text-transform:uppercase}.event-glossary td{color:var(--muted)}.event-glossary td:first-child{color:#fff;font-weight:800}
+    .event-final-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:20px;color:var(--green);font-size:20px;font-weight:850}.event-final-flow span{padding:12px 18px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#fff;font-size:16px}.event-page .detail-section{scroll-margin-top:24px}
+    @media(max-width:900px){.event-connection-flow{grid-template-columns:repeat(5,minmax(0,1fr))}.event-connection-flow .event-arrow{display:none}.event-connection-flow>div:not(.event-arrow)::after{content:'↓';display:block;margin-left:6px;color:var(--green)}}
+    @media(max-width:760px){.event-flow,.event-connection-flow,.event-code-layout,.event-example-grid,.event-confusion-grid,.event-chip-grid{grid-template-columns:1fr}.event-flow .event-arrow,.event-connection-flow .event-arrow{display:block;font-size:0}.event-flow .event-arrow::after,.event-connection-flow .event-arrow::after{content:'↓';font-size:24px}.event-connection-flow>div:not(.event-arrow)::after{display:none}.event-final-flow{flex-direction:column}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page event-page">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Event</h1>
+    <p class="lede">An action or change that software can detect and respond to.</p>
+    <section class="detail-sections">
+      <article id="definition" class="card detail-section topic-definition"><h2>01 · What is it?</h2><p class="definition">An event is something that happens in the browser or user interface.</p><p class="muted">JavaScript can detect events and run code in response.</p><p class="note">A simple definition: an event tells software that something happened.</p></article>
+      <article id="analogy" class="card detail-section topic-analogy"><h2>02 · Think of it like...</h2><p class="definition">Think of an event as a signal.</p><p class="muted">Something happens. The signal is detected. Software responds.</p><div class="event-flow" aria-label="Something happens, event, software response"><div>Something Happens</div><div class="event-arrow" aria-hidden="true">→</div><div>Event</div><div class="event-arrow" aria-hidden="true">→</div><div>Software Response</div></div></article>
+      <article id="does" class="card detail-section topic-process"><h2>03 · What does it do?</h2><p class="muted">Events allow software to react to user and system actions.</p><div class="event-chip-grid"><div><b>Click</b></div><div><b>Input</b></div><div><b>Change</b></div><div><b>Submit</b></div><div><b>Load</b></div><div><b>Key Press</b></div></div></article>
+      <article id="used" class="card detail-section topic-example"><h2>04 · Where is it used?</h2><p class="muted">Events are used throughout interactive web pages.</p><div class="event-example-grid"><div><b>Click a Button</b></div><div><b>Type in a Search Box</b></div><div><b>Submit a Form</b></div><div><b>Select an Option</b></div><div><b>Load a Page</b></div><div><b>Open a Menu</b></div></div></article>
+      <article id="example" class="card detail-section topic-example"><h2>05 · Example</h2><div class="event-code-layout"><pre><code>button.addEventListener("click", () =&gt; {
+  console.log("Button clicked");
+});</code></pre><div class="event-explanation"><div><b>"click"</b><br>is the event.</div><div><b>addEventListener()</b><br>waits for the event.</div><div><b>The function</b><br>runs when the event happens.</div></div></div></article>
+      <article id="connects" class="card detail-section topic-process"><h2>06 · How it connects</h2><div class="event-connection-flow" aria-label="User action to page update flow"><div>User Action</div><div class="event-arrow" aria-hidden="true">→</div><div>Event</div><div class="event-arrow" aria-hidden="true">→</div><div>Event Listener</div><div class="event-arrow" aria-hidden="true">→</div><div>JavaScript Function</div><div class="event-arrow" aria-hidden="true">→</div><div>Page Update</div></div><p class="note">Events connect user actions with software behavior.</p></article>
+      <article id="confuse" class="card detail-section topic-comparison"><h2>07 · Do Not Confuse</h2><div class="event-confusion-grid"><div><h3>Event ≠ Event Listener</h3><p><b>Event</b><br>Something that happens.</p></div><div><h3>Event Listener</h3><p>Code that waits for the event.</p></div></div><div class="event-final-flow" aria-label="Event equals signal; event listener equals listener"><span>Event = Signal</span><b>·</b><span>Event Listener = Listener</span></div></article>
+      <article id="glossary" class="card detail-section topic-related"><h2>08 · Topic Glossary</h2><div class="event-glossary-wrap"><table class="event-glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody><tr><td>Event</td><td>事件</td><td>An action or change software can detect.</td><td>软件可以检测到的操作或变化。</td></tr><tr><td>Click Event</td><td>点击事件</td><td>An event triggered when a user clicks something.</td><td>用户点击页面元素时触发的事件。</td></tr><tr><td>Input Event</td><td>输入事件</td><td>An event triggered when input data changes.</td><td>用户输入内容发生变化时触发的事件。</td></tr><tr><td>Change Event</td><td>变更事件</td><td>An event triggered when a value is changed.</td><td>某个控件的值发生变化时触发的事件。</td></tr><tr><td>Submit Event</td><td>提交事件</td><td>An event triggered when a form is submitted.</td><td>表单被提交时触发的事件。</td></tr><tr><td>Load Event</td><td>加载事件</td><td>An event triggered when a resource or page finishes loading.</td><td>页面或资源加载完成时触发的事件。</td></tr><tr><td>Event Listener</td><td>事件监听</td><td>Code that waits for an event and runs an action.</td><td>等待事件发生并执行代码的机制。</td></tr><tr><td>Handler</td><td>事件处理函数</td><td>Code that runs when an event occurs.</td><td>事件发生后负责处理该事件的代码。</td></tr><tr><td>User Action</td><td>用户操作</td><td>An action performed by a user.</td><td>用户在页面中执行的操作。</td></tr><tr><td>JavaScript</td><td>JavaScript</td><td>The language commonly used to handle browser events.</td><td>常用来处理浏览器事件的编程语言。</td></tr></tbody></table></div></article>
+      <article id="remember" class="card detail-section topic-takeaway"><h2>09 · What to Remember</h2><p class="note">An event means something happened.</p><p class="note">JavaScript can respond to events.</p><p class="note">Events are the foundation of interactive web pages.</p><div class="event-final-flow" aria-label="Action to event to response"><span>Action</span><b>→</b><span>Event</span><b>→</b><span>Response</span></div></article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

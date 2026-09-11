@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relational Database · 05 · Database &amp; SQL</title>
+  <meta name="description" content="A relational database organizes structured data into tables and connects those tables through relationships.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .relational-database-page .hero { padding-bottom: 12px; }
+    .relational-database-page .hero h1 { margin-bottom: 14px; }
+    .relational-database-page .definition { max-width: 900px; font-size: 21px; color: #fff; }
+    .relational-database-page .section-copy { max-width: 900px; color: var(--muted); }
+    .relational-database-page .table-map { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+    .relational-database-page .table-card,
+    .relational-database-page .mini-card,
+    .relational-database-page .confusion-card { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .relational-database-page .table-card h3,
+    .relational-database-page .mini-card h3,
+    .relational-database-page .confusion-card h3 { margin: 0 0 7px; color: var(--green); font-size: 17px; }
+    .relational-database-page .table-card p,
+    .relational-database-page .mini-card p,
+    .relational-database-page .confusion-card p { margin: 0; color: var(--muted); }
+    .relational-database-page .table-card code { display: block; margin-top: 12px; padding: 10px 12px; overflow-x: auto; border-radius: 9px; background: #102335; color: #e8f2fb; font: 600 13px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre; }
+    .relational-database-page .action-grid,
+    .relational-database-page .use-grid,
+    .relational-database-page .confusion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .relational-database-page .action-grid .mini-card b,
+    .relational-database-page .use-grid .mini-card b { display: block; color: #fff; }
+    .relational-database-page .action-grid .mini-card p,
+    .relational-database-page .use-grid .mini-card p { margin-top: 6px; font-size: 14px; }
+    .relational-database-page .flow { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; width: 100%; min-width: 0; }
+    .relational-database-page .flow-node { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 76px; flex: 1 1 0; padding: 14px 12px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; font-weight: 800; text-align: center; overflow-wrap: anywhere; }
+    .relational-database-page .flow-node.accent { border-color: var(--green); background: rgba(120, 229, 189, .1); }
+    .relational-database-page .flow-arrow { display: grid; place-items: center; flex: 0 0 24px; color: var(--green); font-size: 24px; font-weight: 800; }
+    .relational-database-page pre { margin: 18px 0 0; max-width: 100%; overflow-x: auto; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #dbe7f4; font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .relational-database-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .relational-database-page .confusion-card strong { display: block; margin-bottom: 5px; color: #fff; }
+    .relational-database-page .glossary-wrap { max-width: 100%; overflow-x: auto; margin-top: 18px; }
+    .relational-database-page .glossary { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 14px; }
+    .relational-database-page .glossary th,
+    .relational-database-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .relational-database-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .relational-database-page .glossary td { color: var(--muted); }
+    .relational-database-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .relational-database-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .relational-database-page .remember p { max-width: 900px; font-size: 19px; color: #fff; }
+    .relational-database-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 20px 0 30px; border-top: 1px solid rgba(255,255,255,.1); }
+    .relational-database-page .prevnext a { min-width: 180px; color: var(--muted); }
+    .relational-database-page .prevnext a:last-child { text-align: right; }
+    .relational-database-page .prevnext small { display: block; color: var(--green); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .relational-database-page .prevnext b { color: #fff; }
+    @media (max-width: 900px) {
+      .relational-database-page .action-grid,
+      .relational-database-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .relational-database-page .flow { flex-wrap: wrap; }
+      .relational-database-page .flow-node { flex-basis: 140px; }
+    }
+    @media (max-width: 760px) {
+      .relational-database-page .table-map,
+      .relational-database-page .action-grid,
+      .relational-database-page .use-grid,
+      .relational-database-page .confusion-grid { grid-template-columns: 1fr; }
+      .relational-database-page .flow { flex-direction: column; gap: 6px; }
+      .relational-database-page .flow-node { width: 100%; flex-basis: auto; }
+      .relational-database-page .flow-arrow { min-height: 22px; flex-basis: 20px; font-size: 0; }
+      .relational-database-page .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .relational-database-page .prevnext { flex-direction: column; }
+      .relational-database-page .prevnext a:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory relational-database-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Relational Database</h1>
+      <p class="lede">A relational database organizes structured data into tables and connects those tables through relationships.</p>
+    </header>
+
+    <section class="detail-sections">
+      <article id="what-is-it" class="card detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A relational database stores structured data in tables and uses shared fields to connect related records across those tables.</p>
+        <p class="section-copy">Each table usually represents one kind of thing, such as users, orders, or products. Rows hold records, columns describe fields, and keys make connections explicit.</p>
+      </article>
+
+      <article id="think-of-it" class="card detail-section topic-analogy">
+        <h2>02 · Think of it like…</h2>
+        <p class="definition">Think of it like a set of spreadsheets with carefully managed links.</p>
+        <p class="section-copy">One sheet lists customers, another lists orders, and an order keeps the customer ID that points back to the right customer. The link avoids copying the same customer details into every order.</p>
+        <div class="table-map" aria-label="Customers and orders tables connected by customer ID">
+          <div class="table-card"><h3>customers</h3><p>One row per customer.</p><code>id · name · email</code></div>
+          <div class="table-card"><h3>orders</h3><p>One row per order.</p><code>id · customer_id · total</code></div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="section-copy">A relational database helps software keep structured data consistent and useful.</p>
+        <div class="action-grid">
+          <div class="mini-card"><b>Organize</b><p>Keep related data in clear tables.</p></div>
+          <div class="mini-card"><b>Connect</b><p>Link records with keys and relationships.</p></div>
+          <div class="mini-card"><b>Query</b><p>Find combined answers with SQL.</p></div>
+          <div class="mini-card"><b>Protect</b><p>Enforce rules with constraints and transactions.</p></div>
+        </div>
+      </article>
+
+      <article id="where-used" class="card detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-copy">Relational databases are common when an application needs reliable records, clear links, and repeatable queries.</p>
+        <div class="use-grid">
+          <div class="mini-card"><b>Commerce</b><p>Customers, carts, orders, and payments.</p></div>
+          <div class="mini-card"><b>Finance</b><p>Accounts, transfers, balances, and audit records.</p></div>
+          <div class="mini-card"><b>Healthcare</b><p>Patients, appointments, clinicians, and results.</p></div>
+          <div class="mini-card"><b>Operations</b><p>Inventory, suppliers, tickets, and schedules.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section topic-example">
+        <h2>05 · Example</h2>
+        <p class="definition">A customer places an order, and the database keeps the order connected to the customer without duplicating the customer record.</p>
+        <div class="flow" aria-label="Customer to order to customer ID to relational database to query result">
+          <div class="flow-node">Customer places an order</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Order stores customer_id</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Related tables</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">SQL returns the joined result</div>
+        </div>
+        <pre><code>SELECT customers.name, orders.total
+FROM customers
+JOIN orders ON orders.customer_id = customers.id;</code></pre>
+      </article>
+
+      <article id="how-it-connects" class="card detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <p class="section-copy">The application sends a request, backend logic creates a SQL query, and the relational database returns structured results.</p>
+        <div class="flow" aria-label="Frontend to API to backend to SQL to relational database to response">
+          <div class="flow-node">Frontend</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">API request</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Backend</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">SQL</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Relational database</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Response</div>
+        </div>
+      </article>
+
+      <article id="do-not-confuse" class="card detail-section topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>Relational Database</h3><strong>The data system</strong><p>Stores tables and manages relationships, rules, and transactions.</p></div>
+          <div class="confusion-card"><h3>SQL</h3><strong>The language</strong><p>Expresses queries and data changes for relational databases.</p></div>
+          <div class="confusion-card"><h3>DBMS</h3><strong>The manager</strong><p>Software that runs and controls database storage, access, and operations.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Relational Database</td><td>关系型数据库</td><td>A database that stores data in tables and connects related records.</td><td>把数据放在表里，并把相关记录连接起来的数据库。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores one kind of data in rows and columns.</td><td>按行和列保存某一类数据的结构。</td></tr>
+              <tr><td>Row</td><td>行</td><td>One complete record in a table.</td><td>表中的一条完整记录。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One named type of information in a table.</td><td>表中一种有名字的数据类型。</td></tr>
+              <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a row.</td><td>唯一标识一行数据的值。</td></tr>
+              <tr><td>Foreign Key</td><td>外键</td><td>A field that points to a row in another table.</td><td>指向另一张表中某条记录的字段。</td></tr>
+              <tr><td>Relationship</td><td>关系</td><td>A connection between records in different tables.</td><td>不同表中记录之间的关联。</td></tr>
+              <tr><td>Join</td><td>连接</td><td>A SQL operation that combines related rows from tables.</td><td>用 SQL 把相关表中的数据合并起来查看。</td></tr>
+              <tr><td>Constraint</td><td>约束</td><td>A rule that protects the validity of stored data.</td><td>保证保存的数据符合规则的限制。</td></tr>
+              <tr><td>Transaction</td><td>事务</td><td>A group of operations treated as one unit.</td><td>作为一个整体执行的一组数据库操作。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="what-to-remember" class="card detail-section topic-takeaway remember">
+        <h2>09 · What to Remember</h2>
+        <p>Relational databases organize structured data into tables.</p>
+        <p>Keys connect related records, and SQL works across those relationships.</p>
+        <p>Constraints and transactions help keep data reliable as applications change it.</p>
+        <div class="flow" aria-label="Tables to relationships to SQL to reliable application data">
+          <div class="flow-node">Tables</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Relationships</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">SQL</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Reliable data</div>
+        </div>
+      </article>
+    </section>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="dbms.html"><small>Previous</small><b>← DBMS</b></a>
+      <a href="postgresql.html"><small>Next</small><b>PostgreSQL →</b></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

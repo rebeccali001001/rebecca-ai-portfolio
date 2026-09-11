@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monolith · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of monolithic applications, their trade-offs, and when a product team might choose one.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .monolith-topic .section-number{color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .monolith-topic .definition{max-width:900px;font-size:22px;line-height:1.45;color:#fff}
+    .monolith-topic .cards,.monolith-topic .comparison-grid,.monolith-topic .tradeoff-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .monolith-topic .cards>div,.monolith-topic .comparison-grid>div,.monolith-topic .tradeoff-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;min-width:0}
+    .monolith-topic .cards h3,.monolith-topic .comparison-grid h3,.monolith-topic .tradeoff-grid h3{margin:0 0 8px;color:#fff;font-size:17px}
+    .monolith-topic .cards p,.monolith-topic .comparison-grid p,.monolith-topic .tradeoff-grid p{margin:0;color:var(--muted);font-size:14px}
+    .monolith-topic .flow{display:flex;align-items:stretch;justify-content:center;gap:10px;margin:20px auto 4px;max-width:1000px}
+    .monolith-topic .flow span{display:flex;align-items:center;justify-content:center;flex:1;min-width:0;min-height:72px;padding:14px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800;text-align:center;overflow-wrap:anywhere}
+    .monolith-topic .flow span.accent{border-color:var(--green);background:rgba(120,229,189,.1)}
+    .monolith-topic .flow b{display:grid;place-items:center;color:var(--green);font-size:24px;flex:0 0 auto}
+    .monolith-topic .mobile-arrow{display:none}
+    .monolith-topic .architecture-diagram{display:grid;gap:8px;max-width:760px;margin:20px auto 4px}
+    .monolith-topic .architecture-node{padding:15px 18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:800}
+    .monolith-topic .architecture-node.accent{border-color:var(--green);background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .monolith-topic .architecture-arrow{text-align:center;color:var(--green);font-size:23px;line-height:1}
+    .monolith-topic .module-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
+    .monolith-topic .module-grid div{padding:14px 12px;border:1px solid #38516d;border-radius:12px;background:#0b1a29;text-align:center;color:#dbe7f4;font-size:14px}
+    .monolith-topic .example-panel{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    .monolith-topic .example-panel>div{padding:18px;border-radius:14px;background:#07111a;border:1px solid #38516d}
+    .monolith-topic .example-panel h3{margin:0 0 10px;color:#fff}
+    .monolith-topic .example-panel p{margin:8px 0;color:var(--muted);font-size:14px}
+    .monolith-topic .callout{margin-top:18px;padding:16px 18px;border-left:3px solid var(--gold);background:rgba(255,212,127,.08);color:var(--muted)}
+    .monolith-topic .callout strong{color:var(--gold)}
+    .monolith-topic .glossary-wrap{overflow-x:auto;margin-top:16px}
+    .monolith-topic table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:13px}
+    .monolith-topic th,.monolith-topic td{padding:12px 10px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+    .monolith-topic th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .monolith-topic td{color:var(--muted)}
+    .monolith-topic td:first-child{color:#fff;font-weight:800}
+    .monolith-topic td a{color:#fff}
+    .monolith-topic .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .monolith-topic .remember>p{color:#fff;font-size:21px;max-width:900px}
+    .monolith-topic .pm-perspective{margin-top:18px;padding:16px 18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .monolith-topic .pm-perspective strong{color:var(--green);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+    .monolith-topic .pm-perspective p{margin:8px 0 0;color:var(--muted)}
+    .monolith-topic .pager{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+    .monolith-topic .pager a{display:flex;flex-direction:column;gap:3px;color:var(--muted);min-width:0}
+    .monolith-topic .pager a:last-child{align-items:flex-end;text-align:right}
+    .monolith-topic .pager small{font-size:11px;text-transform:uppercase}
+    .monolith-topic .pager strong{color:var(--green);overflow-wrap:anywhere}
+    @media(max-width:900px){.monolith-topic .cards,.monolith-topic .comparison-grid,.monolith-topic .tradeoff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.monolith-topic .module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){
+      .monolith-topic .cards,.monolith-topic .comparison-grid,.monolith-topic .tradeoff-grid,.monolith-topic .example-panel{grid-template-columns:1fr}
+      .monolith-topic .module-grid{grid-template-columns:1fr 1fr}
+      .monolith-topic .flow{display:grid;gap:6px}
+      .monolith-topic .flow b{display:none}
+      .monolith-topic .flow .mobile-arrow{display:block;color:var(--green);font-size:21px;line-height:1;min-height:0;border:0;background:none;padding:0}
+      .monolith-topic .architecture-arrow{font-size:21px}
+      .monolith-topic .pager{flex-direction:column}
+      .monolith-topic .pager a:last-child{align-items:flex-start;text-align:left}
+      .monolith-topic table{font-size:12px}
+      .monolith-topic th,.monolith-topic td{padding:10px 7px}
+    }
+  </style>
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory monolith-topic software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <p class="section-number">MODULE 07 · SYSTEM ARCHITECTURE</p>
+      <h1>Monolith</h1>
+      <p class="lede">A monolith is an application whose major features are built and deployed together as one application.</p>
+    </header>
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-section">
+        <span class="section-number">01 · What is it?</span><h2>What is it?</h2>
+        <p class="definition">A monolith packages the main application capabilities into one deployable unit.</p>
+        <p class="muted">That unit may contain separate modules such as accounts, catalog, checkout, and reporting. “One application” describes how the system is built and shipped; it does not mean every feature must be in one file or that the code cannot have boundaries.</p>
+        <div class="callout"><strong>Important distinction</strong><br>A monolith is an architecture and deployment choice, not a synonym for “old,” “simple,” or “badly designed.” A well-structured monolith is often a deliberate starting point.</div>
+      </article>
+
+      <article id="think-of-it-like" class="card wide topic-section">
+        <span class="section-number">02 · Think of it like...</span><h2>Think of it like...</h2>
+        <p class="definition">Think of a department store with one building, one operating schedule, and shared back-office systems.</p>
+        <p class="muted">Inside the building, different departments can still have clear responsibilities. Customers enter through the same place, and a release to the building may affect all departments. A monolith has a similar shape: many capabilities live behind one application boundary and are shipped together.</p>
+        <div class="architecture-diagram" aria-label="One application containing multiple business modules">
+          <div class="architecture-node accent">ONE DEPLOYABLE APPLICATION</div><div class="architecture-arrow" aria-hidden="true">↓</div>
+          <div class="module-grid"><div>Accounts</div><div>Catalog</div><div>Checkout</div><div>Reporting</div></div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide topic-section">
+        <span class="section-number">03 · What does it do?</span><h2>What does it do?</h2>
+        <div class="cards">
+          <div><h3>Packages capabilities</h3><p>It keeps multiple business functions in one application codebase and runtime.</p></div>
+          <div><h3>Shares a release</h3><p>A production deployment normally carries the application as one unit, even when only one module changed.</p></div>
+          <div><h3>Enables local coordination</h3><p>Modules can call each other directly and often share application libraries, transactions, and data access patterns.</p></div>
+        </div>
+        <div class="flow" aria-label="User request through a monolithic application to data">
+          <span>User request</span><b class="desktop-arrow" aria-hidden="true">→</b><span class="mobile-arrow" aria-hidden="true">↓</span><span class="accent">Monolithic application</span><b class="desktop-arrow" aria-hidden="true">→</b><span class="mobile-arrow" aria-hidden="true">↓</span><span>Database / external systems</span>
+        </div>
+      </article>
+
+      <article id="where-is-it-used" class="card wide topic-section">
+        <span class="section-number">04 · Where is it used?</span><h2>Where is it used?</h2>
+        <p class="muted">Monoliths are common when a product has one main team, one release train, a cohesive domain, or a need to move quickly before the boundaries are fully understood.</p>
+        <div class="tradeoff-grid">
+          <div><h3>Early-stage products</h3><p>One deployable unit can reduce infrastructure and coordination while the team validates the product.</p></div>
+          <div><h3>Internal tools</h3><p>A single application is often enough when usage, ownership, and change patterns are relatively contained.</p></div>
+          <div><h3>Business platforms</h3><p>Modular monoliths can support many capabilities while keeping transactions and operations straightforward.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-section">
+        <span class="section-number">05 · Example</span><h2>Example</h2>
+        <p class="muted">Imagine an online retailer with one application for browsing products and placing orders.</p>
+        <div class="example-panel">
+          <div><h3>Customer action</h3><p>A shopper checks out with three items.</p><p><b>Request</b> — the checkout module validates the cart, reserves inventory, charges payment, and creates the order.</p><p><b>Response</b> — the application returns an order confirmation to the browser.</p></div>
+          <div><h3>Product implication</h3><p>The customer gets one consistent checkout flow and the business can keep the order steps in one transaction.</p><p>The trade-off is that a deployment or failure in a neighboring module can affect the whole application, and checkout cannot be scaled completely independently from catalog.</p></div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide topic-section">
+        <span class="section-number">06 · How it connects</span><h2>How it connects</h2>
+        <p class="muted">A monolith can still use APIs, background jobs, queues, caches, load balancers, and external services. The defining boundary is the main application unit, not the absence of other infrastructure.</p>
+        <div class="flow" aria-label="Browser to monolith to asynchronous follow-up">
+          <span>Browser / mobile client</span><b class="desktop-arrow" aria-hidden="true">→</b><span class="mobile-arrow" aria-hidden="true">↓</span><span class="accent">Monolith API</span><b class="desktop-arrow" aria-hidden="true">→</b><span class="mobile-arrow" aria-hidden="true">↓</span><span>Database</span><b class="desktop-arrow" aria-hidden="true">→</b><span class="mobile-arrow" aria-hidden="true">↓</span><span>Queue / email worker</span>
+        </div>
+        <p class="muted">For example, the application may save an order synchronously and publish an event for email or analytics to process asynchronously.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide topic-section">
+        <span class="section-number">07 · Do Not Confuse</span><h2>Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <div><h3>Monolith ≠ one file</h3><p>A monolith can have many packages, modules, teams, and layers inside one deployable application.</p></div>
+          <div><h3>Monolith ≠ no boundaries</h3><p>Good internal interfaces and ownership boundaries still matter; they make future change safer.</p></div>
+          <div><h3>Monolith ≠ legacy</h3><p>A new product can intentionally start as a monolith, and a mature product can remain one successfully.</p></div>
+          <div><h3>Monolith ≠ cannot scale</h3><p>A monolith can scale horizontally by running multiple copies behind a load balancer, although all modules scale together.</p></div>
+          <div><h3>Modular monolith ≠ microservices</h3><p>Both can have clear modules, but microservices are independently deployable and operated processes.</p></div>
+          <div><h3>Monolith ≠ shared database only</h3><p>Sharing a database may happen in several architectures; deployment and runtime boundaries are the key distinction here.</p></div>
+        </div>
+      </article>
+
+      <article id="topic-glossary" class="card wide topic-section">
+        <span class="section-number">08 · Topic Glossary</span><h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Monolith</td><td>单体应用</td><td>An application whose major features are built and deployed together.</td><td>主要功能放在一起开发和部署的应用。</td></tr>
+              <tr><td>Deployable Unit</td><td>可部署单元</td><td>The unit that is released to a runtime environment.</td><td>一次发布到运行环境中的整体。</td></tr>
+              <tr><td>Module</td><td>模块</td><td>A part of an application organized around a responsibility.</td><td>围绕一项职责组织起来的应用部分。</td></tr>
+              <tr><td>Modular Monolith</td><td>模块化单体</td><td>A monolith with deliberate internal boundaries between modules.</td><td>虽然一起部署，但内部模块边界清楚的单体应用。</td></tr>
+              <tr><td>Blast Radius</td><td>影响范围</td><td>How much of a system can be affected by one failure or change.</td><td>一次故障或改动可能影响到系统多大范围。</td></tr>
+              <tr><td>Independent Deployment</td><td>独立部署</td><td>Releasing one service without releasing the others.</td><td>只发布一个服务，不必同时发布其他服务。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="what-to-remember" class="card wide topic-section remember">
+        <span class="section-number">09 · What to Remember</span><h2>What to Remember</h2>
+        <p>A monolith is one main application and deployment unit containing multiple capabilities. It can be a fast, economical choice when the domain and team are still forming.</p>
+        <div class="pm-perspective"><strong>PM Perspective</strong><p>Ask what the product actually needs before choosing distributed services: How often must one capability scale independently? How many teams need separate release cadence? What failure isolation is worth the added operational cost? A modular monolith can preserve speed now while creating boundaries that make a later split possible if the evidence supports it.</p></div>
+      </article>
+    </section>
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="microservices.html"><small>Previous</small><strong>← Microservices</strong></a>
+      <a href="api-gateway.html"><small>Next</small><strong>API Gateway →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

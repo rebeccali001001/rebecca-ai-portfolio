@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>14 · AI Engineering &amp; Operations · Overview</title>
+  <meta name="description" content="An overview of the engineering signals that make AI systems understandable, debuggable, and operable.">
+  <link rel="stylesheet" href="topic.css?v=20260908"><link rel="stylesheet" href="overview.css?v=20260908"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js"></script>
+</head>
+<body class="overview-page has-site-directory relationship-overview">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="AI Knowledge site directory"></aside>
+  <main class="overview-page">
+    <header class="overview-hero">
+      <a class="back" href="ai-knowledge.html">← AI Knowledge Home</a>
+      <div class="overview-eyebrow">14 · AI Engineering &amp; Operations</div>
+      <h1 class="overview-title">Make AI Systems Understandable</h1>
+      <p class="overview-lede">AI engineering turns models, prompts, retrieval, tools, and agents into reliable systems. Operations makes those systems understandable after they meet real users.</p>
+      <p class="module-goal">Start with the signals that explain what happened, where time went, and what to improve next.</p>
+    </header>
+
+    <section class="overview-section">
+      <div class="map-label">The Big Picture · from request to evidence</div>
+      <div class="overview-map">
+        <div class="overview-map-flow">
+          <div class="overview-map-node">USER REQUEST</div><span class="overview-map-connector">→</span>
+          <div class="overview-map-node overview-map-node-primary">AI SYSTEM</div><span class="overview-map-connector">→</span>
+          <div class="overview-map-node">RESULT</div>
+        </div>
+        <div class="overview-map-stage" style="margin-top:14px">
+          <div class="overview-map-node overview-map-node-secondary"><b>LOGS</b><span>What happened?</span></div>
+          <div class="overview-map-node overview-map-node-secondary"><b>METRICS</b><span>How much, how often, how fast?</span></div>
+          <div class="overview-map-node overview-map-node-secondary"><b>TRACES</b><span>Which steps led to the result?</span></div>
+        </div>
+        <p class="overview-map-note">Together, these signals support observability: the ability to understand a system from the outside by looking at the data it emits.</p>
+      </div>
+    </section>
+
+    <section class="overview-section">
+      <div class="map-label">What operations needs to see</div>
+      <div class="overview-concept-grid">
+        <a class="overview-concept-card" href="observability.html"><span class="overview-concept-name">Observability</span><span class="overview-concept-description">Understand why an AI system is slow, failing, expensive, or producing weak results.</span><span class="overview-concept-status">Open topic →</span></a>
+        <a class="overview-concept-card" href="ai-engineering-operations-glossary.html"><span class="overview-concept-name">Engineering Glossary</span><span class="overview-concept-description">Review the shared vocabulary for AI runtime signals and operations.</span><span class="overview-concept-status">Open glossary →</span></a>
+        <a class="overview-concept-card" href="monitoring.html"><span class="overview-concept-name">Monitoring</span><span class="overview-concept-description">Watch known signals over time and notice when a system needs attention.</span><span class="overview-concept-status">Related topic →</span></a>
+        <a class="overview-concept-card" href="cost-optimization.html"><span class="overview-concept-name">Cost Optimization</span><span class="overview-concept-description">Match model capability to task complexity and remove unnecessary AI work.</span><span class="overview-concept-status">New topic →</span></a>
+      </div>
+    </section>
+
+    <section class="overview-section">
+      <div class="map-label">A useful AI request record</div>
+      <div class="relationship-grid">
+        <div class="relationship-card"><span class="relationship-label">Inputs</span><div class="relationship-equation">Prompt + Context Size</div><p class="relationship-description">What did the system receive, and how much context did it carry?</p></div>
+        <div class="relationship-card"><span class="relationship-label">Execution</span><div class="relationship-equation">Model Call + Retrieval + Tool Calls</div><p class="relationship-description">Which model and external steps did the request use?</p></div>
+        <div class="relationship-card"><span class="relationship-label">Outcomes</span><div class="relationship-equation">Latency + Errors + Cost</div><p class="relationship-description">How long did it take, did it fail, and what did it cost?</p></div>
+      </div>
+    </section>
+
+    <section class="overview-section">
+      <div class="map-label">The operating loop</div>
+      <div class="learning-path-list">
+        <div class="learning-step"><span class="learning-step-number">01</span><span class="learning-step-title">Instrument</span><span class="learning-step-description">Capture useful events and attributes.</span></div>
+        <div class="learning-step"><span class="learning-step-number">02</span><span class="learning-step-title">Observe</span><span class="learning-step-description">Follow requests, steps, failures, and cost.</span></div>
+        <div class="learning-step"><span class="learning-step-number">03</span><span class="learning-step-title">Diagnose</span><span class="learning-step-description">Find the actual bottleneck or quality issue.</span></div>
+        <div class="learning-step"><span class="learning-step-number">04</span><span class="learning-step-title">Improve</span><span class="learning-step-description">Change prompts, models, tools, or workflow logic.</span></div>
+      </div>
+    </section>
+
+    <section class="takeaway-strip"><div class="map-label">Module takeaway</div><blockquote>Good AI operations turns a black box into a system whose behavior can be explained, measured, and improved.</blockquote></section>
+  </main>
+</body>
+</html>

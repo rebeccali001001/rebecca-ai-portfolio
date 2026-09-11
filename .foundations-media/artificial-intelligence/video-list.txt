@@ -1,0 +1,6 @@
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-0.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-1.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-2.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-3.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-4.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/scene-5.mp4'

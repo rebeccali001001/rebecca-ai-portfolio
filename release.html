@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Release · Development &amp; Git</title>
+  <meta name="description" content="A selected software version made available for use, delivery, or deployment.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .release-page .release-flow,.release-page .connection-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+    .release-page .flow-node,.release-page .connection-flow span{min-width:130px;padding:14px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+    .release-page .flow-arrow,.release-page .connection-flow b{color:var(--green);font-size:22px}
+    .release-page .fact-grid,.release-page .use-grid,.release-page .compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .release-page .card,.release-page .grid,.release-page .glossary-wrap{min-width:0}
+    .release-page .fact-grid div,.release-page .use-grid div,.release-page .compare-grid div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .release-page .fact-grid strong,.release-page .use-grid strong{display:block;color:#fff}
+    .release-page .fact-grid span,.release-page .use-grid span{display:block;margin-top:6px;color:var(--muted);font-size:14px}
+    .release-page .example-box{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .release-page .example-box code{display:block;margin:8px 0 14px;padding:12px;border-radius:10px;background:#0f2233;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+    .release-page .compare-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .release-page .compare-grid h3{margin:0 0 8px;color:var(--green)}
+    .release-page .compare-grid p{margin:6px 0;color:var(--muted);font-size:14px}
+    .release-page .glossary-wrap{max-width:100%;overflow-x:auto;margin-top:18px}
+    .release-page table{width:100%;min-width:820px;border-collapse:collapse;font-size:14px}
+    .release-page th,.release-page td{padding:12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .release-page th{color:var(--green);font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+    .release-page td{color:var(--muted)}
+    .release-page td:first-child{color:#fff;font-weight:800}
+    .release-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .release-page .remember p{font-size:20px;color:#fff}
+    .release-page .prevnext{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding:20px 0 8px;border-top:1px solid rgba(255,255,255,.1)}
+    .release-page .prevnext a{color:var(--muted)}
+    .release-page .prevnext strong{color:var(--green)}
+    @media(max-width:760px){.release-page .grid{grid-template-columns:minmax(0,1fr)}.release-page .release-flow,.release-page .connection-flow{flex-direction:column}.release-page .flow-arrow,.release-page .connection-flow b{font-size:0;line-height:1}.release-page .flow-arrow::after,.release-page .connection-flow b::after{content:'↓';font-size:22px}.release-page .flow-node,.release-page .connection-flow span{width:100%}.release-page .fact-grid,.release-page .use-grid,.release-page .compare-grid{grid-template-columns:1fr}.release-page .prevnext{flex-direction:column}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory release-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main detail-page">
+    <a class="back" href="module-08.html">← Module 08 · Development &amp; Git</a>
+    <div class="eyebrow">PART VIII · DEVELOPMENT &amp; GIT</div>
+    <h1>Release</h1>
+    <p class="lede">A selected software version made available for use, delivery, or deployment.</p>
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-section">
+        <div class="section-number">01 · What is it?</div>
+        <h2>What is it?</h2>
+        <p>A release is a selected software version made available for users or another environment.</p>
+        <p>It is the point where a version is intentionally prepared for delivery, deployment, or use.</p>
+        <p class="definition">A release is a version prepared for users.</p>
+      </article>
+      <article id="think" class="card wide topic-section">
+        <div class="section-number">02 · Think of it like...</div>
+        <h2>Think of it like...</h2>
+        <p>Think of a release as opening a finished edition of a product to customers.</p>
+        <p>A version may exist internally, but a release marks the point when that version is intentionally made available.</p>
+        <div class="release-flow" aria-label="Version to Release to Users or Environment"><span class="flow-node">Version</span><b class="flow-arrow" aria-hidden="true">→</b><span class="flow-node">Release</span><b class="flow-arrow" aria-hidden="true">→</b><span class="flow-node">Users / Environment</span></div>
+      </article>
+      <article id="does" class="card wide topic-section">
+        <div class="section-number">03 · What does it do?</div>
+        <h2>What does it do?</h2>
+        <div class="fact-grid">
+          <div><strong>Make a Version Available</strong><span>Provide a selected software state for use.</span></div>
+          <div><strong>Deliver New Features</strong><span>Make completed changes available to users.</span></div>
+          <div><strong>Include Bug Fixes</strong><span>Deliver corrections in a known version.</span></div>
+          <div><strong>Include Security Updates</strong><span>Provide important changes for safer use.</span></div>
+          <div><strong>Provide a Known State</strong><span>Identify exactly what was prepared and delivered.</span></div>
+        </div>
+      </article>
+      <article id="where" class="card wide topic-section">
+        <div class="section-number">04 · Where is it used?</div>
+        <h2>Where is it used?</h2>
+        <div class="use-grid">
+          <div><strong>Web Applications</strong></div><div><strong>Mobile Applications</strong></div><div><strong>Desktop Software</strong></div><div><strong>APIs</strong></div><div><strong>Libraries</strong></div><div><strong>Operating Systems</strong></div>
+        </div>
+      </article>
+      <article id="example" class="card wide topic-section">
+        <div class="section-number">05 · Example</div>
+        <h2>Example</h2>
+        <div class="example-box">
+          <h3>Version 2.4.0</h3>
+          <code>Version: 2.4.0
+Release:
+- New search feature
+- Faster loading
+- Bug fixes</code>
+          <p>This release makes version 2.4.0 available for users.</p>
+        </div>
+      </article>
+      <article id="connects" class="card wide topic-section">
+        <div class="section-number">06 · How it connects</div>
+        <h2>How it connects</h2>
+        <div class="connection-flow" aria-label="Source Code to Build to Version to Release to Deployment"><span>Source Code</span><b aria-hidden="true">→</b><span>Build</span><b aria-hidden="true">→</b><span>Version</span><b aria-hidden="true">→</b><span>Release</span><b aria-hidden="true">→</b><span>Deployment</span></div>
+        <p class="note">A release identifies the version that is ready to be made available; deployment moves it into a running environment.</p>
+      </article>
+      <article id="confuse" class="card wide topic-section">
+        <div class="section-number">07 · Do Not Confuse</div>
+        <h2>Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>Release</h3><p>A selected software version prepared for users or delivery.</p></div>
+          <div><h3>Deploy</h3><p>Move software into an environment where it can run.</p></div>
+          <div><h3>Version</h3><p>A specific state of software at a point in time.</p></div>
+          <div><h3>Release</h3><p>A version intentionally made available for use or delivery.</p></div>
+        </div>
+        <p class="definition">Release ≠ Deploy</p>
+      </article>
+      <article id="glossary" class="card wide topic-section">
+        <div class="section-number">08 · Topic Glossary</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>Release</td><td>发布版本</td><td>A version of software prepared for users or deployment.</td><td>已经准备好用于上线或交付的软件版本。</td></tr>
+          <tr><td>Version</td><td>版本</td><td>A specific state of software at a point in time.</td><td>软件在某个时间点的确定状态。</td></tr>
+          <tr><td>Build</td><td>构建</td><td>Turning source code into a form that can be run or deployed.</td><td>把源代码处理成可以运行或部署的软件版本。</td></tr>
+          <tr><td>Artifact</td><td>构建产物</td><td>An output produced by a build.</td><td>构建过程产生的可运行或可部署文件。</td></tr>
+          <tr><td>Deployment</td><td>部署</td><td>Moving software into an environment where it can run.</td><td>把软件放到可以运行的环境中。</td></tr>
+          <tr><td>Release Notes</td><td>发布说明</td><td>Information describing what changed in a release.</td><td>说明这个版本改了什么的文字。</td></tr>
+        </tbody></table></div>
+      </article>
+      <article id="remember" class="card wide topic-section remember">
+        <div class="section-number">09 · What to Remember</div>
+        <h2>What to Remember</h2>
+        <p>A release is a selected software version made available for use, delivery, or deployment.</p>
+        <p>A release is not the same as deployment.</p>
+        <div class="connection-flow" aria-label="Version to Release to Users"><span>Version</span><b aria-hidden="true">→</b><span>Release</span><b aria-hidden="true">→</b><span>Users</span></div>
+      </article>
+    </section>
+    <nav class="prevnext" aria-label="Topic navigation"><a href="version.html">← <small>Previous</small><br><strong>Version</strong></a><a href="build.html"><small>Next</small> →<br><strong>Build</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script defer src="sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cost Optimization · AI Engineering &amp; Operations</title>
+  <meta name="description" content="A beginner-friendly explanation of the main costs in AI applications and practical ways to optimize quality, latency, cost, and reliability.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .cost-sources,.optimization-grid,.tradeoff-grid,.decision-grid{display:grid;gap:12px}
+    .cost-sources{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .cost-sources div,.optimization-grid div,.tradeoff-grid div,.decision-grid div{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .cost-sources b,.optimization-grid b,.tradeoff-grid b,.decision-grid b{display:block;color:#fff;margin-bottom:6px}
+    .cost-sources span,.optimization-grid span,.tradeoff-grid span,.decision-grid span{display:block;color:var(--muted);font-size:14px;line-height:1.45}
+    .routing-flow{display:grid;gap:10px;max-width:820px;margin:20px auto 0;text-align:center}
+    .routing-flow .route-node{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .routing-flow .route-node.primary{border-color:var(--green);background:linear-gradient(135deg,rgba(120,229,189,.14),rgba(127,177,255,.08)),#07111a}
+    .routing-flow .arrow{color:var(--green);font-size:22px;line-height:1}
+    .route-branches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .route-branches .route-node{height:100%}
+    .route-branches strong{display:block;color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+    .equation{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin:22px auto;padding:22px;border:1px solid var(--green);border-radius:16px;background:rgba(120,229,189,.08);color:#fff;font-size:clamp(18px,3vw,28px);font-weight:850;text-align:center}
+    .equation i{color:var(--green);font-style:normal}
+    .multiplier{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .multiplier div{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a;text-align:center}
+    .multiplier b{display:block;color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+    .multiplier span{color:var(--muted);font-size:14px}
+    .tradeoff-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .tradeoff-grid div{border-top:3px solid var(--green)}
+    .decision-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .decision-grid div:nth-child(2){border-top-color:var(--blue)}
+    .decision-grid div:nth-child(3){border-top-color:var(--gold)}
+    .decision-grid div:nth-child(4){border-top-color:#ff9d9d}
+    .glossary-link{display:inline-flex;margin-top:16px;padding:9px 12px;border:1px solid #38516d;border-radius:999px;color:#dbe7f4}
+    .glossary-link:hover{border-color:var(--green);color:#fff}
+    @media(max-width:1000px){.cost-sources{grid-template-columns:repeat(3,minmax(0,1fr))}.tradeoff-grid,.decision-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.cost-sources,.route-branches,.tradeoff-grid,.decision-grid,.multiplier{grid-template-columns:1fr}.equation{font-size:20px}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="ai-engineering-operations.html">← Module 14 · AI Engineering &amp; Operations</a>
+    <div class="eyebrow">14 · AI Engineering &amp; Operations · NEW Topic</div>
+    <h1>Cost Optimization</h1>
+    <p class="lede">AI cost optimization is the practice of keeping an AI product useful, fast, reliable, and financially sustainable as usage grows.</p>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#sources">Cost sources</a><a href="#analogy">Think of it like...</a><a href="#routing">Model routing</a><a href="#methods">Optimization methods</a><a href="#tradeoffs">The key trade-offs</a><a href="#model">Cost model</a><a href="#agent-cost">Agent cost multiplier</a><a href="#glossary">Glossary</a><a href="#remember">Remember this</a></nav>
+    <section class="grid">
+      <article id="sources" class="card wide topic-definition">
+        <h2>Where AI application cost comes from</h2>
+        <p class="definition">The model call is only one part of the bill.</p>
+        <div class="cost-sources">
+          <div><b>Input Tokens</b><span>What the model receives.</span></div>
+          <div><b>Output Tokens</b><span>What the model generates.</span></div>
+          <div><b>Long Context</b><span>Large prompts, history, and documents.</span></div>
+          <div><b>Model Selection</b><span>Different models have different prices.</span></div>
+          <div><b>Embedding</b><span>Turning content into vectors.</span></div>
+          <div><b>Vector Search</b><span>Finding relevant stored information.</span></div>
+          <div><b>Tool Calls</b><span>External APIs, databases, or services.</span></div>
+          <div><b>Agent Loops</b><span>Repeated model decisions and actions.</span></div>
+          <div><b>Image / Audio / Video Generation</b><span>Media workloads can have their own generation costs.</span></div>
+          <div><b>Infrastructure</b><span>Servers, GPUs, storage, and networking.</span></div>
+        </div>
+      </article>
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>Think of it like...</h2>
+        <div class="analogy-box text-only"><p class="analogy-lede">Do not give every company task to the most expensive expert.</p><p>Give simple work to a cheaper model and use a stronger model only for complex work. Good cost optimization is not about always choosing the lowest price; it is about matching each task with the right resources.</p></div>
+      </article>
+      <article id="routing" class="card wide topic-process">
+        <h2>Model routing: match the model to the task</h2>
+        <p class="muted">A routing layer classifies the request before choosing which model should handle it.</p>
+        <div class="routing-flow">
+          <div class="route-node primary"><b>User Request</b><span class="muted">A question, action, or workflow goal</span></div>
+          <div class="arrow">↓</div>
+          <div class="route-node"><b>Task Classification</b><span class="muted">Estimate complexity, risk, and required capability</span></div>
+          <div class="arrow">↓</div>
+          <div class="route-branches"><div class="route-node"><strong>Simple</strong><b>Small / Cheap Model</b><span class="muted">Classification, extraction, routine drafting</span></div><div class="route-node"><strong>Complex</strong><b>Strong Model</b><span class="muted">Ambiguous reasoning, high-stakes or difficult work</span></div></div>
+        </div>
+        <p class="note">Model Routing can reduce cost and latency while preserving quality where stronger reasoning is actually needed.</p>
+      </article>
+      <article id="methods" class="card wide topic-example">
+        <h2>Practical optimization methods</h2>
+        <div class="optimization-grid">
+          <div><b>Model Routing</b><span>Use smaller models for simpler tasks.</span></div>
+          <div><b>Prompt Reduction</b><span>Remove instructions and examples that do not affect the result.</span></div>
+          <div><b>Context Reduction</b><span>Send only the history and retrieved material needed now.</span></div>
+          <div><b>Caching</b><span>Reuse stable answers, embeddings, or repeated context.</span></div>
+          <div><b>Batching</b><span>Process compatible work together when interactive latency allows it.</span></div>
+          <div><b>RAG Instead of Huge Context</b><span>Retrieve relevant chunks instead of sending an entire knowledge base.</span></div>
+          <div><b>Smaller Models</b><span>Choose a compact model when quality remains sufficient.</span></div>
+          <div><b>Local Models</b><span>Consider local inference when privacy, volume, or predictable cost supports it.</span></div>
+          <div><b>Limit Agent Loops</b><span>Set step, time, and retry limits so the system can stop safely.</span></div>
+          <div><b>Tool Optimization</b><span>Reduce unnecessary calls and return compact, useful results.</span></div>
+        </div>
+      </article>
+      <article id="tradeoffs" class="card wide topic-comparison">
+        <h2>More input does not automatically create more value</h2>
+        <div class="tradeoff-grid">
+          <div><b>More Context</b><span>≠ Always Better. Extra information can add noise, latency, and cost.</span></div>
+          <div><b>More Agent Steps</b><span>≠ Always Better. Extra loops can amplify errors and spend.</span></div>
+          <div><b>Largest Model</b><span>≠ Always Best Product Choice. Fit depends on the task and workflow.</span></div>
+          <div><b>One Metric</b><span>≠ The Whole Decision. Quality, latency, cost, and reliability interact.</span></div>
+        </div>
+        <p class="note">Optimization is a product decision: preserve the quality users need while removing unnecessary work.</p>
+      </article>
+      <article id="model" class="card wide topic-process">
+        <h2>A simple cost thinking model</h2>
+        <div class="equation"><span>Cost per Request</span><i>×</i><span>Number of Requests</span><i>=</i><span>Total AI Cost</span></div>
+        <p class="muted">This is a simple planning model, not a complete invoice. Real costs can also include storage, infrastructure, media generation, and provider-specific pricing.</p>
+      </article>
+      <article id="agent-cost" class="card wide topic-example">
+        <h2>Why agent tasks can cost more than they look</h2>
+        <p class="definition">One user operation can create many billable events.</p>
+        <div class="multiplier"><div><b>1 user goal</b><span>“Check the order and update the customer.”</span></div><div><b>Multiple model calls</b><span>Plan, decide, interpret results, and draft.</span></div><div><b>Multiple tool calls</b><span>Order system, CRM, email, or other services.</span></div></div>
+        <p class="note">Agent tasks may contain multiple Model Calls and Tool Calls, so a single user action can produce multiple reasoning and execution costs.</p>
+      </article>
+      <article id="decision" class="card wide topic-related">
+        <h2>What PMs should balance</h2>
+        <div class="decision-grid"><div><b>Quality</b><span>Does the result meet the task requirement?</span></div><div><b>Latency</b><span>Does it respond fast enough for the workflow?</span></div><div><b>Cost</b><span>Can the product scale within its budget?</span></div><div><b>Reliability</b><span>Does it behave consistently and fail safely?</span></div></div>
+      </article>
+      <article id="glossary" class="card wide topic-related">
+        <h2>Topic Glossary</h2>
+        <p class="muted">Key terms for reasoning about AI cost and system efficiency.</p>
+        <a class="glossary-link" href="ai-engineering-operations-glossary.html">Open Module 14 Glossary →</a>
+      </article>
+      <article id="remember" class="card wide topic-takeaway"><h2>Remember this</h2><p class="note">The best AI system is not automatically the one with the biggest model or the most steps. Choose the smallest, fastest, and most reliable architecture that delivers the required quality.</p></article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

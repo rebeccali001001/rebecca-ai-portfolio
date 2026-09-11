@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Backend · Software Knowledge</title>
+  <meta name="description" content="The part of a software system that processes requests, applies logic, and works with data behind the interface.">
+  <link rel="stylesheet" href="topic.css?v=20260910-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .backend-page .hero{padding:38px 0 30px}.backend-page .hero h1{font-size:clamp(48px,7vw,86px);margin:10px 0 14px}.backend-page .hero .lede{font-size:20px;max-width:840px}
+    .backend-page .topic-section{padding:26px;margin:0}.backend-page .detail-sections>.topic-section{min-width:0}.backend-page .topic-section h2{margin:0 0 14px}.backend-page .topic-section>p{max-width:900px}.backend-page .definition{max-width:900px;margin:20px 0 0;padding:16px 20px;border-left:3px solid var(--green);border-radius:0 12px 12px 0;background:rgba(120,229,189,.08);color:#fff;font-size:21px}.backend-page .definition strong{color:var(--green);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+    .backend-page .flow{display:flex;flex-wrap:nowrap;align-items:center;gap:10px;margin:22px 0 4px;overflow-x:auto;padding:2px 1px 7px}.backend-page .flow .node,.backend-page .chip{flex:0 0 auto;padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}.backend-page .flow .node.accent{border-color:var(--green);background:rgba(120,229,189,.09)}.backend-page .flow .arrow{flex:0 0 auto;color:var(--green);font-size:22px;line-height:1}.backend-page .flow-caption{margin-top:14px;color:var(--muted);font-size:13px}
+    .backend-page .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}.backend-page .cards.four{grid-template-columns:repeat(3,minmax(0,1fr))}.backend-page .cards article{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.backend-page .cards h3{margin:0;color:#fff;font-size:17px}.backend-page .chips{display:flex;flex-wrap:wrap;gap:10px}.backend-page .chip{border-radius:999px}.backend-page .example-flow .node{min-width:120px}
+    .backend-page .comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.backend-page .comparison article{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.backend-page .comparison h3{margin:0 0 8px;color:var(--green);font-size:18px}.backend-page .comparison p{margin:6px 0;color:var(--muted)}.backend-page .comparison p strong{color:#fff}
+    .backend-page .glossary-wrap{overflow:auto;margin-top:18px}.backend-page table{width:100%;min-width:900px;border-collapse:collapse;font-size:13px}.backend-page th,.backend-page td{padding:12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}.backend-page th{color:var(--green);font-size:11px;letter-spacing:.06em;text-transform:uppercase}.backend-page td{color:var(--muted)}.backend-page td:first-child{color:#fff;font-weight:800}.backend-page td:nth-child(2){color:var(--blue)}
+    .backend-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.backend-page .remember p{font-size:20px;color:#fff}.backend-page .prevnext{display:flex;justify-content:space-between;gap:16px;padding:8px 0 30px}.backend-page .prevnext a{color:var(--muted)}.backend-page .prevnext a:hover{color:#fff}.backend-page .prevnext small{display:block;color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    @media(max-width:900px){.backend-page .cards,.backend-page .cards.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.backend-page .hero{padding-top:26px}.backend-page .topic-section{padding:20px}.backend-page .cards,.backend-page .cards.four,.backend-page .comparison{grid-template-columns:1fr}.backend-page .flow{flex-direction:column;align-items:stretch;overflow-x:visible;gap:7px}.backend-page .flow .node{width:100%}.backend-page .flow .arrow{align-self:center;transform:rotate(90deg)}.backend-page .prevnext{flex-direction:column}.backend-page .prevnext a:last-child{text-align:left}}
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic backend-page software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">PART IV · BACKEND</div>
+      <h1>Backend</h1>
+      <p class="lede">The part of a software system that processes requests, applies logic, and works with data behind the interface.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide topic-section">
+        <div class="eyebrow">01</div><h2>What is it?</h2>
+        <p>The backend is the part of a software system that runs behind the user interface.</p>
+        <p>It receives requests, applies business logic, works with databases or external services, and returns results.</p>
+        <p class="definition"><strong>Simple Definition：</strong><br>The backend is where the system processes work behind the screen.</p>
+      </section>
+
+      <section id="think" class="card wide topic-section">
+        <div class="eyebrow">02</div><h2>Think of it like...</h2>
+        <p>Think of a restaurant.</p>
+        <p>The frontend is the dining area where customers place orders.</p>
+        <p>The backend is the kitchen where the work is processed.</p>
+        <p class="flow-caption">Flow:</p>
+        <div class="flow" aria-label="Frontend to backend to database or services to response">
+          <span class="node">Frontend</span><span class="arrow" aria-hidden="true">→</span><span class="node accent">Backend</span><span class="arrow" aria-hidden="true">→</span><span class="node">Database / Services</span><span class="arrow" aria-hidden="true">→</span><span class="node">Response</span>
+        </div>
+      </section>
+
+      <section id="does" class="card wide topic-section">
+        <div class="eyebrow">03</div><h2>What does it do?</h2>
+        <p>The backend can:</p>
+        <div class="cards">
+          <article><h3>Receive Requests</h3></article><article><h3>Validate Data</h3></article><article><h3>Apply Business Logic</h3></article>
+          <article><h3>Read and Write Data</h3></article><article><h3>Call External Services</h3></article><article><h3>Return Responses</h3></article>
+        </div>
+      </section>
+
+      <section id="where" class="card wide topic-section">
+        <div class="eyebrow">04</div><h2>Where is it used?</h2>
+        <p>Backend systems are used in:</p>
+        <div class="cards four">
+          <article><h3>Web Applications</h3></article><article><h3>Mobile Applications</h3></article><article><h3>APIs</h3></article>
+          <article><h3>Trading Platforms</h3></article><article><h3>Payment Systems</h3></article><article><h3>Enterprise Systems</h3></article>
+        </div>
+      </section>
+
+      <section id="example" class="card wide topic-section">
+        <div class="eyebrow">05</div><h2>Example</h2>
+        <p>Scenario:</p><p>A user creates an order.</p>
+        <p class="flow-caption">Flow:</p>
+        <div class="flow example-flow" aria-label="Frontend to order API to backend to validation to business rules to saved order to response">
+          <span class="node">Frontend</span><span class="arrow" aria-hidden="true">→</span><span class="node">POST /api/orders</span><span class="arrow" aria-hidden="true">→</span><span class="node accent">Backend</span><span class="arrow" aria-hidden="true">→</span><span class="node">Validate Data</span><span class="arrow" aria-hidden="true">→</span><span class="node">Apply Business Rules</span><span class="arrow" aria-hidden="true">→</span><span class="node">Save Order</span><span class="arrow" aria-hidden="true">→</span><span class="node">Return Response</span>
+        </div>
+      </section>
+
+      <section id="connects" class="card wide topic-section">
+        <div class="eyebrow">06</div><h2>How it connects</h2>
+        <p class="flow-caption">Flow:</p>
+        <div class="flow" aria-label="Frontend to API to backend to business logic to database to response">
+          <span class="node">Frontend</span><span class="arrow" aria-hidden="true">→</span><span class="node">API</span><span class="arrow" aria-hidden="true">→</span><span class="node accent">Backend</span><span class="arrow" aria-hidden="true">→</span><span class="node">Business Logic</span><span class="arrow" aria-hidden="true">→</span><span class="node">Database</span><span class="arrow" aria-hidden="true">→</span><span class="node">Response</span>
+        </div>
+        <p>The backend connects user actions with system rules, data, and other services.</p>
+      </section>
+
+      <section id="confuse" class="card wide topic-section">
+        <div class="eyebrow">07</div><h2>Do Not Confuse</h2>
+        <div class="comparison">
+          <article><h3>Backend</h3><p>Processes requests and data behind the interface.</p></article>
+          <article><h3>Frontend</h3><p>Displays information and interacts directly with users.</p></article>
+        </div>
+        <p class="definition">Frontend = What users interact with<br>Backend = What processes the work</p>
+      </section>
+
+      <section id="glossary" class="card wide topic-section">
+        <div class="eyebrow">08</div><h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table>
+          <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+          <tbody>
+            <tr><td>Backend</td><td>后端</td><td>The part of software that processes requests and data behind the interface.</td><td>在界面背后处理请求、业务逻辑和数据的系统部分。</td></tr>
+            <tr><td>Backend Application</td><td>后端应用</td><td>Software running on the backend.</td><td>运行在服务器端、负责处理系统逻辑的程序。</td></tr>
+            <tr><td>Business Logic</td><td>业务逻辑</td><td>Rules that determine how business operations work.</td><td>决定系统业务如何处理的一组规则。</td></tr>
+            <tr><td>Database</td><td>数据库</td><td>A system used to store and manage data.</td><td>用来保存和管理业务数据的系统。</td></tr>
+            <tr><td>API</td><td>应用程序接口</td><td>An interface used for communication between systems.</td><td>前端或其他系统与后端通信的接口。</td></tr>
+            <tr><td>Request</td><td>请求</td><td>A message asking the backend for data or an action.</td><td>客户端发给后端、要求查询或执行操作的信息。</td></tr>
+            <tr><td>Response</td><td>响应</td><td>The result returned by the backend.</td><td>后端处理完成后返回给客户端的数据或结果。</td></tr>
+            <tr><td>Server</td><td>服务器</td><td>The computing environment where backend software often runs.</td><td>后端应用通常运行所在的计算环境。</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="remember" class="card wide topic-section remember">
+        <div class="eyebrow">09</div><h2>What to Remember</h2>
+        <p>The backend processes work behind the user interface.</p>
+        <p>It connects APIs, business logic, databases, and external services.</p>
+        <p>The frontend sends requests; the backend processes them and returns responses.</p>
+        <p class="flow-caption">Final:</p>
+        <div class="flow" aria-label="Frontend to backend to data or logic to response">
+          <span class="node">Frontend</span><span class="arrow" aria-hidden="true">→</span><span class="node accent">Backend</span><span class="arrow" aria-hidden="true">→</span><span class="node">Data / Logic</span><span class="arrow" aria-hidden="true">→</span><span class="node">Response</span>
+        </div>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="module03-glossary.html#idempotency"><small>Previous</small>03 · HTTP &amp; APIs → Idempotency</a>
+      <a href="server.html"><small>Next</small>Server →</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSO · Authentication &amp; Security</title>
+  <meta name="description" content="Understand single sign-on as a shared authentication flow that lets one identity access multiple connected applications.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .sso-page .hero { padding-bottom: 34px; }
+    .sso-page .hero h1 { margin-bottom: 12px; }
+    .sso-page .lede,
+    .sso-page .section-lede { max-width: 840px; }
+    .sso-page .definition { max-width: 860px; font-size: 20px; color: #fff; }
+    .sso-page .section-lede { color: var(--muted); margin: 0 0 18px; }
+
+    .sso-page .flow,
+    .sso-page .connection-flow {
+      display: grid;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .sso-page .flow { grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr 34px 1fr; }
+    .sso-page .connection-flow { grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr 34px 1fr 34px 1fr; }
+    .sso-page .flow-node,
+    .sso-page .connection-flow span {
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+      padding: 14px 12px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+      color: #fff;
+      text-align: center;
+      font-weight: 800;
+    }
+    .sso-page .flow-node.accent,
+    .sso-page .connection-flow .accent {
+      border-color: var(--green);
+      background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a;
+    }
+    .sso-page .flow-arrow,
+    .sso-page .connection-flow b {
+      color: var(--green);
+      font-size: 24px;
+      text-align: center;
+    }
+    .sso-page .flow-caption { margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+
+    .sso-page .benefit-grid,
+    .sso-page .use-grid,
+    .sso-page .confusion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .sso-page .benefit-card,
+    .sso-page .use-card,
+    .sso-page .confusion-card {
+      padding: 18px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+    }
+    .sso-page .benefit-card b,
+    .sso-page .use-card b,
+    .sso-page .confusion-card h3 { color: #fff; }
+    .sso-page .benefit-card p,
+    .sso-page .use-card p,
+    .sso-page .confusion-card p { margin: 7px 0 0; color: var(--muted); }
+    .sso-page .use-card strong { display: block; margin-bottom: 6px; color: var(--green); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+
+    .sso-page .example-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; margin-top: 18px; }
+    .sso-page .example-card { padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .sso-page .example-card h3 { margin: 0 0 10px; color: #fff; }
+    .sso-page .example-card p { margin: 7px 0; color: var(--muted); }
+    .sso-page .example-card strong { color: var(--green); }
+    .sso-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+
+    .sso-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sso-page .confusion-card h3 { margin: 0 0 8px; color: var(--green); }
+    .sso-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .sso-page .glossary { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 14px; }
+    .sso-page .glossary th,
+    .sso-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .sso-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .sso-page .glossary td { color: var(--muted); }
+    .sso-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .sso-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .sso-page .remember p { max-width: 860px; font-size: 19px; color: #fff; }
+    .sso-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .sso-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 150px; color: var(--muted); }
+    .sso-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .sso-page .pager a:hover { color: #fff; }
+    .sso-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .sso-page .pager strong { color: var(--green); font-size: 15px; }
+
+    @media (max-width: 900px) {
+      .sso-page .benefit-grid,
+      .sso-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sso-page .flow,
+      .sso-page .connection-flow { grid-template-columns: 1fr 28px 1fr 28px 1fr; }
+      .sso-page .flow-node:nth-of-type(n+7),
+      .sso-page .connection-flow span:nth-of-type(n+7) { display: none; }
+    }
+    @media (max-width: 760px) {
+      .sso-page .flow,
+      .sso-page .connection-flow,
+      .sso-page .benefit-grid,
+      .sso-page .use-grid,
+      .sso-page .confusion-grid,
+      .sso-page .example-grid { grid-template-columns: 1fr; }
+      .sso-page .flow,
+      .sso-page .connection-flow { gap: 6px; }
+      .sso-page .flow-arrow,
+      .sso-page .connection-flow b { min-height: 22px; font-size: 0; }
+      .sso-page .flow-arrow::after,
+      .sso-page .connection-flow b::after { content: '↓'; font-size: 24px; }
+      .sso-page .flow-node:nth-of-type(n+7),
+      .sso-page .connection-flow span:nth-of-type(n+7) { display: grid; }
+      .sso-page .pager { flex-direction: column; }
+      .sso-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory sso-page">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>SSO</h1>
+      <p class="lede">Single sign-on lets a person authenticate with one trusted identity system and then access multiple connected applications.</p>
+    </header>
+
+    <section class="grid">
+      <article class="card wide">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Single sign-on (SSO) is an authentication pattern in which one identity provider verifies a user and connected applications accept that result.</p>
+        <p class="section-lede">The user does not need to enter a separate application password every time they open another connected service. Each application still creates or uses its own session after it validates the sign-in result.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of SSO like one trusted front desk that issues a badge accepted by several buildings.</p>
+        <p class="section-lede">You prove who you are at the front desk once. When you visit another connected building, it checks the trusted badge instead of asking you to repeat the full check.</p>
+        <div class="flow" aria-label="Single sign-on analogy flow">
+          <div class="flow-node">User</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Identity Provider</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Trusted Sign-in Result</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Connected App</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">App Session</div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">SSO coordinates the authentication handoff between a user, a central identity provider, and multiple applications.</p>
+        <div class="benefit-grid">
+          <div class="benefit-card"><b>Centralize Sign-in</b><p>Keep the main identity check in one trusted service.</p></div>
+          <div class="benefit-card"><b>Pass Identity</b><p>Tell an application which verified user is requesting access.</p></div>
+          <div class="benefit-card"><b>Support Policy</b><p>Apply shared sign-in rules such as MFA or device checks.</p></div>
+          <div class="benefit-card"><b>Reduce Repeated Passwords</b><p>Give users fewer application-specific passwords to manage.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">SSO is useful when one organization or platform manages access to several related applications.</p>
+        <div class="use-grid">
+          <div class="use-card"><strong>Workforce Apps</strong><b>Company tools</b><p>Employees use one organization account across email, analytics, and internal systems.</p></div>
+          <div class="use-card"><strong>Customer Portals</strong><b>Connected products</b><p>A customer uses one account to reach several products from the same provider.</p></div>
+          <div class="use-card"><strong>Education</strong><b>Campus services</b><p>Students and staff access learning, library, and administrative tools through one identity.</p></div>
+          <div class="use-card"><strong>Partner Access</strong><b>External organizations</b><p>A trusted partner identity can be accepted by a shared business application.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card">
+            <h3>Employee opens the company dashboard</h3>
+            <p><strong>1.</strong> The employee opens the dashboard and is redirected to the company identity provider.</p>
+            <p><strong>2.</strong> The identity provider checks the existing sign-in and any required MFA policy.</p>
+            <p><strong>3.</strong> The provider returns a signed result to the dashboard.</p>
+          </div>
+          <div class="example-card">
+            <h3>The application starts its session</h3>
+            <p>The dashboard validates the result, identifies the employee, and creates an application session.</p>
+            <p>The user can now use the dashboard without entering a second dashboard password.</p>
+          </div>
+        </div>
+        <p class="bottom-line">SSO removes repeated sign-in steps; it does not remove the need for each application to validate the identity result and enforce its own access rules.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="Single sign-on connection flow">
+          <span>User</span><b aria-hidden="true">→</b><span>Application</span><b aria-hidden="true">→</b><span class="accent">Identity Provider</span><b aria-hidden="true">→</b><span>Signed Result</span><b aria-hidden="true">→</b><span class="accent">Application Session</span><b aria-hidden="true">→</b><span>Authorized Request</span>
+        </div>
+        <p class="note">The identity provider authenticates the user. The application validates the returned result, establishes its session, and then applies authorization rules such as roles and permissions.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>SSO vs OAuth</h3><p>SSO is the user experience and architecture of signing in once across applications. OAuth is an authorization protocol for delegated access.</p></div>
+          <div class="confusion-card"><h3>SSO vs Password Manager</h3><p>A password manager fills separate credentials. SSO lets connected applications trust one identity provider.</p></div>
+          <div class="confusion-card"><h3>SSO vs Authorization</h3><p>SSO helps establish identity. Authorization decides what the identified user may do inside an application.</p></div>
+        </div>
+        <p class="bottom-line">One sign-in does not automatically grant the same permissions in every connected application.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Single Sign-On (SSO)</td><td>单点登录</td><td>One sign-in that can open several connected applications.</td><td>登录一次后，可以进入多个互相信任的应用。</td></tr>
+              <tr><td>Identity Provider</td><td>身份提供商</td><td>A service that verifies identity and provides sign-in results.</td><td>负责验证身份并告诉应用“这个人是谁”的服务。</td></tr>
+              <tr><td>Authentication</td><td>身份验证</td><td>Checking who a user or system is.</td><td>确认用户或系统到底是谁。</td></tr>
+              <tr><td>Authorization</td><td>授权</td><td>Checking what an identified user is allowed to do.</td><td>确认已经识别出的用户可以做什么。</td></tr>
+              <tr><td>Application Session</td><td>应用会话</td><td>The application’s record that a user has signed in.</td><td>应用保存的“这个用户已经登录”的状态。</td></tr>
+              <tr><td>Multi-Factor Authentication (MFA)</td><td>多因素认证</td><td>Sign-in that uses more than one kind of proof.</td><td>登录时需要两种或更多不同类型的证明。</td></tr>
+              <tr><td>Assertion</td><td>断言</td><td>A signed statement about an authenticated user.</td><td>由可信身份系统签名、说明用户身份的结果。</td></tr>
+              <tr><td>Role</td><td>角色</td><td>A named set of responsibilities or permissions.</td><td>一组代表职责或权限的名称，例如管理员或编辑者。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>SSO lets one trusted identity provider authenticate a user for multiple connected applications.</p>
+        <p>Each application still validates the sign-in result, creates its own session, and decides what the user is allowed to do.</p>
+        <p class="note"><strong>Core Flow:</strong><br>User → Identity Provider → Signed Result → Application Session → Authorized Request</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Authentication and Security topic navigation">
+      <a href="oauth.html"><small>Previous</small><strong>← OAuth</strong></a>
+      <a href="role.html"><small>Next</small><strong>Role →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

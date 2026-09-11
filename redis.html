@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redis · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of Redis as a fast in-memory data store for caches, sessions, rate limits, counters, and temporary state.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .redis-page .hero { max-width: 850px; padding-bottom: 30px; }
+    .redis-page .definition { max-width: 900px; font-size: 21px; color: #fff; }
+    .redis-page .section-lede { max-width: 860px; color: var(--muted); }
+    .redis-page .analogy-box { margin-top: 18px; padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .redis-page .analogy-box strong { display: block; margin-bottom: 7px; color: var(--green); }
+    .redis-page .analogy-box p { margin: 7px 0; color: var(--muted); }
+    .redis-page .flow { display: grid; grid-template-columns: minmax(0,1fr) 30px minmax(0,1fr) 30px minmax(0,1fr) 30px minmax(0,1fr); align-items: center; gap: 10px; margin-top: 22px; }
+    .redis-page .flow-node { min-height: 78px; display: grid; place-items: center; padding: 14px 12px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; font-weight: 800; text-align: center; }
+    .redis-page .flow-node.accent { border-color: var(--green); background: linear-gradient(145deg,rgba(120,229,189,.12),rgba(127,177,255,.08)),#07111a; }
+    .redis-page .flow-arrow { color: var(--green); font-size: 24px; font-weight: 800; text-align: center; }
+    .redis-page .role-grid, .redis-page .tradeoff-grid, .redis-page .confusion-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+    .redis-page .role-card, .redis-page .tradeoff-card, .redis-page .confusion-card { padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .redis-page .role-card strong, .redis-page .tradeoff-card strong { display: block; margin-bottom: 7px; color: var(--green); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .redis-page .role-card b, .redis-page .tradeoff-card b, .redis-page .confusion-card h3 { color: #fff; }
+    .redis-page .role-card p, .redis-page .tradeoff-card p, .redis-page .confusion-card p { margin: 7px 0 0; color: var(--muted); }
+    .redis-page .tradeoff-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .redis-page .example-layout { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(260px,.92fr); gap: 18px; margin-top: 18px; }
+    .redis-page .example-card, .redis-page .pm-perspective { padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .redis-page .example-card p, .redis-page .pm-perspective p { margin: 0 0 9px; color: var(--muted); }
+    .redis-page .example-card p:last-child, .redis-page .pm-perspective p:last-child { margin-bottom: 0; }
+    .redis-page .pm-perspective { border-color: #37665d; background: linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07)); }
+    .redis-page .pm-perspective h3 { margin: 0 0 10px; color: var(--green); }
+    .redis-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg,rgba(120,229,189,.07),transparent); }
+    .redis-page .confusion-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .redis-page .confusion-card h3 { margin: 0 0 8px; color: var(--green); }
+    .redis-page .glossary-wrap { min-width: 0; max-width: 100%; overflow-x: auto; margin-top: 18px; }
+    .redis-page .glossary { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 14px; }
+    .redis-page .glossary th, .redis-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .redis-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .redis-page .glossary td { color: var(--muted); }
+    .redis-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .redis-page .remember { border-color: #37665d; background: linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07)); }
+    .redis-page .remember p { max-width: 860px; font-size: 19px; color: #fff; }
+    .redis-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .redis-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 150px; color: var(--muted); }
+    .redis-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .redis-page .pager a:hover { color: #fff; }
+    .redis-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .redis-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) {
+      .redis-page .role-grid, .redis-page .tradeoff-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .redis-page .flow { grid-template-columns: minmax(0,1fr) 22px minmax(0,1fr) 22px minmax(0,1fr) 22px minmax(0,1fr); gap: 7px; }
+      .redis-page .example-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .redis-page .flow, .redis-page .role-grid, .redis-page .tradeoff-grid, .redis-page .confusion-grid { grid-template-columns: 1fr; }
+      .redis-page .flow { gap: 6px; }
+      .redis-page .flow-arrow { min-height: 22px; font-size: 0; }
+      .redis-page .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .redis-page .pager { flex-direction: column; }
+      .redis-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory redis-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>Redis</h1>
+      <p class="lede">A fast in-memory data store commonly used for cache, sessions, rate limits, counters, and temporary state.</p>
+    </header>
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Redis is a shared data store that keeps commonly needed values in memory so applications can read or update them quickly.</p>
+        <p class="section-lede">It is often used for data that is fast-changing, short-lived, or expensive to calculate again. Redis can support persistence and replication, but teams usually choose it for speed and simple access patterns—not as an automatic replacement for a durable system of record.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-box">
+          <strong>A labeled tray at a busy service counter</strong>
+          <p>The back room holds the official records, but the staff keep today's most-used tickets in a tray within arm's reach. They can respond immediately, update a small number, or discard an expired ticket.</p>
+          <p>Redis plays that fast shared-tray role for software. The tray is useful because it is close and quick; it should not silently become the only place an important business record exists.</p>
+        </div>
+      </article>
+
+      <article id="does" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">An application reads from Redis before doing slower work, or writes a small piece of temporary state that several application instances need to share.</p>
+        <div class="role-grid">
+          <div class="role-card"><strong>Cache</strong><b>Return popular data faster</b><p>Keep a product page or API result briefly so the system does not query the main database every time.</p></div>
+          <div class="role-card"><strong>Session</strong><b>Keep interaction state</b><p>Share login, cart, or multi-step workflow state across multiple application servers.</p></div>
+          <div class="role-card"><strong>Rate limit</strong><b>Control request volume</b><p>Track how many requests a client has made in a time window and reject excess traffic.</p></div>
+          <div class="role-card"><strong>Counter</strong><b>Update a number quickly</b><p>Maintain views, attempts, inventory signals, or other short-lived counts with atomic increments.</p></div>
+        </div>
+        <div class="flow" aria-label="Application asks Redis for fast shared state and receives a result">
+          <div class="flow-node">Application request</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Redis lookup or update</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Fast result</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Continue the user action</div>
+        </div>
+      </article>
+
+      <article id="used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Redis is valuable when the product needs a shared, low-latency answer and the state has a clear lifetime or recovery plan.</p>
+        <div class="tradeoff-grid">
+          <div class="tradeoff-card"><strong>High-traffic reads</strong><b>Product and content cache</b><p>Serve frequently requested data quickly while it is still fresh enough for the product.</p></div>
+          <div class="tradeoff-card"><strong>Identity flow</strong><b>Login and session state</b><p>Let several application servers recognize the same short-lived user interaction.</p></div>
+          <div class="tradeoff-card"><strong>Abuse control</strong><b>Rate limits</b><p>Protect an API or login endpoint with a per-user, per-IP, or per-key request budget.</p></div>
+          <div class="tradeoff-card"><strong>Temporary state</strong><b>Codes and holds</b><p>Store a verification code, idempotency key, or checkout hold with an expiration time.</p></div>
+          <div class="tradeoff-card"><strong>Product signals</strong><b>Counters</b><p>Increment views, attempts, or live activity without making the main database handle every tiny update.</p></div>
+          <div class="tradeoff-card"><strong>Operating question</strong><b>What happens if it is empty?</b><p>Design a fallback, rebuild path, or user-safe failure before treating Redis as critical state.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <p class="section-lede">A flash-sale product page can use Redis in several focused ways, while the durable order remains in the main database.</p>
+        <div class="example-layout">
+          <div class="example-card">
+            <p><b>1.</b> A shopper opens the product page. The application checks Redis for a short-lived product-page cache.</p>
+            <p><b>2.</b> When the shopper clicks Buy, the service uses a Redis counter or short-lived reservation key to coordinate the busy moment.</p>
+            <p><b>3.</b> The service writes the confirmed order to the primary database. Redis can make the path faster, but it is not the final proof of purchase.</p>
+            <p><b>4.</b> An expiration removes abandoned reservation state. A cache miss or Redis outage follows the product's fallback behavior.</p>
+          </div>
+          <aside class="pm-perspective"><h3>PM Perspective</h3><p>Redis is a product-speed and coordination choice, not a feature by itself.</p><p>Ask: how fresh must this value be, can it be rebuilt, what is the expiration rule, and what should the user see during a miss or outage?</p></aside>
+        </div>
+        <p class="bottom-line">Business record = durable database. Fast temporary state = Redis when the speed, lifetime, and recovery behavior are explicit.</p>
+      </article>
+
+      <article id="connects" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="Request to application to Redis to database fallback to response flow">
+          <div class="flow-node">Client request</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Application service</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Redis read or update</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Database fallback or durable commit</div>
+        </div>
+        <p class="note">The exact architecture depends on the role. A cache miss may read from the database and refill Redis; a rate limit may finish inside Redis; an order still needs a durable commit path.</p>
+      </article>
+
+      <article id="confuse" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>Redis ≠ Cache</h3><p>Redis is a technology. A cache is a pattern: keep a reusable copy closer to the caller. Redis can provide a cache, but it can also hold sessions, counters, and other state.</p></div>
+          <div class="confusion-card"><h3>Redis ≠ Primary Database</h3><p>Redis can persist data, but many product designs treat its contents as rebuildable or temporary. Durable business records need an intentional source of truth.</p></div>
+          <div class="confusion-card"><h3>Redis ≠ Message Queue</h3><p>A queue coordinates work waiting to be processed. Redis usually answers a read or update quickly; a Redis-based queue is a particular design, not what Redis means by default.</p></div>
+          <div class="confusion-card"><h3>Redis ≠ Session</h3><p>A session is temporary user state. Redis is one place that can store that state, alongside cookies, databases, or other session stores.</p></div>
+          <div class="confusion-card"><h3>Fast ≠ Free</h3><p>In-memory access is fast, but memory costs money. Expiration, eviction, capacity, replication, and recovery still need operating decisions.</p></div>
+          <div class="confusion-card"><h3>Counter ≠ Final Ledger</h3><p>A fast counter can support a live signal or guardrail. It should not replace the durable transaction record when correctness and auditability matter.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Redis</td><td>Redis</td><td>A fast in-memory data store.</td><td>一种把数据放在内存中、读写很快的数据存储。</td></tr>
+              <tr><td>In-memory</td><td>内存中的</td><td>Stored in working memory for quick access.</td><td>数据放在运行内存里，所以访问速度快。</td></tr>
+              <tr><td>Cache</td><td>缓存</td><td>A reusable copy kept for faster reads.</td><td>为了更快读取而暂时保存的一份副本。</td></tr>
+              <tr><td>Session</td><td>会话</td><td>Temporary state linked to a user or browser.</td><td>和用户或浏览器关联的临时状态。</td></tr>
+              <tr><td>Rate Limit</td><td>速率限制</td><td>A rule limiting requests in a time window.</td><td>限制一段时间内请求次数的规则。</td></tr>
+              <tr><td>Counter</td><td>计数器</td><td>A value that tracks a number and can be incremented.</td><td>记录数字并可以快速加一的值。</td></tr>
+              <tr><td>Expiration</td><td>过期时间</td><td>The time after which a value is removed or ignored.</td><td>到了规定时间后，数据被删除或不再使用。</td></tr>
+              <tr><td>Eviction</td><td>淘汰</td><td>Removing stored values when memory or a policy requires it.</td><td>内存不够或规则要求时，移除部分数据。</td></tr>
+              <tr><td>Source of Truth</td><td>事实来源</td><td>The system trusted for the final durable record.</td><td>最终以它保存的正式记录为准的系统。</td></tr>
+              <tr><td>Cache Miss</td><td>缓存未命中</td><td>When the requested value is not in the cache.</td><td>想要的数据不在缓存里，需要去别处查找。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p>Redis is a fast shared data store for state that benefits from low latency and has an explicit lifetime, fallback, or recovery plan.</p>
+        <p>It commonly supports caches, sessions, rate limits, counters, and temporary state. Choosing Redis means also choosing memory capacity, expiration, eviction, persistence, availability, and what happens when the data is missing.</p>
+        <p class="note"><strong>Core idea:</strong> Keep fast, shared, temporary state close to the application; keep durable business truth in the system designed to own it.</p>
+      </article>
+    </section>
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="cache.html"><small>Previous</small><strong>← Cache</strong></a>
+      <a href="message-queue.html"><small>Next</small><strong>Message Queue →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

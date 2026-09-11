@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is Knowledge Distillation? · Model Adaptation</title>
+  <meta name="description" content="A beginner-friendly explanation of knowledge distillation, teacher and student models, and how it differs from fine-tuning and quantization.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .distillation-page .distillation-flow{display:grid;grid-template-columns:1fr 44px 1.08fr 44px 1fr;gap:10px;align-items:stretch;margin-top:22px}
+    .distillation-page .flow-node{display:flex;flex-direction:column;justify-content:center;min-height:148px;padding:22px;border:1px solid #38516d;border-radius:16px;background:linear-gradient(145deg,#102438,#07111a)}
+    .distillation-page .flow-node small{color:var(--green);font-size:11px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .distillation-page .flow-node strong{font-size:21px;line-height:1.2;margin-top:8px}
+    .distillation-page .flow-node span{color:var(--muted);font-size:14px;margin-top:7px}
+    .distillation-page .flow-node.teacher{border-color:#7fb1ff}
+    .distillation-page .flow-node.student{border-color:#78e5bd}
+    .distillation-page .flow-arrow{display:grid;place-items:center;color:var(--green);font-size:25px}
+    .distillation-page .flow-caption{margin:14px 0 0;color:var(--muted);font-size:14px;text-align:center}
+    .distillation-page .comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .distillation-page .comparison-card{padding:20px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .distillation-page .comparison-card h3{margin:0 0 9px;color:#fff;font-size:19px}
+    .distillation-page .comparison-card p{margin:7px 0;color:var(--muted);font-size:14px}
+    .distillation-page .comparison-card b{color:var(--green)}
+    .distillation-page .example-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .distillation-page .example-panel{padding:20px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .distillation-page .example-panel h3{margin:0 0 14px;color:#fff;font-size:17px}
+    .distillation-page .example-line{display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-weight:800}
+    .distillation-page .example-line span{padding:9px 12px;border:1px solid #38516d;border-radius:10px;background:#102335;color:#dbe7f4}
+    .distillation-page .example-line span.highlight{border-color:var(--green);color:#fff;background:rgba(120,229,189,.1)}
+    .distillation-page .example-line i{font-style:normal;color:var(--green);font-size:20px}
+    .distillation-page .example-panel p{margin:14px 0 0;color:var(--muted);font-size:14px}
+    .distillation-page .not-same{margin-top:18px;padding:14px 16px;border-left:3px solid var(--gold);background:rgba(255,212,127,.08);color:#dbe7f4}
+    .distillation-page .analogy-box{display:block}
+    .distillation-page .analogy-lede{font-size:22px;color:#fff;max-width:760px;margin:0 0 12px}
+    .distillation-page .analogy-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+    .distillation-page .analogy-list div{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .distillation-page .analogy-list b{display:block;color:var(--green);margin-bottom:5px}
+    .distillation-page .analogy-list span{color:var(--muted);font-size:14px}
+    @media(max-width:900px){.distillation-page .distillation-flow{grid-template-columns:1fr;gap:7px}.distillation-page .flow-arrow{min-height:24px;transform:rotate(90deg)}.distillation-page .comparison-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:760px){.distillation-page .comparison-grid,.distillation-page .example-row,.distillation-page .analogy-list{grid-template-columns:1fr}.distillation-page .flow-node{min-height:116px}}
+  </style>
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory distillation-page">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="training-model-adaptation.html">← Model Adaptation overview</a>
+    <div class="eyebrow">Module 11 · Model Adaptation · NEW Topic</div>
+    <h1>What is Knowledge Distillation?</h1>
+    <p class="lede">Knowledge distillation transfers useful knowledge from a large, powerful teacher model into a smaller, faster student model.</p>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On this page</b>
+      <a href="#definition">What is it?</a>
+      <a href="#analogy">Think of it like...</a>
+      <a href="#process">How it works</a>
+      <a href="#examples">Examples</a>
+      <a href="#compare">Distillation vs...</a>
+      <a href="#related">Related concepts</a>
+      <a href="#remember">Remember this</a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>What is it?</h2>
+        <p class="definition">Knowledge distillation teaches a smaller model to reproduce useful patterns from a larger model.</p>
+        <p class="muted">The large model acts as a teacher. Its outputs, probabilities, or demonstrations become learning signals for the student model. The goal is to keep useful behavior while reducing model size, memory needs, or response cost.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">Teacher Model = Senior Expert · Student Model = Junior Employee</p>
+          <p class="muted">Distillation is like asking a senior expert to demonstrate many tasks, then using those demonstrations to train a junior employee. The junior does not become the same person, but can learn a useful version of the expert’s approach.</p>
+          <div class="analogy-list">
+            <div><b>Teacher Model</b><span>Large and capable; generates helpful demonstrations or outputs.</span></div>
+            <div><b>Student Model</b><span>Smaller and faster; learns to imitate useful behavior.</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article id="process" class="card wide topic-process">
+        <h2>How it works</h2>
+        <p class="muted">A teacher produces learning signals, and a student is trained to match the useful parts of those signals.</p>
+        <div class="distillation-flow" aria-label="Knowledge distillation flow">
+          <div class="flow-node teacher"><small>Teacher Model</small><strong>Large / Powerful</strong><span>Has broad capabilities and more parameters.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node"><small>Knowledge Transfer</small><strong>Generate Knowledge / Outputs</strong><span>Use answers, probabilities, or demonstrations as learning signals.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node student"><small>Student Model</small><strong>Smaller / Faster</strong><span>Learns a compact approximation of useful behavior.</span></div>
+        </div>
+        <p class="flow-caption">The student learns from the teacher’s behavior; the teacher is not simply copied file-for-file.</p>
+      </article>
+
+      <article id="examples" class="card wide topic-example">
+        <h2>Simple examples</h2>
+        <div class="example-row">
+          <div class="example-panel">
+            <h3>Model size example</h3>
+            <div class="example-line"><span>Large Model · 70B</span><i aria-hidden="true">→</i><span class="highlight">Distillation</span><i aria-hidden="true">→</i><span>8B Model</span></div>
+            <p>A 70B teacher can generate examples that help an 8B student learn a smaller, more efficient version of selected behavior.</p>
+          </div>
+          <div class="example-panel">
+            <h3>Precision example</h3>
+            <div class="example-line"><span>FP16</span><i aria-hidden="true">→</i><span class="highlight">Quantization</span><i aria-hidden="true">→</i><span>8-bit / 4-bit / Q4 / Q3</span></div>
+            <p>This is a representation change: the model’s weights are stored with lower numerical precision to reduce memory and compute needs.</p>
+          </div>
+        </div>
+        <p class="not-same"><b>Important:</b> Distillation and quantization are not the same concept. Distillation transfers behavior between models; quantization changes how weights are represented.</p>
+      </article>
+
+      <article id="compare" class="card wide topic-comparison">
+        <h2>Distillation vs Fine-Tuning vs Quantization</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card"><h3>Fine-Tuning</h3><p><b>Core idea:</b> adjust model behavior or capability with additional training on focused examples.</p><p><b>Changes:</b> what the model learns or how it responds.</p></div>
+          <div class="comparison-card"><h3>Distillation</h3><p><b>Core idea:</b> transfer useful knowledge from a large model to a smaller model.</p><p><b>Changes:</b> which model carries the behavior, often reducing size or cost.</p></div>
+          <div class="comparison-card"><h3>Quantization</h3><p><b>Core idea:</b> represent model weights with lower numerical precision.</p><p><b>Changes:</b> memory and compute requirements, with possible quality trade-offs.</p></div>
+        </div>
+      </article>
+
+      <article id="related" class="card wide topic-related">
+        <h2>Related concepts</h2>
+        <div class="concept-tree">Large Teacher → Knowledge / Outputs → Small Student
+Fine-Tuning = adjust behavior · Distillation = transfer knowledge · Quantization = lower precision</div>
+        <p class="muted">Explore next</p>
+        <div class="chips">
+          <a class="chip" href="training-model-adaptation.html">Model Adaptation overview</a>
+          <a class="chip" href="fine-tuning.html">Fine-tuning</a>
+          <a class="chip" href="quantization.html">Quantization</a>
+          <a class="chip" href="training-model-adaptation-glossary.html">Glossary</a>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>Remember this</h2>
+        <p class="note">Distillation lets a smaller student model learn from a larger teacher model’s knowledge and outputs. It is different from quantization, which changes numerical precision.</p>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

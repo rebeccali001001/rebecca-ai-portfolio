@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Module 06 · Authentication &amp; Security</title>
+  <meta name="description" content="A practical map of authentication and security concepts in software systems.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .module-six-page .module-hero { max-width: 820px; }
+    .module-six-page .module-hero h1 { max-width: 820px; }
+    .module-six-page .topic-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .module-six-page .topic-list a { display: grid; gap: 6px; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .module-six-page .topic-list a:hover { border-color: var(--green); }
+    .module-six-page .topic-list b { color: #fff; }
+    .module-six-page .topic-list span { color: var(--muted); font-size: 14px; }
+    .module-six-page .topic-list em { color: var(--green); font-size: 12px; font-style: normal; font-weight: 800; }
+    .module-six-page .map-flow { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+    .module-six-page .map-flow span { padding: 14px 16px; border: 1px solid #38516d; border-radius: 12px; background: #07111a; color: #fff; font-weight: 800; text-align: center; }
+    .module-six-page .map-flow b { color: var(--green); font-size: 22px; }
+    @media (max-width: 900px) { .module-six-page .topic-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) { .module-six-page .topic-list, .module-six-page .map-flow { grid-template-columns: 1fr; } .module-six-page .map-flow { flex-direction: column; } .module-six-page .map-flow b { transform: rotate(90deg); } .module-six-page .map-flow span { width: min(100%, 420px); } }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory module-six-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="module-hero">
+      <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+      <div class="eyebrow">MODULE 06 · SOFTWARE KNOWLEDGE</div>
+      <h1>Authentication &amp; Security</h1>
+      <p class="lede">Authentication and security concepts explain how software verifies identity, controls access, and protects data.</p>
+    </header>
+    <section class="grid">
+      <article class="card wide">
+        <h2>How the module connects</h2>
+        <p class="definition">A secure system verifies identity first, checks permissions next, and protects the data and actions behind that boundary.</p>
+        <div class="map-flow" aria-label="Identity to access decision to protected data flow"><span>Identity</span><b aria-hidden="true">→</b><span>Access Decision</span><b aria-hidden="true">→</b><span>Protected Data / Action</span></div>
+      </article>
+      <article class="card wide">
+        <h2>Module 06 Topics</h2>
+        <div class="topic-list">
+          <a href="authentication.html"><b>Authentication</b><span>Verify who a user or system is.</span><em>Open topic →</em></a>
+          <a href="authorization.html"><b>Authorization</b><span>Check what a verified identity may do.</span><em>Open topic →</em></a>
+          <a href="password.html"><b>Password</b><span>Use a user-held secret during sign-in.</span><em>Open topic →</em></a>
+          <a href="token.html"><b>Token</b><span>Carry evidence of identity or granted access.</span><em>Open topic →</em></a>
+          <a href="jwt.html"><b>JWT</b><span>Carry signed claims between a client and a server.</span><em>Open topic →</em></a>
+          <a href="api-key.html"><b>API Key</b><span>Identify and control an API client.</span><em>Open topic →</em></a>
+          <a href="secret.html"><b>Secret</b><span>Protect private values used by software.</span><em>Open topic →</em></a>
+          <a href="encryption.html"><b>Encryption</b><span>Protect readable data with a key.</span><em>Open topic →</em></a>
+          <a href="hashing.html"><b>Hashing</b><span>Create a one-way digest for comparison.</span><em>Open topic →</em></a>
+          <a href="cookie.html"><b>Cookie</b><span>Carry browser state between requests.</span><em>Open topic →</em></a>
+          <a href="oauth.html"><b>OAuth</b><span>Delegate limited access without sharing a primary password.</span><em>Open topic →</em></a>
+          <a href="sso.html"><b>SSO</b><span>Use one trusted sign-in across connected applications.</span><em>Open topic →</em></a>
+          <a href="role.html"><b>Role</b><span>Group related permissions under a named access pattern.</span><em>Open topic →</em></a>
+          <a href="permission.html"><b>Permission</b><span>Control which actions an identity may perform.</span><em>Open topic →</em></a>
+          <a href="cors.html"><b>CORS</b><span>Control browser access to cross-origin responses.</span><em>Open topic →</em></a>
+          <a href="csrf.html"><b>CSRF</b><span>Defend state-changing requests from cross-site forgery.</span><em>Open topic →</em></a>
+          <a href="xss.html"><b>XSS</b><span>Prevent untrusted content from becoming executable script.</span><em>Open topic →</em></a>
+          <a href="least-privilege.html"><b>Least Privilege</b><span>Give each identity only the access its task requires.</span><em>Open topic →</em></a>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>Start here</h2>
+        <p>Begin with <a class="glossary-link" href="authentication.html">Authentication</a>, then compare it with <a class="glossary-link" href="authorization.html">Authorization</a> to understand the difference between identity and access.</p>
+        <p><a class="glossary-link" href="module-06-glossary.html">Open the Module 06 Glossary →</a></p>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

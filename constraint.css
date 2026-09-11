@@ -1,0 +1,34 @@
+.constraint-page .detail-sections{max-width:none}
+.constraint-page .detail-section{scroll-margin-top:24px}
+.constraint-page .definition{font-size:22px;color:#fff}
+.constraint-page .rule-flow,.constraint-page .connection-flow{display:grid;align-items:stretch;gap:10px;margin-top:20px}
+.constraint-page .rule-flow{grid-template-columns:1fr 42px 1fr 42px 1fr}
+.constraint-page .connection-flow{grid-template-columns:repeat(9,minmax(0,1fr))}
+.constraint-page .flow-node{display:flex;flex-direction:column;justify-content:center;min-height:94px;padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a;text-align:center}
+.constraint-page .flow-node strong{display:block;color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.constraint-page .flow-node b{font-size:17px}
+.constraint-page .flow-arrow{display:grid;place-items:center;color:var(--green);font-size:25px}
+.constraint-page .rule-flow .flow-node:nth-of-type(3),.constraint-page .connection-flow .flow-node:nth-of-type(7){border-color:var(--green);background:rgba(120,229,189,.08)}
+.constraint-page .rule-grid,.constraint-page .use-grid,.constraint-page .compare-grid{display:grid;gap:12px;margin-top:18px}
+.constraint-page .rule-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.constraint-page .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.constraint-page .compare-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.constraint-page .rule-grid>div,.constraint-page .use-grid>div,.constraint-page .compare-grid>div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+.constraint-page .rule-grid b,.constraint-page .use-grid b{display:block;color:#fff;margin-bottom:6px}
+.constraint-page .rule-grid p,.constraint-page .use-grid p,.constraint-page .compare-grid p{margin:0;color:var(--muted);font-size:14px}
+.constraint-page .code-card{margin-top:18px;border:1px solid #38516d;border-radius:16px;overflow:hidden;background:#07111a}
+.constraint-page .code-card pre{margin:0;padding:20px;overflow:auto;color:#dbe7f4;font:15px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+.constraint-page .code-card code{font:inherit}
+.constraint-page .code-caption{margin:12px 0 0;color:var(--muted);font-size:14px}
+.constraint-page .compare-grid h3{margin:0 0 7px;color:#fff;font-size:18px}
+.constraint-page .glossary-wrap{overflow-x:auto;margin-top:4px}
+.constraint-page table{width:100%;min-width:820px;border-collapse:collapse;font-size:14px}
+.constraint-page th,.constraint-page td{padding:12px 11px;border:1px solid #38516d;text-align:left;vertical-align:top}
+.constraint-page th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#102335}
+.constraint-page td{color:var(--muted);background:#07111a}
+.constraint-page td:first-child{color:#fff;font-weight:750}
+.constraint-page .remember-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:22px;color:var(--green);font-size:19px;font-weight:850}
+.constraint-page .remember-flow span{padding:12px 18px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#fff;font-size:15px}
+.constraint-page .topic-pagination{margin-top:28px}
+@media(max-width:1000px){.constraint-page .connection-flow{grid-template-columns:repeat(5,minmax(0,1fr))}.constraint-page .connection-flow .flow-arrow{display:none}.constraint-page .connection-flow .flow-node:not(:last-of-type)::after{content:'↓';display:block;margin-top:8px;color:var(--green)}.constraint-page .rule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.constraint-page .use-grid,.constraint-page .compare-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.constraint-page .rule-flow,.constraint-page .connection-flow,.constraint-page .rule-grid,.constraint-page .use-grid,.constraint-page .compare-grid{grid-template-columns:1fr}.constraint-page .flow-arrow{min-height:24px;font-size:0}.constraint-page .flow-arrow::before{content:'↓';font-size:25px}.constraint-page .connection-flow .flow-arrow{display:grid}.constraint-page .connection-flow .flow-node:not(:last-of-type)::after{display:none}.constraint-page .detail-section{padding:21px}.constraint-page .remember-flow{flex-direction:column}.constraint-page .topic-pagination{flex-direction:column}.constraint-page .topic-pagination a:last-child{text-align:left}}

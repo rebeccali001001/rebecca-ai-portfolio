@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conflict · 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="A conflict is a situation where Git cannot automatically decide how to combine overlapping changes.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .conflict-page .detail-page{max-width:1080px}
+    .conflict-page .section-number{display:block;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.12em;margin-bottom:7px}
+    .conflict-page .detail-section{margin-top:18px}
+    .conflict-page .definition{font-size:22px;color:#fff}
+    .conflict-page .action-grid,.conflict-page .use-grid,.conflict-page .compare-grid,.conflict-page .example-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+    .conflict-page .action-grid div,.conflict-page .use-grid div,.conflict-page .compare-grid div,.conflict-page .example-grid div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .conflict-page .action-grid b,.conflict-page .use-grid b,.conflict-page .compare-grid b,.conflict-page .example-grid b{display:block;color:var(--green);margin-bottom:5px}
+    .conflict-page .example-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .conflict-page .example-grid p{margin:5px 0;color:var(--muted)}
+    .conflict-page .flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .conflict-page .flow-node{padding:12px 15px;border:1px solid #38516d;border-radius:12px;background:#07111a;text-align:center}
+    .conflict-page .flow-node.accent{border-color:var(--green);color:#fff}
+    .conflict-page .flow-arrow{color:var(--green);font-size:22px}
+    .conflict-page .glossary-wrap{overflow-x:auto;margin-top:18px}
+    .conflict-page table{width:100%;min-width:760px;border-collapse:collapse}
+    .conflict-page th,.conflict-page td{padding:12px 13px;border:1px solid var(--line);text-align:left;vertical-align:top}
+    .conflict-page th{color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .conflict-page td{color:var(--muted);font-size:14px}
+    .conflict-page td:first-child{color:#fff;font-weight:750}
+    .conflict-page .pager{display:flex;justify-content:space-between;gap:16px;margin-top:28px}
+    .conflict-page .pager a{display:grid;gap:3px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;min-width:180px}
+    .conflict-page .pager a:last-child{text-align:right}
+    .conflict-page .pager small{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .conflict-page .pager strong{font-size:16px}
+    @media(max-width:760px){
+      .conflict-page .action-grid,.conflict-page .use-grid,.conflict-page .compare-grid,.conflict-page .example-grid{grid-template-columns:1fr}
+      .conflict-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .conflict-page .flow-node{width:100%}
+      .conflict-page .flow-arrow{font-size:0;line-height:1;text-align:center}
+      .conflict-page .flow-arrow::after{content:"↓";font-size:22px}
+      .conflict-page .pager{display:grid;grid-template-columns:1fr}
+      .conflict-page .pager a:last-child{text-align:left}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory conflict-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="module-08.html">← Module 08 · Development &amp; Git</a>
+    <header class="hero"><div class="eyebrow">PART VIII · DEVELOPMENT &amp; GIT</div><h1>Conflict</h1><p class="lede">A situation where Git cannot automatically decide how to combine overlapping changes.</p></header>
+    <div class="detail-sections">
+      <section class="card detail-section" id="what-is-it"><span class="section-number">01</span><h2>What is it?</h2><p class="definition">A merge conflict happens when Git cannot automatically combine changes from different branches.</p><p>This often occurs when the same part of a file was changed in incompatible ways.</p><p class="note"><strong>Simple Definition:</strong> A conflict means Git needs a person to decide which code should remain.</p></section>
+      <section class="card detail-section" id="think-of-it-like"><span class="section-number">02</span><h2>Think of it like...</h2><p class="definition">Think of two people editing the same sentence differently.</p><p>A tool cannot safely guess which version is correct.</p><p>A person must decide.</p></section>
+      <section class="card detail-section" id="what-does-it-do"><span class="section-number">03</span><h2>What does it do?</h2><div class="action-grid"><div><b>Identify Conflicting Files</b></div><div><b>Compare Both Changes</b></div><div><b>Choose the Correct Result</b></div><div><b>Edit the File</b></div><div><b>Test the Result</b></div><div><b>Complete the Merge</b></div></div></section>
+      <section class="card detail-section" id="where-is-it-used"><span class="section-number">04</span><h2>Where is it used?</h2><div class="use-grid"><div><b>Merge</b></div><div><b>Rebase</b></div><div><b>Pull</b></div><div><b>Cherry-pick</b></div><div><b>Parallel Development</b></div></div></section>
+      <section class="card detail-section" id="example"><span class="section-number">05</span><h2>Example</h2><div class="example-grid"><div><b>Branch A</b><p><code>status = "Approved"</code></p></div><div><b>Branch B</b><p><code>status = "Confirmed"</code></p></div></div><p class="note">Git cannot automatically know which change is correct.</p></section>
+      <section class="card detail-section" id="how-it-connects"><span class="section-number">06</span><h2>How it connects</h2><div class="flow" aria-label="Different Branch Changes to Complete Merge"><div class="flow-node">Different Branch Changes</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Merge</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Conflict</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Manual Resolution</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Test</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Complete Merge</div></div></section>
+      <section class="card detail-section" id="do-not-confuse"><span class="section-number">07</span><h2>Do Not Confuse</h2><div class="compare-grid"><div><b>Conflict</b><p>A version-control problem combining code changes.</p></div><div><b>Bug</b><p>A defect in software behavior.</p></div></div></section>
+      <section class="card detail-section" id="topic-glossary"><span class="section-number">08</span><h2>Topic Glossary</h2><div class="glossary-wrap"><table><thead><tr><th>Term</th><th>中文</th><th>Definition</th><th>中文解释</th></tr></thead><tbody><tr><td>Conflict</td><td>冲突</td><td>A situation where Git cannot automatically combine changes.</td><td>Git 无法自动判断不同代码修改应该如何合并的情况。</td></tr><tr><td>Merge Conflict</td><td>合并冲突</td><td>A conflict that happens while merging branches.</td><td>两个分支合并时产生的代码冲突。</td></tr><tr><td>Conflict Marker</td><td>冲突标记</td><td>Text Git inserts to show conflicting sections.</td><td>Git 在文件中标记不同修改版本时加入的特殊符号。</td></tr><tr><td>Resolve</td><td>解决冲突</td><td>Manually choosing and editing the final code.</td><td>开发人员手动决定冲突部分最终应该保留什么代码。</td></tr><tr><td>Ours</td><td>当前分支版本</td><td>The version from the current side of a conflict.</td><td>冲突中当前所在分支对应的修改版本。</td></tr><tr><td>Theirs</td><td>另一分支版本</td><td>The version from the other side of a conflict.</td><td>冲突中另一个分支对应的修改版本。</td></tr></tbody></table></div></section>
+      <section class="card detail-section" id="what-to-remember"><span class="section-number">09</span><h2>What to Remember</h2><p class="definition">Conflicts happen when Git cannot combine changes automatically.</p><p>Developers must inspect and resolve the final code.</p><p>Resolved code should be tested before completion.</p><p class="note"><strong>Merge → Conflict → Resolve → Test</strong></p></section>
+    </div>
+    <nav class="pager" aria-label="Topic navigation"><a href="merge.html"><small>Previous</small><strong>← Merge</strong></a><a href="version.html"><small>Next</small><strong>Version →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

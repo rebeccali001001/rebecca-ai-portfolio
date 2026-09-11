@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JSON · Software Knowledge</title>
+  <meta name="description" content="JSON is a common text format for representing and exchanging structured data.">
+  <link rel="stylesheet" href="topic.css?v=20260909">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .json-page .hero{padding:36px 0 26px}.json-page .hero h1{font-size:clamp(48px,7vw,86px);margin:8px 0 14px}.json-page .hero .lede{font-size:20px;max-width:780px}
+    .json-page .topic-section{padding:26px;margin:0 0 22px}.json-page .topic-section h2{margin:0 0 14px}.json-page .topic-section>p{max-width:860px}.json-page .definition{font-size:24px;color:#fff;padding:18px 20px;border-left:3px solid var(--green);background:rgba(120,229,189,.08);border-radius:0 12px 12px 0;max-width:860px}
+    .json-page .code-block{margin:18px 0;padding:20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:15px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .json-page .label-flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:620px;margin:20px 0}.json-page .label-flow div{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:15px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a}.json-page .label-flow b{color:#fff}.json-page .label-flow span{color:var(--green);font-size:20px;text-align:center}.json-page .value-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:20px}.json-page .value-grid div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:750;text-align:center}
+    .json-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:20px 0}.json-page .flow .node{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}.json-page .flow .node.accent{border-color:var(--green);background:rgba(120,229,189,.08)}.json-page .flow .arrow{color:var(--green);font-size:22px}.json-page .comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px}.json-page .comparison article{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.json-page .comparison h3{margin:0 0 10px;color:var(--green)}.json-page .comparison p{margin:0;color:var(--muted)}
+    .json-page .glossary-wrap{overflow-x:auto}.json-page .glossary{width:100%;min-width:820px;border-collapse:collapse;margin-top:16px;font-size:13px}.json-page .glossary th,.json-page .glossary td{padding:12px 11px;border:1px solid #38516d;text-align:left;vertical-align:top}.json-page .glossary th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.07em;text-transform:uppercase}.json-page .glossary td{color:var(--muted)}.json-page .glossary td:first-child{color:#fff;font-weight:800}.json-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.json-page .remember p{font-size:20px;color:#fff}.json-page .topic-navigation{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:24px}.json-page .topic-navigation a{display:grid;gap:3px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.72);color:var(--muted)}.json-page .topic-navigation a:last-child{text-align:right}.json-page .topic-navigation a:hover{border-color:var(--green);color:#fff}.json-page .topic-navigation small{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.json-page .topic-navigation strong{color:#fff}.json-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}.json-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:900px){.json-page .value-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.json-page .hero{padding-top:24px}.json-page .value-grid,.json-page .comparison,.json-page .label-flow{grid-template-columns:1fr}.json-page .flow{display:grid;grid-template-columns:1fr;gap:7px}.json-page .flow .arrow{transform:rotate(90deg);text-align:center}.json-page .topic-navigation{grid-template-columns:1fr}.json-page .topic-navigation a:last-child{text-align:left}.json-page .direction-key{order:3}}
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic json-page software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">PART I · HOW SOFTWARE WORKS</div>
+      <h1>JSON</h1>
+      <p class="lede">A common text format for representing and exchanging structured data.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section class="card wide topic-section">
+        <div class="eyebrow">01</div><h2>What is it?</h2>
+        <p>JSON is a common text format for representing structured data.</p>
+        <p>It organizes information using names and values.</p>
+        <p class="definition">JSON is a simple way to structure data.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">02</div><h2>Think of it like...</h2>
+        <p>Think of JSON as a labeled package of information.</p>
+        <p>Each value has a name.</p>
+        <pre class="code-block" aria-label="A JSON order object"><code>{
+  "name": "Order 1001",
+  "status": "Created",
+  "amount": 500
+}</code></pre>
+        <div class="label-flow" aria-label="JSON labels and values">
+          <div><b>Label</b><span>→</span><b>Value</b></div>
+          <div><b>status</b><span>→</span><b>Created</b></div>
+          <div><b>amount</b><span>→</span><b>500</b></div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">03</div><h2>What does it do?</h2>
+        <p>JSON helps software systems exchange structured data.</p><p>It can represent:</p>
+        <div class="value-grid"><div>Text</div><div>Numbers</div><div>True / False Values</div><div>Lists</div><div>Objects</div></div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">04</div><h2>Where is it used?</h2>
+        <p>JSON is commonly used in:</p>
+        <div class="value-grid"><div>API Requests</div><div>API Responses</div><div>Configuration</div><div>Data Files</div><div>System Integration</div></div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">05</div><h2>Example</h2><h3>Example Response</h3>
+        <pre class="code-block" aria-label="A JSON API response"><code>{
+  "order_id": 1001,
+  "status": "Created",
+  "amount": 500
+}</code></pre>
+        <p>This JSON represents structured order data.</p><p>Each field has a name and a value.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">06</div><h2>How it connects</h2>
+        <div class="flow" aria-label="Frontend to API Request to JSON to Backend"><div class="node">Frontend</div><div class="arrow">→</div><div class="node">API Request</div><div class="arrow">→</div><div class="node accent">JSON</div><div class="arrow">→</div><div class="node">Backend</div></div>
+        <div class="flow" aria-label="Backend to JSON Response to Frontend"><div class="node">Backend</div><div class="arrow">→</div><div class="node accent">JSON Response</div><div class="arrow">→</div><div class="node">Frontend</div></div>
+        <p>JSON is often the data format carried inside API requests and responses.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">07</div><h2>Do Not Confuse</h2>
+        <div class="comparison"><article><h3>JSON</h3><p>A data format.</p></article><article><h3>Database</h3><p>A system used to store and manage data.</p></article></div>
+        <p class="definition">JSON describes data.</p><p class="definition">A database stores data.</p>
+      </section>
+
+      <section id="glossary" class="card wide topic-section">
+        <div class="eyebrow">08</div><h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>JSON</td><td>JSON 数据格式</td><td>A common text format for structured data.</td><td>用来表示结构化数据的常见文本格式。</td></tr>
+          <tr><td>Key</td><td>键</td><td>The name used to identify a value in JSON.</td><td>JSON 中用来标识某个值的名称。</td></tr>
+          <tr><td>Value</td><td>值</td><td>The data stored under a key.</td><td>JSON 中某个键对应的具体数据。</td></tr>
+          <tr><td>Object</td><td>对象</td><td>A group of related key-value pairs.</td><td>由多组键和值组成的数据结构。</td></tr>
+          <tr><td>Array</td><td>数组</td><td>A list of values stored in order.</td><td>按顺序保存多个值的数据结构。</td></tr>
+          <tr><td>String</td><td>字符串</td><td>Text data stored inside quotation marks.</td><td>使用引号表示的文本数据。</td></tr>
+          <tr><td>Number</td><td>数字</td><td>Numeric data such as 10 or 500.</td><td>表示数量或数值的数据。</td></tr>
+          <tr><td>Boolean</td><td>布尔值</td><td>A true or false value.</td><td>只有 true 或 false 两种值的数据。</td></tr>
+          <tr><td>Request Body</td><td>请求体</td><td>Data sent inside an API request.</td><td>API 请求中携带的主要数据内容。</td></tr>
+          <tr><td>Response Body</td><td>响应体</td><td>Data returned inside an API response.</td><td>API 响应中返回的主要数据内容。</td></tr>
+          <tr><td>API</td><td>应用程序接口</td><td>A common place where JSON data is exchanged.</td><td>软件系统交换 JSON 数据时常见的接口。</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="card wide topic-section remember">
+        <div class="eyebrow">09</div><h2>What to Remember</h2>
+        <p>JSON is a format for structured data.</p><p>JSON uses names and values to organize information.</p><p>JSON is commonly used in API requests and responses.</p>
+        <div class="flow" aria-label="Software to JSON to Software"><div class="node">Software</div><div class="arrow">→</div><div class="node accent">JSON</div><div class="arrow">→</div><div class="node">Software</div></div>
+      </section>
+    </div>
+
+    <nav class="topic-navigation" aria-label="Topic navigation">
+      <a href="database.html"><small>Previous</small><strong>Database</strong></a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="runtime.html"><small>Next</small><strong>Runtime</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

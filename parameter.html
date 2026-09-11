@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parameter · Software Knowledge</title>
+  <meta name="description" content="A parameter is a named input expected by a function, route, or operation.">
+  <link rel="stylesheet" href="topic.css?v=20260910-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260910-parameter-final2"></script>
+  <style>
+    .parameter-page .path{margin:0 0 18px;color:var(--muted);font-size:13px;letter-spacing:.02em}
+    .parameter-page .path span{color:var(--green)}
+    .parameter-page .hero-label,.parameter-page .section-number{color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .parameter-page .hero-definition{max-width:800px;font-size:22px;color:#dbe7f4}
+    .parameter-page .section-number{display:block;margin-bottom:8px}
+    .parameter-page .definition{font-size:21px;color:#fff}
+    .parameter-page .analogy-copy{font-size:19px;color:#fff}
+    .parameter-page .value-grid,.parameter-page .use-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:18px}
+    .parameter-page .value-card,.parameter-page .use-card{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .parameter-page .value-card strong,.parameter-page .use-card strong{display:block;color:#fff;font-size:16px}
+    .parameter-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+    .parameter-page .flow span{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+    .parameter-page .flow span.accent{border-color:var(--green);background:rgba(120,229,189,.09)}
+    .parameter-page .flow b{color:var(--green);font-size:20px}
+    .parameter-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .parameter-page .code-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+    .parameter-page .code-notes div{padding:13px 15px;border-left:3px solid var(--blue);background:rgba(127,177,255,.07);color:var(--muted)}
+    .parameter-page .code-notes b{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .parameter-page .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .parameter-page .compare>div{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .parameter-page .compare h3{margin:0 0 8px;color:var(--green);font-size:18px}
+    .parameter-page .compare p{margin:0;color:var(--muted)}
+    .parameter-page .glossary-wrap{overflow:auto;margin-top:18px}
+    .parameter-page .glossary{width:100%;min-width:860px;border-collapse:collapse;font-size:13px}
+    .parameter-page .glossary th,.parameter-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .parameter-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .parameter-page .glossary td{color:var(--muted)}
+    .parameter-page .glossary td:first-child{color:#fff;font-weight:800}
+    .parameter-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .parameter-page .remember p{font-size:21px;color:#fff}
+    .parameter-page .topic-sidebar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}
+    .parameter-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .parameter-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .parameter-page .topic-sidebar a:hover{border-color:var(--green)}
+    .parameter-page .topic-sidebar a:nth-child(3){text-align:right}
+    .parameter-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .parameter-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .parameter-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:900px){.parameter-page .value-grid,.parameter-page .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){
+      .parameter-page .value-grid,.parameter-page .use-grid,.parameter-page .compare,.parameter-page .code-notes{grid-template-columns:1fr}
+      .parameter-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .parameter-page .flow b{text-align:center;transform:rotate(90deg)}
+      .parameter-page .topic-sidebar{grid-template-columns:1fr}
+      .parameter-page .topic-sidebar .current{grid-column:auto}
+      .parameter-page .topic-sidebar a:nth-child(3){text-align:left}
+      .parameter-page .direction-key{order:3}
+      .parameter-page #site-directory{display:none}
+      .parameter-page.directory-open #site-directory{display:block;position:fixed;left:12px;right:12px;top:86px;width:auto;max-height:calc(100vh - 100px);margin:0;z-index:50;overflow:auto}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory parameter-page software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="backend-overview.html">← Backend overview</a>
+    <p class="path">Software Knowledge <span>→</span> 04 · Backend <span>→</span> Parameter</p>
+    <div class="hero-label">PART IV · BACKEND</div>
+    <h1>Parameter</h1>
+    <p class="hero-definition">A named input that allows a function, route, or operation to receive data.</p>
+
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#definition">What is it?</a><a href="#analogy">Think of it like...</a><a href="#does">What does it do?</a><a href="#where">Where is it used?</a><a href="#example">Example</a><a href="#connects">How it connects</a><a href="#confuse">Do Not Confuse</a><a href="#glossary">Topic Glossary</a><a href="#remember">What to Remember</a></nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide">
+        <span class="section-number">01 · What is it?</span>
+        <h2>What is it?</h2>
+        <p class="definition">A parameter defines a value that code expects to receive.</p>
+        <p class="muted">Parameters allow the same logic to work with different input values.</p>
+        <p class="note"><strong>Simple Definition:</strong> A parameter is an input a function or route expects.</p>
+      </article>
+
+      <article id="analogy" class="card wide">
+        <span class="section-number">02 · Think of it like...</span>
+        <h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of a form with blank fields.</p>
+        <p class="muted">The structure defines what information is needed. The actual values can change each time.</p>
+        <div class="concept-tree" aria-label="A form structure with fields whose values can change">Form structure<br>├─ Name field<br>├─ Amount field<br>└─ ID field<br><br>Values change each time the form is used.</div>
+      </article>
+
+      <article id="does" class="card wide">
+        <span class="section-number">03 · What does it do?</span>
+        <h2>What does it do?</h2>
+        <p class="muted">Parameters can provide:</p>
+        <div class="value-grid"><div class="value-card"><strong>IDs</strong></div><div class="value-card"><strong>Names</strong></div><div class="value-card"><strong>Amounts</strong></div><div class="value-card"><strong>Filters</strong></div><div class="value-card"><strong>Configuration Values</strong></div><div class="value-card"><strong>Function Inputs</strong></div></div>
+      </article>
+
+      <article id="where" class="card wide">
+        <span class="section-number">04 · Where is it used?</span>
+        <h2>Where is it used?</h2>
+        <p class="muted">Parameters are used in:</p>
+        <div class="use-grid"><div class="use-card"><strong>Functions</strong></div><div class="use-card"><strong>Routes</strong></div><div class="use-card"><strong>Path Parameters</strong></div><div class="use-card"><strong>Query Parameters</strong></div><div class="use-card"><strong>API Calls</strong></div><div class="use-card"><strong>Configuration</strong></div></div>
+      </article>
+
+      <article id="example" class="card wide">
+        <span class="section-number">05 · Example</span>
+        <h2>Example</h2>
+        <pre class="code-block"><code>Function:
+def get_order(order_id):
+    ...
+
+Parameter:
+order_id
+
+Call:
+get_order(1001)
+
+Argument:
+1001</code></pre>
+        <div class="code-notes"><div><b>order_id</b> is the named input in the function definition.</div><div><b>1001</b> is the actual value passed into it.</div><div>The same function can work with another order ID.</div></div>
+      </article>
+
+      <article id="connects" class="card wide">
+        <span class="section-number">06 · How it connects</span>
+        <h2>How it connects</h2>
+        <div class="flow" aria-label="Input to parameter to function to logic to result"><span>Input</span><b>→</b><span class="accent">Parameter</span><b>→</b><span>Function</span><b>→</b><span>Logic</span><b>→</b><span>Result</span></div>
+        <p class="note">The parameter gives a function or route a named place to receive input.</p>
+      </article>
+
+      <article id="confuse" class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span>
+        <h2>Do Not Confuse</h2>
+        <div class="compare"><div><h3>Parameter</h3><p>The named input in the definition.</p></div><div><h3>Argument</h3><p>The actual value supplied when calling it.</p></div></div>
+        <p class="note"><strong>Parameter:</strong> <code>order_id</code> · <strong>Argument:</strong> <code>1001</code></p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <span class="section-number">08 · Topic Glossary</span>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table class="glossary"><thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>Parameter</td><td>参数</td><td>A named input expected by code.</td><td>函数或接口定义时预先声明需要接收的输入。</td></tr>
+          <tr><td>Argument</td><td>实参</td><td>The actual value passed to a parameter.</td><td>真正调用函数时传进去的具体数据。</td></tr>
+          <tr><td>Input</td><td>输入</td><td>Data provided to an operation.</td><td>提供给函数或系统处理的数据。</td></tr>
+          <tr><td>Path Parameter</td><td>路径参数</td><td>A value placed inside a URL path.</td><td>URL 路径中用来标识具体资源的参数。</td></tr>
+          <tr><td>Query Parameter</td><td>查询参数</td><td>A value added to a URL query string.</td><td>URL 后面用于筛选或控制请求的参数。</td></tr>
+          <tr><td>Default Value</td><td>默认值</td><td>A value used when no other value is supplied.</td><td>没有传入新值时自动使用的预设值。</td></tr>
+        </tbody></table></div>
+      </article>
+
+      <article id="remember" class="card wide remember">
+        <span class="section-number">09 · What to Remember</span>
+        <h2>What to Remember</h2>
+        <p>Parameters define expected inputs.</p>
+        <p>Arguments are the actual values supplied.</p>
+        <p>Parameters make functions and routes reusable.</p>
+        <div class="flow" aria-label="Named parameter receives an argument"><span>Parameter: order_id</span><b>←</b><span class="accent">Argument: 1001</span></div>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="Parameter topic navigation">
+      <div class="current">Parameter ← active</div>
+      <a href="function.html"><small>Previous</small>Function</a>
+      <div class="direction-key"><span>Definition</span><b>→</b><span>Value</span><b>↓</b></div>
+      <a href="validation.html"><small>Next</small>Validation</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

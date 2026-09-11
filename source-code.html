@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source Code · 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of source code and how it becomes running software.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .source-code-page .hero { max-width: 900px; }
+    .source-code-page .definition { font-size: 22px; color: #fff; max-width: 900px; }
+    .source-code-page .muted { max-width: 900px; }
+    .source-code-page .source-card,
+    .source-code-page .comparison-card,
+    .source-code-page .connection-card { padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .source-code-page .source-grid,
+    .source-code-page .comparison-grid,
+    .source-code-page .connection-grid { display: grid; gap: 12px; margin-top: 18px; }
+    .source-code-page .source-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .source-code-page .comparison-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .source-code-page .connection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .source-code-page .source-card h3,
+    .source-code-page .comparison-card h3,
+    .source-code-page .connection-card h3 { margin: 0 0 8px; color: #fff; font-size: 17px; }
+    .source-code-page .source-card p,
+    .source-code-page .comparison-card p,
+    .source-code-page .connection-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .source-code-page .responsive-flow { display: flex; align-items: stretch; justify-content: center; gap: 10px; margin-top: 20px; min-width: 0; }
+    .source-code-page .responsive-flow > div { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 72px; flex: 1 1 0; padding: 14px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; overflow-wrap: anywhere; }
+    .source-code-page .responsive-flow > div.accent { border-color: var(--green); background: rgba(120,229,189,.1); }
+    .source-code-page .responsive-flow > span { display: grid; place-items: center; flex: 0 0 20px; color: var(--green); font-size: 24px; }
+    .source-code-page .mobile-arrow { display: none !important; }
+    .source-code-page .code-sample { margin: 18px 0 0; padding: 16px; border: 1px solid #38516d; border-radius: 14px; background: #050b12; color: #dbe7f4; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .source-code-page .glossary-wrap { max-width: 100%; overflow-x: auto; }
+    .source-code-page table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+    .source-code-page th, .source-code-page td { padding: 12px 10px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .source-code-page th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .source-code-page td { color: var(--muted); }
+    .source-code-page td:first-child { color: #fff; font-weight: 800; }
+    .source-code-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .source-code-page .remember p { font-size: 20px; color: #fff; }
+    .source-code-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .source-code-page .prevnext a { display: flex; flex-direction: column; gap: 3px; max-width: 46%; color: var(--muted); }
+    .source-code-page .prevnext a:last-child { align-items: flex-end; text-align: right; }
+    .source-code-page .prevnext small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .source-code-page .prevnext strong { color: var(--green); }
+    .source-code-page .desktop-arrow { display: inline; }
+    .source-code-page .mobile-arrow { display: none; }
+    @media (max-width: 900px) {
+      .source-code-page .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .source-code-page .connection-grid { grid-template-columns: 1fr; }
+      .source-code-page .responsive-flow { flex-wrap: wrap; }
+      .source-code-page .responsive-flow > div { flex-basis: 140px; }
+    }
+    @media (max-width: 1100px) {
+      body.source-code-page > main.detail-page { box-sizing: border-box; width: 100% !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; padding-left: 18px !important; padding-right: 18px !important; }
+      .source-code-page .hero, .source-code-page .lede, .source-code-page .detail-sections, .source-code-page .card { width: 100%; max-width: 100%; min-width: 0; }
+      .source-code-page .lede { overflow-wrap: anywhere; word-break: break-word; }
+    }
+    @media (max-width: 760px) {
+      body.source-code-page > main.detail-page { box-sizing: border-box; width: 100% !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; padding-left: 18px !important; padding-right: 18px !important; }
+      .source-code-page .hero, .source-code-page .lede, .source-code-page .detail-sections, .source-code-page .card { width: 100%; max-width: 100%; min-width: 0; }
+      .source-code-page .lede { overflow-wrap: anywhere; word-break: break-word; }
+      .source-code-page .source-grid, .source-code-page .comparison-grid { grid-template-columns: 1fr; }
+      .source-code-page .responsive-flow { flex-direction: column; gap: 6px; }
+      .source-code-page .responsive-flow > div { width: 100%; flex-basis: auto; }
+      .source-code-page .desktop-arrow { display: none !important; }
+      .source-code-page .mobile-arrow { display: grid !important; min-height: 20px; flex-basis: 20px; font-size: 24px; }
+      .source-code-page .prevnext { flex-direction: column; }
+      .source-code-page .prevnext a, .source-code-page .prevnext a:last-child { max-width: 100%; align-items: flex-start; text-align: left; }
+      .source-code-page .remember p { font-size: 18px; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory source-code-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="high-availability.html">← High Availability</a>
+      <div class="eyebrow">MODULE 08 · DEVELOPMENT &amp; GIT</div>
+      <h1>Source Code</h1>
+      <p class="lede">Human-readable instructions written by developers that define how software behaves.</p>
+    </header>
+
+    <section class="detail-sections">
+      <article id="what-is-it" class="card detail-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p class="definition">Source code is human-readable instructions written by developers that define how software behaves.</p>
+      </article>
+
+      <article id="think" class="card detail-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p class="definition">Think of source code as a recipe for software.</p>
+        <p class="muted">The recipe describes the steps, decisions, and rules that a computer follows to produce a result.</p>
+      </article>
+
+      <article id="does" class="card detail-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <div class="source-grid">
+          <div class="source-card"><h3>Define behavior</h3><p>Describe what the software should do.</p></div>
+          <div class="source-card"><h3>Process input</h3><p>Receive and work with information.</p></div>
+          <div class="source-card"><h3>Apply rules</h3><p>Make decisions and carry out logic.</p></div>
+          <div class="source-card"><h3>Produce output</h3><p>Return a result, action, or response.</p></div>
+        </div>
+      </article>
+
+      <article id="where" class="card detail-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <div class="source-grid">
+          <div class="source-card"><h3>Web applications</h3><p>Build pages, interactions, and browser behavior.</p></div>
+          <div class="source-card"><h3>Backend services</h3><p>Handle requests, rules, data, and integrations.</p></div>
+          <div class="source-card"><h3>Mobile and desktop apps</h3><p>Power features users run on their devices.</p></div>
+          <div class="source-card"><h3>Scripts and tools</h3><p>Automate tasks and support development work.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <p class="muted">A small function can express one rule in source code:</p>
+        <pre class="code-sample"><code>function calculateTotal(price, quantity) {
+  return price * quantity;
+}</code></pre>
+        <p class="muted">The source code defines how the total is calculated when the function is used.</p>
+      </article>
+
+      <article id="connects" class="card detail-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="responsive-flow" aria-label="Developer to source code to build to running software flow">
+          <div>Developer</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Source Code</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Build</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Running Software</div>
+        </div>
+      </article>
+
+      <article id="confuse" class="card detail-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card"><h3>Source code ≠ machine code</h3><p>Source code is written for people to read; machine code is the lower-level form a computer executes.</p></div>
+          <div class="comparison-card"><h3>Source code ≠ repository</h3><p>Source code is the instructions; a repository stores source code and its history.</p></div>
+          <div class="comparison-card"><h3>Source code ≠ documentation</h3><p>Source code defines behavior; documentation explains how to understand or use it.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Source Code</td><td>源代码</td><td>Human-readable instructions written by developers.</td><td>开发者写给人看的软件指令。</td></tr>
+              <tr><td>Program</td><td>程序</td><td>A set of instructions that performs a task.</td><td>用来完成某项任务的一组指令。</td></tr>
+              <tr><td>Function</td><td>函数</td><td>A reusable block of code that performs a task.</td><td>可以重复使用、完成某项任务的一段代码。</td></tr>
+              <tr><td>Variable</td><td>变量</td><td>A named place used to hold a value.</td><td>用名字保存某个值的地方。</td></tr>
+              <tr><td>Build</td><td>构建</td><td>The process of turning source code into a runnable form.</td><td>把源代码处理成可以运行形式的过程。</td></tr>
+              <tr><td>Repository</td><td>代码仓库</td><td>A place that stores source code and its history.</td><td>保存源代码及其修改历史的地方。</td></tr>
+              <tr><td>Version Control</td><td>版本控制</td><td>A way to record and manage changes to source code.</td><td>记录和管理源代码变化的方法。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>Source code is the human-readable set of instructions that defines software behavior.</p>
+        <p>Developers write and review it; build tools turn it into a form that can run.</p>
+      </article>
+    </section>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="high-availability.html"><span class="desktop-arrow" aria-hidden="true">←</span><span class="mobile-arrow" aria-hidden="true">↓</span><small>Previous</small><strong>High Availability</strong></a>
+      <a href="repository.html"><small>Next</small><strong>Repository</strong><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

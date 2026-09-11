@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Codex Batch Workbench</title>
+<style>body{font:16px system-ui;max-width:900px;margin:40px auto;padding:0 20px;background:#f6f7f9}textarea{width:100%;height:280px;padding:12px;box-sizing:border-box}button,input{padding:9px;margin:6px 4px 6px 0}#jobs{white-space:pre-wrap;background:white;padding:14px;border-radius:8px}</style>
+<h1>Codex Batch Workbench</h1><p>每行一个 prompt。请先确认本机可用：<code>codex exec --help</code></p>
+<textarea id="prompts" placeholder="每行输入一个 prompt"></textarea><br>
+并发数 <input id="concurrency" type="number" min="1" max="32" value="1">
+开始时间 <input id="startAt" type="time" value="02:00">
+<button onclick="queue()">开始</button><button onclick="post('/api/pause')">暂停</button><button onclick="post('/api/resume')">继续</button>
+<h2>状态</h2><div id="jobs">尚未开始</div>
+<script>
+async function post(url){await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}); refresh()}
+async function queue(){let prompts=document.querySelector('#prompts').value.split('\n').filter(Boolean);await fetch('/api/queue',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompts,concurrency:+document.querySelector('#concurrency').value,start_at:document.querySelector('#startAt').value})});refresh()}
+async function refresh(){let s=await (await fetch('/api/state')).json();document.querySelector('#jobs').textContent=`running=${s.running} paused=${s.paused} start_at=${s.start_at||'now'}\n`+s.jobs.map((j,i)=>`${i+1}. [${j.status}] ${j.prompt.slice(0,100)}`).join('\n')};setInterval(refresh,1000);refresh();
+</script>

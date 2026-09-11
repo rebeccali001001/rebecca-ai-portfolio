@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>High Availability · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of high availability, redundancy, health checks, failover, and multiple instances.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory architecture-topic-page high-availability-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>High Availability</h1>
+      <p class="lede">High availability minimizes downtime using redundancy, health checks, failover, and multiple instances.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">High availability means a service is designed to stay usable when an instance, machine, connection, or other component fails.</p>
+        <p class="section-lede">The goal is not to promise that nothing will ever go wrong. The goal is to reduce the chance and duration of an outage by keeping another healthy path ready, detecting trouble quickly, and moving work to that path.</p>
+        <p class="bottom-line"><b>Core idea:</b> keep the service available even when part of the system is unavailable.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a shop with several checkout lanes and a supervisor who closes a broken lane and directs customers to open lanes.</p>
+        <p class="section-lede">Customers keep using the same shop entrance. They do not need to know which lane handles the purchase. The supervisor needs a way to notice that a lane is unhealthy and a spare lane must already be ready to help.</p>
+        <div class="architecture-flow" aria-label="Request reaches a healthy instance while an unhealthy instance is removed from traffic">
+          <div class="architecture-node">User Request</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Traffic Router</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">Healthy Instance</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Useful Response</div>
+        </div>
+        <p class="bottom-line">If one instance fails its health check, the router stops sending new requests there and uses another healthy instance.</p>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">High availability reduces the blast radius of failures and shortens the time between failure and recovery.</p>
+        <div class="fact-grid">
+          <div><b>Redundancy</b><p>Keep two or more instances, paths, or replicas so one failure does not remove the only way to serve users.</p></div>
+          <div><b>Health checks</b><p>Test whether an instance is actually ready to receive work, not merely whether its process is running.</p></div>
+          <div><b>Failover</b><p>Move traffic or responsibility to a healthy replacement when the current component cannot serve reliably.</p></div>
+          <div><b>Reduced outage time</b><p>Detect, isolate, and recover from common failures without waiting for a human to repair the first component.</p></div>
+        </div>
+      </article>
+
+      <article id="where-is-it-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Use high-availability patterns where interruption would block an important user journey or business operation.</p>
+        <div class="use-grid">
+          <div><strong>Customer-facing APIs</strong><p>Run multiple application instances so one host or process failure does not take down the public API.</p></div>
+          <div><strong>Checkout and payments</strong><p>Keep ordering available during campaigns, while making sure payment and order state remain safe and consistent.</p></div>
+          <div><strong>Authentication</strong><p>Protect login and session-related paths because an unavailable identity service can make the rest of a product feel unavailable.</p></div>
+          <div><strong>Databases and queues</strong><p>Use replicas, automatic promotion, or multiple consumers when the data or work-processing layer also needs a recovery path.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <p class="section-lede">An online retailer is running a one-day promotion. The product team wants shoppers to keep browsing and placing orders if one application machine fails.</p>
+        <div class="example-grid">
+          <div class="example-card"><ol><li>The team runs three checkout instances across more than one availability zone behind a load balancer.</li><li>Health checks call a readiness endpoint that verifies the instance can reach the dependencies it needs for checkout.</li><li>When Checkout 2 stops responding correctly, the load balancer marks it unhealthy and sends new requests to Checkout 1 or 3.</li><li>The order database has its own replication and failover plan; adding application instances alone would not protect it.</li></ol></div>
+          <div class="example-card"><h3>PM Perspective</h3><p>Define the user journey that must remain available, the acceptable interruption, and the failure scenarios in scope. Track availability, failed requests, health-check time, failover time, duplicate orders, and recovery communication—not only the number of instances.</p></div>
+        </div>
+        <p class="bottom-line">High availability is a system property: every critical dependency needs an appropriate recovery path, not just the web tier.</p>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="architecture-flow" aria-label="Client to load balancer to health checks to multiple instances to replicated data and monitoring">
+          <div class="architecture-node">Client</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">Load Balancer</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Healthy Instances</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">Replicated Data</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Monitoring</div>
+        </div>
+        <div class="compare-grid">
+          <div><h3>Redundancy</h3><p>Creates another place for work to go, such as a second instance or database replica.</p></div>
+          <div><h3>Detection</h3><p>Health checks, metrics, and alerts identify whether the current path can still serve users.</p></div>
+          <div><h3>Failover</h3><p>Routing or ownership changes move work to the replacement path and record what happened.</p></div>
+        </div>
+        <p class="bottom-line">A high-availability design must connect capacity, routing, state, detection, and recovery into one operating plan.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>High Availability</h3><p>Keep a service usable when a component fails by using redundancy, detection, and failover.</p></div>
+          <div><h3>Fault Tolerance</h3><p>Continue operating through a defined failure, often with little or no visible interruption. High availability may briefly interrupt service while it detects and fails over.</p></div>
+          <div><h3>Disaster Recovery</h3><p>Restore service after a larger incident such as a regional outage, major data loss, or destructive event.</p></div>
+          <div><h3>Scalability</h3><p>Handle more demand by changing capacity. More instances can help scale, but they do not automatically create failover.</p></div>
+          <div><h3>Backup</h3><p>Keep a recoverable copy of data. A backup helps restore data but does not serve live requests during an outage.</p></div>
+          <div><h3>Load Balancing</h3><p>Distribute requests across targets. It supports high availability when it has health checks and healthy alternatives to route to.</p></div>
+        </div>
+        <p class="bottom-line">Redundancy is necessary but not sufficient: without health checks, failover logic, and a protected data path, extra instances can still fail together.</p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>High Availability</td><td>高可用性</td><td>Keeping a service usable for most of the time, even when parts fail.</td><td>即使部分组件出问题，也尽量让服务继续可用。</td></tr>
+              <tr><td>Redundancy</td><td>冗余</td><td>Having an extra component or path ready to help.</td><td>多准备一个可以接替工作的部件或路径。</td></tr>
+              <tr><td>Health Check</td><td>健康检查</td><td>A test that decides whether a target is ready to receive work.</td><td>用来判断某个实例现在能不能接收请求的测试。</td></tr>
+              <tr><td>Failover</td><td>故障转移</td><td>Moving work from a failed path to a healthy replacement.</td><td>把工作从坏掉的路径转到健康的备用路径。</td></tr>
+              <tr><td>Instance</td><td>实例</td><td>One running copy of an application or service.</td><td>正在运行的一份应用或服务副本。</td></tr>
+              <tr><td>Load Balancer</td><td>负载均衡器</td><td>A component that routes requests across service instances.</td><td>把请求分配给多个服务实例的组件。</td></tr>
+              <tr><td>Single Point of Failure</td><td>单点故障</td><td>One component whose failure can stop the service.</td><td>一个部件坏了就可能让整个服务停止。</td></tr>
+              <tr><td>Availability Zone</td><td>可用区</td><td>A separate infrastructure location designed to reduce shared failure.</td><td>相对独立的一组基础设施，用来减少一起故障的风险。</td></tr>
+              <tr><td>Replication</td><td>复制</td><td>Keeping synchronized copies of data or state.</td><td>保存数据或状态的同步副本。</td></tr>
+              <tr><td>Failover Time</td><td>故障转移时间</td><td>How long it takes to move service to a healthy path.</td><td>服务切换到健康路径需要多长时间。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="what-to-remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>High availability minimizes downtime with redundancy, health checks, failover, and multiple instances.</p>
+        <p>For a PM, availability is a user journey and dependency question: decide what must stay usable, how much interruption is acceptable, and which failures are in scope.</p>
+        <p>Multiple instances are only one part of the design. The router, stateful dependencies, data replication, monitoring, and recovery process must also avoid a shared single point of failure.</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="fault-tolerance.html"><small>Previous</small><strong>← Fault Tolerance</strong></a>
+      <a href="module-07.html"><small>Next</small><strong>Module 07 Overview →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

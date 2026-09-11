@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client · Software Knowledge</title>
+  <link rel="stylesheet" href="topic.css?v=20260909">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="client.css?v=20260909">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic client-topic">
+  <nav>
+    <div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div>
+  </nav>
+
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">PART I · HOW SOFTWARE WORKS</div>
+      <h1>Client</h1>
+      <p class="lede">The side of a software system that sends requests and receives responses.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section class="card wide topic-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>A client is the side of a software system that interacts with a server.</p>
+        <p>It usually sends requests and receives responses.</p>
+        <p class="definition">A client asks a server for data or actions.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p>Think of a client as a customer at a service counter.</p>
+        <p>The customer asks for something.</p>
+        <p>The service staff processes the request and returns a result.</p>
+        <div class="flow analogy-flow" aria-label="Customer to request to service counter to result to customer">
+          <div>Customer</div><span aria-hidden="true">→</span><div>Request</div><span aria-hidden="true">→</span><div>Service Counter</div><span aria-hidden="true">→</span><div>Result</div><span aria-hidden="true">→</span><div>Customer</div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <p>A client collects user actions, sends requests, receives results, and presents information.</p>
+        <div class="cards four">
+          <article>Collect Input</article>
+          <article>Send Requests</article>
+          <article>Receive Responses</article>
+          <article>Show Results</article>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>A browser, mobile app, or desktop application can act as a client.</p>
+        <div class="chips"><span class="chip">Browser</span><span class="chip">Mobile App</span><span class="chip">Desktop Application</span></div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <h3>A Browser Requests Order Data</h3>
+        <div class="flow example-flow" aria-label="User to browser to GET api orders to server to order data to browser to user">
+          <div>User</div><span aria-hidden="true">→</span><div>Browser</div><span aria-hidden="true">→</span><div>GET /api/orders</div><span aria-hidden="true">→</span><div>Server</div><span aria-hidden="true">→</span><div>Order Data</div><span aria-hidden="true">→</span><div>Browser</div><span aria-hidden="true">→</span><div>User</div>
+        </div>
+        <p>The browser acts as the client.</p>
+        <p>It sends a request to the server and displays the returned data.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="flow connection-flow" aria-label="User to client to request to server to response to client to user">
+          <div>User</div><span aria-hidden="true">→</span><div>Client</div><span aria-hidden="true">→</span><div>Request</div><span aria-hidden="true">→</span><div>Server</div><span aria-hidden="true">→</span><div>Response</div><span aria-hidden="true">→</span><div>Client</div><span aria-hidden="true">→</span><div>User</div>
+        </div>
+        <p>The client is usually the starting point of a client-server interaction.</p>
+        <p>It sends a request and waits for a response.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <h3>Client ≠ Server</h3>
+        <div class="comparison">
+          <article><h3>Client</h3><p>Usually sends requests and receives results.</p></article>
+          <article><h3>Server</h3><p>Usually receives requests and processes them.</p></article>
+        </div>
+        <p class="definition compact-definition">Client asks.</p>
+        <p class="definition compact-definition">Server processes.</p>
+      </section>
+
+      <section class="card wide topic-section" id="glossary">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Client</td><td>客户端</td><td>The side of a system that sends requests to a server.</td><td>系统中向服务器发送请求的一端。</td></tr>
+              <tr><td>Server</td><td>服务器</td><td>A system that receives requests and provides data or services.</td><td>接收请求并提供数据或服务的一端。</td></tr>
+              <tr><td>Request</td><td>请求</td><td>A message asking another system for data or an action.</td><td>向另一个系统发送的取数或执行操作请求。</td></tr>
+              <tr><td>Response</td><td>响应</td><td>A message returned after a request is processed.</td><td>请求处理完成后返回的数据或结果。</td></tr>
+              <tr><td>Browser</td><td>浏览器</td><td>Software that loads and runs web pages.</td><td>用来打开、显示并运行网页的软件。</td></tr>
+              <tr><td>Mobile App</td><td>移动应用</td><td>An application designed for mobile devices.</td><td>为手机或其他移动设备设计的应用程序。</td></tr>
+              <tr><td>User</td><td>用户</td><td>A person or system that uses software.</td><td>使用软件的人或其他系统。</td></tr>
+              <tr><td>Input</td><td>输入</td><td>Data provided to a software system.</td><td>用户或其他系统提供给软件的数据。</td></tr>
+              <tr><td>Output</td><td>输出</td><td>Information produced by a software system.</td><td>软件处理后产生的结果。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card wide topic-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <ol class="remember-list">
+          <li>A client is the side of a system that interacts with a server.</li>
+          <li>Clients usually send requests and receive responses.</li>
+          <li>Browsers, mobile apps, and desktop applications can all act as clients.</li>
+        </ol>
+        <div class="flow connection-flow final-flow" aria-label="Client to request to server to response to client">
+          <div>Client</div><span aria-hidden="true">→</span><div>Request</div><span aria-hidden="true">→</span><div>Server</div><span aria-hidden="true">→</span><div>Response</div><span aria-hidden="true">→</span><div>Client</div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="application.html">← <small>Previous</small><br>Application</a>
+      <a href="server.html"><small>Next</small> →<br>Server</a>
+    </nav>
+  </main>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Event Listener · Frontend &amp; Browser</title>
+  <meta name="description" content="An event listener waits for a specific event and runs a function when it happens.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .standard-topic .grid>article{order:initial!important}
+    .topic-pager{display:flex;align-items:stretch;gap:10px;margin:28px 0 4px}
+    .topic-pager a{flex:1;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.72);color:var(--muted);font-size:13px}
+    .topic-pager a:hover{border-color:var(--green);color:#fff}
+    .topic-pager a:nth-child(2){border-color:rgba(120,229,189,.55);color:#fff;background:linear-gradient(135deg,rgba(120,229,189,.1),rgba(127,177,255,.06))}
+    .topic-pager small{display:block;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+    .topic-pager span{display:block;font-weight:750}
+    .code-example{margin:20px 0 18px;padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a;overflow:auto}
+    .code-example code{color:#dbe7f4;font:500 15px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .flow-line{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:18px;color:#fff;font-weight:750}
+    .flow-line span{padding:10px 13px;border:1px solid #38516d;border-radius:11px;background:#07111a}
+    .flow-line b{color:var(--green);font-size:18px}
+    .listener-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 0;padding:0;list-style:none}
+    .listener-list li{padding:14px 15px;border:1px solid #38516d;border-radius:13px;background:#07111a;color:#dbe7f4;font-weight:700}
+    .glossary-wrap{overflow:auto;border:1px solid #38516d;border-radius:14px}
+    .glossary{width:100%;min-width:720px;border-collapse:collapse;background:#07111a;font-size:13px}
+    .glossary th,.glossary td{padding:12px 13px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .glossary th{color:var(--green);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#0b1723}
+    .glossary td{color:var(--muted)}
+    .glossary td:first-child{color:#fff;font-weight:750}
+    .glossary tr:last-child td{border-bottom:0}
+    @media(max-width:760px){.topic-pager{display:grid;grid-template-columns:1fr}.listener-list{grid-template-columns:1fr}.flow-line{align-items:stretch;flex-direction:column}.flow-line b{transform:rotate(90deg);align-self:center;line-height:1}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Event Listener</h1>
+    <p class="lede">Code that waits for an event and runs a response when it happens.</p>
+
+    <nav class="topic-pager" aria-label="Topic navigation">
+      <a href="event.html"><small>Previous</small><span>Event</span></a>
+      <a href="event-listener.html" aria-current="page"><small>Current</small><span>Event Listener ← active</span></a>
+      <a href="responsive-design.html"><small>Next</small><span>Responsive Design</span></a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">An event listener waits for a specific event.</p>
+        <p class="muted">When that event occurs, the listener runs a function.</p>
+        <p class="note">Simple Definition: An event listener waits for something to happen.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">Think of an event listener as someone waiting for a signal.</p>
+          <p class="muted">When the signal appears, the person takes action.</p>
+          <div class="flow-line" aria-label="Wait, event happens, action runs">
+            <span>Wait</span><b aria-hidden="true">→</b><span>Event Happens</span><b aria-hidden="true">→</b><span>Action Runs</span>
+          </div>
+        </div>
+      </article>
+
+      <article id="capabilities" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <ul class="listener-list">
+          <li>Wait for Clicks</li>
+          <li>Watch User Input</li>
+          <li>Detect Form Submission</li>
+          <li>React to Changes</li>
+          <li>Run Functions</li>
+          <li>Update the Interface</li>
+        </ul>
+      </article>
+
+      <article id="usage" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">Event listeners are used in interactive web applications.</p>
+        <ul class="listener-list">
+          <li>Buttons</li>
+          <li>Forms</li>
+          <li>Menus</li>
+          <li>Search Boxes</li>
+          <li>Dropdowns</li>
+          <li>Keyboard Shortcuts</li>
+        </ul>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre class="code-example"><code>button.addEventListener("click", () =&gt; {
+  menu.classList.toggle("open");
+});</code></pre>
+        <p><b>button</b> is the element being watched.</p>
+        <p><b>addEventListener()</b> registers the listener.</p>
+        <p><b>"click"</b> is the event.</p>
+        <p>The function runs after the click.</p>
+        <div class="flow-line" aria-label="Button, click, event listener, function, menu changes">
+          <span>Button</span><b aria-hidden="true">→</b><span>Click</span><b aria-hidden="true">→</b><span>Event Listener</span><b aria-hidden="true">→</b><span>Function</span><b aria-hidden="true">→</b><span>Menu Changes</span>
+        </div>
+      </article>
+
+      <article id="connection" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="flow-line" aria-label="HTML Element, Event, Event Listener, JavaScript Function, DOM Change">
+          <span>HTML Element</span><b aria-hidden="true">→</b><span>Event</span><b aria-hidden="true">→</b><span>Event Listener</span><b aria-hidden="true">→</b><span>JavaScript Function</span><b aria-hidden="true">→</b><span>DOM Change</span>
+        </div>
+        <p class="note">Event listeners connect user actions with JavaScript behavior.</p>
+      </article>
+
+      <article id="confusion" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="misconceptions">
+          <div class="misconception-card"><h3>Event Listener ≠ Event</h3><p><b>Event</b></p><p>Something that happens.</p><p><b>Event Listener</b></p><p>Code waiting for that event.</p></div>
+        </div>
+        <p class="note">Event = What happened</p>
+        <p class="note">Listener = What is waiting for it</p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Event Listener</td><td>事件监听</td><td>Code that waits for an event.</td><td>等待某个事件发生并执行代码的机制。</td></tr>
+              <tr><td>Event</td><td>事件</td><td>An action or change software can detect.</td><td>软件可以检测到的操作或变化。</td></tr>
+              <tr><td>addEventListener()</td><td>添加事件监听</td><td>A method used to register an event listener.</td><td>JavaScript 中用来添加事件监听的方法。</td></tr>
+              <tr><td>Handler</td><td>事件处理函数</td><td>A function that runs when an event happens.</td><td>事件发生后执行的函数。</td></tr>
+              <tr><td>Click</td><td>点击</td><td>A common user event.</td><td>用户点击页面元素时产生的常见事件。</td></tr>
+              <tr><td>Element</td><td>元素</td><td>A page component that can receive events.</td><td>可以接收或触发事件的页面元素。</td></tr>
+              <tr><td>Function</td><td>函数</td><td>Code that can run after an event occurs.</td><td>事件发生后可以执行的一段代码。</td></tr>
+              <tr><td>Callback</td><td>回调函数</td><td>A function passed to run later.</td><td>被传入并在特定事件发生后执行的函数。</td></tr>
+              <tr><td>DOM</td><td>文档对象模型</td><td>The page structure event listeners often interact with.</td><td>事件监听经常读取或修改的页面对象结构。</td></tr>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>The language used to register and handle listeners.</td><td>用来创建和处理事件监听的编程语言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">An event listener waits for an event.</p>
+        <p class="note">When the event happens, a function runs.</p>
+        <p class="note">Event listeners make user interfaces interactive.</p>
+        <div class="flow-line" aria-label="Event, listener, function"><span>Event</span><b aria-hidden="true">→</b><span>Listener</span><b aria-hidden="true">→</b><span>Function</span></div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

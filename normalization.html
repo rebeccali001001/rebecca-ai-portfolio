@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Normalization · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of database normalization and why related data is separated into clear tables.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .normalization-page .definition { max-width: 860px; font-size: 20px; color: #fff; }
+    .normalization-page .flow { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; }
+    .normalization-page .flow-node { display: grid; place-items: center; min-height: 72px; flex: 1 1 0; padding: 14px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; }
+    .normalization-page .flow-node.accent { border-color: var(--green); background: rgba(120,229,189,.09); }
+    .normalization-page .flow-arrow { display: grid; place-items: center; flex: 0 0 24px; color: var(--green); font-size: 24px; }
+    .normalization-page .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .normalization-page .cards > div { padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .normalization-page .cards b { color: #fff; }
+    .normalization-page .cards p { margin: 7px 0 0; color: var(--muted); }
+    .normalization-page .glossary-wrap { overflow-x: auto; }
+    .normalization-page table { width: 100%; min-width: 840px; border-collapse: collapse; font-size: 14px; }
+    .normalization-page th, .normalization-page td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .normalization-page th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .normalization-page td { color: var(--muted); }
+    .normalization-page td:first-child { color: #fff; font-weight: 800; }
+    .normalization-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .normalization-page .remember p { color: #fff; font-size: 19px; }
+    .normalization-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .normalization-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 170px; color: var(--muted); }
+    .normalization-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .normalization-page .pager a:hover { color: #fff; }
+    .normalization-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .normalization-page .pager strong { color: var(--green); font-size: 15px; }
+    .normalization-page pre { max-width: 100%; margin: 0; padding: 16px; border: 1px solid #29415a; border-radius: 12px; background: #050d15; color: #dbe7f4; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    @media (max-width: 760px) { .normalization-page .flow, .normalization-page .cards { grid-template-columns: 1fr; } .normalization-page .flow { flex-direction: column; } .normalization-page .flow-arrow { transform: rotate(90deg); } .normalization-page .pager { flex-direction: column; } .normalization-page .pager a:last-child { align-items: flex-start; text-align: left; } }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory normalization-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero"><div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div><h1>Normalization</h1><p class="lede">Normalization organizes relational data so each fact has a clear home and unnecessary duplication is reduced.</p></header>
+    <section class="grid">
+      <article class="card wide"><h2>01 · What is it?</h2><p class="definition">Normalization organizes relational data to reduce unnecessary duplication and improve consistency.</p><p>It gives each fact a clear home and uses relationships to connect related facts without copying the same information everywhere.</p></article>
+      <article class="card wide"><h2>02 · Think of it like…</h2><p class="definition">Think of normalization like sorting a kitchen into labeled cupboards instead of keeping every ingredient in every room.</p><div class="flow" aria-label="Repeated facts to separate tables to consistent updates"><div class="flow-node">Repeated Facts</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Related Tables</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Consistent Updates</div></div></article>
+      <article class="card wide"><h2>03 · What does it do?</h2><div class="cards"><div><b>Reduce Duplication</b><p>Store one fact in one appropriate place.</p></div><div><b>Clarify Relationships</b><p>Connect tables with keys instead of copying whole records.</p></div><div><b>Protect Updates</b><p>Change a fact once and avoid conflicting copies.</p></div></div></article>
+      <article class="card wide"><h2>04 · Where is it used?</h2><p>Normalization is common in transactional systems such as accounts, orders, inventory, billing, and permissions.</p></article>
+      <article class="card wide"><h2>05 · Example</h2><p>A normalized order system stores customer details in a <code>customers</code> table, order details in <code>orders</code>, and the relationship through a customer key.</p><pre><code>customers(id, name, email)
+orders(id, customer_id)
+order_items(order_id, product_id, quantity)</code></pre><p class="note">The customer email is stored once, while each order points back to the customer record.</p></article>
+      <article class="card wide"><h2>06 · How it connects</h2><div class="flow" aria-label="Business facts to tables to keys to SQL"><div class="flow-node">Business Facts</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Tables</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Keys</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">SQL</div></div></article>
+      <article class="card wide"><h2>07 · Do Not Confuse</h2><div class="cards"><div><b>Normalization</b><p>How data is organized to reduce duplication.</p></div><div><b>Indexing</b><p>How a database finds data more efficiently.</p></div><div><b>Denormalization</b><p>A deliberate choice to duplicate data for a performance or reporting need.</p></div></div></article>
+      <article class="card wide"><h2>08 · Topic Glossary</h2><div class="glossary-wrap"><table><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody><tr><td>Normalization</td><td>规范化</td><td>Organizing relational data to reduce unnecessary duplication.</td><td>整理关系型数据，减少不必要的重复。</td></tr><tr><td>Relationship</td><td>关系</td><td>A connection between related records.</td><td>相关数据记录之间的连接。</td></tr><tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a record.</td><td>唯一识别一条记录的值。</td></tr><tr><td>Foreign Key</td><td>外键</td><td>A value that points to a record in another table.</td><td>指向另一张表中记录的值。</td></tr></tbody></table></div></article>
+      <article class="card wide remember"><h2>09 · What to Remember</h2><p>Normalization gives each fact a clear home and uses relationships to connect the data.</p></article>
+    </section>
+    <nav class="pager" aria-label="Database and SQL topic navigation"><a href="null.html"><small>Previous</small><strong>← NULL</strong></a><a href="migration.html"><small>Next</small><strong>Migration →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

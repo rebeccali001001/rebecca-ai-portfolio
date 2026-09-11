@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Page · Frontend &amp; Browser</title>
+  <meta name="description" content="A beginner-friendly explanation of web pages in frontend and browser software.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .web-page .topic-main .grid>article{order:initial!important}
+    .definition{font-size:22px;color:#fff}
+    .analogy-lede{font-size:20px;color:#fff}
+    .site-tree{margin-top:18px;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:15px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre}
+    .feature-grid,.use-grid,.order-grid,.compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .feature-grid>div,.use-grid>div,.order-grid>div,.compare-grid>div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .feature-grid b,.use-grid b,.order-grid b{display:block;color:#fff;font-size:17px}
+    .feature-grid span,.use-grid span,.order-grid span{display:block;margin-top:5px;color:var(--muted);font-size:14px}
+    .order-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .order-grid>div{min-height:90px}
+    .order-grid b{color:var(--green);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+    .connect-flow{display:grid;grid-template-columns:minmax(145px,.65fr) 32px minmax(0,1.35fr);align-items:center;gap:10px;max-width:720px;margin-top:18px}
+    .connect-flow span{padding:11px 14px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800}
+    .connect-flow i{color:var(--green);font-style:normal;font-size:20px;text-align:center}
+    .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:18px;padding:20px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .flow span{padding:10px 14px;border:1px solid #38516d;border-radius:999px;background:#102335;color:#fff;font-weight:800}
+    .flow i{color:var(--green);font-style:normal;font-size:20px}
+    .compare-grid{grid-template-columns:1fr 1fr}
+    .compare-grid h3{margin:0 0 7px;color:var(--green);font-size:18px}
+    .compare-grid p{margin:0;color:var(--muted)}
+    .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}
+    .glossary{width:100%;min-width:760px;border-collapse:collapse;background:#07111a}
+    .glossary th,.glossary td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;vertical-align:top}
+    .glossary th{color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .glossary td{color:var(--muted);font-size:14px}
+    .glossary td:first-child{color:#fff;font-weight:750}
+    .glossary tr:last-child td{border-bottom:0}
+    .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .remember .note{font-size:20px;color:#fff}
+    .page-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .page-nav a{display:flex;flex-direction:column;gap:5px;padding:17px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .page-nav a:last-child{text-align:right;align-items:flex-end}
+    .page-nav a:hover{border-color:var(--green);transform:translateY(-2px)}
+    .page-nav small{color:var(--muted);font-size:12px}
+    .page-nav strong{color:#fff;font-size:18px}
+    @media(max-width:760px){
+      .feature-grid,.use-grid,.order-grid,.compare-grid,.page-nav{grid-template-columns:1fr}
+      .order-grid>div{min-height:0}
+      .connect-flow{grid-template-columns:1fr;gap:7px;max-width:none}
+      .connect-flow i{transform:rotate(90deg)}
+      .flow{flex-direction:column}
+      .flow i{transform:rotate(90deg)}
+      .page-nav a:last-child{text-align:left;align-items:flex-start}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory web-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Web Page</h1>
+    <p class="lede">A document displayed in a browser as part of a website or web application.</p>
+
+    <section class="grid">
+      <article class="card wide">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A web page is a document that a browser loads and displays.</p>
+        <p>It can contain text, images, forms, buttons, links, and interactive features.</p>
+        <p class="note"><strong>Simple Definition:</strong> A web page is one screen of content shown in a browser.</p>
+      </article>
+
+      <article class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="analogy-lede">Think of a website as a book.</p>
+        <p>A web page is one page inside that book.</p>
+        <div class="site-tree" aria-label="A website containing multiple web pages">Website
+│
+├─ Home Page
+├─ Product Page
+├─ Order Page
+└─ Contact Page</div>
+      </article>
+
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p> A web page presents information and gives users ways to interact with a web application.</p>
+        <div class="feature-grid">
+          <div><b>Show Content</b></div>
+          <div><b>Collect Input</b></div>
+          <div><b>Provide Navigation</b></div>
+          <div><b>Trigger Actions</b></div>
+          <div><b>Display Results</b></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p>Web pages are used throughout websites and browser-based applications.</p>
+        <div class="use-grid">
+          <div><b>Home Page</b></div>
+          <div><b>Login Page</b></div>
+          <div><b>Search Page</b></div>
+          <div><b>Order Page</b></div>
+          <div><b>Dashboard</b></div>
+          <div><b>Settings Page</b></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>05 · Example</h2>
+        <h3>An Order Page</h3>
+        <p>The page may contain:</p>
+        <div class="order-grid">
+          <div><b>Order Number</b></div>
+          <div><b>Customer</b></div>
+          <div><b>Quantity</b></div>
+          <div><b>Submit Button</b></div>
+          <div><b>Order Status</b></div>
+        </div>
+        <div class="flow" aria-label="Browser to order page to user action to application flow"><span>Browser</span><i aria-hidden="true">→</i><span>Order Page</span><i aria-hidden="true">→</i><span>User Action</span><i aria-hidden="true">→</i><span>Application</span></div>
+      </article>
+
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connect-flow" aria-label="HTML to page structure, CSS to page style, JavaScript to page behavior, all three to web page"><span>HTML</span><i aria-hidden="true">→</i><span>Page Structure</span><span>CSS</span><i aria-hidden="true">→</i><span>Page Style</span><span>JavaScript</span><i aria-hidden="true">→</i><span>Page Behavior</span><span>All three</span><i aria-hidden="true">→</i><span>Web Page</span></div>
+        <p class="note">A web page combines structure, style, and behavior inside the browser.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>Web Page</h3><p>One document or screen.</p></div>
+          <div><h3>Website</h3><p>A collection of related web pages.</p></div>
+        </div>
+        <p class="note"><strong>One page is part of a website.</strong></p>
+      </article>
+
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Web Page</td><td>网页</td><td>A document displayed in a browser.</td><td>浏览器中显示的一张网页。</td></tr>
+              <tr><td>Website</td><td>网站</td><td>A collection of related web pages.</td><td>由多张相关网页组成的网站。</td></tr>
+              <tr><td>Browser</td><td>浏览器</td><td>Software that displays web pages.</td><td>用来打开和显示网页的软件。</td></tr>
+              <tr><td>HTML</td><td>超文本标记语言</td><td>The language used to define page structure.</td><td>用来定义网页结构的语言。</td></tr>
+              <tr><td>CSS</td><td>层叠样式表</td><td>The language used to control page appearance.</td><td>用来控制网页样式和布局的语言。</td></tr>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>A language used to add interaction and behavior.</td><td>用来给网页增加交互和行为的语言。</td></tr>
+              <tr><td>Link</td><td>链接</td><td>A clickable connection to another page or resource.</td><td>点击后可以跳转到其他页面或资源的连接。</td></tr>
+              <tr><td>Form</td><td>表单</td><td>A group of controls used to collect user input.</td><td>用来收集用户输入的一组控件。</td></tr>
+              <tr><td>Button</td><td>按钮</td><td>A control users click to trigger an action.</td><td>用户点击后触发操作的控件。</td></tr>
+              <tr><td>Content</td><td>内容</td><td>Information displayed on a page.</td><td>网页中展示给用户的信息。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p class="note">A web page is one document shown inside a browser.</p>
+        <p class="note">HTML provides structure.</p>
+        <p class="note">CSS controls appearance.</p>
+        <p class="note">JavaScript adds interaction.</p>
+        <div class="flow" aria-label="HTML plus CSS plus JavaScript leads to a web page"><span>HTML + CSS + JavaScript</span><i aria-hidden="true">→</i><span>Web Page</span></div>
+      </article>
+
+      <article class="card wide">
+        <div class="page-nav" aria-label="Frontend and Browser topic navigation">
+          <a href="browser.html"><small>Previous</small><strong>← Browser</strong></a>
+          <a href="html.html"><small>Next</small><strong>HTML →</strong></a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

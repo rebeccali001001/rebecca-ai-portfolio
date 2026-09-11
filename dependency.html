@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dependency · 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of dependencies in software projects.">
+  <link rel="stylesheet" href="topic.css?v=20260910-3">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260910"></script>
+  <style>
+    .dependency-page .hero{padding:36px 0 26px}
+    .dependency-page .hero h1{font-size:clamp(48px,7vw,86px);margin:8px 0 14px}
+    .dependency-page .hero .lede{font-size:20px;max-width:900px}
+    .dependency-page .detail-sections{display:grid;gap:22px}
+    .dependency-page .topic-section{padding:26px;margin:0;min-width:0}
+    .dependency-page .topic-section h2{margin:0 0 14px}
+    .dependency-page .topic-section>p{max-width:920px}
+    .dependency-page .definition{font-size:24px;color:#fff;padding:18px 20px;border-left:3px solid var(--green);background:rgba(120,229,189,.08);border-radius:0 12px 12px 0;max-width:920px;overflow-wrap:anywhere}
+    .dependency-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:10px;margin:20px 0;padding:18px;border:1px solid #38516d;border-radius:15px;background:#07111a;overflow:hidden}
+    .dependency-page .flow .node{flex:0 1 auto;padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#0d1e2d;color:#fff;font-weight:800;text-align:center}
+    .dependency-page .flow .node.accent{border-color:var(--green);background:rgba(120,229,189,.09)}
+    .dependency-page .flow-arrow{color:var(--green);font-size:22px;font-weight:850}
+    .dependency-page .mobile-arrow{display:none}
+    .dependency-page .topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .dependency-page .topic-grid article,.dependency-page .comparison article{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .dependency-page .topic-grid h3,.dependency-page .comparison h3{margin:0;color:#fff;font-size:17px}
+    .dependency-page .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .dependency-page .chip{padding:12px 16px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#fff;font-weight:800}
+    .dependency-page .example-card{padding:20px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .dependency-page .example-card code{color:#fff}
+    .dependency-page .comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .dependency-page .comparison p{margin:8px 0 0;color:var(--muted)}
+    .dependency-page .glossary-wrap{overflow-x:auto}
+    .dependency-page table{width:100%;min-width:850px;border-collapse:collapse;font-size:13px}
+    .dependency-page th,.dependency-page td{padding:12px;border:1px solid #38516d;text-align:left;vertical-align:top}
+    .dependency-page th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.06em}
+    .dependency-page td{color:var(--muted)}
+    .dependency-page td:first-child{color:#fff;font-weight:800}
+    .dependency-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .dependency-page .remember p{font-size:20px;color:#fff}
+    .dependency-page .prevnext{display:flex;justify-content:space-between;gap:16px;padding:8px 0 30px}
+    .dependency-page .prevnext a{color:var(--muted)}
+    .dependency-page .prevnext a:hover{color:#fff}
+    @media(max-width:1050px){.dependency-page{width:auto!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important}}
+    @media(max-width:760px){
+      body.has-site-directory>main.dependency-page{width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important;padding-left:18px!important;padding-right:18px!important}
+      .dependency-page .hero{padding-top:24px}
+      body.dependency-page{width:100%;max-width:100vw;overflow-x:hidden}
+      .dependency-page .hero,.dependency-page .detail-sections,.dependency-page .topic-section{width:100%;max-width:100%}
+      .dependency-page .hero .lede{width:100%;max-width:100%;overflow-wrap:anywhere}
+      .dependency-page .topic-grid,.dependency-page .comparison{grid-template-columns:1fr}
+      .dependency-page .topic-section{padding:20px}
+      .dependency-page .flow{flex-direction:column;align-items:stretch}
+      .dependency-page .flow .node{text-align:center}
+      .dependency-page .desktop-arrow{display:none}
+      .dependency-page .mobile-arrow{display:block;align-self:center}
+      .dependency-page .prevnext{flex-direction:column}
+    }
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic dependency-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">MODULE 08 · DEVELOPMENT &amp; GIT</div>
+      <h1>Dependency</h1>
+      <p class="lede">Software, code, or a package that another project needs in order to work.</p>
+    </header>
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide topic-section"><div class="eyebrow">01</div><h2>What is it?</h2><p>A dependency is something your code relies on, such as a package, database client, or service.</p><p class="definition">Software, code, or a package that another project needs in order to work.</p></section>
+      <section id="think" class="card wide topic-section"><div class="eyebrow">02</div><h2>Think of it like...</h2><p>A dependency is something your code relies on, such as a package, database client, or service.</p><div class="flow" aria-label="Application relies on a dependency to get a capability"><span class="node">Application</span><span class="flow-arrow desktop-arrow" aria-hidden="true">→</span><span class="flow-arrow mobile-arrow" aria-hidden="true">↓</span><span class="node accent">Dependency</span><span class="flow-arrow desktop-arrow" aria-hidden="true">→</span><span class="flow-arrow mobile-arrow" aria-hidden="true">↓</span><span class="node">Capability</span></div></section>
+      <section id="does" class="card wide topic-section"><div class="eyebrow">03</div><h2>What does it do?</h2><div class="topic-grid"><article><h3>Provide capabilities</h3></article><article><h3>Share reusable code</h3></article><article><h3>Connect components</h3></article></div></section>
+      <section id="where" class="card wide topic-section"><div class="eyebrow">04</div><h2>Where is it used?</h2><div class="chips"><span class="chip">Package managers</span><span class="chip">Backend services</span><span class="chip">Application setup</span></div></section>
+      <section id="example" class="card wide topic-section"><div class="eyebrow">05</div><h2>Example</h2><div class="example-card"><p>A route depends on a database client to load an order.</p><p><code>Route → Database Client → Order</code></p></div></section>
+      <section id="connects" class="card wide topic-section"><div class="eyebrow">06</div><h2>How it connects</h2><div class="flow" aria-label="Application to dependency to capability"><span class="node">Application</span><span class="flow-arrow desktop-arrow" aria-hidden="true">→</span><span class="flow-arrow mobile-arrow" aria-hidden="true">↓</span><span class="node accent">Dependency</span><span class="flow-arrow desktop-arrow" aria-hidden="true">→</span><span class="flow-arrow mobile-arrow" aria-hidden="true">↓</span><span class="node">Capability</span></div></section>
+      <section id="confuse" class="card wide topic-section"><div class="eyebrow">07</div><h2>Do Not Confuse</h2><div class="comparison"><article><h3>Dependency</h3><p>A requirement that another project or component needs in order to work.</p></article><article><h3>Configuration</h3><p>Describes how to use or run the software.</p></article></div><p class="definition">A dependency is a requirement; configuration describes how to use it.</p></section>
+      <section id="glossary" class="card wide topic-section"><div class="eyebrow">08</div><h2>Topic Glossary</h2><div class="glossary-wrap"><table><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>Dependency</td><td>依赖</td><td>Software, code, or a package that another project needs in order to work.</td><td>一个项目要正常运行所需要的软件、代码或软件包。</td></tr>
+        <tr><td>Package</td><td>软件包</td><td>A bundle of reusable code.</td><td>可以安装并重复使用的一组代码。</td></tr>
+        <tr><td>Database Client</td><td>数据库客户端</td><td>Software that lets an application connect to a database.</td><td>让应用能够连接数据库的软件。</td></tr>
+        <tr><td>Service</td><td>服务</td><td>A component that provides a capability to another component.</td><td>为其他组件提供某种能力的程序部分。</td></tr>
+        <tr><td>Configuration</td><td>配置</td><td>Settings that describe how software should run.</td><td>用来说明软件应该如何运行的一组设置。</td></tr>
+        <tr><td>Capability</td><td>能力</td><td>Something a component can provide or do.</td><td>一个组件能够提供或完成的功能。</td></tr>
+      </tbody></table></div></section>
+      <section id="remember" class="card wide topic-section remember"><div class="eyebrow">09</div><h2>What to Remember</h2><p>A dependency is something your code relies on.</p><p>A dependency can provide capabilities, share reusable code, or connect components.</p><p>A route can depend on a database client to load an order.</p></section>
+    </div>
+    <nav class="prevnext" aria-label="Topic navigation"><a href="build.html">← <small>Previous</small><br>Build</a><a href="package.html"><small>Next</small> →<br>Package</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

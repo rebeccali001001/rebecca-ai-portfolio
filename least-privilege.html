@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Least Privilege · Authentication &amp; Security</title>
+  <meta name="description" content="Least privilege gives each user, service, or tool only the access it needs for its current task.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .least-privilege-page .hero { padding-bottom: 34px; }
+    .least-privilege-page .hero h1 { margin-bottom: 12px; }
+    .least-privilege-page .hero .eyebrow { margin-bottom: 14px; }
+    .least-privilege-page .lede, .least-privilege-page .section-lede { max-width: 840px; }
+    .least-privilege-page .definition { max-width: 900px; font-size: 20px; color: #fff; }
+    .least-privilege-page .section-lede { color: var(--muted); margin: 0 0 18px; }
+    .least-privilege-page .analogy-copy { max-width: 840px; }
+    .least-privilege-page .flow, .least-privilege-page .connection-flow {
+      display: grid; align-items: stretch; gap: 10px; margin-top: 20px;
+    }
+    .least-privilege-page .flow { grid-template-columns: 1fr 32px 1fr 32px 1fr 32px 1fr; }
+    .least-privilege-page .connection-flow { grid-template-columns: 1fr 30px 1fr 30px 1fr 30px 1fr 30px 1fr 30px 1fr; }
+    .least-privilege-page .flow-node, .least-privilege-page .connection-flow span {
+      min-height: 78px; display: grid; place-items: center; padding: 14px 12px;
+      border: 1px solid #38516d; border-radius: 14px; background: #07111a;
+      color: #fff; text-align: center; font-weight: 800;
+    }
+    .least-privilege-page .flow-node.accent, .least-privilege-page .connection-flow .accent {
+      border-color: var(--green);
+      background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a;
+    }
+    .least-privilege-page .flow-arrow, .least-privilege-page .connection-flow b {
+      display: grid; place-items: center; color: var(--green); font-size: 24px; text-align: center;
+    }
+    .least-privilege-page .flow-caption { margin: 18px 0 0; color: var(--muted); font-size: 14px; }
+    .least-privilege-page .benefit-grid, .least-privilege-page .use-grid, .least-privilege-page .confusion-grid {
+      display: grid; gap: 12px; margin-top: 18px;
+    }
+    .least-privilege-page .benefit-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .least-privilege-page .use-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .least-privilege-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .least-privilege-page .benefit-card, .least-privilege-page .use-card, .least-privilege-page .confusion-card {
+      padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a;
+    }
+    .least-privilege-page .benefit-card b, .least-privilege-page .use-card b, .least-privilege-page .confusion-card h3 { color: #fff; }
+    .least-privilege-page .benefit-card p, .least-privilege-page .use-card p, .least-privilege-page .confusion-card p {
+      margin: 7px 0 0; color: var(--muted);
+    }
+    .least-privilege-page .use-card strong {
+      display: block; margin-bottom: 6px; color: var(--green); font-size: 12px;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .least-privilege-page .example-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; margin-top: 18px; }
+    .least-privilege-page .example-card { padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .least-privilege-page pre { margin: 0; overflow: auto; color: var(--green); font: 700 14px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
+    .least-privilege-page .example-card p { margin: 0; color: var(--muted); }
+    .least-privilege-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+    .least-privilege-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .least-privilege-page .glossary { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 14px; }
+    .least-privilege-page .glossary th, .least-privilege-page .glossary td {
+      padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top;
+    }
+    .least-privilege-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .least-privilege-page .glossary td { color: var(--muted); }
+    .least-privilege-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .least-privilege-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .least-privilege-page .remember p { max-width: 840px; font-size: 19px; color: #fff; }
+    .least-privilege-page .pager {
+      display: flex; justify-content: space-between; gap: 16px; margin-top: 24px;
+      padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .least-privilege-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 170px; color: var(--muted); }
+    .least-privilege-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .least-privilege-page .pager a:hover { color: #fff; }
+    .least-privilege-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .least-privilege-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) {
+      .least-privilege-page .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .least-privilege-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .least-privilege-page .flow, .least-privilege-page .connection-flow, .least-privilege-page .benefit-grid,
+      .least-privilege-page .use-grid, .least-privilege-page .confusion-grid, .least-privilege-page .example-grid { grid-template-columns: 1fr; }
+      .least-privilege-page .flow, .least-privilege-page .connection-flow { gap: 6px; }
+      .least-privilege-page .flow-arrow, .least-privilege-page .connection-flow b { min-height: 22px; font-size: 0; }
+      .least-privilege-page .flow-arrow::after, .least-privilege-page .connection-flow b::after { content: '↓'; font-size: 24px; }
+      .least-privilege-page .pager { flex-direction: column; }
+      .least-privilege-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory least-privilege-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>Least Privilege</h1>
+      <p class="lede">Least privilege means giving each user, service, or tool only the access it needs for its current task.</p>
+    </header>
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Least privilege is a security principle that limits access to the smallest set of permissions required to complete an approved task.</p>
+        <p class="section-lede">Access should be limited by identity, action, resource, and time when those boundaries are useful. Extra access creates extra opportunities for mistakes, misuse, or compromise.</p>
+        <p class="note"><strong>Simple Definition:</strong><br>Give a caller only the permissions it needs, and no more.</p>
+      </article>
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-copy">
+          <p class="definition">Think of least privilege like giving a contractor one key for one room during one appointment.</p>
+          <p>The key opens the room needed for the job.</p>
+          <p>It does not open every room in the building, and it can be collected when the job is done.</p>
+        </div>
+        <p class="flow-caption"><strong>Analogy:</strong></p>
+        <div class="flow" aria-label="Contractor to task to limited key to approved room flow">
+          <div class="flow-node">Contractor</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Assigned Task</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">One Key</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Approved Room</div>
+        </div>
+      </article>
+      <article id="what-does-it-do" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">Least privilege puts useful boundaries around what an identity or system component can do.</p>
+        <div class="benefit-grid">
+          <div class="benefit-card"><b>Reduce Blast Radius</b><p>Limit the damage if an account, token, or tool is misused.</p></div>
+          <div class="benefit-card"><b>Prevent Accidents</b><p>Make dangerous or unrelated actions unavailable by default.</p></div>
+          <div class="benefit-card"><b>Clarify Responsibility</b><p>Make it easier to see which identity is allowed to perform an action.</p></div>
+          <div class="benefit-card"><b>Support Review</b><p>Give teams a smaller, clearer permission set to inspect and maintain.</p></div>
+        </div>
+      </article>
+      <article id="where-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Least privilege applies anywhere software decides who or what may access a resource.</p>
+        <div class="use-grid">
+          <div class="use-card"><strong>User Accounts</strong><b>Role and permission design</b><p>A person can access the records and actions needed for their job.</p></div>
+          <div class="use-card"><strong>Service Accounts</strong><b>Backend integrations</b><p>A service can read or change only the data required by its workflow.</p></div>
+          <div class="use-card"><strong>APIs and Databases</strong><b>Scoped access</b><p>A caller can use selected endpoints, tables, operations, or fields.</p></div>
+          <div class="use-card"><strong>Cloud Infrastructure</strong><b>Identity and access policies</b><p>A workload can reach only the resources it needs to run.</p></div>
+          <div class="use-card"><strong>AI Agent Tools</strong><b>Controlled capabilities</b><p>An agent can use approved tools without receiving unrestricted system access.</p></div>
+          <div class="use-card"><strong>Temporary Work</strong><b>Short-lived permissions</b><p>Access can expire or be removed after a task is complete.</p></div>
+        </div>
+      </article>
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card"><pre>Reporting service
+  resource: orders
+  actions: read
+  fields: id, status, total
+  duration: 15 minutes</pre></div>
+          <div class="example-card"><p>A reporting service needs to read a small set of order fields. It does not need to create, update, or delete orders, so those permissions are not granted.</p></div>
+        </div>
+        <p class="bottom-line">If the reporting service is compromised, its limited permissions reduce what the attacker can reach or change.</p>
+      </article>
+      <article id="how-it-connects" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="Request to identity to policy to least privilege check to approved action flow">
+          <span>Request</span><b aria-hidden="true">→</b><span>Identity</span><b aria-hidden="true">→</b><span>Policy</span><b aria-hidden="true">→</b><span class="accent">Least Privilege Check</span><b aria-hidden="true">→</b><span>Allowed Action</span><b aria-hidden="true">→</b><span>Audit Log</span>
+        </div>
+        <p class="note">Authentication identifies the caller. Authorization evaluates the policy. Least privilege shapes that policy so the allowed action is as narrow as the task requires.</p>
+      </article>
+      <article id="do-not-confuse" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>Authentication</h3><p>Checks who or what is making a request.</p><p><strong>Least privilege:</strong> limits what that authenticated caller can do.</p></div>
+          <div class="confusion-card"><h3>Role</h3><p>Groups a set of responsibilities or permissions.</p><p><strong>Least privilege:</strong> asks whether that set is still no broader than necessary.</p></div>
+          <div class="confusion-card"><h3>Deny by Default</h3><p>Blocks access unless a rule allows it.</p><p><strong>Least privilege:</strong> defines the narrow access that an approved caller receives.</p></div>
+        </div>
+        <p class="bottom-line">Least privilege does not mean removing all access. It means making access specific, justified, and limited.</p>
+      </article>
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Least Privilege</td><td>最小权限</td><td>Giving only the access needed for a task.</td><td>只给完成任务所需要的权限。</td></tr>
+              <tr><td>Permission</td><td>权限</td><td>A rule that allows a specific action.</td><td>允许某个具体操作的规则。</td></tr>
+              <tr><td>Authorization</td><td>授权</td><td>Checking what a caller is allowed to do.</td><td>检查调用方可以做什么。</td></tr>
+              <tr><td>Role</td><td>角色</td><td>A named set of responsibilities or permissions.</td><td>一组有名字的职责或权限。</td></tr>
+              <tr><td>Scope</td><td>范围</td><td>The resources or actions covered by access.</td><td>权限覆盖的资源或操作范围。</td></tr>
+              <tr><td>Service Account</td><td>服务账户</td><td>An identity used by software instead of a person.</td><td>由软件使用而不是由人使用的身份。</td></tr>
+              <tr><td>Blast Radius</td><td>影响范围</td><td>How much can be affected when something goes wrong.</td><td>出问题时可能受到影响的范围。</td></tr>
+              <tr><td>Audit Log</td><td>审计日志</td><td>A record of access and actions.</td><td>记录访问和操作的日志。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article id="remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>Least privilege gives each identity or tool the smallest useful set of permissions for an approved task.</p>
+        <p>Keep access narrow, review it regularly, and remove or expire it when it is no longer needed.</p>
+        <p class="note"><strong>Core Flow:</strong><br>Identify the Caller → Check the Policy → Allow Only the Required Action → Record the Result</p>
+      </article>
+    </section>
+    <nav class="pager" aria-label="Authentication and Security topic navigation">
+      <a href="xss.html"><small>Previous</small><strong>← XSS</strong></a>
+      <a href="module-07.html"><small>Next</small><strong>Module 07 Overview →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

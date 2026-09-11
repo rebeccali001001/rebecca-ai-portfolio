@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Element · Frontend &amp; Browser</title>
+  <meta name="description" content="A beginner-friendly explanation of HTML elements and how they connect to the DOM, CSS, and JavaScript.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .standard-topic .grid>article{order:initial!important}
+    .topic-pager{display:flex;align-items:stretch;gap:10px;margin:28px 0 4px}
+    .topic-pager a{flex:1;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.72);color:var(--muted);font-size:13px}
+    .topic-pager a:hover{border-color:var(--green);color:#fff}
+    .topic-pager a:nth-child(2){border-color:rgba(120,229,189,.55);color:#fff;background:linear-gradient(135deg,rgba(120,229,189,.1),rgba(127,177,255,.06))}
+    .topic-pager small{display:block;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+    .topic-pager span{display:block;font-weight:750}
+    .element-tree{margin:20px 0 0;padding:20px 24px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:600 15px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .element-tree .tree-root,.element-tree .tree-leaf{color:#fff}.element-tree .tree-branch{color:var(--green)}
+    .element-list,.element-usage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 0;padding:0;list-style:none}
+    .element-list li,.element-usage li{padding:15px;border:1px solid #38516d;border-radius:13px;background:#07111a;color:#dbe7f4;font-weight:700}
+    .element-list li::before{content:'✓';margin-right:8px;color:var(--green)}
+    .element-usage li{color:#fff;text-align:center}
+    .element-code{margin:20px 0 18px;padding:20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .element-code code{color:#dbe7f4;font:500 15px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .element-code .tag{color:#78e5bd}.element-code .attr{color:#7fb1ff}.element-code .value{color:#ffd47f}.element-code .text{color:#fff}
+    .element-explanation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .element-explanation div{padding:15px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:var(--muted)}
+    .element-explanation b{display:block;margin-bottom:5px;color:var(--green);font:700 14px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .element-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px;color:#fff;font-weight:750}
+    .element-flow span{padding:11px 15px;border:1px solid #38516d;border-radius:11px;background:#07111a}
+    .element-flow b{color:var(--green);font-size:18px}
+    .element-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+    .element-compare>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .element-compare h3{margin:0 0 7px;color:#fff}.element-compare p{margin:0;color:var(--muted)}
+    .glossary-wrap{overflow:auto;border:1px solid #38516d;border-radius:14px}
+    .glossary{width:100%;min-width:760px;border-collapse:collapse;background:#07111a;font-size:13px}
+    .glossary th,.glossary td{padding:12px 13px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .glossary th{color:var(--green);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#0b1723}
+    .glossary td{color:var(--muted)}.glossary td:first-child{color:#fff;font-weight:750}.glossary tr:last-child td{border-bottom:0}
+    @media(max-width:760px){.topic-pager{display:grid;grid-template-columns:1fr}.element-list,.element-usage,.element-explanation,.element-compare{grid-template-columns:1fr}.element-flow{align-items:stretch;flex-direction:column}.element-flow b{transform:rotate(90deg);align-self:center;line-height:1}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Element</h1>
+    <p class="lede">A single building block of a web page.</p>
+
+    <nav class="topic-pager" aria-label="Topic navigation">
+      <a href="dom.html"><small>Previous</small><span>DOM</span></a>
+      <a href="element.html" aria-current="page"><small>Current</small><span>Element ← active</span></a>
+      <a href="attribute.html"><small>Next</small><span>Attribute</span></a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">An element is one part of an HTML page.</p>
+        <p class="muted">Headings, paragraphs, buttons, images, forms, and links are all elements.</p>
+        <p class="note"><b>Simple Definition:</b> An element is one piece of a web page.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a web page as a structure made from blocks.</p>
+        <p class="muted">Each element is one block.</p>
+        <pre class="element-tree" aria-label="A web page made from elements"><span class="tree-root">Web Page</span>
+<span class="tree-branch">│</span>
+<span class="tree-branch">├─</span> <span class="tree-leaf">Heading</span>
+<span class="tree-branch">├─</span> <span class="tree-leaf">Paragraph</span>
+<span class="tree-branch">├─</span> <span class="tree-leaf">Image</span>
+<span class="tree-branch">├─</span> <span class="tree-leaf">Input</span>
+<span class="tree-branch">└─</span> <span class="tree-leaf">Button</span></pre>
+      </article>
+
+      <article id="does" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">Elements give a web page structure and meaning.</p>
+        <p class="muted">They can:</p>
+        <ul class="element-list">
+          <li>Display Content</li><li>Collect Input</li><li>Create Links</li>
+          <li>Show Images</li><li>Trigger Actions</li><li>Group Content</li>
+        </ul>
+      </article>
+
+      <article id="used" class="card wide topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">Elements appear everywhere in HTML pages and the DOM.</p>
+        <ul class="element-usage">
+          <li>&lt;h1&gt;</li><li>&lt;p&gt;</li><li>&lt;a&gt;</li>
+          <li>&lt;img&gt;</li><li>&lt;input&gt;</li><li>&lt;button&gt;</li><li>&lt;div&gt;</li>
+        </ul>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre class="element-code"><code><span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="value">"save-button"</span><span class="tag">&gt;</span><span class="text">Save</span><span class="tag">&lt;/button&gt;</span></code></pre>
+        <div class="element-explanation">
+          <div><b>button</b>is the element type.</div>
+          <div><b>class</b>is an attribute.</div>
+          <div><b>save-button</b>is the class value.</div>
+          <div><b>Save</b>is the visible text.</div>
+        </div>
+      </article>
+
+      <article id="connects" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="element-flow" aria-label="HTML to element to DOM to JavaScript and CSS"><span>HTML</span><b aria-hidden="true">→</b><span>Element</span><b aria-hidden="true">→</b><span>DOM</span><b aria-hidden="true">→</b><span>JavaScript / CSS</span></div>
+        <p class="note">HTML creates elements.</p>
+        <p class="note">The browser represents those elements in the DOM.</p>
+        <p class="note">CSS styles them.</p>
+        <p class="note">JavaScript can read or change them.</p>
+      </article>
+
+      <article id="confuse" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="element-compare">
+          <div><h3>Element</h3><p>The actual page component.</p></div>
+          <div><h3>Attribute</h3><p>Extra information attached to the element.</p></div>
+        </div>
+        <p class="note"><b>&lt;button class="save-button"&gt;</b></p>
+        <p class="note"><b>button</b> = Element<br><b>class</b> = Attribute</p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Element</td><td>元素</td><td>A building block of an HTML page.</td><td>HTML 页面中的一个基本组成部分。</td></tr>
+              <tr><td>Tag</td><td>标签</td><td>Markup used to define an HTML element.</td><td>用来定义 HTML 元素的标记。</td></tr>
+              <tr><td>Attribute</td><td>属性</td><td>Extra information added to an element.</td><td>添加在元素上的附加信息。</td></tr>
+              <tr><td>Content</td><td>内容</td><td>Information displayed inside an element.</td><td>元素内部展示的文字或其他内容。</td></tr>
+              <tr><td>Parent Element</td><td>父元素</td><td>An element that contains another element.</td><td>包含其他元素的上层元素。</td></tr>
+              <tr><td>Child Element</td><td>子元素</td><td>An element contained inside another element.</td><td>位于另一个元素内部的元素。</td></tr>
+              <tr><td>DOM</td><td>文档对象模型</td><td>The browser's object structure of page elements.</td><td>浏览器根据页面元素创建的对象结构。</td></tr>
+              <tr><td>CSS</td><td>层叠样式表</td><td>A language used to style elements.</td><td>用来控制元素外观和布局的语言。</td></tr>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>A language used to interact with elements.</td><td>用来读取或修改页面元素的语言。</td></tr>
+              <tr><td>Button</td><td>按钮</td><td>An element users can click to trigger an action.</td><td>用户点击后可以触发操作的页面元素。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">Elements are the building blocks of a web page.</p>
+        <p class="note">HTML defines elements.</p>
+        <p class="note">CSS styles elements.</p>
+        <p class="note">JavaScript can interact with elements.</p>
+        <div class="element-flow" aria-label="HTML Element to DOM to CSS and JavaScript"><span>HTML Element</span><b aria-hidden="true">→</b><span>DOM</span><b aria-hidden="true">→</b><span>CSS / JavaScript</span></div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

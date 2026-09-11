@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>10 · Memory · AI Knowledge</title>
+  <meta name="description" content="Module 10 explains how AI systems store, retrieve, and use memory without confusing it with context.">
+  <link rel="stylesheet" href="topic.css?v=20260908">
+  <link rel="stylesheet" href="overview.css?v=20260908-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="memory.css">
+  <script defer src="sidebar.js?v=20260910-memory"></script>
+</head>
+<body class="overview-page has-site-directory memory-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="overview-page">
+    <header class="overview-hero">
+      <a class="back" href="ai-knowledge.html">← AI Knowledge Home</a>
+      <div class="overview-eyebrow">10 · Memory</div>
+      <h1 class="overview-title">How Does AI Memory Work?</h1>
+      <p class="overview-lede">Memory lets an AI system keep useful information outside the current request, retrieve what matters, and bring it back into context when needed.</p>
+      <p class="overview-intro-note"><strong>Start here:</strong> Memory is not Context. Context is what the model can see now; Memory is what the surrounding system may store and retrieve later.</p>
+    </header>
+
+    <section class="overview-section">
+      <div class="overview-section-eyebrow">The Big Picture</div>
+      <h2 class="overview-section-title">From archive to answer</h2>
+      <p class="overview-section-description">The model does not need every stored item. A memory architecture selects relevant information before the current run.</p>
+      <div class="overview-map overview-map-flow">
+        <div class="overview-map-stage">
+          <a class="overview-map-node overview-map-node-secondary" href="memory-glossary.html#long-term-memory"><b>Long-Term Memory</b><span class="overview-map-note">Stored facts, events, and preferences</span></a>
+          <span class="overview-map-connector" aria-hidden="true">→</span>
+          <a class="overview-map-node overview-map-node-secondary" href="memory-architecture.html#process"><b>Retrieve Relevant Memory</b><span class="overview-map-note">Search, rank, filter, and select</span></a>
+          <span class="overview-map-connector" aria-hidden="true">→</span>
+          <a class="overview-map-node overview-map-node-primary" href="context-window.html"><b>Context Window</b><span class="overview-map-note">Current working information</span></a>
+          <span class="overview-map-connector" aria-hidden="true">→</span>
+          <a class="overview-map-node overview-map-node-primary" href="llm.html"><b>LLM</b><span class="overview-map-note">Uses visible context to respond</span></a>
+        </div>
+        <p class="overview-map-note">Memory retrieval is usually an application or system step around the model, not a magical expansion of the model’s context.</p>
+      </div>
+    </section>
+
+    <section class="overview-section overview-concepts">
+      <div class="overview-section-eyebrow">Core Concepts</div>
+      <h2 class="overview-section-title">The memory vocabulary</h2>
+      <div class="overview-concept-grid">
+        <a class="overview-concept-card" href="memory-architecture.html#types"><span class="overview-concept-name">Working Memory</span><span class="overview-concept-description">What the system is actively using for the current task.</span><span class="overview-concept-status">Open in architecture →</span></a>
+        <a class="overview-concept-card" href="memory-architecture.html#types"><span class="overview-concept-name">Short-Term Memory</span><span class="overview-concept-description">Recent information kept for a limited period or interaction.</span><span class="overview-concept-status">Open in architecture →</span></a>
+        <a class="overview-concept-card" href="memory-glossary.html#long-term-memory"><span class="overview-concept-name">Long-Term Memory</span><span class="overview-concept-description">Information retained for future sessions or tasks.</span><span class="overview-concept-status">Glossary definition →</span></a>
+        <a class="overview-concept-card" href="memory-glossary.html#semantic-memory"><span class="overview-concept-name">Semantic Memory</span><span class="overview-concept-description">Facts and meanings rather than one specific event.</span><span class="overview-concept-status">Glossary definition →</span></a>
+        <a class="overview-concept-card" href="memory-glossary.html#episodic-memory"><span class="overview-concept-name">Episodic Memory</span><span class="overview-concept-description">Specific past events and experiences.</span><span class="overview-concept-status">Glossary definition →</span></a>
+        <a class="overview-concept-card" href="memory-glossary.html#vector-memory"><span class="overview-concept-name">Vector Memory</span><span class="overview-concept-description">Searchable representations used to find similar information.</span><span class="overview-concept-status">Glossary definition →</span></a>
+      </div>
+    </section>
+
+    <section class="overview-section">
+      <div class="overview-section-eyebrow">Key Distinctions</div>
+      <h2 class="overview-section-title">Do not collapse these layers</h2>
+      <div class="relationship-grid">
+        <div class="relationship-card"><span class="relationship-label">Stored vs visible</span><span class="relationship-equation">Memory <span class="relationship-arrow">≠</span> Context</span><span class="relationship-description">Stored information only helps after it is selected and supplied to the current run.</span></div>
+        <div class="relationship-card"><span class="relationship-label">Runtime vs learning</span><span class="relationship-equation">Memory <span class="relationship-arrow">≠</span> Training</span><span class="relationship-description">Runtime memory can preserve information without changing model parameters.</span></div>
+        <div class="relationship-card"><span class="relationship-label">Selection vs capacity</span><span class="relationship-equation">Retrieval <span class="relationship-arrow">≠</span> Unlimited Context</span><span class="relationship-description">Retrieval helps choose useful information; it does not remove context limits.</span></div>
+      </div>
+    </section>
+
+    <section class="overview-section overview-explore">
+      <div class="overview-section-eyebrow">Continue Learning</div>
+      <h2 class="overview-section-title">Explore the module</h2>
+      <div class="explore-grid">
+        <a class="explore-card" href="memory-architecture.html"><span class="explore-card-title">Memory Architecture</span><span class="explore-card-description">See the full storage → retrieval → context flow and the main memory types.</span><span class="explore-card-link">Open topic →</span></a>
+        <a class="explore-card" href="memory-glossary.html"><span class="explore-card-title">Memory Glossary</span><span class="explore-card-description">Review the terms used to describe memory, storage, retrieval, and personalization.</span><span class="explore-card-link">Open glossary →</span></a>
+        <a class="explore-card" href="context-window.html"><span class="explore-card-title">Context Window</span><span class="explore-card-description">Understand the current working space where retrieved memory becomes visible to the model.</span><span class="explore-card-link">Related topic →</span></a>
+        <a class="explore-card" href="rag.html"><span class="explore-card-title">RAG</span><span class="explore-card-description">Compare memory retrieval with retrieval-augmented generation for external knowledge.</span><span class="explore-card-link">Related topic →</span></a>
+      </div>
+    </section>
+
+    <section class="takeaway-strip">
+      <div class="map-label">Module Takeaway</div>
+      <blockquote>Memory is the archive, retrieval is the selection step, context is the current desk, and the LLM works from what reaches that desk.</blockquote>
+    </section>
+  </main>
+</body>
+</html>

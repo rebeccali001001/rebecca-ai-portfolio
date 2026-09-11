@@ -1,0 +1,43 @@
+.github-page{overflow-x:hidden}
+.github-page .detail-sections{max-width:none}
+.github-page .detail-section{scroll-margin-top:24px}
+.github-page .definition{max-width:900px;font-size:21px;color:#fff}
+.github-page .github-flow{display:flex;align-items:stretch;justify-content:center;gap:10px;margin-top:20px;min-width:0;flex-wrap:wrap}
+.github-page .github-flow>span{display:flex;align-items:center;justify-content:center;flex:1 1 130px;min-width:0;min-height:76px;padding:14px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:800;overflow-wrap:anywhere}
+.github-page .github-flow>span.accent{border-color:var(--green);background:linear-gradient(145deg,rgba(120,229,189,.12),rgba(127,177,255,.08)),#07111a}
+.github-page .github-arrow{display:grid;place-items:center;flex:0 0 24px;color:var(--green);font-size:24px;font-weight:800}
+.github-page .feature-grid,.github-page .use-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.github-page .feature-grid>div,.github-page .use-grid>div,.github-page .compare-grid>div{display:flex;align-items:center;min-height:82px;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800}
+.github-page .feature-grid>div:first-child,.github-page .use-grid>div:first-child{border-color:var(--green);background:rgba(120,229,189,.08)}
+.github-page .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.github-page .compare-grid>div{display:block;min-height:0}
+.github-page .compare-grid h3{margin:0 0 8px;color:var(--green)}
+.github-page .compare-grid p{margin:0;color:var(--muted);font-weight:400}
+.github-page .confusion-bottom{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent);font-weight:800}
+.github-page .glossary-wrap{max-width:100%;overflow-x:auto;margin-top:18px}
+.github-page .glossary{width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px}
+.github-page .glossary th,.github-page .glossary td{width:25%;padding:12px 13px;border:1px solid #38516d;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word}
+.github-page .glossary th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.github-page .glossary td{color:var(--muted)}
+.github-page .glossary td:first-child{color:#fff;font-weight:800}
+.github-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+.github-page .remember p{max-width:860px;font-size:19px;color:#fff}
+.github-page .topic-pagination{display:flex;justify-content:space-between;gap:16px;margin:24px 0 8px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12)}
+.github-page .topic-pagination a{position:relative;display:grid;gap:4px;min-width:190px;padding:15px 42px 15px 17px;border:1px solid #38516d;border-radius:13px;background:#07111a}
+.github-page .topic-pagination a:hover{border-color:var(--green)}
+.github-page .topic-pagination span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.github-page .topic-pagination strong{color:#fff}
+.github-page .pagination-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--green);font-size:23px;font-weight:400}
+@media(max-width:900px){.github-page .feature-grid,.github-page .use-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+  .github-page .github-flow{flex-direction:column;gap:6px}
+  .github-page .github-flow>span{flex:0 0 auto;width:100%;min-height:60px}
+  .github-page .github-arrow{min-height:22px;flex-basis:20px;font-size:0}
+  .github-page .github-arrow::after{content:'↓';font-size:24px}
+  .github-page .feature-grid,.github-page .use-grid,.github-page .compare-grid{grid-template-columns:1fr}
+  .github-page .topic-pagination{flex-direction:column;gap:10px}
+  .github-page .topic-pagination a{min-width:0;padding-right:17px;grid-template-columns:1fr auto;align-items:center}
+  .github-page .topic-pagination a strong{grid-column:1}
+  .github-page .pagination-arrow{position:static;grid-column:2;grid-row:1 / span 2;transform:none;font-size:0;line-height:1}
+  .github-page .pagination-arrow::after{content:'↓';font-size:22px}
+}

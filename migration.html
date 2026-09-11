@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Migration · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of versioned database schema and data changes.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .migration-page .hero { padding-bottom: 34px; }
+    .migration-page .lede, .migration-page .section-lede { max-width: 860px; }
+    .migration-page .definition { max-width: 900px; font-size: 20px; color: #fff; }
+    .migration-page .section-lede { color: var(--muted); margin: 0 0 18px; }
+    .migration-page .flow { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; min-width: 0; }
+    .migration-page .flow-node { display: flex; align-items: center; justify-content: center; min-height: 76px; padding: 14px 12px; flex: 1 1 0; min-width: 0; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; overflow-wrap: anywhere; }
+    .migration-page .flow-node.accent { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a; }
+    .migration-page .flow-arrow { display: grid; place-items: center; flex: 0 0 24px; color: var(--green); font-size: 24px; font-weight: 800; }
+    .migration-page .card-grid, .migration-page .use-grid, .migration-page .confusion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .migration-page .card-grid > div, .migration-page .use-grid > div, .migration-page .confusion-grid > div { padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .migration-page .card-grid b, .migration-page .use-grid strong, .migration-page .confusion-grid h3 { color: #fff; }
+    .migration-page .card-grid p, .migration-page .use-grid p, .migration-page .confusion-grid p { margin: 7px 0 0; color: var(--muted); }
+    .migration-page .use-grid strong { display: block; margin-bottom: 6px; color: var(--green); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .migration-page .example-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; margin-top: 18px; }
+    .migration-page .example-card { min-width: 0; padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .migration-page .example-card p, .migration-page .example-card ol { margin: 0; color: var(--muted); }
+    .migration-page .example-card ol { padding-left: 22px; }
+    .migration-page .example-card li + li { margin-top: 8px; }
+    .migration-page pre { margin: 0; max-width: 100%; overflow-x: auto; padding: 16px; border: 1px solid #29415a; border-radius: 10px; background: #061018; color: #dbe7f4; font: 600 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre; }
+    .migration-page code { font: inherit; }
+    .migration-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+    .migration-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .migration-page .confusion-grid h3 { margin: 0 0 8px; color: var(--green); }
+    .migration-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .migration-page .glossary { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 14px; }
+    .migration-page .glossary th, .migration-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .migration-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .migration-page .glossary td { color: var(--muted); }
+    .migration-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .migration-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .migration-page .remember p { max-width: 840px; font-size: 19px; color: #fff; }
+    .migration-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .migration-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 170px; color: var(--muted); }
+    .migration-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .migration-page .pager a:hover { color: #fff; }
+    .migration-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .migration-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) { .migration-page .card-grid, .migration-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .migration-page .flow { flex-wrap: wrap; } .migration-page .flow-node { flex-basis: 140px; } }
+    @media (max-width: 760px) {
+      .migration-page .flow, .migration-page .card-grid, .migration-page .use-grid, .migration-page .confusion-grid, .migration-page .example-grid { grid-template-columns: 1fr; }
+      .migration-page .flow { flex-direction: column; gap: 6px; }
+      .migration-page .flow-node { flex-basis: auto; width: 100%; }
+      .migration-page .flow-arrow { min-height: 22px; flex-basis: 20px; font-size: 0; }
+      .migration-page .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .migration-page .pager { flex-direction: column; }
+      .migration-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory migration-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Migration</h1>
+      <p class="lede">A database migration is a controlled and versioned change to a database schema or data structure.</p>
+    </header>
+    <section class="grid">
+      <article class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A migration is a named, ordered change that moves a database from one known state to another.</p>
+        <p class="section-lede">The change is recorded in source control so a team can apply the same database evolution consistently in development, test, and production.</p>
+      </article>
+      <article class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a migration like a numbered instruction in a building’s renovation log.</p>
+        <p class="section-lede">Instead of rebuilding the whole building, the crew applies the next approved instruction: add a room, strengthen a wall, or move a doorway.</p>
+        <div class="flow" aria-label="Database schema version one to migration file to schema version two">
+          <div class="flow-node">Schema v1</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Migration 002</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Schema v2</div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">Migrations give database changes a repeatable delivery process.</p>
+        <div class="card-grid">
+          <div><b>Change Structure</b><p>Add tables, columns, indexes, or constraints.</p></div>
+          <div><b>Version Changes</b><p>Record which database state the system expects.</p></div>
+          <div><b>Apply Safely</b><p>Run an ordered change with review and deployment checks.</p></div>
+          <div><b>Move Data</b><p>Transform existing records when the new structure needs it.</p></div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Migrations are used whenever an application’s stored data model needs to evolve.</p>
+        <div class="use-grid">
+          <div><strong>New Features</strong><b>New table</b><p>Create storage for a new product capability.</p></div>
+          <div><strong>Data Quality</strong><b>New constraint</b><p>Require valid values or enforce a relationship.</p></div>
+          <div><strong>Performance</strong><b>New index</b><p>Make a frequent query faster without changing its meaning.</p></div>
+          <div><strong>Release Delivery</strong><b>Environment parity</b><p>Keep development, test, and production schemas aligned.</p></div>
+        </div>
+      </article>
+      <article class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card">
+            <pre><code>-- migration 002: add order status
+ALTER TABLE orders
+  ADD COLUMN status VARCHAR(20)
+  NOT NULL DEFAULT 'pending';
+
+CREATE INDEX idx_orders_status
+  ON orders(status);</code></pre>
+          </div>
+          <div class="example-card">
+            <ol>
+              <li>The migration file is reviewed and committed.</li>
+              <li>A migration runner applies it once to each environment.</li>
+              <li>Existing orders receive the safe default value.</li>
+              <li>New code can now read and update <code>orders.status</code>.</li>
+            </ol>
+          </div>
+        </div>
+        <p class="bottom-line">The application code and the database schema move forward together as one release.</p>
+      </article>
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="Source control to migration file to migration runner to database schema to application">
+          <div class="flow-node">Source Control</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Migration File</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Migration Runner</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Database Schema</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Application</div>
+        </div>
+        <p class="bottom-line">A migration connects a code change to the stored data structure that the running application depends on.</p>
+      </article>
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>Migration</h3><p>An ordered change that moves a database to a new version.</p></div>
+          <div><h3>Backup</h3><p>A recoverable copy of data, not an instruction for changing the schema.</p></div>
+          <div><h3>Seed Data</h3><p>Initial or sample records inserted for setup or development.</p></div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Migration</td><td>数据库迁移</td><td>A controlled, versioned change to a database structure or data.</td><td>有记录、有顺序地修改数据库结构或数据。</td></tr>
+              <tr><td>Schema</td><td>数据库结构</td><td>The shape and rules of stored database data.</td><td>数据库中表、字段、关系和约束的整体结构。</td></tr>
+              <tr><td>Version</td><td>版本</td><td>A recorded state in the ordered history of changes.</td><td>用来表示数据库已经进行到哪一步。</td></tr>
+              <tr><td>Migration File</td><td>迁移文件</td><td>A source-controlled file that describes one database change.</td><td>保存在代码仓库里、描述一次数据库修改的文件。</td></tr>
+              <tr><td>Migration Runner</td><td>迁移执行器</td><td>A tool that finds and applies pending migrations.</td><td>自动找出还没执行的迁移并按顺序运行它们的工具。</td></tr>
+              <tr><td>Rollback</td><td>回滚</td><td>Returning a database change to an earlier state.</td><td>把数据库变化撤回到之前的状态。</td></tr>
+              <tr><td>Constraint</td><td>约束</td><td>A rule that protects the validity of stored data.</td><td>用来防止错误数据进入数据库的一条规则。</td></tr>
+              <tr><td>Seed Data</td><td>种子数据</td><td>Initial or sample records inserted into a database.</td><td>系统初始化或开发测试时预先放入的示例数据。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>A migration is a controlled, versioned change to a database schema or data structure.</p>
+        <p>Keep migrations ordered, reviewable, repeatable, and aligned with the application release that needs them.</p>
+      </article>
+    </section>
+    <nav class="pager" aria-label="Database and SQL topic navigation">
+      <a href="normalization.html"><small>Previous</small><strong>Normalization →</strong></a>
+      <a href="sql.html"><small>Next</small><strong>SQL →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

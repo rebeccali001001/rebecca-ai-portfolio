@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PATCH · HTTP &amp; APIs · Software Knowledge</title>
+  <meta name="description" content="PATCH is an HTTP method commonly used to update part of an existing resource.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="patch.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory patch-page software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="http-apis.html">← 03 · HTTP &amp; APIs</a>
+    <p class="path">Software Knowledge <span>→</span> 03 · HTTP &amp; APIs <span>→</span> PATCH</p>
+    <div class="hero-label">PART III · HTTP &amp; APIs</div>
+    <h1>PATCH</h1>
+    <p class="hero-definition">An HTTP method commonly used to update part of an existing resource.</p>
+
+    <section class="grid">
+      <article class="card wide"><span class="section-number">01 · What is it?</span><h2>What is it?</h2><p class="definition">PATCH is an HTTP method commonly used to change selected parts of an existing resource.</p><p class="note"><strong>Simple Definition：</strong><br>PATCH updates only the fields that need to change.</p></article>
+      <article class="card wide"><span class="section-number">02 · Think of it like...</span><h2>Think of it like...</h2><p class="analogy-copy">Think of an existing form with ten fields.</p><p>If only the status changes, PATCH can send just the new status instead of the full form.</p><div class="resource-visual" aria-label="PATCH changes only the status field of an existing resource"><div class="resource-card"><h3>Existing Resource</h3><p>name = ABC Trading<br>status = Pending<br>country = Singapore</p></div><div class="resource-card result"><h3>PATCH</h3><p>status = Active</p><h3>Result</h3><p>name = ABC Trading<br>status = Active<br>country = Singapore</p></div></div></article>
+      <article class="card wide"><span class="section-number">03 · What does it do?</span><h2>What does it do?</h2><p class="muted">PATCH is commonly used to:</p><div class="action-grid"><div class="action-card"><strong>Change Status</strong></div><div class="action-card"><strong>Update One Field</strong></div><div class="action-card"><strong>Update Several Selected Fields</strong></div><div class="action-card"><strong>Modify Part of a Resource</strong></div></div></article>
+      <article class="card wide"><span class="section-number">04 · Where is it used?</span><h2>Where is it used?</h2><p class="muted">PATCH is commonly useful for:</p><div class="use-grid"><div class="use-card"><strong>Order Status</strong></div><div class="use-card"><strong>Approval Status</strong></div><div class="use-card"><strong>User Settings</strong></div><div class="use-card"><strong>Profile Changes</strong></div><div class="use-card"><strong>Quantity Changes</strong></div><div class="use-card"><strong>Workflow Updates</strong></div></div></article>
+      <article class="card wide"><span class="section-number">05 · Example</span><h2>Example</h2><div class="example-grid"><div><h3>Use：</h3><pre class="patch-code">PATCH /api/orders/1001</pre></div><div><h3>Request Body：</h3><pre class="patch-code">&#123;<br>  &quot;status&quot;: &quot;Approved&quot;<br>&#125;</pre></div></div><p class="example-note">Only the order status is being changed.</p><p class="example-note">The other order fields do not need to be sent in this example.</p></article>
+      <article class="card wide"><span class="section-number">06 · How it connects</span><h2>How it connects</h2><div class="flow" aria-label="PATCH request flow"><span class="flow-node">Client</span><b class="flow-arrow">→</b><span class="flow-node accent">PATCH</span><b class="flow-arrow">→</b><span class="flow-node">Resource Endpoint</span><b class="flow-arrow">→</b><span class="flow-node">Changed Fields</span><b class="flow-arrow">→</b><span class="flow-node">Backend</span><b class="flow-arrow">→</b><span class="flow-node">Update Resource</span><b class="flow-arrow">→</b><span class="flow-node">Response</span></div><p class="note">PATCH focuses on the fields that need to change.</p></article>
+      <article class="card wide"><span class="section-number">07 · Do Not Confuse</span><h2>Do Not Confuse</h2><div class="compare-grid"><div class="compare-card"><h3>PATCH</h3><p>Commonly updates part of a resource.</p></div><div class="compare-card"><h3>PUT</h3><p>Commonly sends a complete replacement or full update.</p></div></div><p class="bottom-line">PATCH = Partial Update<br>PUT = Full Update</p></article>
+      <article class="card wide"><span class="section-number">08 · Topic Glossary</span><h2>Topic Glossary</h2><div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>PATCH</td><td>部分更新</td><td>An HTTP method commonly used to update part of a resource.</td><td>通常用于修改资源部分字段的 HTTP 方法。</td></tr>
+        <tr><td>Partial Update</td><td>部分更新</td><td>Changing only selected fields of a resource.</td><td>只修改资源中的部分字段。</td></tr>
+        <tr><td>Field</td><td>字段</td><td>One piece of information inside a resource.</td><td>一个业务对象中的某一项数据。</td></tr>
+        <tr><td>Resource</td><td>资源</td><td>The data or object being updated.</td><td>PATCH 请求需要修改的数据或业务对象。</td></tr>
+        <tr><td>Request Body</td><td>请求体</td><td>The changed values sent in the request.</td><td>PATCH 请求中发送的需要修改的数据。</td></tr>
+        <tr><td>Endpoint</td><td>接口地址</td><td>The address identifying the resource to change.</td><td>标识需要修改哪个资源的 API 地址。</td></tr>
+        <tr><td>PUT</td><td>完整更新</td><td>A method commonly used for full resource updates.</td><td>通常用于完整更新资源的 HTTP 方法。</td></tr>
+        <tr><td>Status</td><td>状态</td><td>A field often changed using PATCH.</td><td>经常通过 PATCH 修改的一类状态字段。</td></tr>
+        <tr><td>Backend</td><td>后端</td><td>The software that applies the requested changes.</td><td>根据 PATCH 请求执行数据修改的软件部分。</td></tr>
+        <tr><td>Response</td><td>响应</td><td>The result returned after the update.</td><td>部分更新完成后返回的结果。</td></tr>
+      </tbody></table></div></article>
+      <article class="card wide remember"><span class="section-number">09 · What to Remember</span><h2>What to Remember</h2><p>PATCH updates part of an existing resource.</p><p>PATCH is useful when only selected fields need to change.</p><p>PATCH and PUT are commonly used for different types of updates.</p><p class="note"><strong>Final：</strong><br>Existing Resource → PATCH → Selected Changes</p></article>
+    </section>
+    <nav class="topic-sidebar" aria-label="PATCH topic navigation"><div class="current">PATCH ← active</div><a href="rest-api.html"><small>Previous</small>PUT</a><div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div><a href="delete.html"><small>Next</small>DELETE</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

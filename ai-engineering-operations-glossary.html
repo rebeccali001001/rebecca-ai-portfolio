@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Engineering &amp; Operations Glossary · AI Knowledge</title>
+  <meta name="description" content="A simple glossary for AI engineering and operations terms.">
+  <link rel="stylesheet" href="topic.css?v=20260908"><link rel="stylesheet" href="site-directory.css"><style>
+    .ops-glossary{max-width:1120px}.ops-glossary .glossary-hero{max-width:800px}.ops-glossary .glossary-hero h1{margin-bottom:14px}.ops-glossary .glossary-intro{color:var(--muted);font-size:19px}.ops-glossary .glossary-section{margin-top:34px}.ops-glossary .glossary-section h2{font-size:25px}.ops-glossary .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px}.ops-glossary table{width:100%;min-width:760px;border-collapse:collapse;background:#07111a}.ops-glossary th,.ops-glossary td{padding:14px 15px;text-align:left;vertical-align:top;border-bottom:1px solid #29415a}.ops-glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.ops-glossary td{color:var(--muted);font-size:14px}.ops-glossary td:first-child{color:#fff;font-weight:800}.ops-glossary tr:last-child td{border-bottom:0}.ops-glossary .remember{margin-top:34px;padding:22px;border:1px solid #37665d;border-radius:18px;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07));color:#fff;font-size:20px}
+  </style><script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="has-site-directory ops-glossary">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="AI Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="glossary-hero"><a class="back" href="ai-engineering-operations.html">← AI Engineering &amp; Operations</a><div class="eyebrow" style="margin-top:20px">14 · AI Engineering &amp; Operations</div><h1>AI Engineering &amp; Operations Glossary</h1><p class="glossary-intro">Simple definitions for the signals and system parts used to understand AI behavior in production.</p></header>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#signals">Core signals</a><a href="#ai-data">AI system data</a><a href="#operations">Operations language</a></nav>
+    <section id="signals" class="glossary-section"><h2>01 · Core signals</h2><div class="table-wrap"><table><thead><tr><th>English term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+      <tr><td>Logs</td><td>日志</td><td>Records of events that happened.</td><td>记录系统刚刚做了什么。</td></tr>
+      <tr><td>Metrics</td><td>指标</td><td>Numbers that summarize behavior over time.</td><td>用数字观察数量、速度、错误率或成本。</td></tr>
+      <tr><td>Traces</td><td>链路追踪</td><td>A connected view of one request across its steps.</td><td>把一次请求经过的各个步骤串起来看。</td></tr>
+      <tr><td>Observability</td><td>可观测性</td><td>The ability to understand what is happening inside a system from its emitted data.</td><td>通过系统留下的数据，推断内部发生了什么。</td></tr>
+      <tr><td>Monitoring</td><td>监控</td><td>Ongoing checking of known signals and conditions.</td><td>持续看系统是否正常、是否超出预设范围。</td></tr>
+    </tbody></table></div></section>
+    <section id="ai-data" class="glossary-section"><h2>02 · AI system data</h2><div class="table-wrap"><table><thead><tr><th>English term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+      <tr><td>Prompt</td><td>提示词</td><td>The instructions and input sent to a model.</td><td>发给模型的任务说明和输入内容。</td></tr>
+      <tr><td>Context Size</td><td>上下文大小</td><td>How much text or information the model receives for a request.</td><td>一次请求中模型需要处理的信息量。</td></tr>
+      <tr><td>Token Usage</td><td>Token 使用量</td><td>The amount of tokenized input and output used.</td><td>这次请求消耗了多少模型计费单位。</td></tr>
+      <tr><td>Model Call</td><td>模型调用</td><td>One request from an application to a model.</td><td>应用向模型发起的一次请求。</td></tr>
+      <tr><td>Latency</td><td>延迟</td><td>The time it takes to produce a result.</td><td>从开始请求到得到结果花了多久。</td></tr>
+      <tr><td>Retrieval</td><td>检索</td><td>Finding relevant information for the request.</td><td>从知识库或数据库找相关内容。</td></tr>
+      <tr><td>Tool Call</td><td>工具调用</td><td>An action that asks another tool or service to do work.</td><td>让外部工具或服务执行一个动作。</td></tr>
+      <tr><td>Agent Step</td><td>Agent 步骤</td><td>One observable action or decision in an agent workflow.</td><td>智能体工作流中的一次决定、行动或观察。</td></tr>
+      <tr><td>Cost</td><td>成本</td><td>The money or resource use associated with a request or workflow.</td><td>一次请求或整个流程消耗的钱和计算资源。</td></tr>
+    </tbody></table></div></section>
+    <section id="operations" class="glossary-section"><h2>03 · Operations language</h2><div class="table-wrap"><table><thead><tr><th>English term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+      <tr><td>Error</td><td>错误</td><td>A problem that prevents the expected result.</td><td>系统没有按预期完成任务。</td></tr>
+      <tr><td>Root Cause</td><td>根因</td><td>The underlying reason an issue happened.</td><td>导致问题真正发生的原因，而不只是表面现象。</td></tr>
+      <tr><td>Debugging</td><td>调试 / 排错</td><td>Investigating a system to find and fix a problem.</td><td>根据证据一步步定位并修复问题。</td></tr>
+      <tr><td>Evaluation</td><td>评测</td><td>Structured measurement against quality criteria.</td><td>按明确标准检查结果好不好。</td></tr>
+      <tr><td>Incident</td><td>事故 / 事件</td><td>A production problem that needs attention.</td><td>线上影响用户或业务、需要处理的问题。</td></tr>
+    </tbody></table></div></section>
+    <p class="remember">Remember: Logs tell you what happened, metrics show patterns, and traces explain how one request moved through the system.</p>
+    <p><a class="back" href="cost-optimization.html">Open Cost Optimization →</a></p>
+  </main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

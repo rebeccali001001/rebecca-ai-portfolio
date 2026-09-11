@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primary Key · Database &amp; SQL</title>
+  <meta name="description" content="A beginner-friendly explanation of primary keys in relational database tables.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .primary-key-page .pk-grid,
+    .primary-key-page .pk-flow,
+    .primary-key-page .pk-cards,
+    .primary-key-page .pk-confusion { min-width: 0; }
+    .primary-key-page .pk-flow { display: grid; align-items: stretch; gap: 10px; margin-top: 20px; }
+    .primary-key-page .pk-flow.four { grid-template-columns: 1fr 42px 1fr 42px 1fr 42px 1fr; }
+    .primary-key-page .pk-flow.five { grid-template-columns: 1fr 42px 1fr 42px 1fr 42px 1fr 42px 1fr; }
+    .primary-key-page .pk-node { display: flex; flex-direction: column; justify-content: center; min-height: 92px; padding: 16px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .primary-key-page .pk-node strong { color: var(--green); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .primary-key-page .pk-node b { margin-top: 5px; font-size: 17px; }
+    .primary-key-page .pk-node small { color: var(--muted); margin-top: 4px; }
+    .primary-key-page .pk-arrow { display: grid; place-items: center; color: var(--green); font-size: 25px; }
+    .primary-key-page .pk-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .primary-key-page .pk-cards > div,
+    .primary-key-page .pk-confusion > div { padding: 17px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .primary-key-page .pk-cards b { color: #fff; }
+    .primary-key-page .pk-cards p,
+    .primary-key-page .pk-confusion p { margin: 7px 0 0; color: var(--muted); font-size: 14px; }
+    .primary-key-page .pk-table-wrap,
+    .primary-key-page .pk-glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .primary-key-page table { width: 100%; border-collapse: collapse; }
+    .primary-key-page .pk-example-table { min-width: 620px; }
+    .primary-key-page .pk-glossary { min-width: 780px; }
+    .primary-key-page th,
+    .primary-key-page td { padding: 12px 11px; border: 1px solid #38516d; text-align: left; vertical-align: top; }
+    .primary-key-page th { color: var(--green); background: #102335; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .primary-key-page td { color: var(--muted); background: #07111a; }
+    .primary-key-page td:first-child { color: #fff; font-weight: 750; }
+    .primary-key-page pre { margin: 18px 0 0; padding: 20px; overflow-x: auto; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #dbe7f4; font: 14px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .primary-key-page code { font: inherit; }
+    .primary-key-page .pk-confusion { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .primary-key-page .pk-confusion h3 { margin: 0 0 7px; font-size: 18px; }
+    .primary-key-page .pk-confusion .correct { border-color: var(--green); }
+    .primary-key-page .pk-takeaway { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .primary-key-page .pk-takeaway p { color: #fff; font-size: 20px; }
+    .primary-key-page .pk-pagination { display: flex; justify-content: space-between; gap: 18px; margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.12); }
+    .primary-key-page .pk-pagination a { display: grid; gap: 3px; max-width: 48%; color: var(--blue); }
+    .primary-key-page .pk-pagination a:last-child { text-align: right; }
+    .primary-key-page .pk-pagination small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .primary-key-page .pk-pagination strong { font-size: 15px; }
+    @media (max-width: 1050px) {
+      .primary-key-page > nav .wrap,
+      .primary-key-page > main,
+      .primary-key-page > main.detail-page { width: auto; max-width: 1180px; margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 900px) {
+      .primary-key-page .pk-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .primary-key-page .pk-confusion { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .primary-key-page { overflow-x: hidden; }
+      .primary-key-page .site-global-links { display: none; }
+      .primary-key-page > nav .wrap { display: flex; justify-content: space-between; align-items: center; width: auto !important; margin: 0 12px !important; }
+      .primary-key-page > main.detail-page { width: calc(100vw - 24px) !important; max-width: calc(100vw - 24px) !important; margin: 0 12px !important; }
+      .primary-key-page .detail-sections,
+      .primary-key-page .detail-section { max-width: 100%; }
+      .primary-key-page .brand { min-width: 0; font-size: 18px; overflow-wrap: anywhere; }
+      .primary-key-page .pk-flow.four,
+      .primary-key-page .pk-flow.five,
+      .primary-key-page .pk-cards { grid-template-columns: 1fr; }
+      .primary-key-page .pk-arrow { min-height: 24px; font-size: 0; }
+      .primary-key-page .pk-arrow::after { content: '↓'; font-size: 25px; }
+      .primary-key-page .pk-pagination { align-items: stretch; flex-direction: column; }
+      .primary-key-page .pk-pagination a,
+      .primary-key-page .pk-pagination a:last-child { max-width: none; text-align: left; }
+      .primary-key-page .pk-pagination a:last-child { text-align: right; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory primary-key-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="module-05.html">← Database &amp; SQL</a>
+    <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+    <h1>Primary Key</h1>
+    <p class="lede">A column, or group of columns, that uniquely identifies each row in a table.</p>
+
+    <section class="detail-sections">
+      <article id="what-is-it" class="card detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A primary key is a column, or group of columns, that uniquely identifies each row in a table.</p>
+        <p class="muted">Every row has one primary-key value. That value lets software refer to one exact record without guessing which row it means.</p>
+        <p class="note"><b>Simple definition:</b> A primary key is the table's unique label for each row.</p>
+      </article>
+
+      <article id="think-of-it" class="card detail-section topic-analogy">
+        <h2>02 · Think of it like…</h2>
+        <p class="definition">Think of a primary key like a passport number or library card number.</p>
+        <p class="muted">Many people can share a name, but each person can have a different official number. A table uses its primary key in the same way: it points to one specific row.</p>
+        <div class="pk-flow four" aria-label="Table to row to unique identifier to one exact record">
+          <div class="pk-node"><strong>Table</strong><b>Users</b><small>Many rows</small></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Row</strong><b>Rebecca</b><small>One record</small></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Primary key</strong><b>user_id = 42</b><small>Unique value</small></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Result</strong><b>One exact user</b><small>No ambiguity</small></div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">A primary key gives the database and application a stable way to:</p>
+        <div class="pk-cards">
+          <div><b>Identify a row</b><p>Find one exact record in a table.</p></div>
+          <div><b>Prevent duplicates</b><p>Stop two rows from using the same key.</p></div>
+          <div><b>Support relationships</b><p>Give other tables a value they can reference.</p></div>
+          <div><b>Make updates safe</b><p>Change or delete the intended row.</p></div>
+        </div>
+      </article>
+
+      <article id="where-used" class="card detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">Primary keys are used in relational tables whenever software needs to keep records distinct and addressable.</p>
+        <div class="pk-cards">
+          <div><b>Users</b><p><code>user_id</code> identifies one account.</p></div>
+          <div><b>Orders</b><p><code>order_id</code> identifies one purchase.</p></div>
+          <div><b>Products</b><p><code>product_id</code> identifies one catalog item.</p></div>
+          <div><b>Payments</b><p><code>payment_id</code> identifies one payment record.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section topic-example">
+        <h2>05 · Example</h2>
+        <p class="muted">This table uses <code>user_id</code> as its primary key. The value 42 identifies exactly one row.</p>
+        <pre><code>CREATE TABLE users (
+  user_id INTEGER PRIMARY KEY,
+  email TEXT NOT NULL,
+  display_name TEXT NOT NULL
+);
+
+SELECT * FROM users WHERE user_id = 42;</code></pre>
+        <div class="pk-table-wrap">
+          <table class="pk-example-table">
+            <thead><tr><th>user_id</th><th>email</th><th>display_name</th></tr></thead>
+            <tbody>
+              <tr><td>41</td><td>alex@example.com</td><td>Alex</td></tr>
+              <tr><td>42</td><td>rebecca@example.com</td><td>Rebecca</td></tr>
+              <tr><td>43</td><td>sam@example.com</td><td>Sam</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">The query can safely target Rebecca's row because <code>user_id = 42</code> is unique.</p>
+      </article>
+
+      <article id="how-it-connects" class="card detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="pk-flow five" aria-label="Application to SQL query to primary key to row to related data flow">
+          <div class="pk-node"><strong>Application</strong><b>Edit user</b></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>SQL</strong><b>WHERE user_id = 42</b></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Primary key</strong><b>Match 42</b></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Row</strong><b>One user record</b></div>
+          <span class="pk-arrow" aria-hidden="true">→</span>
+          <div class="pk-node"><strong>Related data</strong><b>Orders, profile</b></div>
+        </div>
+        <p class="note">A foreign key in another table can store the primary-key value to connect related records.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card detail-section topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="pk-confusion">
+          <div class="correct"><h3>Primary Key</h3><p>Uniquely identifies each row in its own table.</p></div>
+          <div><h3>Foreign Key</h3><p>Stores a key from another table to represent a relationship.</p></div>
+          <div><h3>Unique Constraint</h3><p>Prevents duplicate values in a column, but it is not automatically the table's primary identity.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="pk-glossary-wrap">
+          <table class="pk-glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Primary Key</td><td>主键</td><td>A column or group of columns that uniquely identifies each row.</td><td>唯一标识数据表中每一行的一个字段或一组字段。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores related data in rows and columns.</td><td>用行和列保存一类相关数据的结构。</td></tr>
+              <tr><td>Row</td><td>行</td><td>One complete record in a table.</td><td>数据表中的一条完整记录。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One named type of information in a table.</td><td>数据表中表示某一类信息的字段。</td></tr>
+              <tr><td>Unique</td><td>唯一</td><td>Different from every other value in the relevant set.</td><td>和同一范围内的其他值都不相同。</td></tr>
+              <tr><td>Constraint</td><td>约束</td><td>A rule that limits which data the database accepts.</td><td>限制数据库可以接受什么数据的规则。</td></tr>
+              <tr><td>Foreign Key</td><td>外键</td><td>A column that refers to a key in another table.</td><td>引用另一张表中键值、用来建立关联的字段。</td></tr>
+              <tr><td>Composite Key</td><td>复合键</td><td>A key made from two or more columns together.</td><td>由两个或多个字段共同组成的键。</td></tr>
+              <tr><td>NULL</td><td>空值</td><td>A database value meaning that information is missing or unknown.</td><td>表示信息缺失或未知，而不是普通的空字符串。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section topic-takeaway pk-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p>A primary key uniquely identifies each row in a table.</p>
+        <p>It helps software find, update, delete, and connect one exact record.</p>
+        <p>Other tables can refer to it with a foreign key.</p>
+      </article>
+    </section>
+
+    <nav class="pk-pagination" aria-label="Database and SQL topic navigation">
+      <a href="schema.html"><small>Previous</small><strong>← Schema</strong></a>
+      <a href="foreign-key.html"><small>Next</small><strong>Foreign Key →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

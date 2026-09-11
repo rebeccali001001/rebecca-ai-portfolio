@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Evaluation · Module 12 · Evaluation &amp; Safety</title>
+  <meta name="description" content="A beginner-friendly explanation of AI Evaluation, its common metrics, methods, and practical use for RAG assistants and coding agents.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .evaluation-intro{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}
+    .evaluation-equation{display:grid;place-items:center;min-height:190px;padding:24px;border:1px solid #5bdab9;border-radius:18px;background:radial-gradient(circle at center,rgba(120,229,189,.14),transparent 58%),#0b1723;text-align:center}
+    .evaluation-equation strong{font-size:clamp(25px,4vw,42px);line-height:1.12}
+    .evaluation-equation span{display:block;margin-top:10px;color:var(--muted);font-size:14px}
+    .scope-grid,.metric-grid,.method-grid,.case-grid,.pm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .scope-card,.metric-card,.method-card,.case-card,.pm-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .scope-card h3,.metric-card h3,.method-card h3,.case-card h3,.pm-card h3{margin:0 0 8px;color:#fff}
+    .scope-card strong,.metric-card strong,.method-card strong,.case-card strong,.pm-card strong{color:var(--green)}
+    .scope-card p,.metric-card p,.method-card p,.case-card p,.pm-card p{margin:6px 0;color:var(--muted);font-size:14px}
+    .metric-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .metric-card{min-height:150px}
+    .metric-card h3{font-size:16px}
+    .metric-card .example{display:block;margin-top:10px;color:#fff;font-size:13px}
+    .method-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .method-card{min-height:190px}
+    .method-card h3{font-size:16px}
+    .case-card{border-top:3px solid #6b9cce}
+    .case-card.agent{border-top-color:#72e5c6}
+    .checklist{display:grid;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+    .checklist li{padding:10px 12px;border-radius:10px;background:#102034;color:var(--muted);font-size:14px}
+    .checklist b{color:#fff}
+    .score-row{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:8px;margin-top:14px;font-size:13px}
+    .score-row>*{padding:9px 10px;border-bottom:1px solid #315273}
+    .score-row b{color:var(--green)}
+    .pm-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .pm-card{text-align:center}
+    .pm-card strong{display:block;font-size:24px}
+    .pm-card p{font-size:13px}
+    .evaluation-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .evaluation-links a{padding:8px 11px;border:1px solid #38516d;border-radius:999px;color:#dbe7f4;font-size:13px}
+    .evaluation-links a:hover{border-color:var(--green);color:#fff}
+    @media(max-width:900px){.evaluation-intro,.scope-grid,.case-grid,.pm-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.method-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:620px){.metric-grid,.method-grid,.score-row{grid-template-columns:1fr}.detail-section{padding:21px}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="evaluation-safety-reliability.html#ai-evaluation">← Module 12 · Evaluation &amp; Safety</a>
+    <div class="eyebrow">12 · Evaluation &amp; Safety · NEW Topic</div>
+    <h1>What is AI Evaluation?</h1>
+    <p class="lede">AI generated an answer ≠ AI generated a correct answer. Evaluation turns that gap into evidence we can use to improve or release a system.</p>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#definition">What is it?</a><a href="#scope">What gets evaluated?</a><a href="#metrics">Common metrics</a><a href="#methods">Evaluation methods</a><a href="#examples">Practical examples</a><a href="#pm">PM perspective</a><a href="#not">What it is NOT</a><a href="#related">Related concepts</a><a href="#glossary">Glossary</a><a href="#remember">Remember this</a></nav>
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>What is it?</h2>
+        <div class="evaluation-intro">
+          <div><p class="definition">AI Evaluation is the structured process of checking whether an AI model or AI-powered system does what people need, at an acceptable level of quality, cost, speed, stability, and safety.</p><p class="muted">A fluent answer can still be wrong, unsupported, incomplete, unsafe, too slow, or too expensive. Evaluation tests the behavior that matters for the real task.</p></div>
+          <div class="evaluation-equation"><div><strong>Output ≠ Truth</strong><span>Measure the difference before trusting the result.</span></div></div>
+        </div>
+      </article>
+
+      <article id="scope" class="card wide detail-section">
+        <h2>What gets evaluated?</h2>
+        <div class="scope-grid">
+          <div class="scope-card"><h3>Model Evaluation</h3><p>Compare a model's capability on a defined task.</p><strong>Example:</strong><p>Can it classify an invoice correctly?</p></div>
+          <div class="scope-card"><h3>LLM Evaluation</h3><p>Check language outputs for quality and behavior.</p><strong>Example:</strong><p>Is the answer useful, complete, and safe?</p></div>
+          <div class="scope-card"><h3>RAG Evaluation</h3><p>Evaluate both retrieval and the generated answer.</p><strong>Example:</strong><p>Did it use the right policy paragraph and cite it?</p></div>
+          <div class="scope-card"><h3>Agent Evaluation</h3><p>Check multi-step decisions, tools, and outcomes.</p><strong>Example:</strong><p>Did the coding agent change the right file and pass tests?</p></div>
+        </div>
+      </article>
+
+      <article id="metrics" class="card wide detail-section">
+        <h2>Common metrics</h2>
+        <p class="muted">Metrics are signals, not the whole decision. Pick metrics that match the job and review representative examples too.</p>
+        <div class="metric-grid">
+          <div class="metric-card"><h3>Accuracy</h3><p>How often is the answer correct?</p><span class="example">Example: 9 of 10 invoice totals match the source.</span></div>
+          <div class="metric-card"><h3>Relevance</h3><p>Does it answer this question rather than a nearby one?</p><span class="example">Example: a leave-policy answer addresses annual leave, not sick leave.</span></div>
+          <div class="metric-card"><h3>Faithfulness</h3><p>Does the answer stay consistent with the supplied context?</p><span class="example">Example: it does not add a benefit missing from the handbook.</span></div>
+          <div class="metric-card"><h3>Groundedness</h3><p>Can important claims be tied to trusted evidence?</p><span class="example">Example: each policy claim points to a retrieved source.</span></div>
+          <div class="metric-card"><h3>Completeness</h3><p>Did it include the necessary parts of the answer?</p><span class="example">Example: a deployment checklist includes rollback and owner.</span></div>
+          <div class="metric-card"><h3>Safety</h3><p>Does it avoid harmful, disallowed, or risky behavior?</p><span class="example">Example: it refuses an unsafe action and offers a safe next step.</span></div>
+          <div class="metric-card"><h3>Latency</h3><p>How long does the user wait?</p><span class="example">Example: 95% of support answers arrive within 3 seconds.</span></div>
+          <div class="metric-card"><h3>Cost</h3><p>How much does each task or successful outcome cost?</p><span class="example">Example: a workflow uses fewer tokens without losing quality.</span></div>
+          <div class="metric-card"><h3>Tool Success Rate</h3><p>How often do tool calls complete the intended action?</p><span class="example">Example: the agent opens the correct pull request and records the result.</span></div>
+        </div>
+      </article>
+
+      <article id="methods" class="card wide detail-section">
+        <h2>Evaluation methods</h2>
+        <div class="method-grid">
+          <div class="method-card"><h3>Human Evaluation</h3><p>People score or compare outputs using a rubric.</p><p><b>Good for:</b> nuance, usefulness, tone, and edge cases.</p></div>
+          <div class="method-card"><h3>Rule-Based Evaluation</h3><p>Rules check exact conditions.</p><p><b>Example:</b> JSON is valid, a required field exists, or a refusal phrase appears.</p></div>
+          <div class="method-card"><h3>Benchmark</h3><p>A standard dataset or test suite makes comparisons repeatable.</p><p><b>Limit:</b> a benchmark may not represent your product.</p></div>
+          <div class="method-card"><h3>LLM-as-a-Judge</h3><p>Another language model scores an output against a rubric.</p><p><b>Guardrail:</b> calibrate it against human judgments.</p></div>
+          <div class="method-card"><h3>Automated Evaluation</h3><p>A pipeline runs test cases, calculates metrics, and reports regressions.</p><p><b>Best use:</b> frequent checks in development and deployment.</p></div>
+        </div>
+      </article>
+
+      <article id="examples" class="card wide detail-section">
+        <h2>Practical examples</h2>
+        <div class="case-grid">
+          <div class="case-card"><h3>RAG Assistant</h3><p class="muted">A user asks: “How many annual leave days do I get?”</p><ul class="checklist"><li><b>Correct?</b> Does the answer match the policy?</li><li><b>From the source?</b> Is it supported by retrieved material?</li><li><b>Cited correctly?</b> Does the citation point to the claim?</li><li><b>No hallucination?</b> Did it avoid inventing a rule?</li></ul><div class="score-row"><b>Answer quality</b><span>Pass / fail</span><span>Human or judge review</span><b>Evidence use</b><span>Grounded</span><span>Source check</span><b>Operations</b><span>Latency / cost</span><span>System logs</span></div></div>
+          <div class="case-card agent"><h3>Coding Agent</h3><p class="muted">A coding agent receives a bug report and edits a repository.</p><ul class="checklist"><li><b>Code success?</b> Did it make the intended change?</li><li><b>Tests pass?</b> Do existing and new tests pass?</li><li><b>Tools succeed?</b> Were commands and tool calls valid?</li><li><b>Efficient?</b> How many tokens and how much time did it use?</li></ul><div class="score-row"><b>Task outcome</b><span>Tests pass</span><span>Automated runner</span><b>Tool behavior</b><span>Success rate</span><span>Trace review</span><b>Efficiency</b><span>Tokens / time</span><span>Run telemetry</span></div></div>
+        </div>
+      </article>
+
+      <article id="pm" class="card wide detail-section">
+        <h2>PM perspective</h2>
+        <p class="definition">Do not ask only: “Which model is the smartest?” Ask which system produces the best business outcome under real constraints.</p>
+        <div class="pm-grid"><div class="pm-card"><strong>Quality</strong><p>Does the result help the user complete the job?</p></div><div class="pm-card"><strong>Cost</strong><p>Can the workflow operate within budget?</p></div><div class="pm-card"><strong>Speed</strong><p>Is the experience fast enough for the workflow?</p></div><div class="pm-card"><strong>Stability</strong><p>Does performance hold across releases and edge cases?</p></div><div class="pm-card"><strong>Safety</strong><p>Are risks controlled when the system is wrong?</p></div><div class="pm-card"><strong>Business success</strong><p>Does it improve the outcome the product exists to deliver?</p></div></div>
+      </article>
+
+      <article id="not" class="card wide topic-comparison detail-section"><h2>What it is NOT</h2><div class="misconceptions"><div class="misconception-card"><h3>Evaluation ≠ One Score</h3><p>A single score can hide cost, latency, safety, or failures on important cases.</p></div><div class="misconception-card"><h3>Evaluation ≠ Benchmark Only</h3><p>Benchmarks help compare systems, but product evaluation must reflect your users and workflow.</p></div><div class="misconception-card"><h3>Evaluation ≠ Proof of Perfection</h3><p>Evaluation reduces uncertainty and exposes risk; it does not guarantee every future output.</p></div></div></article>
+
+      <article id="related" class="card wide topic-related detail-section"><h2>Related concepts</h2><div class="concept-tree">Task → Test Cases → Metrics / Review → Evidence → Product Decision</div><div class="evaluation-links"><a href="evaluation-safety-reliability.html">Evaluation &amp; Safety Overview</a><a href="evaluation.html">Evaluation</a><a href="benchmarks.html">Benchmarks</a><a href="grounding.html">Grounding</a><a href="hallucination.html">Hallucination</a><a href="tool-calling.html">Tool Calling</a><a href="latency.html">Latency</a><a href="monitoring.html">Monitoring</a></div></article>
+
+      <article id="glossary" class="card wide detail-section"><h2>Topic Glossary</h2><div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody><tr><td>Evaluation</td><td>评估</td><td>Measuring whether an AI system meets expectations.</td><td>检查 AI 系统是否达到预期。</td></tr><tr><td>Metric</td><td>指标</td><td>A signal used to measure one dimension of performance.</td><td>用来衡量某一方面表现的信号。</td></tr><tr><td>Faithfulness</td><td>忠实性</td><td>Whether an answer stays consistent with supplied context.</td><td>回答是否忠于提供的资料。</td></tr><tr><td>Groundedness</td><td>有依据性</td><td>Whether claims connect to trusted evidence.</td><td>回答是否能在可信证据中找到依据。</td></tr><tr><td>LLM-as-a-Judge</td><td>用大语言模型评审</td><td>An LLM scores another output using a rubric.</td><td>让一个模型按标准给另一个输出打分。</td></tr><tr><td>Regression</td><td>回归问题</td><td>A previously working behavior becomes worse after a change.</td><td>改动后原来正常的功能变差了。</td></tr><tr><td>Tool Success Rate</td><td>工具成功率</td><td>How often tool calls achieve their intended result.</td><td>工具调用成功完成目标的比例。</td></tr></tbody></table></div><p><a class="topic-link" href="evaluation-safety-glossary.html">Open the standalone glossary page →</a></p></article>
+
+      <article id="remember" class="card wide topic-takeaway detail-section remember"><h2>Remember this</h2><p class="note">AI evaluation asks whether the system is correct, useful, grounded, complete, safe, fast, affordable, stable, and successful for the real job—not merely whether it sounds intelligent.</p></article>
+      <nav class="prevnext" aria-label="Topic navigation"><a href="evaluation.html">← <small>Previous</small><br>Evaluation</a><a href="functional-tests.html"><small>Next</small> →<br>Functional Tests</a></nav>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script defer src="sidebar.js?v=20260910j"></script>
+</body>
+</html>

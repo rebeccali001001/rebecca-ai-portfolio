@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relationship · 05 · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of relationships between records in database tables.">
+  <link rel="stylesheet" href="topic.css?v=20260910-relationship">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .relationship-page .hero { max-width: 860px; }
+    .relationship-page .hero h1 { margin-bottom: 14px; }
+    .relationship-page .definition { max-width: 900px; font-size: 21px; color: #fff; }
+    .relationship-page .section-lede { color: var(--muted); max-width: 860px; }
+    .relationship-page .relationship-visual,
+    .relationship-page .action-grid,
+    .relationship-page .use-grid,
+    .relationship-page .confusion-grid { display: grid; gap: 12px; margin-top: 20px; }
+    .relationship-page .relationship-visual { grid-template-columns: minmax(0, 1fr) 58px minmax(0, 1fr); align-items: center; }
+    .relationship-page .table-card,
+    .relationship-page .action-grid > div,
+    .relationship-page .use-grid > div,
+    .relationship-page .confusion-grid > div { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .relationship-page .table-card { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.1), rgba(127,177,255,.06)), #07111a; }
+    .relationship-page .table-card h3 { margin: 0 0 10px; color: var(--green); font: 800 17px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .relationship-page .table-card p { margin: 5px 0; color: var(--muted); font: 13px/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+    .relationship-page .table-card p strong { color: #fff; }
+    .relationship-page .visual-arrow,
+    .relationship-page .flow-arrow { color: var(--green); font-size: 24px; font-weight: 800; text-align: center; }
+    .relationship-page .action-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .relationship-page .use-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .relationship-page .action-grid b,
+    .relationship-page .use-grid b,
+    .relationship-page .confusion-grid h3 { color: #fff; }
+    .relationship-page .action-grid p,
+    .relationship-page .use-grid p,
+    .relationship-page .confusion-grid p { margin: 7px 0 0; color: var(--muted); }
+    .relationship-page .example-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; margin-top: 20px; }
+    .relationship-page .example-card { min-width: 0; padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .relationship-page .example-card h3 { margin: 0 0 10px; color: var(--green); }
+    .relationship-page pre { max-width: 100%; margin: 0; overflow-x: auto; color: #dbe7f4; font: 13px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .relationship-page .example-card p { margin: 12px 0 0; color: var(--muted); }
+    .relationship-page .connection-flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+    .relationship-page .connection-flow span { min-width: 0; padding: 12px 14px; border: 1px solid #38516d; border-radius: 999px; color: #fff; background: #07111a; text-align: center; }
+    .relationship-page .connection-flow span:nth-of-type(3) { border-color: var(--green); background: rgba(120,229,189,.08); }
+    .relationship-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .relationship-page .confusion-grid h3 { margin: 0 0 8px; color: var(--green); }
+    .relationship-page .glossary-wrap { max-width: 100%; margin-top: 18px; overflow-x: auto; }
+    .relationship-page .glossary { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13px; }
+    .relationship-page .glossary th,
+    .relationship-page .glossary td { padding: 12px 11px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .relationship-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .relationship-page .glossary td { color: var(--muted); }
+    .relationship-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .relationship-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .relationship-page .remember p { max-width: 860px; font-size: 19px; color: #fff; }
+    .relationship-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .relationship-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 180px; color: var(--muted); }
+    .relationship-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .relationship-page .pager a:hover { color: #fff; }
+    .relationship-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .relationship-page .pager strong { color: var(--green); font-size: 15px; }
+    .relationship-page .direction-key { display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .relationship-page .direction-key b { color: var(--green); font-size: 21px; }
+    .relationship-page .mobile-arrow { display: none; }
+    @media (max-width: 900px) {
+      .relationship-page .action-grid,
+      .relationship-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .relationship-page .relationship-visual { grid-template-columns: 1fr; }
+      .relationship-page .visual-arrow { transform: rotate(90deg); }
+    }
+    @media (max-width: 760px) {
+      .relationship-page .relationship-visual,
+      .relationship-page .action-grid,
+      .relationship-page .use-grid,
+      .relationship-page .example-grid,
+      .relationship-page .confusion-grid { grid-template-columns: 1fr; }
+      .relationship-page .connection-flow { flex-direction: column; }
+      .relationship-page .connection-flow .flow-arrow { font-size: 0; }
+      .relationship-page .connection-flow .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .relationship-page .visual-arrow { font-size: 0; }
+      .relationship-page .visual-arrow::after { content: '↓'; font-size: 24px; }
+      .relationship-page .pager { flex-direction: column; }
+      .relationship-page .pager a:last-child { align-items: flex-start; text-align: left; }
+      .relationship-page .direction-key { order: 3; }
+      .relationship-page .desktop-arrow { display: none; }
+      .relationship-page .mobile-arrow { display: inline; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory relationship-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Relationship</h1>
+      <p class="lede">A relationship describes how records in one table are logically connected to records in another table.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A relationship describes how records in one table are logically connected to records in another table.</p>
+        <p class="section-lede">For example, one customer can be connected to many orders. The relationship lets software work with those records as connected parts of one business story.</p>
+        <p class="note"><strong>Simple Definition:</strong> A relationship explains which records belong together across tables.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a relationship like a label that connects a person to the things they own.</p>
+        <p class="section-lede">A customer record does not need to repeat every order detail. Each order keeps its own record, while a shared identifier shows which customer it belongs to.</p>
+        <div class="relationship-visual" aria-label="Customers table connects to orders table through customer ID">
+          <div class="table-card"><h3>Customers</h3><p><strong>id</strong> · 42</p><p>name · Mina</p></div>
+          <b class="visual-arrow" aria-hidden="true">→</b>
+          <div class="table-card"><h3>Orders</h3><p><strong>id</strong> · 9001</p><p>customer_id · 42</p></div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">A relationship helps a database:</p>
+        <div class="action-grid">
+          <div><b>Connect Records</b><p>Link related records across tables.</p></div>
+          <div><b>Reduce Duplication</b><p>Store shared facts once instead of repeating them.</p></div>
+          <div><b>Support Queries</b><p>Combine related data when an application needs it.</p></div>
+          <div><b>Protect Consistency</b><p>Keep links meaningful and valid.</p></div>
+        </div>
+      </article>
+
+      <article id="where-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Relationships appear wherever one piece of business data depends on another.</p>
+        <div class="use-grid">
+          <div><b>Commerce</b><p>Customers connect to orders.</p></div>
+          <div><b>Content</b><p>Authors connect to posts.</p></div>
+          <div><b>Education</b><p>Students connect to courses.</p></div>
+          <div><b>Support</b><p>Customers connect to tickets.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card"><h3>Tables</h3><pre><code>customers
+id | name
+42 | Mina
+
+orders
+id  | customer_id | total
+9001| 42          | 49.00</code></pre></div>
+          <div class="example-card"><h3>Query the relationship</h3><pre><code>SELECT customers.name, orders.total
+FROM customers
+JOIN orders
+  ON orders.customer_id = customers.id
+WHERE orders.id = 9001;</code></pre><p>The query follows the relationship to return Mina’s order total.</p></div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="Table to primary key to foreign key to relationship to query result">
+          <span>Table A</span><b class="flow-arrow" aria-hidden="true">→</b><span>Primary Key</span><b class="flow-arrow" aria-hidden="true">→</b><span>Foreign Key</span><b class="flow-arrow" aria-hidden="true">→</b><span>Relationship</span><b class="flow-arrow" aria-hidden="true">→</b><span>Query Result</span>
+        </div>
+        <p class="note">The relationship is the logical connection; keys and queries are common ways to represent and use it.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>Relationship</h3><p>The logical connection between related records.</p></div>
+          <div><h3>Foreign Key</h3><p>A column that stores a reference to a record in another table.</p></div>
+          <div><h3>JOIN</h3><p>A SQL operation that reads related rows together.</p></div>
+        </div>
+        <p class="note">Relationship = the connection · Foreign key = a stored reference · JOIN = a query operation</p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Relationship</td><td>关系</td><td>A logical connection between records in different tables.</td><td>不同数据表中的记录之间存在的逻辑关联。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores related data in rows and columns.</td><td>用行和列保存相关数据的结构。</td></tr>
+              <tr><td>Record</td><td>记录</td><td>One complete set of data about an item.</td><td>描述一个对象的一条完整数据。</td></tr>
+              <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a record.</td><td>唯一标识一条记录的值。</td></tr>
+              <tr><td>Foreign Key</td><td>外键</td><td>A column that references a record in another table.</td><td>指向另一张表中记录的字段。</td></tr>
+              <tr><td>JOIN</td><td>连接查询</td><td>A SQL operation that reads related rows together.</td><td>把相关表中的数据放在一起查询的 SQL 操作。</td></tr>
+              <tr><td>One-to-Many</td><td>一对多</td><td>One record is connected to many records in another table.</td><td>一条记录可以关联另一张表中的多条记录。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>A relationship explains how records in different tables belong together.</p>
+        <p>Keys store references, and SQL queries can use those references to read connected data.</p>
+        <p>A clear relationship keeps data organized without repeating every fact.</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Database and SQL topic navigation">
+      <a href="foreign-key.html"><small>Previous</small><strong>← Foreign Key</strong></a>
+      <div class="direction-key" aria-hidden="true"><span>Desktop</span><b class="desktop-arrow">→</b><span>Mobile</span><b class="mobile-arrow">↓</b></div>
+      <a href="one-to-many.html"><small>Next</small><strong>One-to-Many →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture · 07 · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of software architecture for product managers: components, communication, data flow, scaling, and failure handling.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .architecture-page .hero { max-width: 900px; }
+    .architecture-page .definition { font-size: 22px; color: #fff; max-width: 900px; }
+    .architecture-page .muted { max-width: 900px; }
+    .architecture-page .analogy-card,
+    .architecture-page .architecture-card,
+    .architecture-page .comparison-card,
+    .architecture-page .connection-card {
+      padding: 18px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+    }
+    .architecture-page .analogy-grid,
+    .architecture-page .architecture-grid,
+    .architecture-page .comparison-grid,
+    .architecture-page .connection-grid { display: grid; gap: 12px; }
+    .architecture-page .analogy-grid { grid-template-columns: 1.2fr .8fr; align-items: stretch; margin-top: 18px; }
+    .architecture-page .architecture-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+    .architecture-page .comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 18px; }
+    .architecture-page .connection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+    .architecture-page .architecture-card h3,
+    .architecture-page .comparison-card h3,
+    .architecture-page .connection-card h3 { margin: 0 0 8px; color: #fff; font-size: 17px; }
+    .architecture-page .architecture-card p,
+    .architecture-page .comparison-card p,
+    .architecture-page .connection-card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .architecture-page .analogy-card strong { display: block; color: var(--green); margin-bottom: 7px; }
+    .architecture-page .analogy-card p { margin: 0; color: var(--muted); }
+    .architecture-page .responsive-flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      min-width: 0;
+    }
+    .architecture-page .responsive-flow > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 72px;
+      flex: 1 1 0;
+      padding: 14px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+      color: #fff;
+      text-align: center;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+    .architecture-page .responsive-flow > div.accent { border-color: var(--green); background: rgba(120,229,189,.1); }
+    .architecture-page .responsive-flow > span { display: grid; place-items: center; flex: 0 0 20px; color: var(--green); font-size: 24px; }
+    .architecture-page .mobile-arrow { display: none !important; }
+    .architecture-page .tradeoff,
+    .architecture-page .pm-perspective {
+      margin-top: 18px;
+      padding: 15px 17px;
+      border-left: 3px solid var(--green);
+      background: linear-gradient(90deg, rgba(120,229,189,.08), transparent);
+      color: #fff;
+    }
+    .architecture-page .tradeoff strong,
+    .architecture-page .pm-perspective strong { color: var(--green); }
+    .architecture-page .tradeoff p,
+    .architecture-page .pm-perspective p { margin: 7px 0 0; color: var(--muted); }
+    .architecture-page .example-flow { margin-top: 18px; }
+    .architecture-page .example-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .architecture-page .example-grid > div { padding: 17px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .architecture-page .example-grid h3 { margin: 0 0 7px; font-size: 17px; }
+    .architecture-page .example-grid p { margin: 6px 0; color: var(--muted); font-size: 14px; }
+    .architecture-page .code-sample { margin: 18px 0 0; padding: 16px; border: 1px solid #38516d; border-radius: 14px; background: #050b12; color: #dbe7f4; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; font: 13px/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .architecture-page .glossary-wrap { overflow-x: auto; max-width: 100%; }
+    .architecture-page table { width: 100%; min-width: 780px; border-collapse: collapse; font-size: 13px; }
+    .architecture-page th,
+    .architecture-page td { padding: 12px 10px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .architecture-page th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .architecture-page td { color: var(--muted); }
+    .architecture-page td:first-child { color: #fff; font-weight: 800; }
+    .architecture-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .architecture-page .remember p { font-size: 20px; color: #fff; }
+    .architecture-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .architecture-page .pager a { display: flex; flex-direction: column; gap: 3px; max-width: 46%; color: var(--muted); }
+    .architecture-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .architecture-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .architecture-page .pager strong { color: var(--green); }
+    .architecture-page .pager span { font-size: 13px; }
+    @media (max-width: 900px) {
+      .architecture-page .architecture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .architecture-page .connection-grid { grid-template-columns: 1fr; }
+      .architecture-page .responsive-flow { flex-wrap: wrap; }
+      .architecture-page .responsive-flow > div { flex-basis: 140px; }
+    }
+    @media (max-width: 760px) {
+      .architecture-page .analogy-grid,
+      .architecture-page .architecture-grid,
+      .architecture-page .comparison-grid,
+      .architecture-page .example-grid { grid-template-columns: 1fr; }
+      .architecture-page .responsive-flow { flex-direction: column; gap: 6px; }
+      .architecture-page .responsive-flow > div { width: 100%; flex-basis: auto; }
+      .architecture-page .desktop-arrow { display: none !important; }
+      .architecture-page .mobile-arrow { display: grid !important; min-height: 20px; flex-basis: 20px; font-size: 24px; }
+      .architecture-page .pager { flex-direction: column; }
+      .architecture-page .pager a,
+      .architecture-page .pager a:last-child { max-width: 100%; align-items: flex-start; text-align: left; }
+      .architecture-page .remember p { font-size: 18px; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory architecture-page software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>Architecture</h1>
+      <p class="lede">Software architecture organizes the whole system: components, communication, data flow, scaling, and failure handling.</p>
+    </header>
+
+    <section class="detail-sections">
+      <article id="what-is-it" class="card detail-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p class="definition">Software architecture is the set of important choices that shape how a system is divided, connected, operated, and changed.</p>
+        <p class="muted">It describes the system at a level above individual functions or screens. Architecture gives each major part a responsibility, defines how parts communicate, decides where data lives, and makes failure and growth visible before they become surprises.</p>
+        <p class="muted">Architecture is not one diagram frozen forever. It is a set of decisions and trade-offs that should support the product’s users, business goals, delivery pace, reliability needs, and expected change.</p>
+      </article>
+
+      <article id="think" class="card detail-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <div class="analogy-grid">
+          <div>
+            <p class="definition">Think of architecture like a city plan.</p>
+            <p class="muted">A city plan decides where homes, roads, hospitals, warehouses, and power lines go, how traffic moves between them, and what happens when one road is blocked. It does not specify every brick, but it strongly affects what the city can support and how easily it can grow.</p>
+          </div>
+          <div class="analogy-card"><strong>Product manager translation</strong><p>“Which parts must change independently, what must happen in real time, and what is the acceptable experience when a dependency is slow or unavailable?”</p></div>
+        </div>
+        <div class="responsive-flow" aria-label="Product need to architecture decisions to user experience flow">
+          <div>Product Need</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Architecture Decisions</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>System Behavior</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>User Experience</div>
+        </div>
+      </article>
+
+      <article id="does" class="card detail-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <div class="architecture-grid">
+          <div class="architecture-card"><h3>Define responsibilities</h3><p>Make it clear which component owns a capability, rule, or piece of data.</p></div>
+          <div class="architecture-card"><h3>Shape communication</h3><p>Choose APIs, direct calls, queues, or events for work moving between parts.</p></div>
+          <div class="architecture-card"><h3>Control data flow</h3><p>Show where data is created, read, changed, cached, copied, and retained.</p></div>
+          <div class="architecture-card"><h3>Enable scaling</h3><p>Give busy parts room to handle more traffic, users, jobs, or stored data.</p></div>
+          <div class="architecture-card"><h3>Contain failure</h3><p>Reduce the blast radius when a service, provider, network, or database has a problem.</p></div>
+          <div class="architecture-card"><h3>Make change safer</h3><p>Use boundaries and contracts so one team can evolve a part without breaking everything.</p></div>
+        </div>
+        <div class="tradeoff"><strong>Trade-off:</strong><p>Every boundary can improve ownership and independent change, but it also adds contracts, latency, monitoring, deployment work, and more ways for a request to fail. The best architecture is fit for the product’s constraints, not the most fashionable diagram.</p></div>
+      </article>
+
+      <article id="where" class="card detail-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p class="muted">Architecture matters anywhere a product has more than one meaningful part or must operate reliably over time.</p>
+        <div class="architecture-grid">
+          <div class="architecture-card"><h3>Web and mobile products</h3><p>Connect clients, APIs, backend capabilities, data stores, and user-facing responses.</p></div>
+          <div class="architecture-card"><h3>Commerce and payments</h3><p>Separate checkout, inventory, payment, order records, and notifications with clear failure behavior.</p></div>
+          <div class="architecture-card"><h3>Data and AI platforms</h3><p>Move data through ingestion, processing, storage, retrieval, model calls, and evaluation.</p></div>
+          <div class="architecture-card"><h3>Internal enterprise tools</h3><p>Coordinate identity, permissions, workflows, audit records, and integrations across teams.</p></div>
+          <div class="architecture-card"><h3>High-traffic events</h3><p>Plan for spikes, queues, caching, capacity limits, and graceful degradation.</p></div>
+          <div class="architecture-card"><h3>Long-lived systems</h3><p>Protect teams from accidental coupling when the product, organization, or providers change.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <h3>Flash-sale checkout for an online store</h3>
+        <p class="muted">A product team expects a limited-time sale to bring ten times normal traffic. The architecture must keep browsing responsive, prevent overselling, take payment safely, and finish order follow-up even if email is temporarily unavailable.</p>
+        <div class="responsive-flow example-flow" aria-label="Flash sale checkout architecture flow">
+          <div>Customer</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Web / Mobile Client</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">API Gateway</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Checkout Service</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Inventory + Payment</div>
+        </div>
+        <div class="example-grid">
+          <div><h3>Fast path</h3><p>Product pages can use a cache so many shoppers do not repeatedly query the catalog database.</p></div>
+          <div><h3>Safe purchase</h3><p>Checkout checks inventory and payment through explicit contracts before confirming the order.</p></div>
+          <div><h3>Async follow-up</h3><p>An order-confirmed event lets notification and analytics work continue without holding the customer request open.</p></div>
+          <div><h3>Failure behavior</h3><p>If email is down, the order can remain confirmed while notification retries from a queue.</p></div>
+        </div>
+        <pre class="code-sample"><code>Customer → API Gateway → Checkout Service
+                         ├→ Inventory Service → Database
+                         ├→ Payment Provider
+                         └→ OrderConfirmed event → Queue → Notifications</code></pre>
+        <p class="muted">The architecture makes the product promise concrete: what is synchronous, what can wait, where the source of truth lives, and which failures should be retried or shown to the user.</p>
+      </article>
+
+      <article id="connects" class="card detail-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <p class="muted">A system architecture usually connects user-facing entry points to capabilities, data, and operating infrastructure. The connection can be direct and synchronous or message-based and asynchronous.</p>
+        <div class="responsive-flow" aria-label="Client to gateway to services to data and infrastructure flow">
+          <div>Client</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Gateway / Route</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Services</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Data + Events</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Infrastructure</div>
+        </div>
+        <div class="connection-grid">
+          <div class="connection-card"><h3>Synchronous</h3><p>The caller waits for a result, such as a price quote or payment decision. It is simple to understand, but latency and dependency failures reach the user quickly.</p></div>
+          <div class="connection-card"><h3>Asynchronous</h3><p>A message or event lets work continue later, such as sending an email after an order is confirmed. It improves resilience, but introduces queues, retries, and eventual consistency.</p></div>
+          <div class="connection-card"><h3>Operational</h3><p>Logs, metrics, traces, alerts, deployment controls, and access policies make the architecture operable rather than merely drawable.</p></div>
+        </div>
+      </article>
+
+      <article id="confuse" class="card detail-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card"><h3>Architecture vs implementation</h3><p>Architecture is the important shape and relationship of the system. Implementation is the detailed code and configuration that realizes it.</p></div>
+          <div class="comparison-card"><h3>Architecture vs component</h3><p>A component is one bounded part. Architecture is the larger arrangement of components and the rules for how they work together.</p></div>
+          <div class="comparison-card"><h3>Architecture vs infrastructure</h3><p>Infrastructure is the computing environment and operational foundation. Architecture also includes responsibilities, contracts, data flow, and failure behavior.</p></div>
+          <div class="comparison-card"><h3>Architecture vs a flowchart</h3><p>A flowchart shows one path through a process. Architecture must also explain ownership, state, scaling, security, operations, and what happens when the path breaks.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture</td><td>架构</td><td>The important choices that organize and connect a software system.</td><td>决定软件系统如何分工、连接、扩展和应对故障的重要设计。</td></tr>
+              <tr><td>Component</td><td>组件</td><td>A bounded part of a system with a clear responsibility.</td><td>系统中负责一件明确工作的一个部分。</td></tr>
+              <tr><td>Boundary</td><td>边界</td><td>The line that separates one responsibility from another.</td><td>把不同职责分开的界线。</td></tr>
+              <tr><td>Interface</td><td>接口</td><td>The defined way one part asks another part to do work.</td><td>一个部分请求另一个部分做事的约定方式。</td></tr>
+              <tr><td>Data Flow</td><td>数据流</td><td>The path data takes as it is created, changed, stored, and read.</td><td>数据产生、变化、保存和读取时经过的路径。</td></tr>
+              <tr><td>Dependency</td><td>依赖</td><td>A system part or provider that another part needs.</td><td>一个系统部分必须依靠的另一个部分或外部服务。</td></tr>
+              <tr><td>Scaling</td><td>扩展</td><td>Changing capacity so a system can handle more or less demand.</td><td>调整系统能力，让它能承受更多或更少的需求。</td></tr>
+              <tr><td>Failure Handling</td><td>故障处理</td><td>The way a system responds when a part is slow, unavailable, or incorrect.</td><td>系统某部分变慢、不可用或出错时如何应对。</td></tr>
+              <tr><td>Trade-off</td><td>权衡</td><td>A choice that improves one quality while making another more costly or difficult.</td><td>提升一个方面、同时让另一个方面变得更贵或更难的取舍。</td></tr>
+              <tr><td>Source of Truth</td><td>事实来源</td><td>The place the system trusts as the authoritative version of data.</td><td>系统认定为某项数据最可靠版本的地方。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>Architecture is the system’s shape: who owns what, how parts communicate, where data moves, how capacity grows, and how the product behaves when something fails.</p>
+        <div class="pm-perspective"><strong>PM Perspective</strong><p>When reviewing an architecture, ask: Which user promise does each decision protect? What is the source of truth? Which dependency can become a bottleneck? What happens when it is slow or down? Which parts need to scale independently? What new operating cost or team ownership does the design create?</p></div>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="service.html"><small>Previous</small><strong>← Service</strong><span>A focused capability exposed through a defined interface.</span></a>
+      <a href="module-07.html"><small>Next</small><strong>Software Architecture →</strong><span>Organizes the whole system: components, communication, data flow, scaling, and failure handling.</span></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

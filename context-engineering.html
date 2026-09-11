@@ -1,1 +1,213 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>What Is Context Engineering? · Prompting &amp; System Design</title><meta name="description" content="Context engineering decides what information and instructions a model should see for a task."><link rel="stylesheet" href="topic.css?v=20260908-1"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js"></script><style>.context-page{max-width:1180px}.context-page .lede{max-width:780px}.assembly{max-width:1130px;margin:auto}.assembly-stack,.sources,.compare,.misconceptions{display:grid;gap:10px}.assembly-stack{max-width:760px;margin:20px auto}.assembly-stack div,.tile,.source,.case,.map a,.map .center{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}.assembly-stack div:first-child,.map .center{border-color:var(--green)}.arrow{text-align:center;color:var(--green);font-size:27px}.model{max-width:230px;margin:auto;padding:18px;text-align:center;border:2px solid var(--green);border-radius:999px;background:#173348;font-weight:850;font-size:20px}.questions,.sources{grid-template-columns:repeat(4,1fr);margin-top:20px}.questions b,.source h3{display:block;color:var(--green);font-size:12px;letter-spacing:.08em}.compare{grid-template-columns:repeat(2,1fr)}.sources{grid-template-columns:repeat(3,1fr)}.case-flow,.relation{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}.relation-box{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;text-align:center}.relation-box strong{display:block;font-size:20px}.map{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;align-items:center;max-width:980px;margin:15px auto}.map a{text-align:center}.map small{display:block;color:var(--muted)}.map .top{grid-column:2}.map .left{grid-column:1}.map .right{grid-column:3}.map .bottom-left{grid-column:1}.map .bottom-right{grid-column:3}.remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.remember p{font-size:20px;color:#fff}.placeholder{padding:20px;border:1px dashed #38516d;border-radius:14px;color:var(--muted);text-align:center}@media(max-width:760px){.questions,.sources,.compare,.case-flow,.relation,.map{grid-template-columns:1fr}.map .top,.map .left,.map .right,.map .bottom-left,.map .bottom-right{grid-column:1}.case-flow .arrow,.relation .arrow{transform:rotate(90deg);justify-self:center}}</style></head><body id="top" class="standard-topic concept-detail has-site-directory"><nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Site directory"></aside><main class="wrap topic-main context-page"><a class="back" href="prompting-system-design.html">← Prompting &amp; System Design</a><div class="eyebrow">06 · Prompting &amp; System Design</div><h1>What Is Context Engineering?</h1><p class="lede">Context engineering is the process of deciding what information and instructions should be available to a model for a specific task.</p><p class="lede">It is broader than writing a prompt.</p><nav class="on-page"><b>On this page</b><a href="#assembly">Context assembly</a><a href="#why">Why context matters</a><a href="#sources">Sources</a><a href="#comparisons">Comparisons</a><a href="#example">Real example</a><a href="#not">What it is not</a><a href="#related">Related concepts</a><a href="#remember">Remember this</a><a href="#video">Video</a></nav><section class="grid"><article id="assembly" class="card wide"><div class="eyebrow">The core idea</div><h2>Context Assembly</h2><p class="definition">Context engineering is deciding what the model should see for the task at hand.</p><div class="assembly"><div class="assembly-stack"><div>System Prompt</div><div>User Prompt</div><div>Conversation History</div><div>Retrieved Documents / RAG</div><div>Tool Results</div><div>State</div><div>Relevant Memory</div><div>Examples</div></div><div class="arrow">↓</div><div class="model">MODEL</div><div class="arrow">↓</div><div class="model" style="border-width:1px;border-radius:14px;font-size:16px">OUTPUT</div><div class="questions"><div class="tile"><b>WHAT</b> should enter?</div><div class="tile"><b>WHAT</b> should stay out?</div><div class="tile"><b>HOW</b> should information be organized?</div><div class="tile"><b>WHEN</b> should context be refreshed?</div></div></div></article><article class="card wide"><h2>Think of it like...</h2><p class="definition">Preparing a briefing folder before someone makes a decision.</p><div class="compare"><div class="tile"><p><b>Person</b> → Model</p><p><b>Briefing folder</b> → Context</p><p><b>Choosing relevant documents</b> → Context Engineering</p></div><div class="tile"><p class="muted">The goal is not to hand over every document. It is to assemble relevant, current, well-organized material.</p><p class="note">This analogy is for understanding only. Model context is structured information supplied during inference.</p></div></div></article><article id="why" class="card wide"><h2>Why Context Matters</h2><div class="compare"><div class="tile"><div class="eyebrow">Scenario A</div><h3>Missing / irrelevant context</h3><div class="arrow">↓</div><b>Weak or uninformed answer</b></div><div class="tile"><div class="eyebrow">Scenario B</div><h3>Relevant instructions + policy + tool result</h3><div class="arrow">↓</div><b>Better task-specific response</b></div></div><p class="note">Relevant context can improve usefulness, but does not guarantee correctness.</p></article><article id="sources" class="card wide"><h2>Sources of Context</h2><div class="sources"><div class="source"><h3>INSTRUCTIONS</h3><p>System Prompt<br>User Prompt</p></div><div class="source"><h3>HISTORY</h3><p>Conversation History</p></div><div class="source"><h3>KNOWLEDGE</h3><p>RAG<br>Retrieved Documents</p></div><div class="source"><h3>TOOLS</h3><p>Tool Results</p></div><div class="source"><h3>STATE</h3><p>Current Workflow State</p></div><div class="source"><h3>MEMORY</h3><p>Relevant Stored Information</p></div></div></article><article id="comparisons" class="card wide"><h2>Prompt Design vs Context Engineering</h2><div class="compare"><div class="tile"><div class="eyebrow">Prompt Design</div><h3>How should I write the instruction?</h3></div><div class="tile"><div class="eyebrow">Context Engineering</div><h3>What full information environment should the model receive?</h3></div></div><div class="tile"><p><b>Prompt:</b> “Check this invoice.”</p><p><b>Full context:</b> System Rules + Invoice + Policy + Tool Results + History + Output Schema</p><p class="note">The prompt is one part of the context.</p></div></article><article class="card wide"><h2>Context Engineering vs Context Window</h2><div class="compare"><div class="tile"><div class="eyebrow">Context Engineering</div><h3>Design decision</h3><p>What should be included?</p></div><div class="tile"><div class="eyebrow">Context Window</div><h3>Capacity constraint</h3><p>How much information can fit?</p></div></div><div class="relation"><div class="relation-box"><strong>CONTEXT WINDOW</strong>container capacity</div><div class="arrow">≠</div><div class="relation-box"><strong>CONTEXT ENGINEERING</strong>what you choose to put inside</div></div></article><article class="card wide"><h2>Context vs Memory</h2><div class="compare"><div class="tile"><div class="eyebrow">Memory</div><p>Information stored or retrievable across work.</p></div><div class="tile"><div class="eyebrow">Context</div><p>Information currently supplied to the model.</p></div></div><div class="relation"><div class="relation-box"><strong>MEMORY</strong></div><div class="arrow">↓<small>retrieve / select</small></div><div class="relation-box"><strong>CONTEXT</strong> ↓ MODEL</div></div><p class="note">Memory only helps when relevant information becomes available to the current model run.</p></article><article id="example" class="card wide"><h2>One Real Example</h2><p class="definition">“Can customer 123 receive a refund?”</p><div class="case-flow"><div class="case"><h3>Context Engineering selects</h3><ul><li><b>System Rules</b></li><li><b>User Request</b> — Customer 123</li><li><b>Retrieved Policy</b></li><li><b>Tool Result</b> — order status</li><li><b>State</b> — current case status</li></ul></div><div class="arrow">→</div><div class="case"><h3>Model</h3><p><b>Answer / action proposal</b></p></div></div><div class="case" style="margin-top:14px;border-color:#704e57"><h3 style="color:#ffb2b2">DO NOT INCLUDE</h3><p class="muted">irrelevant conversation · unrelated documents · unnecessary sensitive information</p></div><p class="note">Context Engineering is not about adding more information. It is about selecting the right information.</p></article><article id="not" class="card wide"><h2>What It Is NOT</h2><div class="misconceptions"><div class="tile"><h3>Longer Prompt</h3><p>Longer does not automatically mean better.</p></div><div class="tile"><h3>More Context</h3><p>Relevant context matters more than volume.</p></div><div class="tile"><h3>RAG</h3><p>RAG is one method for supplying external information into context.</p></div><div class="tile"><h3>Memory</h3><p>Stored information is not automatically visible to the current run.</p></div></div></article><article id="related" class="card wide"><h2>Related Concepts</h2><div class="map"><a class="top" href="prompt-design.html"><b>Prompt Design</b><small>shape instruction</small></a><a class="left" href="system-prompts.html"><b>System Prompts</b><small>application guidance</small></a><div class="center"><b>Context Engineering</b><small>select information environment</small></div><a class="right" href="context-window.html"><b>Context Window</b><small>capacity constraint</small></a><a class="bottom-left" href="rag.html"><b>RAG</b><small>retrieve knowledge</small></a><a class="bottom-right" href="memory-state.html"><b>Memory &amp; State</b><small>stored and current information</small></a></div><a class="chip" href="structured-outputs.html">Structured Outputs</a></article><article id="remember" class="card wide remember"><h2>Remember This</h2><p>Context engineering decides what information the model should see for the task at hand.</p></article><article id="video" class="card wide video-card"><div class="video-label"><div><div class="eyebrow">Independent explainer</div><h2>Video</h2></div><small>visual explainer</small></div><div class="placeholder"><b>No video resource added.</b><br>Video is intentionally reserved for the final section when a real resource is available.</div></article></section></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>What Is Context Engineering? · Prompting &amp; System Design</title>
+  <meta name="description" content="A beginner-friendly explanation of Context Engineering: selecting and organizing the information an AI model can see for a task.">
+  <link rel="stylesheet" href="topic.css?v=20260908">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260910-context-3"></script>
+  <style>
+    .context-flow{display:grid;grid-template-columns:minmax(0,760px);justify-content:center;gap:0;margin-top:20px}
+    .context-flow .step-card{min-width:0}
+    .context-flow .step-card b{font-size:16px}
+    .context-flow .flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--green);font-size:24px;transform:rotate(90deg);height:32px}
+    .context-sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+    .context-sources .step-card{min-width:0}
+    .context-sources .step-card b{display:block;color:#fff;margin-bottom:5px}
+    .context-sources .step-card span{display:block;color:var(--muted);font-size:14px}
+    .context-assembly{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.05fr) auto minmax(0,1fr);gap:14px;align-items:center;margin-top:22px}
+    .context-assembly .assembly-list{display:grid;gap:8px}
+    .context-assembly .assembly-list div{padding:11px 13px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4}
+    .context-assembly .assembly-list b{color:#fff}
+    .context-assembly .assembly-arrow{color:var(--green);font-size:28px}
+    .context-assembly .assembly-result{padding:24px 18px;border:2px solid var(--green);border-radius:18px;background:linear-gradient(145deg,#173348,#0d202d);text-align:center}
+    .context-assembly .assembly-result b{display:block;font-size:21px}
+    .context-assembly .assembly-result span{color:var(--muted);font-size:14px}
+    .context-comparison{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+    .context-comparison .step-card{min-width:0}
+    .context-comparison .step-card strong{display:block;color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+    .context-comparison .step-card b{display:block;color:#fff;font-size:18px;margin-bottom:5px}
+    .context-comparison .step-card span{color:var(--muted);font-size:14px}
+    .context-example{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+    .context-example>div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .context-example h3{margin:0 0 10px;font-size:17px}
+    .context-example p{font-size:14px;margin:7px 0}
+    .context-example b{color:var(--green)}
+    .context-glossary-wrap{overflow:auto;margin-top:18px;border:1px solid #38516d;border-radius:14px}
+    .context-glossary{width:100%;min-width:820px;border-collapse:collapse;background:#07111a;font-size:13px}
+    .context-glossary th,.context-glossary td{padding:12px 13px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .context-glossary th{color:var(--green);font-size:11px;letter-spacing:.07em;text-transform:uppercase;background:#0b1723}
+    .context-glossary td{color:var(--muted)}
+    .context-glossary td:first-child{color:#fff;font-weight:800}
+    .context-glossary tr:last-child td{border-bottom:0}
+    .context-page .topic-takeaway{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .context-page .topic-takeaway p{font-size:20px;color:#fff}
+    @media(max-width:760px){.context-flow,.context-sources,.context-comparison,.context-example,.context-assembly{grid-template-columns:1fr}.context-flow .step-card{min-width:0;width:auto}.context-assembly .assembly-arrow{transform:rotate(90deg);justify-self:center}}
+  </style>
+</head>
+<body id="top" class="standard-topic concept-detail context-engineering-page has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main detail-page context-page">
+    <a class="back" href="prompting-system-design.html">← Prompting &amp; System Design</a>
+    <div class="eyebrow">06 · Prompt &amp; Context · New Topic</div>
+    <h1>What Is Context Engineering?</h1>
+    <p class="lede">Context Engineering is the practice of deciding what information an AI model should see for a specific task, how that information is organized, and when it should be refreshed.</p>
+    <p class="lede">Prompting is one part of the picture. Context is the whole information environment available during the current model run.</p>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On this page</b>
+      <a href="#definition">What is it?</a>
+      <a href="#analogy">Think of it like...</a>
+      <a href="#process">How it works</a>
+      <a href="#examples">Real-world examples</a>
+      <a href="#not">What it is NOT</a>
+      <a href="#related">Related concepts</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#remember">Remember this</a>
+      <a href="#video">Video</a>
+    </nav>
+
+    <section class="grid detail-sections">
+      <article id="definition" class="card wide detail-section topic-definition">
+        <h2>What is it?</h2>
+        <p class="definition">Context is everything the model can see for the current request. Context Engineering decides what belongs there.</p>
+        <p class="muted">A prompt is only one input. The full context may combine the System Prompt, Conversation History, User Prompt, Files, Memory, Retrieved Knowledge, Tool Definitions, Tool Results, Agent State, and MCP Tool Schemas.</p>
+        <div class="context-assembly" aria-label="Context assembly into an LLM">
+          <div class="assembly-list">
+            <div><b>System Prompt</b> · system instructions</div>
+            <div><b>Conversation History</b> · what happened before</div>
+            <div><b>User Prompt</b> · the current request</div>
+            <div><b>Files</b> · relevant user-provided material</div>
+            <div><b>Memory</b> · selected stored information</div>
+          </div>
+          <div class="assembly-arrow" aria-hidden="true">→</div>
+          <div class="assembly-result"><b>CONTEXT</b><span>the model's current information environment</span></div>
+          <div class="assembly-arrow" aria-hidden="true">←</div>
+          <div class="assembly-list">
+            <div><b>Retrieved Knowledge</b> · RAG results</div>
+            <div><b>Tool Definitions</b> · available capabilities</div>
+            <div><b>Tool Results</b> · returned evidence</div>
+            <div><b>Agent State</b> · current task status</div>
+            <div><b>MCP Tool Schemas</b> · tool contracts</div>
+          </div>
+        </div>
+        <div class="relation-map" style="margin-top:22px"><div class="relation-line"><b>Context</b><span>→</span><b>LLM</b><span>→</span><b>Answer / Tool Call</b></div></div>
+      </article>
+
+      <article id="analogy" class="card wide detail-section topic-analogy">
+        <h2>Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">LLM = a temporary expert. Prompt = the question you ask. Context = all the materials on the expert's desk.</p>
+          <p class="muted"><b>Context Engineering</b> means deciding which materials belong on the desk, putting them in a useful order, and removing anything distracting, stale, or sensitive.</p>
+          <p class="note">The best desk is not the desk with the most papers. It is the desk with the right papers for this decision.</p>
+        </div>
+      </article>
+
+      <article id="process" class="card wide detail-section topic-process">
+        <h2>How it works</h2>
+        <p class="muted">A real system assembles context before the model answers or chooses an action.</p>
+        <div class="context-flow" aria-label="Context Engineering system flow">
+          <div class="step-card"><strong>01 · REQUEST</strong><b>User Request</b><span>Understand the task and what information is needed.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>02 · RULES</strong><b>System Instructions</b><span>Apply the application's role, boundaries, and policies.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>03 · HISTORY</strong><b>Conversation History</b><span>Keep only prior turns that still matter.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>04 · MEMORY</strong><b>Memory Retrieval</b><span>Retrieve relevant stored information when useful.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>05 · KNOWLEDGE</strong><b>RAG Retrieval</b><span>Find current or external evidence for the task.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>06 · CAPABILITIES</strong><b>Tool Definitions</b><span>Describe tools the model is allowed to request.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>07 · EVIDENCE</strong><b>Relevant Files</b><span>Add the files or excerpts needed for this task.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>08 · ASSEMBLE</strong><b>Build Context</b><span>Order, filter, compress, and validate the inputs.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>09 · INFERENCE</strong><b>LLM</b><span>Use the visible context to answer or request a tool.</span></div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="step-card"><strong>10 · RESULT</strong><b>Answer / Tool Call</b><span>Return an answer or continue the agent loop.</span></div>
+        </div>
+        <p class="note"><b>The core work is not just writing a better sentence.</b> It is deciding what information enters Context, what stays out, the order it enters, when to retrieve, when to compress, when to compact, and when to delete.</p>
+        <h3>Context Management</h3>
+        <div class="context-sources">
+          <div class="step-card"><b>Context Injection</b><span>Add useful information to the current context, such as files, retrieved passages, or tool results.</span></div>
+          <div class="step-card"><b>Context Compression</b><span>Shorten long content while keeping the information needed to complete the task.</span></div>
+          <div class="step-card"><b>Context Compaction</b><span>Turn older conversation into a shorter working summary when the context is nearly full.</span></div>
+          <div class="step-card"><b>Context Management</b><span>Choose, order, refresh, compress, and remove the information given to the model.</span></div>
+          <div class="step-card"><b>Context Window</b><span>The amount of tokenized information a model can handle in one run.</span></div>
+          <div class="step-card"><b>Why now?</b><span>Agents use tools, read files, and update state across multiple turns, so the model's visible information keeps changing.</span></div>
+        </div>
+      </article>
+
+      <article id="examples" class="card wide detail-section topic-example">
+        <h2>Real-world examples</h2>
+        <div class="context-example">
+          <div><h3>Customer refund decision</h3><p><b>User Request:</b> Can customer 123 receive a refund?</p><p><b>Context:</b> system policy + customer order file + retrieved refund rules + order-status tool result + current case state.</p><p><b>Output:</b> an answer or an approval-needed tool call.</p></div>
+          <div><h3>Coding Agent</h3><p><b>User Request:</b> Fix the failing checkout test.</p><p><b>Context:</b> system instructions + conversation history + relevant files + test output + tool definitions + agent state.</p><p><b>Output:</b> a patch, a test command, or a request for clarification.</p></div>
+        </div>
+        <p class="note">In both examples, adding every document would create noise. The system selects the smallest useful context that supports the next step.</p>
+      </article>
+
+      <article id="not" class="card wide detail-section topic-comparison">
+        <h2>What it is NOT</h2>
+        <div class="misconceptions">
+          <div class="misconception-card"><h3>Context Engineering ≠ Prompt Engineering</h3><p><b>Prompt Engineering:</b> improves the wording and structure of an instruction.</p><p><b>Context Engineering:</b> designs the full information environment, including prompt, files, memory, tools, state, and retrieval.</p></div>
+          <div class="misconception-card"><h3>Context Engineering ≠ More Context</h3><p>Longer context can add noise, stale facts, or sensitive information. Relevance and order matter more than volume.</p></div>
+          <div class="misconception-card"><h3>Context Engineering ≠ Model Training</h3><p>Context is supplied at runtime. Training or fine-tuning changes learned model parameters.</p></div>
+          <div class="misconception-card"><h3>RAG / Memory / MCP ≠ Context</h3><p>RAG retrieves knowledge, Memory stores information, and MCP describes a connection pattern. They become part of Context only when their outputs or schemas are supplied to the model.</p></div>
+        </div>
+      </article>
+
+      <article id="related" class="card wide detail-section topic-related">
+        <h2>Related concepts</h2>
+        <div class="concept-tree">Token → Prompt → Context → Context Window → LLM → Answer / Tool Call
+Memory + RAG + MCP + Agent State → selected inputs for Context
+Context Engineering → choose · order · retrieve · compress · compact · remove</div>
+        <p class="muted">These concepts connect at different layers of an AI system.</p>
+        <div class="chips">
+          <a class="chip" href="prompt-design.html">Prompt Design</a>
+          <a class="chip" href="system-prompts.html">System Prompts</a>
+          <a class="chip" href="context-window.html">Context Window</a>
+          <a class="chip" href="token.html">Token</a>
+          <a class="chip" href="embeddings-rag-vector-search.html">RAG</a>
+          <a class="chip" href="agents-tools-mcp.html">Agent / MCP</a>
+        </div>
+      </article>
+
+      <article id="glossary" class="card wide detail-section topic-related">
+        <h2>Topic Glossary · 主题词汇</h2>
+        <div class="context-glossary-wrap">
+          <table class="context-glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Token</td><td>Token / 词元</td><td>A small unit of text processed by a model.</td><td>模型处理文字时使用的小单位，不一定等于一个完整单词。</td></tr>
+              <tr><td>Prompt</td><td>提示词 / 请求</td><td>An instruction or request sent to the model.</td><td>你这一次直接问模型或要求模型做的事情。</td></tr>
+              <tr><td>Context</td><td>上下文</td><td>All information visible to the model for the current run.</td><td>模型在当前请求中能够看到的全部资料。</td></tr>
+              <tr><td>Context Window</td><td>上下文窗口</td><td>The available Token capacity for a model run.</td><td>当前这次工作最多能放多少 Token 的“桌面空间”。</td></tr>
+              <tr><td>Memory</td><td>记忆</td><td>Information stored for possible use later.</td><td>保存起来、以后可能重新取出的信息。</td></tr>
+              <tr><td>RAG</td><td>检索增强生成</td><td>Retrieval that supplies external knowledge before generation.</td><td>先找相关资料，再把资料放进 Context 帮助回答。</td></tr>
+              <tr><td>MCP</td><td>模型上下文协议</td><td>A standard way for AI applications to connect to tools and resources.</td><td>让 AI 应用以统一方式连接工具和资源的协议。</td></tr>
+              <tr><td>Agent</td><td>智能体 / Agent</td><td>A system that uses a model, tools, state, and a loop to pursue a goal.</td><td>围绕模型组织工具、状态和多步循环来完成目标的系统。</td></tr>
+              <tr><td>Context Engineering</td><td>上下文工程</td><td>Designing the information environment supplied to the model.</td><td>决定桌面上放什么资料、如何整理、什么时候更新或删除。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide detail-section topic-takeaway">
+        <h2>Remember this</h2>
+        <p>Prompt is one input. Context is everything the model can see. Context Engineering decides what enters that environment, in what order, and when it should be retrieved, compressed, compacted, or removed.</p>
+      </article>
+
+      <article id="video" class="card wide detail-section video-card">
+        <div class="video-label"><div><div class="eyebrow">Independent explainer</div><h2>Video</h2></div><small>resource pending</small></div>
+        <p class="muted">No verified video resource is available yet.</p>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

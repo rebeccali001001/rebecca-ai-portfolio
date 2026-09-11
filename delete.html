@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DELETE · HTTP &amp; APIs · Software Knowledge</title>
+  <meta name="description" content="DELETE is an HTTP method commonly used to remove a resource.">
+  <link rel="stylesheet" href="topic.css?v=20260909-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .delete-page .path{margin:0 0 18px;color:var(--muted);font-size:13px;letter-spacing:.02em}.delete-page .path span{color:var(--green)}
+    .delete-page .hero-label,.delete-page .section-number{color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.delete-page .hero-definition{max-width:780px;font-size:22px;color:#dbe7f4}.delete-page .section-number{display:block;margin-bottom:8px}.delete-page .definition{font-size:21px;color:#fff}.delete-page .analogy-copy{font-size:19px;color:#fff}
+    .delete-page .visual-flow{display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;align-items:center;gap:10px;margin-top:20px}.delete-page .visual-flow>div:not(.arrow),.delete-page .use-flow>div:not(.arrow){min-height:78px;display:flex;align-items:center;justify-content:center;padding:16px;border:1px solid #38516d;border-radius:15px;background:#07111a;color:#fff;text-align:center;font-weight:800}.delete-page .visual-flow>div:nth-child(3){border-color:var(--green);background:rgba(120,229,189,.08)}.delete-page .arrow{color:var(--green);font-size:24px;text-align:center}
+    .delete-page .action-grid,.delete-page .use-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:18px}.delete-page .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.delete-page .action-grid>div,.delete-page .use-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.delete-page .action-grid strong,.delete-page .use-grid strong{display:block;color:#fff;font-size:17px}.delete-page .use-flow{display:grid;grid-template-columns:1fr 42px 1fr 42px 1fr;align-items:center;gap:10px;margin-top:20px}.delete-page .use-flow>div:not(.arrow){min-height:72px}
+    .delete-page .delete-card{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.delete-page .delete-card h3{margin:0 0 12px;color:var(--green);font:800 18px ui-monospace,SFMono-Regular,Consolas,monospace}.delete-page .delete-card p{margin:0;color:var(--muted)}.delete-page .example-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}.delete-page .example-flow span{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800}.delete-page .example-flow b{color:var(--green);font-size:20px}.delete-page .connection-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}.delete-page .connection-flow span{padding:12px 14px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#fff;font-weight:800;text-align:center}.delete-page .connection-flow b{color:var(--green);font-size:20px}
+    .delete-page .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.delete-page .compare-grid>div{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}.delete-page .compare-grid h3{margin:0;color:var(--green);font-size:18px}.delete-page .compare-grid p{margin:8px 0 0;color:var(--muted)}.delete-page .compare-bottom{margin-top:14px;padding:16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent)}
+    .delete-page .glossary-wrap{overflow-x:auto;margin-top:18px}.delete-page .glossary{width:100%;min-width:860px;border-collapse:collapse;font-size:13px}.delete-page .glossary th,.delete-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}.delete-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.delete-page .glossary td{color:var(--muted)}.delete-page .glossary td:first-child{color:#fff;font-weight:800}.delete-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.delete-page .remember p{font-size:21px;color:#fff}.delete-page .topic-sidebar{display:grid;height:auto;min-height:0;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}.delete-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.delete-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}.delete-page .topic-sidebar a:hover{border-color:var(--green)}.delete-page .topic-sidebar a:nth-child(3){text-align:right}.delete-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.delete-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}.delete-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:900px){.delete-page .action-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.delete-page .visual-flow,.delete-page .use-flow,.delete-page .compare-grid,.delete-page .action-grid,.delete-page .use-grid{grid-template-columns:1fr}.delete-page .visual-flow .arrow,.delete-page .use-flow .arrow{font-size:0}.delete-page .visual-flow .arrow::after,.delete-page .use-flow .arrow::after{content:'↓';font-size:24px}.delete-page .topic-sidebar{grid-template-columns:1fr}.delete-page .topic-sidebar .current{grid-column:auto}.delete-page .topic-sidebar a:nth-child(3){text-align:left}.delete-page .direction-key{order:3}.delete-page .connection-flow{flex-direction:column}.delete-page .connection-flow b{transform:rotate(90deg)}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory delete-page software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="http-apis.html">← Software Knowledge</a>
+    <p class="path">Software Knowledge <span>→</span> 03 · HTTP &amp; APIs <span>→</span> DELETE</p>
+    <div class="hero-label">PART III · HTTP &amp; APIs</div>
+    <h1>DELETE</h1>
+    <p class="hero-definition">An HTTP method commonly used to remove a resource.</p>
+
+    <section class="grid">
+      <article class="card wide"><span class="section-number">01 · What is it?</span><h2>What is it?</h2><p class="definition">DELETE is an HTTP method commonly used to remove an existing resource.</p><p class="note"><strong>Simple Definition：</strong> DELETE asks the system to remove something.</p></article>
+
+      <article class="card wide"><span class="section-number">02 · Think of it like...</span><h2>Think of it like...</h2><p class="analogy-copy">Think of DELETE as removing one record from a system.</p><div class="visual-flow" aria-label="Existing resource goes through DELETE and becomes a removed resource"><div>Existing Resource</div><div class="arrow" aria-hidden="true">→</div><div>DELETE</div><div class="arrow" aria-hidden="true">→</div><div>Resource Removed</div></div></article>
+
+      <article class="card wide"><span class="section-number">03 · What does it do?</span><h2>What does it do?</h2><p class="muted">DELETE can be used to remove:</p><div class="action-grid"><div><strong>A Record</strong></div><div><strong>A File</strong></div><div><strong>A Saved Item</strong></div><div><strong>A Resource</strong></div><div><strong>A Temporary Object</strong></div></div></article>
+
+      <article class="card wide"><span class="section-number">04 · Where is it used?</span><h2>Where is it used?</h2><p class="muted">DELETE requests can appear in:</p><div class="use-grid"><div><strong>Admin Systems</strong></div><div><strong>Content Management</strong></div><div><strong>Saved Items</strong></div><div><strong>User Records</strong></div><div><strong>Temporary Data</strong></div><div><strong>API Resource Management</strong></div></div></article>
+
+      <article class="card wide"><span class="section-number">05 · Example</span><h2>Example</h2><div class="delete-card"><h3>DELETE /api/orders/1001</h3><p>Request removal of order 1001.</p></div><div class="example-flow" aria-label="Client sends DELETE request to backend, rules are checked, resource is removed, and response is returned"><span>Client</span><b>→</b><span>DELETE /api/orders/1001</span><b>→</b><span>Backend</span><b>→</b><span>Check Rules</span><b>→</b><span>Remove Resource</span><b>→</b><span>Response</span></div><p class="note">The backend may still apply validation and business rules before deletion is allowed.</p></article>
+
+      <article class="card wide"><span class="section-number">06 · How it connects</span><h2>How it connects</h2><div class="connection-flow" aria-label="Client to DELETE to endpoint to backend to business logic to database to response"><span>Client</span><b>→</b><span>DELETE</span><b>→</b><span>Endpoint</span><b>→</b><span>Backend</span><b>→</b><span>Business Logic</span><b>→</b><span>Database</span><b>→</b><span>Response</span></div><p class="note">DELETE requests often still pass through backend rules before data is removed.</p></article>
+
+      <article class="card wide"><span class="section-number">07 · Do Not Confuse</span><h2>Do Not Confuse</h2><div class="compare-grid"><div><h3>DELETE</h3><p>Requests removal of a resource from the system.</p></div><div><h3>Remove from Screen</h3><p>May only hide something in the user interface.</p></div></div><div class="compare-bottom">Hidden UI<br>does not always mean<br>Deleted Data</div></article>
+
+      <article class="card wide"><span class="section-number">08 · Topic Glossary</span><h2>Topic Glossary</h2><div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>DELETE</td><td>删除</td><td>An HTTP method commonly used to remove a resource.</td><td>通常用于删除资源的 HTTP 方法。</td></tr>
+        <tr><td>Resource</td><td>资源</td><td>The data or object being removed.</td><td>DELETE 请求希望删除的数据或业务对象。</td></tr>
+        <tr><td>Endpoint</td><td>接口地址</td><td>The address identifying the resource to remove.</td><td>用来标识需要删除哪个资源的 API 地址。</td></tr>
+        <tr><td>Delete Operation</td><td>删除操作</td><td>An operation that removes data or a resource.</td><td>从系统中移除数据或业务对象的操作。</td></tr>
+        <tr><td>Validation</td><td>校验</td><td>Checking whether deletion is allowed.</td><td>删除前检查是否满足系统要求。</td></tr>
+        <tr><td>Business Logic</td><td>业务逻辑</td><td>Rules that may decide whether deletion is allowed.</td><td>用来判断某条数据是否允许删除的业务规则。</td></tr>
+        <tr><td>Database</td><td>数据库</td><td>The system where the resource may be stored.</td><td>被删除资源可能实际保存的系统。</td></tr>
+        <tr><td>Response</td><td>响应</td><td>The result returned after a delete request.</td><td>DELETE 请求处理完成后返回的结果。</td></tr>
+        <tr><td>Soft Delete</td><td>软删除</td><td>Marking data as deleted without physically removing it.</td><td>不真正移除数据，而是通过状态标记为已删除。</td></tr>
+        <tr><td>Hard Delete</td><td>物理删除</td><td>Permanently removing the stored data.</td><td>将数据从存储中真正删除。</td></tr>
+      </tbody></table></div></article>
+
+      <article class="card wide remember"><span class="section-number">09 · What to Remember</span><h2>What to Remember</h2><p>DELETE is commonly used to remove a resource.</p><p>A DELETE request may still require validation and business rules.</p><p>Removing something from the screen is not always the same as deleting the data.</p><div class="connection-flow" aria-label="Resource to DELETE to removal"><span>Resource</span><b>→</b><span>DELETE</span><b>→</b><span>Removal</span></div></article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="DELETE topic navigation"><div class="current">DELETE ← active</div><a href="http-apis.html#patch-topic"><small>Previous</small>PATCH</a><div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div><a href="request.html"><small>Next</small>Request</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

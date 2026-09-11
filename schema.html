@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Schema · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of database schemas and how they structure data and database objects.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="database.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic concept-detail has-site-directory schema-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+    <div class="eyebrow">05 · DATABASE &amp; SQL · NEW TOPIC</div>
+    <h1>Schema</h1>
+    <p class="lede">A database schema is the blueprint that defines how database data and objects are structured.</p>
+
+    <section class="detail-sections">
+      <article id="definition" class="card detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A schema is the blueprint for a database.</p>
+        <p class="muted">It describes which objects exist, how they are organized, and what rules connect them. A schema can define tables, columns, data types, relationships, constraints, and indexes.</p>
+        <p class="note"><b>Simple Definition:</b> A schema describes the shape and rules of database data.</p>
+      </article>
+
+      <article id="analogy" class="card detail-section topic-analogy">
+        <h2>02 · Think of it like…</h2>
+        <p class="definition">Think of a schema as the floor plan for an organized building.</p>
+        <p class="muted">The building is the database. Rooms are tables, labeled spaces are columns, and doors between rooms are relationships. The floor plan tells people where things belong before anything is stored.</p>
+        <div class="schema-analogy" aria-label="A database schema as a building floor plan">
+          <span>DATABASE</span><b>→</b><span>SCHEMA</span><b>→</b><span>TABLES</span><b>→</b><span>ROWS</span>
+        </div>
+      </article>
+
+      <article id="does" class="card detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">A schema gives the database a shared structure and set of rules. It helps software know:</p>
+        <div class="schema-role-grid">
+          <div><b>What can exist</b><span>Tables, views, functions, and other objects.</span></div>
+          <div><b>What data looks like</b><span>Columns, data types, and allowed values.</span></div>
+          <div><b>How data connects</b><span>Relationships between tables and records.</span></div>
+          <div><b>What rules apply</b><span>Constraints that protect data quality.</span></div>
+          <div><b>How to find it</b><span>Indexes that support efficient access.</span></div>
+        </div>
+      </article>
+
+      <article id="used" class="card detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">Schemas are used anywhere an application needs structured, reliable data.</p>
+        <div class="schema-use-grid">
+          <div><b>Product databases</b><span>Users, orders, products, and payments.</span></div>
+          <div><b>Team-owned data</b><span>Separate namespaces for different services or teams.</span></div>
+          <div><b>Database tools</b><span>Object browsers and query tools use schemas to organize what they show.</span></div>
+          <div><b>Application delivery</b><span>Migrations create and update schema structure across environments.</span></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section topic-example">
+        <h2>05 · Example</h2>
+        <p class="muted">A migration can define a schema and then create a table inside it.</p>
+        <pre class="schema-code"><code>CREATE SCHEMA shop;
+
+CREATE TABLE shop.orders (
+  order_id INTEGER PRIMARY KEY,
+  customer_id INTEGER NOT NULL,
+  total DECIMAL(10, 2) NOT NULL,
+  created_at TIMESTAMP NOT NULL
+);</code></pre>
+        <div class="schema-example-table-wrap">
+          <table class="schema-example-table">
+            <thead><tr><th>Schema object</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code>shop</code></td><td>The schema namespace.</td></tr>
+              <tr><td><code>orders</code></td><td>A table inside that schema.</td></tr>
+              <tr><td><code>order_id</code></td><td>A column with a primary-key rule.</td></tr>
+              <tr><td><code>created_at</code></td><td>A column with a timestamp data type.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="connects" class="card detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="schema-flow" aria-label="Application to SQL migration to schema to table to query results">
+          <div>Application</div><div class="schema-arrow" aria-hidden="true">→</div>
+          <div>SQL migration</div><div class="schema-arrow" aria-hidden="true">→</div>
+          <div>Schema</div><div class="schema-arrow" aria-hidden="true">→</div>
+          <div>Tables &amp; rules</div><div class="schema-arrow" aria-hidden="true">→</div>
+          <div>Query results</div>
+        </div>
+        <p class="note">The application sends SQL or uses a data-access layer; the schema gives those operations a known structure to work with.</p>
+      </article>
+
+      <article id="confuse" class="card detail-section topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="misconceptions">
+          <div class="misconception-card"><h3>Schema ≠ Database</h3><p>A database is the larger storage system. A schema is an organized structure inside it.</p></div>
+          <div class="misconception-card"><h3>Schema ≠ Table</h3><p>A schema can contain many tables. A table stores one kind of structured records.</p></div>
+          <div class="misconception-card"><h3>Schema ≠ SQL</h3><p>SQL is the language used to define or work with data. A schema is the structure being described.</p></div>
+          <div class="misconception-card"><h3>Schema ≠ Data</h3><p>The schema defines the shape and rules; rows are the actual stored values.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="schema-glossary-wrap">
+          <table class="schema-glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Schema</td><td>数据库模式 / 结构</td><td>The blueprint that defines how database data and objects are organized.</td><td>规定数据库里的数据和对象应该怎样组织的蓝图。</td></tr>
+              <tr><td>Database</td><td>数据库</td><td>A system that stores and manages application data.</td><td>用来保存和管理应用数据的系统。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores related records in rows and columns.</td><td>用行和列保存一类相关记录的数据结构。</td></tr>
+              <tr><td>Column</td><td>列 / 字段</td><td>A named type of value stored for each record.</td><td>每条记录都可能有的某一种数据，例如金额或状态。</td></tr>
+              <tr><td>Constraint</td><td>约束</td><td>A rule that limits which data is allowed.</td><td>限制哪些数据可以被保存的规则。</td></tr>
+              <tr><td>Relationship</td><td>关系</td><td>A connection between data in different tables.</td><td>不同数据表中的数据之间建立的联系。</td></tr>
+              <tr><td>Migration</td><td>迁移</td><td>A versioned change that updates database structure or data.</td><td>按版本记录、用来更新数据库结构或数据的变更。</td></tr>
+              <tr><td>Namespace</td><td>命名空间</td><td>A named area that groups objects and helps distinguish them.</td><td>把对象分组并帮助区分它们的命名区域。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section topic-takeaway remember">
+        <h2>09 · What to Remember</h2>
+        <p class="note">A schema is the blueprint that defines the structure and rules of database objects.</p>
+        <p class="note">Tables, columns, relationships, constraints, and indexes can all be part of that structure.</p>
+        <p class="note">SQL migrations change the schema so application code and database structure stay aligned.</p>
+        <div class="schema-final-flow" aria-label="Schema defines tables, tables hold rows"><span>Schema</span><b>→</b><span>Tables</span><b>→</b><span>Rows</span></div>
+      </article>
+    </section>
+
+    <nav class="topic-pagination" aria-label="Topic navigation">
+      <a href="field.html"><small>Previous</small><b>Field</b></a>
+      <a href="primary-key.html"><small>Next</small><b>Primary Key</b></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

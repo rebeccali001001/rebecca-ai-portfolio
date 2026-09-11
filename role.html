@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Role · Authentication &amp; Security</title>
+  <meta name="description" content="Understand roles as named groups of responsibilities or permissions used to control access in software systems.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .definition { max-width: 850px; font-size: 20px; color: #fff; }
+    .section-lede { max-width: 850px; color: var(--muted); }
+    .analogy-flow, .connection-flow { display: grid; align-items: center; gap: 10px; margin-top: 22px; }
+    .analogy-flow { grid-template-columns: 1fr 30px 1fr 30px 1fr 30px 1fr; }
+    .connection-flow { grid-template-columns: 1fr 30px 1fr 30px 1fr 30px 1fr 30px 1fr 30px 1fr; }
+    .flow-node { min-height: 78px; display: grid; place-items: center; padding: 14px 12px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; }
+    .flow-node.accent { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a; }
+    .flow-arrow { color: var(--green); font-size: 24px; font-weight: 800; text-align: center; }
+    .role-grid, .use-grid, .confusion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .role-card, .use-card, .confusion-card, .example-card { padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .role-card b, .use-card b, .confusion-card h3 { color: #fff; }
+    .role-card p, .use-card p, .confusion-card p, .example-card p { margin: 7px 0 0; color: var(--muted); }
+    .use-card strong { display: block; margin-bottom: 6px; color: var(--green); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .confusion-card h3 { margin: 0 0 8px; color: var(--green); }
+    .example-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; margin-top: 20px; }
+    .example-card pre { margin: 0; overflow: auto; color: var(--green); font: 700 14px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
+    .callout { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.08), transparent); }
+    .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .glossary { width: 100%; min-width: 820px; border-collapse: collapse; font-size: 14px; }
+    .glossary th, .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .glossary td { color: var(--muted); }
+    .glossary td:first-child { color: #fff; font-weight: 800; }
+    .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .remember p { max-width: 850px; font-size: 19px; color: #fff; }
+    .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 150px; color: var(--muted); }
+    .pager a:last-child { align-items: flex-end; text-align: right; }
+    .pager a:hover { color: #fff; }
+    .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) { .role-grid, .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .analogy-flow, .connection-flow, .role-grid, .use-grid, .confusion-grid, .example-grid { grid-template-columns: 1fr; }
+      .analogy-flow, .connection-flow { gap: 6px; }
+      .flow-arrow { min-height: 22px; font-size: 0; }
+      .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .pager { flex-direction: column; }
+      .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>Role</h1>
+      <p class="lede">A named set of responsibilities or permissions that can be assigned to a user or service.</p>
+    </header>
+    <section class="grid">
+      <article class="card wide">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A role is a named collection of access responsibilities. Instead of assigning every permission one by one, a system can assign a role such as Viewer, Editor, or Administrator.</p>
+        <p class="section-lede">The role describes what a user or service is expected and allowed to do. It does not, by itself, prove who that user is.</p>
+        <p class="callout"><strong>Simple Definition:</strong><br>A role is a reusable access label that groups related permissions.</p>
+      </article>
+      <article class="card wide">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a role like a job badge in an organization.</p>
+        <p>People with an Editor badge may change documents. People with a Viewer badge may read them. The badge makes the access pattern easy to understand and manage.</p>
+        <div class="analogy-flow" aria-label="Person to role badge to permissions to allowed action flow">
+          <div class="flow-node">Person</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Role Badge</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Permissions</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Allowed Action</div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">Roles turn access policy into named, reusable groups that a system can apply consistently.</p>
+        <div class="role-grid">
+          <div class="role-card"><b>Group Permissions</b><p>Collect related actions under one understandable name.</p></div>
+          <div class="role-card"><b>Simplify Assignment</b><p>Give a user or service a role instead of many individual permissions.</p></div>
+          <div class="role-card"><b>Support Consistency</b><p>Apply the same access rules to everyone with the same role.</p></div>
+          <div class="role-card"><b>Make Changes Auditable</b><p>Track role assignments and policy changes more clearly.</p></div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Roles are used wherever software needs repeatable access patterns for people, teams, or services.</p>
+        <div class="use-grid">
+          <div class="use-card"><strong>Admin Areas</strong><b>Control settings</b><p>Administrators can manage users, configuration, or organization settings.</p></div>
+          <div class="use-card"><strong>Team Workspaces</strong><b>Share access by job</b><p>Members can receive Viewer, Editor, or Manager access.</p></div>
+          <div class="use-card"><strong>Backend APIs</strong><b>Check each request</b><p>An API can use a role when deciding whether to accept an action.</p></div>
+          <div class="use-card"><strong>Service Accounts</strong><b>Limit automation</b><p>A background service can receive only the role it needs.</p></div>
+        </div>
+      </article>
+      <article class="card wide">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card"><pre>User: Maya
+Role: Support Agent
+Permissions:
+- tickets.read
+- tickets.update
+- customers.read</pre></div>
+          <div class="example-card"><p>Maya can view customer information and update support tickets. The role does not grant permission to delete users or change billing settings.</p></div>
+        </div>
+        <p class="callout">The role is the group name. The permissions are the individual actions inside that group.</p>
+      </article>
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="Login to identity to role assignment to permission check to allowed action flow">
+          <div class="flow-node">Login</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Identity</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Role Assignment</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Permission Check</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Allow or Deny</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Action</div>
+        </div>
+        <p class="callout">Authentication establishes identity. Authorization uses roles and permissions to decide what that identity may do.</p>
+      </article>
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>Role</h3><p>A named group of related access responsibilities or permissions.</p></div>
+          <div class="confusion-card"><h3>Permission</h3><p>One specific action or access rule, such as tickets.read.</p></div>
+          <div class="confusion-card"><h3>Authentication</h3><p>The process of checking who a user or service is.</p></div>
+          <div class="confusion-card"><h3>Authorization</h3><p>The decision about what an identified user or service may do.</p></div>
+        </div>
+        <p class="callout"><strong>Keep the order clear:</strong> authentication answers “Who are you?”; authorization uses roles and permissions to answer “What may you do?”</p>
+      </article>
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Role</td><td>角色</td><td>A named group of related access responsibilities.</td><td>把一组相关访问权限打包在一起的名称。</td></tr>
+              <tr><td>Permission</td><td>权限</td><td>A rule that allows a specific action or access.</td><td>允许某个具体操作或访问某项资源的规则。</td></tr>
+              <tr><td>Authorization</td><td>授权</td><td>The process of deciding what an identified user may do.</td><td>判断已经确认身份的用户可以做什么。</td></tr>
+              <tr><td>Authentication</td><td>身份认证</td><td>The process of checking who a user or service is.</td><td>检查用户或服务到底是谁。</td></tr>
+              <tr><td>Role Assignment</td><td>角色分配</td><td>Giving a user or service a role.</td><td>把某个角色分配给用户或服务。</td></tr>
+              <tr><td>Resource</td><td>资源</td><td>Something that a system protects or provides access to.</td><td>系统需要保护或控制访问的东西，例如文件、订单或设置。</td></tr>
+              <tr><td>RBAC</td><td>基于角色的访问控制</td><td>An access-control model that grants permissions through roles.</td><td>通过角色来分配权限的一种访问控制方式。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>A role is a reusable name for a group of related permissions.</p>
+        <p>Roles make access easier to assign, explain, review, and change.</p>
+        <p class="callout"><strong>Core idea:</strong><br>Authentication identifies a caller. A role helps authorization decide which actions that caller may perform.</p>
+      </article>
+    </section>
+    <nav class="pager" aria-label="Authentication and Security topic navigation">
+      <a href="sso.html"><small>Previous</small><strong>← SSO</strong></a>
+      <a href="permission.html"><small>Next</small><strong>Permission →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

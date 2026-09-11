@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vertical Scaling · System Architecture</title>
+  <meta name="description" content="A beginner-friendly explanation of vertical scaling: making one machine bigger to handle more work.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory architecture-topic-page vertical-scaling-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>Vertical Scaling</h1>
+      <p class="lede">Vertical scaling makes one machine bigger by adding CPU, RAM, storage performance, or I/O capacity.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Vertical scaling, also called scaling up, increases the capacity of one existing machine instead of adding more machines.</p>
+        <p class="section-lede">The machine may receive more CPU cores, memory, faster storage, or greater network and I/O capacity. The application usually continues to run as one main instance.</p>
+        <p class="bottom-line"><b>Core idea:</b> give the same system unit more power.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a busy shop moving into a larger, better-equipped shop.</p>
+        <p class="section-lede">The team, address, and basic way of serving customers can stay familiar. The larger space gives the same shop more room, faster equipment, and more capacity—but the shop is still one location.</p>
+        <div class="architecture-flow" aria-label="One machine with more CPU, memory, storage, and I/O capacity">
+          <div class="architecture-node">One Machine</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">More CPU + RAM</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">Faster Storage / I/O</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">More Work per Machine</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">Vertical scaling raises the ceiling of a single machine when the workload is limited by that machine’s resources.</p>
+        <div class="fact-grid">
+          <div><b>Add Compute</b><p>More CPU cores or faster processors can handle more calculations per second.</p></div>
+          <div><b>Add Memory</b><p>More RAM can keep larger working sets, caches, or concurrent tasks in memory.</p></div>
+          <div><b>Improve Storage</b><p>Faster disks or stronger storage throughput can reduce read and write bottlenecks.</p></div>
+          <div><b>Increase I/O Capacity</b><p>More network bandwidth or I/O operations can move data more efficiently.</p></div>
+        </div>
+        <p class="bottom-line">Scaling up can improve capacity without changing the application’s basic deployment shape.</p>
+      </article>
+
+      <article id="where-is-it-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Vertical scaling is useful when one component needs more resources and keeping it as one unit is operationally simpler.</p>
+        <div class="use-grid">
+          <div><strong>Databases</strong><b>More memory and I/O</b><p>A primary database may need more RAM for a working set or faster disks for write-heavy traffic.</p></div>
+          <div><strong>Legacy Applications</strong><b>One larger host</b><p>An older application can gain headroom when splitting it across machines would require major redesign.</p></div>
+          <div><strong>Large In-Memory Workloads</strong><b>Bigger working set</b><p>Analytics, search, or caching workloads can benefit when the data must fit on one machine.</p></div>
+          <div><strong>Early Growth</strong><b>Simple operations</b><p>A small product may scale one service up before the complexity of a distributed deployment is justified.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <p class="section-lede">A reporting SaaS product has slow dashboards because its analytics database is saturating memory and disk I/O.</p>
+        <div class="example-grid">
+          <div class="example-card">
+            <ol>
+              <li>The team measures database CPU, memory pressure, cache hit rate, disk latency, and query latency.</li>
+              <li>They move the database from 4 vCPU and 16 GB RAM to 16 vCPU and 64 GB RAM with faster storage.</li>
+              <li>The same database endpoint and application queries continue to be used.</li>
+              <li>Dashboard latency improves, but the team records the new cost and plans a recovery window for the resize.</li>
+            </ol>
+          </div>
+          <div class="example-card">
+            <h3>PM Perspective</h3>
+            <p>Ask which bottleneck is being relieved and how long the new machine will last. Track p95 latency, error rate, resource saturation, monthly infrastructure cost, and any resize downtime. A larger machine is a capacity decision—not proof that the product is highly available.</p>
+          </div>
+        </div>
+        <p class="bottom-line">The product keeps one database, but that database has more headroom to serve the same workload.</p>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="architecture-flow" aria-label="Workload reaches a bottleneck, machine is resized, capacity increases, metrics are monitored">
+          <div class="architecture-node">Workload grows</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">One machine saturates</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Add CPU / RAM / I/O</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node">More single-machine capacity</div><div class="architecture-arrow" aria-hidden="true">→</div>
+          <div class="architecture-node accent">Monitor the next limit</div>
+        </div>
+        <p class="bottom-line">Vertical scaling changes the capacity of a machine; application traffic still reaches that machine through the same system path.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>Vertical Scaling</h3><p>Add resources to one machine. It is often simpler, but it has a hardware ceiling and may require a resize or restart.</p></div>
+          <div><h3>Horizontal Scaling</h3><p>Add more machines or instances. It can spread traffic and improve capacity, but it introduces coordination and distribution work.</p></div>
+          <div><h3>Performance Optimization</h3><p>Make code, queries, or architecture more efficient. It reduces waste and can help either scaling strategy.</p></div>
+          <div><h3>Auto Scaling</h3><p>Automatically change capacity in response to a rule or signal. Auto scaling can scale up or out; it is the policy, not the direction.</p></div>
+          <div><h3>High Availability</h3><p>Keep service available when a component fails. A bigger single machine can still be a single point of failure.</p></div>
+          <div><h3>Fault Tolerance</h3><p>Continue operating through a defined failure. More capacity does not automatically provide redundancy or recovery.</p></div>
+        </div>
+        <p class="bottom-line">Scaling answers “how much capacity?” High availability answers “what happens when something fails?”</p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Vertical Scaling</td><td>垂直扩展</td><td>Making one machine more powerful.</td><td>给同一台机器增加资源，让它变得更强。</td></tr>
+              <tr><td>Scaling Up</td><td>向上扩展</td><td>Another name for vertical scaling.</td><td>垂直扩展的另一种说法。</td></tr>
+              <tr><td>CPU</td><td>中央处理器</td><td>The part of a machine that performs calculations.</td><td>负责执行计算的机器部件。</td></tr>
+              <tr><td>RAM</td><td>内存</td><td>Fast working memory used while software runs.</td><td>软件运行时临时使用的快速工作空间。</td></tr>
+              <tr><td>I/O Capacity</td><td>输入输出容量</td><td>How much data a machine can read, write, or move.</td><td>机器读、写和搬运数据的能力。</td></tr>
+              <tr><td>Bottleneck</td><td>瓶颈</td><td>The resource that limits overall performance.</td><td>限制整个系统速度或容量的最紧张资源。</td></tr>
+              <tr><td>Headroom</td><td>余量</td><td>Unused capacity available before a limit is reached.</td><td>系统达到上限前还剩下的可用空间。</td></tr>
+              <tr><td>Horizontal Scaling</td><td>水平扩展</td><td>Adding more machines or instances.</td><td>增加更多机器或实例来分担工作。</td></tr>
+              <tr><td>Single Point of Failure</td><td>单点故障</td><td>One component whose failure can stop the service.</td><td>一个部件坏了就可能让服务停止。</td></tr>
+              <tr><td>Auto Scaling</td><td>自动扩缩容</td><td>Automatically changing capacity from rules or signals.</td><td>根据规则或指标自动调整资源数量或大小。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>Vertical scaling makes one machine bigger with more CPU, RAM, storage performance, or I/O capacity.</p>
+        <p>It is often a practical first move for databases, legacy systems, and workloads that fit naturally on one machine.</p>
+        <p>It can improve capacity without redesigning the deployment, but it does not remove hardware limits or create redundancy by itself.</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="horizontal-scaling.html"><small>Previous</small><strong>← Horizontal Scaling</strong></a>
+      <a href="fault-tolerance.html"><small>Next</small><strong>Fault Tolerance →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

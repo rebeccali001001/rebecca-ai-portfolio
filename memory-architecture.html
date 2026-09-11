@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>What is Memory Architecture? · Memory</title>
+  <meta name="description" content="A beginner-friendly explanation of how AI memory is stored, retrieved, and added to context.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="memory.css">
+  <script defer src="sidebar.js?v=20260910-memory"></script>
+</head>
+<body id="top" class="standard-topic concept-detail has-site-directory memory-page">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="memory.html">← Memory</a>
+    <div class="eyebrow">10 · Memory · New Topic</div>
+    <h1>What is Memory Architecture?</h1>
+    <p class="lede">Memory architecture is the system that stores useful information, decides what to retrieve, and places only the relevant part into a model’s current context.</p>
+    <div class="memory-intro"><strong>The most important distinction:</strong> Memory is not the same as Context. Memory is stored information that may be retrieved later; Context is the information visible to the model for the current run.</div>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On this page</b>
+      <a href="#definition">What is it?</a>
+      <a href="#analogy">Think of it like...</a>
+      <a href="#process">How it works</a>
+      <a href="#types">Kinds of memory</a>
+      <a href="#questions">Key questions</a>
+      <a href="#not">What it is NOT</a>
+      <a href="#related">Related concepts</a>
+      <a href="#remember">Remember this</a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide detail-section topic-definition">
+        <h2>What is it?</h2>
+        <p class="definition">Memory is information an AI system stores or can retrieve across turns, sessions, or tasks.</p>
+        <p class="muted">A memory system may save a user preference, a fact from a conversation, a past event, or a searchable representation of a document. The model does not automatically see every stored item on every request.</p>
+        <p class="note">Memory is an application or system capability around the model. It is not proof that the model’s parameters changed.</p>
+      </article>
+
+      <article id="analogy" class="card wide detail-section topic-analogy">
+        <h2>Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">Context is the current desk. Memory is the filing cabinet.</p>
+          <p class="muted">The desk holds the documents you are using right now. The filing cabinet holds information that may be useful later. Retrieve Memory means finding the relevant file and putting a useful copy on the desk.</p>
+        </div>
+      </article>
+
+      <article id="process" class="card wide detail-section topic-process">
+        <h2>How it works</h2>
+        <p class="muted">A typical memory path looks like this:</p>
+        <div class="memory-flow" aria-label="Long-Term Memory to LLM flow">
+          <div class="memory-node"><b>Long-Term<br>Memory</b><small>Stored facts, events, preferences, or records</small></div>
+          <div class="memory-arrow" aria-hidden="true">→</div>
+          <div class="memory-node"><b>Retrieve<br>Relevant Memory</b><small>Search, filter, rank, and select</small></div>
+          <div class="memory-arrow" aria-hidden="true">→</div>
+          <div class="memory-node"><b>Context<br>Window</b><small>Current working information</small></div>
+          <div class="memory-arrow" aria-hidden="true">→</div>
+          <div class="memory-node"><b>LLM</b><small>Generates the next response or action</small></div>
+        </div>
+        <p class="note">The retrieval step is selective. A system usually brings back the most relevant, permitted, and useful memory—not the entire archive.</p>
+      </article>
+
+      <article id="types" class="card wide detail-section">
+        <h2>Kinds of memory</h2>
+        <div class="memory-types">
+          <div><h3>Working Memory</h3><p>The information actively used while solving the current task.</p></div>
+          <div><h3>Short-Term Memory</h3><p>Recent information kept for a limited period or current interaction.</p></div>
+          <div><h3>Long-Term Memory</h3><p>Information retained so it can be used across future sessions or tasks.</p></div>
+          <div><h3>Conversation Memory</h3><p>Past messages, summaries, or conversation facts that help maintain continuity.</p></div>
+          <div><h3>Semantic Memory</h3><p>General facts and meanings, such as “the user prefers concise answers.”</p></div>
+          <div><h3>Episodic Memory</h3><p>Specific past events, such as what happened in a previous support case.</p></div>
+          <div><h3>User Memory</h3><p>Information associated with a person, account, or team and used for personalization.</p></div>
+          <div><h3>Vector Memory</h3><p>Stored content or representations that can be found through similarity search.</p></div>
+        </div>
+      </article>
+
+      <article id="questions" class="card wide detail-section">
+        <h2>Four questions to ask</h2>
+        <div class="memory-questions">
+          <div><h3>Does the model really “remember”?</h3><p>Usually, the surrounding application stores and retrieves information. The model receives the selected memory as input for a later run.</p></div>
+          <div><h3>Where does memory live?</h3><p>It may live in a database, application state, conversation store, vector database, files, or a provider-managed memory service.</p></div>
+          <div><h3>When is memory retrieved?</h3><p>Often at request time, before inference. Retrieval can depend on relevance, recency, permissions, task, and user settings.</p></div>
+          <div><h3>Why not put everything in context?</h3><p>Context has finite capacity. Too much information can add cost, slow the system, distract the model, or expose irrelevant and sensitive data.</p></div>
+        </div>
+      </article>
+
+      <article id="not" class="card wide detail-section topic-comparison">
+        <h2>What it is NOT</h2>
+        <div class="misconceptions">
+          <div class="misconception-card"><h3>Memory ≠ Context</h3><p><b>Memory:</b> stored or retrievable information.</p><p><b>Context:</b> information supplied to the current model run.</p></div>
+          <div class="misconception-card"><h3>Memory ≠ Training</h3><p><b>Memory:</b> a runtime storage and retrieval capability.</p><p><b>Training:</b> changes model parameters through a learning process.</p></div>
+          <div class="misconception-card"><h3>Memory ≠ Perfect Recall</h3><p><b>Memory:</b> depends on what was saved and retrieved.</p><p><b>Perfect recall:</b> is not guaranteed; information may be missing, stale, or wrong.</p></div>
+          <div class="misconception-card"><h3>Memory ≠ Unlimited Context</h3><p><b>Memory:</b> helps select useful information.</p><p><b>Unlimited context:</b> is not created by storing more information elsewhere.</p></div>
+        </div>
+      </article>
+
+      <article id="related" class="card wide detail-section topic-related">
+        <h2>Related concepts</h2>
+        <div class="memory-layer-map" aria-label="Related memory concepts">
+          <div class="memory-layer"><b>Memory</b><span>stores information for later use</span></div>
+          <div class="memory-layer-arrow" aria-hidden="true">→</div>
+          <div class="memory-layer"><b>Retrieval / RAG</b><span>finds relevant information</span></div>
+          <div class="memory-layer-arrow" aria-hidden="true">→</div>
+          <div class="memory-layer"><b>Context Window</b><span>holds what the model can see now</span></div>
+        </div>
+        <p class="muted">Memory can support personalization and agents, while embeddings and vector databases are common retrieval building blocks.</p>
+        <div class="memory-page-links">
+          <a href="context-window.html">Context Window</a>
+          <a href="rag.html">RAG</a>
+          <a href="embeddings.html">Embeddings</a>
+          <a href="vector-database.html">Vector Database</a>
+          <a href="ai-agent.html">Agent</a>
+          <a href="memory-glossary.html#user-memory">Personalization</a>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide detail-section topic-takeaway">
+        <h2>Remember this</h2>
+        <p class="note">Memory is the archive; retrieval selects what matters; context is the current desk; the LLM works from what reaches that desk.</p>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

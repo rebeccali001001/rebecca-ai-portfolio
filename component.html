@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Component · 07 · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of software components, boundaries, interfaces, dependencies, and trade-offs for product managers.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory architecture-topic-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+    <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+    <h1>Component</h1>
+    <p class="lede">A distinct part of a system with a clear responsibility, boundary, interface, and dependencies.</p>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide">
+        <div class="eyebrow">01</div><h2>What is it?</h2>
+        <p class="definition">A component is a distinct part of a system with a clear responsibility, boundary, interface, and dependencies.</p>
+        <p>A component owns one meaningful area of work. Its boundary makes it easier to see what belongs inside, what other parts are allowed to ask for, and what the component needs from the rest of the system.</p>
+        <div class="fact-grid">
+          <div><b>Responsibility</b><p>The work this part is accountable for.</p></div>
+          <div><b>Boundary</b><p>The line separating its work from other parts.</p></div>
+          <div><b>Interface</b><p>The requests, inputs, outputs, or events it exposes.</p></div>
+          <div><b>Dependencies</b><p>The data, services, or tools it needs to do its job.</p></div>
+        </div>
+      </article>
+
+      <article id="think-of-it-like" class="card wide">
+        <div class="eyebrow">02</div><h2>Think of it like...</h2>
+        <p class="section-lede">Think of a component as a specialist team inside a company.</p>
+        <p>The team has a clear job, a way for other teams to make requests, and a list of information or support it needs. Other teams do not need to know every internal step.</p>
+        <div class="architecture-flow" aria-label="Request enters a component boundary, the component uses dependencies, and returns a result">
+          <div class="architecture-node">Request</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node accent">Component Boundary</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Internal Work</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Result</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <div class="eyebrow">03</div><h2>What does it do?</h2>
+        <p>A component turns a large system into parts that people can understand, build, test, operate, and change.</p>
+        <div class="fact-grid">
+          <div><b>Own a capability</b><p>Keep related rules and behavior together.</p></div>
+          <div><b>Protect decisions</b><p>Prevent every caller from depending on internal details.</p></div>
+          <div><b>Define collaboration</b><p>Make inputs, outputs, and failure behavior visible.</p></div>
+          <div><b>Limit change impact</b><p>Allow internal changes without rewriting the whole system.</p></div>
+        </div>
+        <p class="bottom-line"><strong>Trade-off:</strong> more boundaries can improve ownership and change safety, but each boundary also adds coordination, contracts, testing, and possible failure points.</p>
+      </article>
+
+      <article id="where-is-it-used" class="card wide">
+        <div class="eyebrow">04</div><h2>Where is it used?</h2>
+        <p>Components appear at several levels. A component can be a module inside one application, a service in a distributed system, or a user-interface area with a reusable contract.</p>
+        <div class="use-grid">
+          <div><strong>Checkout</strong><p>Own cart validation, totals, and order creation.</p></div>
+          <div><strong>Authentication</strong><p>Own identity checks, sessions, and access decisions.</p></div>
+          <div><strong>Notification</strong><p>Choose a channel and deliver product messages.</p></div>
+          <div><strong>Search</strong><p>Turn a query into a ranked set of results.</p></div>
+          <div><strong>Payment</strong><p>Coordinate authorization and provider responses.</p></div>
+          <div><strong>User interface</strong><p>Package a repeatable interaction such as a date picker or checkout form.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide">
+        <div class="eyebrow">05</div><h2>Example</h2>
+        <p class="section-lede"><strong>An online store's Checkout Component</strong></p>
+        <p>When a shopper selects “Place order,” the checkout component coordinates several decisions. The page does not need to know how stock is reserved or how payment is authorized; it asks the component through its interface.</p>
+        <div class="example-grid">
+          <div class="example-card"><h3>What belongs inside</h3><ol><li>Validate the cart and shipping details.</li><li>Ask inventory whether items can be reserved.</li><li>Request payment authorization.</li><li>Create the order and return its status.</li></ol></div>
+          <div class="example-card"><h3>What the interface promises</h3><p><code>placeOrder(cart, payment)</code> returns a clear outcome such as <code>confirmed</code>, <code>payment_failed</code>, or <code>out_of_stock</code>.</p><p>The component can change its internal sequence later without changing every caller.</p></div>
+        </div>
+        <div class="architecture-flow" aria-label="Customer request through checkout component to order result">
+          <div class="architecture-node">Customer</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Checkout Page</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node accent">Checkout Component</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Order Result</div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <div class="eyebrow">06</div><h2>How it connects</h2>
+        <p>Components connect through explicit interfaces and dependencies. The dependency direction should be understandable: the component asks for what it needs, while callers depend on the component's public contract.</p>
+        <div class="architecture-flow" aria-label="Client to component interface to dependencies and result">
+          <div class="architecture-node">Client</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node accent">Component Interface</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Component Logic</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Data / Service Dependency</div>
+        </div>
+        <div class="compare-grid"><div><h3>Stable interface</h3><p>Callers can keep working while implementation details change.</p></div><div><h3>Visible dependency</h3><p>Teams can plan for latency, permissions, availability, and ownership.</p></div><div><h3>Testable boundary</h3><p>Inputs and outputs make focused tests and failure scenarios easier to define.</p></div></div>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <div class="eyebrow">07</div><h2>Do Not Confuse</h2>
+        <div class="compare-grid"><div><h3>Component vs service</h3><p>A service is a component that provides a capability through an interface. A component does not have to run as a separate service or process.</p></div><div><h3>Component vs module</h3><p>A module is usually a code organization unit. A component is a responsibility and boundary; one component may contain several modules.</p></div><div><h3>Component vs API</h3><p>An API is the communication contract. A component is the part that owns the responsibility behind that contract.</p></div><div><h3>Component vs feature</h3><p>A feature is a user or business capability. A feature may cross several components, while a component is one bounded system part.</p></div><div><h3>Component vs microservice</h3><p>A microservice is an independently deployable service. A component can live inside a monolith and still have a strong boundary.</p></div><div><h3>Component vs database table</h3><p>A table stores data. A component owns behavior and decisions, and may use several tables or other data sources.</p></div></div>
+      </article>
+
+      <article id="topic-glossary" class="card wide">
+        <div class="eyebrow">08</div><h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>Component</td><td>组件</td><td>A distinct part of a system with a clear responsibility.</td><td>系统中负责一件明确工作的独立部分。</td></tr>
+          <tr><td>Responsibility</td><td>职责</td><td>The work a component owns.</td><td>一个组件负责完成的工作。</td></tr>
+          <tr><td>Boundary</td><td>边界</td><td>The line separating one responsibility from another.</td><td>把不同职责分开的界线。</td></tr>
+          <tr><td>Interface</td><td>接口</td><td>The way other parts ask a component to do work.</td><td>其他部分请求组件工作的方式。</td></tr>
+          <tr><td>Dependency</td><td>依赖</td><td>A thing a component needs in order to work.</td><td>组件正常工作所需要的其他东西。</td></tr>
+          <tr><td>Contract</td><td>契约</td><td>The agreed inputs, outputs, and behavior between parts.</td><td>各部分约定好的输入、输出和行为。</td></tr>
+          <tr><td>Module</td><td>模块</td><td>A code organization unit that groups related implementation.</td><td>把相关代码组织在一起的单元。</td></tr>
+          <tr><td>Service</td><td>服务</td><td>A component that provides a capability through an interface.</td><td>通过接口提供某项能力的组件。</td></tr>
+          <tr><td>Monolith</td><td>单体应用</td><td>An application deployed as one main unit.</td><td>作为一个主要单元部署的应用。</td></tr>
+          <tr><td>Microservice</td><td>微服务</td><td>An independently deployable service.</td><td>可以独立部署的服务。</td></tr>
+          <tr><td>Coupling</td><td>耦合</td><td>How strongly one part depends on another part's details.</td><td>一个部分对另一个部分内部细节的依赖程度。</td></tr>
+        </tbody></table></div>
+      </article>
+
+      <article id="what-to-remember" class="card wide remember">
+        <div class="eyebrow">09</div><h2>What to Remember</h2>
+        <p>A component is a system part with a clear job and a deliberate boundary.</p>
+        <p>The boundary is valuable when it makes ownership, communication, testing, and change impact easier to manage.</p>
+        <p class="bottom-line"><strong>PM Perspective:</strong> Ask what responsibility the component owns, who uses its interface, what dependencies it needs, what happens when a dependency fails, and whether the boundary is worth the operating and coordination cost.</p>
+        <div class="architecture-flow" aria-label="Component responsibility boundary interface and dependencies summary"><div class="architecture-node">Responsibility</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Boundary</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node">Interface</div><div class="architecture-arrow" aria-hidden="true">→</div><div class="architecture-node accent">Useful Component</div></div>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Topic navigation"><a href="service.html"><small>Previous</small><strong>Service</strong></a><a href="module-07.html"><small>Next</small><strong>System Architecture</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,6 @@
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-0.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-1.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-2.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-3.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-4.mp4'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/parameters/scene-5.mp4'

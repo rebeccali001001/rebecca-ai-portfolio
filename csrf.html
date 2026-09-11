@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSRF · Authentication &amp; Security</title>
+  <meta name="description" content="Understand cross-site request forgery and how applications defend state-changing requests.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .csrf-page .hero { padding-bottom: 34px; }
+    .csrf-page .hero h1 { margin-bottom: 12px; }
+    .csrf-page .lede,
+    .csrf-page .section-lede { max-width: 820px; }
+    .csrf-page .definition { max-width: 860px; font-size: 20px; color: #fff; }
+    .csrf-page .section-lede { color: var(--muted); margin: 0 0 18px; }
+    .csrf-page .analogy-copy { max-width: 820px; }
+    .csrf-page .flow,
+    .csrf-page .connection-flow { display: grid; align-items: center; gap: 10px; margin-top: 20px; }
+    .csrf-page .flow { grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr 34px 1fr; }
+    .csrf-page .connection-flow { grid-template-columns: 1fr 34px 1fr 34px 1fr 34px 1fr 34px 1fr; }
+    .csrf-page .flow-node,
+    .csrf-page .connection-flow span,
+    .csrf-page .security-card,
+    .csrf-page .use-card,
+    .csrf-page .confusion-card,
+    .csrf-page .example-card {
+      min-width: 0; padding: 16px; border: 1px solid #38516d; border-radius: 14px; background: #07111a;
+    }
+    .csrf-page .flow-node,
+    .csrf-page .connection-flow span { min-height: 74px; display: grid; place-items: center; color: #fff; text-align: center; font-weight: 800; }
+    .csrf-page .flow-node.accent,
+    .csrf-page .connection-flow .accent { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a; }
+    .csrf-page .flow-arrow,
+    .csrf-page .connection-flow b { color: var(--green); font-size: 24px; text-align: center; }
+    .csrf-page .security-grid,
+    .csrf-page .use-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .csrf-page .security-card b,
+    .csrf-page .use-card b { display: block; color: #fff; }
+    .csrf-page .security-card p,
+    .csrf-page .use-card p,
+    .csrf-page .confusion-card p { margin: 7px 0 0; color: var(--muted); }
+    .csrf-page .example-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; margin-top: 18px; }
+    .csrf-page .example-card pre { margin: 0; overflow: auto; color: var(--green); font: 700 14px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
+    .csrf-page .example-card p { margin: 0; color: var(--muted); }
+    .csrf-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+    .csrf-page .confusion-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .csrf-page .confusion-card h3 { margin: 0 0 8px; color: var(--green); }
+    .csrf-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .csrf-page .glossary { width: 100%; min-width: 840px; border-collapse: collapse; font-size: 14px; }
+    .csrf-page .glossary th,
+    .csrf-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .csrf-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .csrf-page .glossary td { color: var(--muted); }
+    .csrf-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .csrf-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .csrf-page .remember p { max-width: 820px; font-size: 19px; color: #fff; }
+    .csrf-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .csrf-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 150px; color: var(--muted); }
+    .csrf-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .csrf-page .pager a:hover { color: #fff; }
+    .csrf-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .csrf-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) {
+      .csrf-page .security-grid, .csrf-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .csrf-page .flow, .csrf-page .connection-flow { grid-template-columns: 1fr 28px 1fr 28px 1fr; }
+      .csrf-page .flow-node:nth-of-type(n+7), .csrf-page .connection-flow span:nth-of-type(n+7) { display: none; }
+    }
+    @media (max-width: 760px) {
+      .csrf-page .flow, .csrf-page .connection-flow, .csrf-page .security-grid, .csrf-page .use-grid, .csrf-page .confusion-grid, .csrf-page .example-grid { grid-template-columns: 1fr; }
+      .csrf-page .flow, .csrf-page .connection-flow { gap: 6px; }
+      .csrf-page .flow-arrow, .csrf-page .connection-flow b { min-height: 22px; font-size: 0; }
+      .csrf-page .flow-arrow::after, .csrf-page .connection-flow b::after { content: '↓'; font-size: 24px; }
+      .csrf-page .flow-node:nth-of-type(n+7), .csrf-page .connection-flow span:nth-of-type(n+7) { display: grid; }
+      .csrf-page .pager { flex-direction: column; }
+      .csrf-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory csrf-page">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>CSRF</h1>
+      <p class="lede">Cross-site request forgery is an attack that tricks a browser into sending an unwanted state-changing request while the user is already signed in.</p>
+    </header>
+
+    <section class="grid">
+      <article class="card wide">
+        <h2>01 · What is it?</h2>
+        <p class="definition">CSRF is a web attack in which an attacker causes a victim's browser to send a request to a trusted site without the victim intentionally taking that action.</p>
+        <p class="section-lede">The browser may automatically include the victim's session cookie, so the server can mistake the forged request for a real one.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-copy">
+          <p class="definition">Think of CSRF like someone hiding a signed form inside an envelope that you unknowingly mail to your bank.</p>
+          <p>The bank sees your valid signature and processes the form, even though you did not mean to request the transfer.</p>
+          <p>A CSRF defense adds a second proof that the request came from the real site and the real action.</p>
+        </div>
+        <div class="flow" aria-label="Victim browser to forged request to trusted site to state change flow">
+          <div class="flow-node">Victim Browser</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Forged Request</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Trusted Site</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Session Cookie</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Unwanted Change</div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">CSRF defenses help the server distinguish an intentional request from a cross-site request made by a browser.</p>
+        <div class="security-grid">
+          <div class="security-card"><b>Prove Origin</b><p>Check that a request came from an allowed site or origin.</p></div>
+          <div class="security-card"><b>Require a Token</b><p>Match a secret, unpredictable value supplied by the application.</p></div>
+          <div class="security-card"><b>Protect State Changes</b><p>Defend actions such as password changes, transfers, and updates.</p></div>
+          <div class="security-card"><b>Reject Suspicious Requests</b><p>Stop requests that fail the required validation checks.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">CSRF protection matters when a browser uses ambient credentials, especially cookies, for authenticated requests.</p>
+        <div class="use-grid">
+          <div class="use-card"><b>Account Settings</b><p>Changing an email address, password, or profile setting.</p></div>
+          <div class="use-card"><b>Payments</b><p>Submitting a purchase, transfer, or billing action.</p></div>
+          <div class="use-card"><b>Administration</b><p>Creating users, changing roles, or deleting records.</p></div>
+          <div class="use-card"><b>Cookie-Based Sessions</b><p>Any state-changing endpoint that trusts a browser session cookie.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card"><pre>&lt;form action="https://bank.example/transfer" method="POST"&gt;
+  &lt;input name="amount" value="1000"&gt;
+  &lt;input name="to" value="attacker"&gt;
+&lt;/form&gt;</pre></div>
+          <div class="example-card"><p>If the victim is signed in to the bank, a malicious page may cause the browser to submit a request to the bank. The bank should require a valid CSRF token or equivalent protection before accepting the transfer.</p></div>
+        </div>
+        <p class="bottom-line">The dangerous part is the combination of an unwanted cross-site action and credentials that the browser sends automatically.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="User to browser to request to CSRF token check to server to state change flow">
+          <span>User</span><b aria-hidden="true">→</b><span>Browser</span><b aria-hidden="true">→</b><span>Request + Cookie</span><b aria-hidden="true">→</b><span class="accent">CSRF Check</span><b aria-hidden="true">→</b><span>Server Action</span>
+        </div>
+        <p class="note">The browser carries the session credential, while the server verifies a CSRF token, origin, or an appropriate cookie policy before changing state.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div class="confusion-card"><h3>CSRF</h3><p>Tricks a browser into sending an authenticated request that the user did not intend.</p></div>
+          <div class="confusion-card"><h3>XSS</h3><p>Injects or executes untrusted script in a trusted page or application context.</p></div>
+          <div class="confusion-card"><h3>CORS</h3><p>Controls whether browser scripts may read cross-origin responses; it is not a general CSRF defense.</p></div>
+        </div>
+        <p class="bottom-line">CSRF is about unwanted actions. XSS is about script execution. CORS is about browser read access across origins.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>CSRF</td><td>跨站请求伪造</td><td>An attack that causes a browser to send an unwanted request to a trusted site.</td><td>诱导浏览器向可信网站发送用户并不想发出的请求。</td></tr>
+              <tr><td>CSRF Token</td><td>CSRF 令牌</td><td>An unpredictable value used to prove that a request came from the trusted application.</td><td>用来证明请求来自可信应用的一段难以猜测的值。</td></tr>
+              <tr><td>Origin</td><td>来源</td><td>The combination of scheme, host, and port that identifies a web origin.</td><td>由协议、主机和端口共同组成的网站来源标识。</td></tr>
+              <tr><td>Session Cookie</td><td>会话 Cookie</td><td>A browser cookie that helps a server recognize a signed-in session.</td><td>帮助服务器识别登录会话的浏览器 Cookie。</td></tr>
+              <tr><td>State-Changing Request</td><td>改变状态的请求</td><td>A request that creates, updates, or deletes data or performs an action.</td><td>会新增、修改、删除数据或执行某个动作的请求。</td></tr>
+              <tr><td>SameSite</td><td>同站策略</td><td>A cookie setting that controls when a cookie is sent in cross-site contexts.</td><td>控制 Cookie 在跨站场景下何时发送的设置。</td></tr>
+              <tr><td>Ambient Credential</td><td>自动携带的凭证</td><td>A credential that the browser sends automatically with a matching request.</td><td>浏览器遇到匹配请求时会自动带上的凭证。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>CSRF abuses credentials that a browser sends automatically to make a trusted site accept an unwanted action.</p>
+        <p>Protect state-changing requests with a suitable CSRF token, origin check, SameSite cookie policy, or another design that matches the authentication model.</p>
+        <p class="note"><strong>Core Flow:</strong><br>Browser Request + Ambient Credential → CSRF Validation → Allow or Reject State Change</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Authentication and Security topic navigation">
+      <a href="cors.html"><small>Previous</small><strong>← CORS</strong></a>
+      <a href="xss.html"><small>Next</small><strong>XSS →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

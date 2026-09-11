@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repository · 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="A managed location that stores a software project's code, files, and version history.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="repository.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory repository-page software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">PART VIII · DEVELOPMENT &amp; GIT</div>
+      <h1>Repository</h1>
+      <p class="lede">A managed location that stores a software project's code, files, and version history.</p>
+    </header>
+
+    <section class="grid">
+      <article class="card wide">
+        <span class="section-number">01 · What is it?</span>
+        <h2>What is it?</h2>
+        <p class="definition">A repository is a managed location used to store a project's source code and related files.</p>
+        <p class="definition">With Git, a repository also contains version history showing how the project changed over time.</p>
+        <p class="note"><strong>Simple Definition:</strong> A repository is the home of a software project's code and history.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">02 · Think of it like...</span>
+        <h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of a repository as a project folder with memory.</p>
+        <p class="analogy-copy">It stores the files, but it also remembers how those files changed.</p>
+        <div class="repository-flow" aria-label="Project Files plus Version History leads to Repository">
+          <span>Project Files</span><b class="operator" aria-hidden="true">+</b><span>Version History</span><b aria-hidden="true">→</b><span class="accent">Repository</span>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">03 · What does it do?</span>
+        <h2>What does it do?</h2>
+        <p class="muted">A repository can store:</p>
+        <div class="action-grid">
+          <div><strong>Source Code</strong></div>
+          <div><strong>Configuration</strong></div>
+          <div><strong>Documentation</strong></div>
+          <div><strong>Tests</strong></div>
+          <div><strong>Version History</strong></div>
+          <div><strong>Branches</strong></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">04 · Where is it used?</span>
+        <h2>Where is it used?</h2>
+        <p class="muted">Repositories are used in:</p>
+        <div class="use-grid">
+          <div><strong>Software Projects</strong></div>
+          <div><strong>Git</strong></div>
+          <div><strong>GitHub</strong></div>
+          <div><strong>Team Development</strong></div>
+          <div><strong>CI/CD</strong></div>
+          <div><strong>Open-source Projects</strong></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">05 · Example</span>
+        <h2>Example</h2>
+        <div class="example-box"><pre><code>my-project/
+├─ app.py
+├─ requirements.txt
+├─ tests/
+└─ README.md</code></pre></div>
+        <p class="note">When this project is initialized with Git, the folder becomes a Git repository.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">06 · How it connects</span>
+        <h2>How it connects</h2>
+        <div class="connection-flow" aria-label="Source Code to Repository to Git to Commit to Branch">
+          <span>Source Code</span><b aria-hidden="true">→</b><span class="accent">Repository</span><b aria-hidden="true">→</b><span>Git</span><b aria-hidden="true">→</b><span>Commit</span><b aria-hidden="true">→</b><span>Branch</span>
+        </div>
+        <p class="note">Git tracks changes inside a repository.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span>
+        <h2>Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>Repository</h3><p>The project and its version-controlled files.</p></div>
+          <div><h3>GitHub</h3><p>A platform that can host Git repositories online.</p></div>
+        </div>
+        <p class="bottom-line">Repository = Project Storage + History<br>GitHub = Hosting / Collaboration Platform</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">08 · Topic Glossary</span>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Repository</td><td>代码仓库</td><td>A managed location containing project files and version history.</td><td>保存项目文件并管理版本历史的位置。</td></tr>
+              <tr><td>Repo</td><td>代码仓库</td><td>A common short form of repository.</td><td>Repository 的常见简称。</td></tr>
+              <tr><td>Local Repository</td><td>本地仓库</td><td>A repository stored on a local computer.</td><td>保存在开发人员自己电脑上的 Git 仓库。</td></tr>
+              <tr><td>Remote Repository</td><td>远程仓库</td><td>A repository stored on another server or platform.</td><td>保存在 GitHub 等远程平台上的代码仓库。</td></tr>
+              <tr><td>Working Tree</td><td>工作目录</td><td>The current project files being edited.</td><td>开发人员当前正在查看和修改的项目文件。</td></tr>
+              <tr><td>Version History</td><td>版本历史</td><td>Recorded information about past code changes.</td><td>项目过去每次代码修改形成的历史记录。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <span class="section-number">09 · What to Remember</span>
+        <h2>What to Remember</h2>
+        <p>A repository stores project files and version history.</p>
+        <p>Git manages repositories.</p>
+        <p>Repositories may exist locally and remotely.</p>
+        <div class="final-flow" aria-label="Source Code to Repository to Version History">
+          <span>Source Code</span><b aria-hidden="true">→</b><span class="accent">Repository</span><b aria-hidden="true">→</b><span>Version History</span>
+        </div>
+      </article>
+    </section>
+
+    <nav class="prevnext" aria-label="Development and Git topic navigation">
+      <a href="source-code.html"><small>Previous</small><span>← Source Code</span></a>
+      <a href="git.html"><small>Next</small><span>Git →</span></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API · HTTP &amp; APIs · Software Knowledge</title>
+  <meta name="description" content="Understand APIs through HTTP requests, endpoints, resources, and responses.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="module03.css">
+  <style>
+    .api-topic .hero{padding:44px 0 30px}.api-topic .hero h1{margin:14px 0}.api-topic .hero .lede{max-width:820px}
+    .api-topic .api-menu,.api-topic .capability-grid,.api-topic .use-grid,.api-topic .example-grid,.api-topic .compare-grid{display:grid;gap:12px;margin-top:18px}.api-topic .api-menu{grid-template-columns:repeat(4,minmax(0,1fr))}.api-topic .capability-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.api-topic .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.api-topic .example-grid,.api-topic .compare-grid{grid-template-columns:1fr 1fr}
+    .api-topic .api-card,.api-topic .example-card,.api-topic .compare-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800}.api-topic .api-card small,.api-topic .example-card p,.api-topic .compare-card p{display:block;margin-top:7px;color:var(--muted);font-size:14px;font-weight:400}.api-topic .example-card code{display:block;color:var(--green);font:800 18px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace}.api-topic .example-card p{margin-bottom:0}.api-topic .bottom-line{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent)}
+    @media(max-width:900px){.api-topic .api-menu{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:760px){.api-topic .api-menu,.api-topic .capability-grid,.api-topic .use-grid,.api-topic .example-grid,.api-topic .compare-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory module03-page api-topic software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <p class="path">Software Knowledge <span>→</span> 03 · HTTP &amp; APIs <span>→</span> API</p>
+    <header class="hero"><div class="eyebrow">PART III · HTTP &amp; APIs</div><h1>API</h1><p class="lede">A defined interface that allows software systems to exchange data and actions.</p></header>
+    <section class="grid">
+      <article class="card wide"><span class="section-number">01 · What is it?</span><h2>What is it?</h2><p class="definition">API stands for Application Programming Interface.</p><p>An API defines how one software system can request data or actions from another.</p><p class="note"><strong>Simple Definition：</strong><br>An API is a defined way for software systems to communicate.</p></article>
+      <article class="card wide"><span class="section-number">02 · Think of it like...</span><h2>Think of it like...</h2><p class="analogy-copy">Think of an API as a service menu.</p><p>The menu tells you:</p><div class="api-menu"><div class="api-card">What you can request</div><div class="api-card">How to request it</div><div class="api-card">What information you must provide</div><div class="api-card">What result you can expect</div></div><p class="note"><strong>Software version：</strong></p><div class="visual-flow" aria-label="Client to API to service"><span>Client</span><b>→</b><span>API</span><b>→</b><span>Service</span></div></article>
+      <article class="card wide"><span class="section-number">03 · What does it do?</span><h2>What does it do?</h2><p>An API can allow software to:</p><div class="capability-grid"><div class="api-card">Get Data</div><div class="api-card">Create Data</div><div class="api-card">Update Data</div><div class="api-card">Delete Data</div><div class="api-card">Trigger Actions</div><div class="api-card">Connect Systems</div></div></article>
+      <article class="card wide"><span class="section-number">04 · Where is it used?</span><h2>Where is it used?</h2><p>APIs are used between:</p><div class="use-grid"><div class="api-card">Frontend and Backend</div><div class="api-card">Mobile App and Server</div><div class="api-card">Internal Services</div><div class="api-card">Business Systems</div><div class="api-card">External Platforms</div><div class="api-card">Cloud Services</div></div></article>
+      <article class="card wide"><span class="section-number">05 · Example</span><h2>Example</h2><div class="example-grid"><div class="example-card"><code>GET /api/orders</code><p><strong>Purpose：</strong><br>Retrieve orders.</p></div><div class="example-card"><code>POST /api/orders</code><p><strong>Purpose：</strong><br>Create a new order.</p></div></div><p class="note">The method describes the action.<br>The endpoint identifies the API resource.</p></article>
+      <article class="card wide"><span class="section-number">06 · How it connects</span><h2>How it connects</h2><div class="connection-flow" aria-label="Client to HTTP request to API endpoint to backend to HTTP response to client"><span>Client</span><b>→</b><span>HTTP Request</span><b>→</b><span>API Endpoint</span><b>→</b><span>Backend</span><b>→</b><span>HTTP Response</span><b>→</b><span>Client</span></div><p class="note">The API defines the available interface.<br>HTTP commonly carries the request and response.</p></article>
+      <article class="card wide"><span class="section-number">07 · Do Not Confuse</span><h2>Do Not Confuse</h2><div class="compare-grid"><div class="compare-card"><h3>API</h3><p>A collection of defined functions or resources available to other software.</p></div><div class="compare-card"><h3>Endpoint</h3><p>One specific access point inside an API.</p></div></div><p class="bottom-line">API = The interface<br>Endpoint = One address inside the interface</p></article>
+      <article class="card wide"><span class="section-number">08 · Topic Glossary</span><h2>Topic Glossary</h2><div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>API</td><td>应用程序接口</td><td>A defined way for software systems to communicate.</td><td>让不同软件系统按照约定交换数据和调用功能的接口。</td></tr><tr><td>Endpoint</td><td>接口地址</td><td>A specific address that provides one API function.</td><td>API 中提供某个具体功能的访问地址。</td></tr><tr><td>Method</td><td>HTTP 方法</td><td>The action an API request wants to perform.</td><td>API 请求想执行的操作类型。</td></tr><tr><td>Request</td><td>请求</td><td>Data or instructions sent to an API.</td><td>客户端发送给 API 的数据或操作请求。</td></tr><tr><td>Response</td><td>响应</td><td>Data or a result returned by an API.</td><td>API 处理请求后返回的数据或结果。</td></tr><tr><td>Resource</td><td>资源</td><td>Data or an object exposed through an API.</td><td>API 对外提供访问的数据或业务对象。</td></tr><tr><td>Client</td><td>客户端</td><td>Software that calls an API.</td><td>发起 API 调用的软件一端。</td></tr><tr><td>Backend</td><td>后端</td><td>Software that commonly processes API requests.</td><td>通常负责处理 API 请求的软件部分。</td></tr><tr><td>HTTP</td><td>HTTP 协议</td><td>A common protocol used to call web APIs.</td><td>Web API 常用的基础通信协议。</td></tr><tr><td>JSON</td><td>JSON 数据格式</td><td>A common format used for API data.</td><td>API 请求和响应中常用的结构化数据格式。</td></tr><tr><td>API Documentation</td><td>API 文档</td><td>Documentation describing how to use an API.</td><td>说明接口如何调用、传什么、返回什么的文档。</td></tr>
+      </tbody></table></div></article>
+      <article class="card wide remember"><span class="section-number">09 · What to Remember</span><h2>What to Remember</h2><p>An API defines how software systems communicate.</p><p>An API usually contains multiple endpoints.</p><p>Web APIs commonly use HTTP requests and responses.</p><p class="note"><strong>Final：</strong><br>Client → API → Service</p></article>
+    </section>
+    <nav class="topic-sidebar" aria-label="API topic navigation"><div class="current">API ← active</div><a href="url.html"><small>Previous</small>URL</a><div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div><a href="rest-api.html"><small>Next</small>REST API</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script defer src="sidebar.js"></script>
+</body>
+</html>

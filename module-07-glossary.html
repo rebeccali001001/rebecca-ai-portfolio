@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Module 07 Glossary · System Architecture</title>
+  <meta name="description" content="Simple English and Chinese explanations for System Architecture concepts.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .module-seven-glossary .glossary-wrap { overflow-x: auto; }
+    .module-seven-glossary table { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 14px; }
+    .module-seven-glossary th, .module-seven-glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .module-seven-glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .module-seven-glossary td { color: var(--muted); }
+    .module-seven-glossary td:first-child { color: #fff; font-weight: 800; }
+    .module-seven-glossary .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .module-seven-glossary .prevnext a { color: var(--muted); }
+    .module-seven-glossary .prevnext strong { color: var(--green); }
+    @media (max-width: 760px) { .module-seven-glossary .prevnext { flex-direction: column; } }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory module-seven-glossary" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+    <div class="eyebrow">MODULE 07 · GLOSSARY</div>
+    <h1>System Architecture Glossary</h1>
+    <p class="lede">Simple English and Chinese explanations for the components, paths, and operating ideas that shape a software system.</p>
+    <section class="grid">
+      <article id="glossary" class="card wide">
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td><a href="cdn.html">CDN</a></td><td>内容分发网络</td><td>A network that delivers cached content from locations close to users.</td><td>把缓存内容放到离用户更近的网络节点来提供。</td></tr>
+              <tr><td><a href="object-storage.html">Object Storage</a></td><td>对象存储</td><td>Durable API-accessed storage for file-like objects.</td><td>通过接口保存大量文件类对象的耐久存储。</td></tr>
+              <tr><td><a href="file-storage.html">File Storage</a></td><td>文件存储</td><td>Storage that exposes files and folders through shared paths.</td><td>通过文件夹和路径共享文件的存储方式。</td></tr>
+              <tr><td><a href="cache.html">Cache</a></td><td>缓存</td><td>Fast temporary storage for data used again.</td><td>把还会再用的数据暂时放在更快的地方。</td></tr>
+              <tr><td><a href="architecture.html">Architecture</a></td><td>架构</td><td>The way a system's parts are arranged and connected.</td><td>系统各个部分如何分工、连接和一起工作的方式。</td></tr>
+              <tr><td><a href="component.html">Component</a></td><td>组件</td><td>A distinct part of a system with a clear responsibility.</td><td>系统中负责一件明确工作的独立部分。</td></tr>
+              <tr><td>Service</td><td>服务</td><td>A component that provides a focused capability.</td><td>提供某一种具体能力的系统部分。</td></tr>
+              <tr><td><a href="monolith.html">Monolith</a></td><td>单体应用</td><td>An application whose major features are built and deployed together.</td><td>主要功能放在一起开发和部署的应用。</td></tr>
+              <tr><td><a href="microservices.html">Microservices</a></td><td>微服务</td><td>An architecture made of independently deployable services.</td><td>把系统拆成多个可以独立发布的小服务。</td></tr>
+              <tr><td><a href="api-gateway.html">API Gateway</a></td><td>API 网关</td><td>A managed entry point between clients and backend services.</td><td>位于客户端和后端服务之间、统一管理请求入口的组件。</td></tr>
+              <tr><td><a href="load-balancer.html">Load Balancer</a></td><td>负载均衡器</td><td>A component that distributes traffic across healthy instances.</td><td>把请求分配给健康服务器或服务实例的组件。</td></tr>
+              <tr><td>Cache</td><td>缓存</td><td>Fast temporary storage for data used often.</td><td>把常用数据暂时放在更快的地方。</td></tr>
+              <tr><td>Redis</td><td>Redis</td><td>A fast in-memory data store often used for temporary state.</td><td>一种速度很快、常用来保存临时状态的数据工具。</td></tr>
+              <tr><td>Message Queue</td><td>消息队列</td><td>A temporary holding place between message producers and consumers.</td><td>生产者和消费者之间暂存消息、让双方不用同时工作的地方。</td></tr>
+              <tr><td>Producer</td><td>生产者</td><td>A component that sends a message to a queue.</td><td>把消息放进队列的系统部分。</td></tr>
+              <tr><td>Consumer</td><td>消费者</td><td>A component that receives and processes a message.</td><td>从队列取出消息并处理它的系统部分。</td></tr>
+              <tr><td><a href="event.html">Event</a></td><td>事件</td><td>A record or signal that something happened.</td><td>表示某件事已经发生的一条记录或信号。</td></tr>
+              <tr><td><a href="event-driven.html">Event-driven</a></td><td>事件驱动</td><td>A system style where components react to facts about what happened.</td><td>系统围绕“发生了什么”来让不同部分做出反应。</td></tr>
+              <tr><td><a href="synchronous.html">Synchronous</a></td><td>同步</td><td>The caller waits for the work to finish before continuing.</td><td>调用方要等工作完成后才能继续。</td></tr>
+              <tr><td><a href="asynchronous.html">Asynchronous</a></td><td>异步</td><td>The caller can continue while the work finishes separately.</td><td>调用方可以先继续，工作在另一边完成。</td></tr>
+              <tr><td><a href="scaling.html">Scaling</a></td><td>扩展</td><td>Changing capacity to handle changing demand.</td><td>根据需求变化调整系统能处理的工作量。</td></tr>
+              <tr><td><a href="horizontal-scaling.html">Horizontal Scaling</a></td><td>水平扩展</td><td>Adding more machines or instances to share work.</td><td>增加更多机器或实例，一起分担工作。</td></tr>
+              <tr><td><a href="vertical-scaling.html">Vertical Scaling</a></td><td>垂直扩展</td><td>Making one machine more powerful.</td><td>给同一台机器增加资源，让它变得更强。</td></tr>
+              <tr><td>Instance</td><td>实例</td><td>One running copy of an application or service.</td><td>正在运行的一份应用或服务副本。</td></tr>
+              <tr><td><a href="fault-tolerance.html">Fault Tolerance</a></td><td>容错</td><td>The ability to keep useful service when part of a system fails.</td><td>系统某一部分出问题时，整体仍尽量继续提供服务。</td></tr>
+              <tr><td><a href="high-availability.html">High Availability</a></td><td>高可用性</td><td>Keeping a service usable most of the time through redundancy, health checks, and failover.</td><td>通过冗余、健康检查和故障转移，让服务大部分时间保持可用。</td></tr>
+              <tr><td>Redundancy</td><td>冗余</td><td>An extra component or path ready to help when another fails.</td><td>多准备一个可以在另一个出问题时接替工作的部件或路径。</td></tr>
+              <tr><td>Health Check</td><td>健康检查</td><td>A test that decides whether a target is ready to receive work.</td><td>用来判断某个实例现在能不能接收请求的测试。</td></tr>
+              <tr><td>Failover</td><td>故障转移</td><td>Moving work from a failed path to a healthy replacement.</td><td>把工作从坏掉的路径转到健康的备用路径。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+    <nav class="prevnext" aria-label="Module 07 navigation"><a href="module-06.html">← <strong>Module 06 Overview</strong></a><a href="module-07.html"><strong>Module 07 Overview →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

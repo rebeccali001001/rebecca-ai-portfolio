@@ -1,162 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>What is a Multi-Agent System? · Agents, Tools &amp; MCP</title>
-<meta name="description" content="A multi-agent system coordinates multiple agents rather than relying on one agent to do everything.">
-<link rel="stylesheet" href="topic.css?v=20260907-2">
-<link rel="stylesheet" href="site-directory.css">
-<script defer src="sidebar.js">
-</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What are Multi-Agent Systems? · Agents &amp; Agent Systems</title>
+  <meta name="description" content="A product-manager-friendly explanation of multi-agent systems, roles, handoffs, orchestration, trade-offs, and when one agent is enough.">
+  <link rel="stylesheet" href="topic.css?v=20260910-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .mas-context{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 0}
+    .mas-context a,.mas-context span{display:inline-flex;align-items:center;padding:7px 11px;border:1px solid #315273;border-radius:999px;color:#c9d8e7;font-size:12px}
+    .mas-context a:hover{border-color:var(--green);color:#fff}
+    .mas-context span{border-color:#4c6f91;color:var(--green);font-weight:800}
+    .mas-map{display:grid;grid-template-columns:1fr 1.15fr 1fr;grid-template-rows:auto auto;gap:14px;align-items:center;margin-top:22px;padding:25px;border:1px solid #315273;border-radius:18px;background:radial-gradient(circle at center,rgba(120,229,189,.12),transparent 35%),#08131f}
+    .mas-node{padding:17px;border:1px solid #38516d;border-radius:14px;background:#102438;text-align:center}
+    .mas-node b{display:block;color:#fff}.mas-node small{display:block;margin-top:5px;color:#adc4d9}
+    .mas-manager{grid-column:2;grid-row:1;border:2px solid var(--green);background:#12323a}
+    .mas-team{grid-column:1/-1;grid-row:2;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative;padding-top:30px}
+    .mas-team:before{content:"";position:absolute;left:12.5%;right:12.5%;top:0;border-top:1px solid #5a7b98}
+    .mas-team:after{content:"";position:absolute;left:50%;top:0;height:22px;border-left:1px solid #5a7b98}
+    .mas-agent:nth-child(1){border-color:#6da8d5}.mas-agent:nth-child(2){border-color:#7ec8b3}.mas-agent:nth-child(3){border-color:#d3af67}.mas-agent:nth-child(4){border-color:#a38bc9}
+    .mas-agent small{color:#9bb8ce}
+    .mas-pm-note{margin-top:18px;padding:16px 18px;border-left:3px solid var(--green);background:rgba(120,229,189,.06);color:var(--muted)}
+    .mas-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+    .mas-compare>div{padding:20px;border-radius:15px;background:#07111a;border:1px solid #38516d}
+    .mas-compare>div:last-child{border-color:#5bdab9;background:#0d242a}
+    .mas-compare h3{margin:0 0 8px;color:#fff}.mas-compare p{margin:0;color:var(--muted)}
+    .mas-flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:20px}
+    .mas-flow-step{flex:1 1 135px;min-width:125px;padding:15px;border:1px solid #38516d;border-radius:13px;background:#07111a}
+    .mas-flow-step b{display:block;color:var(--green);font-size:12px;letter-spacing:.08em}.mas-flow-step span{display:block;margin-top:6px;color:#dbe7f4;font-size:14px}.mas-arrow{display:flex;align-items:center;color:var(--green);font-size:20px}
+    .mas-terms{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+    .mas-term{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}.mas-term b{color:#fff}.mas-term p{margin:7px 0 0;color:var(--muted);font-size:14px}
+    .mas-decision{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.mas-decision>div{padding:20px;border-radius:15px;background:#0e1b29;border-top:2px solid var(--green)}.mas-decision>div:last-child{border-color:#d9af63}.mas-decision h3{margin:0 0 10px}.mas-decision ul{margin:0;padding-left:20px;color:var(--muted)}
+    .mas-costs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}.mas-cost{padding:16px 12px;text-align:center;border:1px solid #654d2c;border-radius:13px;background:#211a10;color:#f4d69a}.mas-cost b{display:block;color:#fff;font-size:15px}.mas-cost span{display:block;margin-top:5px;font-size:12px;color:#d7bd8a}
+    .mas-takeaway{font-size:20px!important}
+    @media(max-width:900px){.mas-map{grid-template-columns:1fr}.mas-manager,.mas-team{grid-column:1}.mas-manager{grid-row:1}.mas-team{grid-row:2}.mas-terms{grid-template-columns:repeat(2,1fr)}.mas-costs{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:700px){.mas-compare,.mas-decision{grid-template-columns:1fr}.mas-team{grid-template-columns:1fr 1fr}.mas-terms{grid-template-columns:1fr}.mas-costs{grid-template-columns:1fr 1fr}.mas-arrow{display:none}}
+  </style>
 </head>
 <body id="top" class="standard-topic has-site-directory">
-<nav>
-<div class="wrap">
-<a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span>
-</a>
-</div>
-</nav>
-<aside id="site-directory" aria-label="Site directory">
-</aside>
-<main class="wrap topic-main">
-<a class="back" href="agents-tools-mcp.html">← Agents, Tools &amp; MCP</a>
-<div class="eyebrow">09 · Agents, Tools &amp; MCP · Topic 10</div>
-<h1>What is a Multi-Agent System?</h1>
-<p class="lede">A multi-agent system uses more than one agent to divide, coordinate, or collaborate on a task.</p>
-<nav class="on-page" aria-label="On this page">
-<b>On this page</b>
-<a href="#definition">What is it?</a>
-<a href="#analogy">Think of it like...</a>
-<a href="#process">How it works</a>
-<a href="#examples">Real-world examples</a>
-<a href="#not">What it is NOT</a>
-<a href="#related">Related concepts</a>
-<a href="#remember">Remember this</a>
-<a href="#video">Video</a>
-</nav>
-<section class="grid">
-<article id="definition" class="card wide topic-definition">
-<h2>What is it?</h2>
-<p class="definition">A multi-agent system contains multiple agents that interact while working toward one or more goals.</p>
-<p class="muted">Agents may have specialized roles, delegate tasks, work in parallel, review one another, or coordinate through shared state. More agents does not automatically mean better.</p>
-</article>
-<article id="analogy" class="card wide topic-analogy">
-<h2>Think of it like...</h2>
-<div class="analogy-box text-only">
-<p class="analogy-lede">Think of it like a project team.</p>
-<p class="muted">A researcher finds useful information, a writer turns it into a draft, and a reviewer checks the result. Each person has a different role, and they exchange information to complete one deliverable.</p>
-</div>
-</article>
-<article id="process" class="card wide topic-process">
-<h2>How it works</h2>
-<div class="process-flow">
-<div class="step-card">
-<strong>1 · Goal</strong>
-<b>Set the objective</b>
-<span class="muted">Define the shared task and constraints.</span>
-</div>
-<div class="step-card">
-<strong>2 · Assign</strong>
-<b>Choose roles</b>
-<span class="muted">A coordinator or shared task connects the work.</span>
-</div>
-<div class="step-card">
-<strong>3 · Work</strong>
-<b>Run agents</b>
-<span class="muted">Agents solve parts of the task, sometimes in parallel.</span>
-</div>
-<div class="step-card">
-<strong>4 · Exchange</strong>
-<b>Share results</b>
-<span class="muted">Agents pass messages, artifacts, or state to one another.</span>
-</div>
-<div class="step-card">
-<strong>5 · Review</strong>
-<b>Coordinate output</b>
-<span class="muted">The system combines, checks, and returns the result.</span>
-</div>
-</div>
-<p class="muted">Some systems use decentralized coordination instead of one central coordinator.</p>
-</article>
-<article id="examples" class="card wide topic-example">
-<h2>Real-world examples</h2>
-<div class="example-grid">
-<div>
-<h3>Everyday example · Research and writing</h3>
-<p>
-<b>Input:</b> a request for a short report</p>
-<p>
-<b>AI / System:</b> research, writing, and review agents collaborate</p>
-<p>
-<b>Output:</b> a checked draft with sources</p>
-</div>
-<div>
-<h3>Business example · Software development</h3>
-<p>
-<b>Input:</b> a feature request</p>
-<p>
-<b>AI / System:</b> planning, coding, testing, and review roles exchange work</p>
-<p>
-<b>Output:</b> a proposed change with test evidence</p>
-</div>
-</div>
-</article>
-<article id="not" class="card wide topic-comparison">
-<h2>What it is NOT</h2>
-<div class="misconceptions">
-<div class="misconception-card">
-<h3>Multi-Agent System ≠ One Agent with Many Tools</h3>
-<p>
-<b>Multi-agent system:</b> has multiple interacting agent roles or loops.</p>
-<p>
-<b>One agent with tools:</b> has one decision-maker using several capabilities.</p>
-</div>
-<div class="misconception-card">
-<h3>Multi-Agent System ≠ Multiple LLM Calls</h3>
-<p>
-<b>Multi-agent system:</b> coordinates distinct roles or agents.</p>
-<p>
-<b>Multiple LLM calls:</b> may simply be a sequence without agent interaction.</p>
-</div>
-<div class="misconception-card">
-<h3>More Agents ≠ Better Performance</h3>
-<p>
-<b>More agents:</b> can add coordination cost, errors, and latency.</p>
-<p>
-<b>Better performance:</b> depends on task fit, communication, and evaluation.</p>
-</div>
-</div>
-</article>
-<article id="related" class="card wide topic-related">
-<h2>Related concepts</h2>
-<div class="concept-tree">AI Agent → Agent Loop<br>Multi-Agent Systems → multiple agent loops / roles interacting</div>
-<p class="muted">Also related</p>
-<div class="chips">
-<a class="chip" href="ai-agent.html">AI Agent</a>
-<a class="chip" href="agent-loop.html">Agent Loop</a>
-<a class="chip" href="tool-calling.html">Tool Calling</a>
-<a class="chip" href="planning.html">Planning</a>
-<a class="chip" href="memory-state.html">Memory &amp; State</a>
-<span class="chip unavailable">Human in the Loop <em class="status status-new">Coming soon</em></span>
-</div>
-</article>
-<article id="remember" class="card wide topic-takeaway">
-<h2>Remember this</h2>
-<p class="note">A multi-agent system coordinates multiple agents rather than relying on one agent to do everything.</p>
-</article>
-<article id="video" class="card wide video-card">
-<div class="video-label">
-<div>
-<div class="eyebrow">Video</div>
-<h2>Video</h2>
-</div>
-<small>暂无视频</small>
-</div>
-<p class="video-caption">A video explainer is not available yet.</p>
-</article>
-</section>
-</main>
-<a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="agents-agent-systems.html">← Module 08 · Agents &amp; Agent Systems</a>
+    <div class="eyebrow">Module 08 · Agents &amp; Agent Systems · New Topic</div>
+    <h1>What are Multi-Agent Systems?</h1>
+    <p class="lede">A multi-agent system is a team of specialized agents that coordinate to complete a larger task.</p>
+    <div class="mas-context" aria-label="Module links"><span>NEW TOPIC</span><a href="agents-agent-systems.html">Overview</a><a href="agents-agent-systems-glossary.html">Glossary</a><a href="ai-agent.html">AI Agent</a><a href="agent-loop.html">Agent Loop</a></div>
+    <nav class="on-page" aria-label="On this page"><b>On this page</b><a href="#definition">What is it?</a><a href="#architecture">Architecture</a><a href="#comparison">Single vs Multi</a><a href="#roles">Key concepts</a><a href="#example">Industry report example</a><a href="#tradeoffs">Trade-offs</a><a href="#decision">When to use</a><a href="#remember">Remember</a></nav>
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition"><h2>What is it?</h2><p class="definition">A multi-agent system divides a goal across multiple agents, each with a role, and coordinates their work into one outcome.</p><p class="muted">One agent may research, another may write code, another may analyze data, and another may review the result. A manager or orchestration layer decides what happens next and what information is passed between them.</p><div class="mas-pm-note"><b>Product Manager lens:</b> think in terms of ownership, handoffs, dependencies, approvals, and measurable output quality—not simply “more AI.”</div></article>
+      <article id="architecture" class="card wide"><h2>Architecture: a manager and specialist agents</h2><p class="muted">A common design gives one manager agent responsibility for the overall objective while specialist agents own parts of the work.</p><div class="mas-map" role="img" aria-label="Manager Agent connected to Research, Coding, Data, and Review Agents"><div class="mas-node mas-manager"><b>Manager Agent</b><small>Breaks down the goal · delegates · checks progress · assembles the result</small></div><div class="mas-team"><div class="mas-node mas-agent"><b>Research Agent</b><small>Finds and summarizes evidence</small></div><div class="mas-node mas-agent"><b>Coding Agent</b><small>Builds or changes software</small></div><div class="mas-node mas-agent"><b>Data Agent</b><small>Queries and analyzes data</small></div><div class="mas-node mas-agent"><b>Review Agent</b><small>Checks quality, risk, and requirements</small></div></div></div></article>
+      <article id="comparison" class="card wide topic-comparison"><h2>Single Agent vs Multi-Agent System</h2><div class="mas-compare"><div><h3>Single Agent</h3><p>One decision-maker plans, uses tools, and completes the task. This is often simpler, faster, and easier to debug.</p></div><div><h3>Multi-Agent System</h3><p>Several role-specific decision-makers collaborate. This can improve separation of concerns, parallel work, and review—but adds coordination work.</p></div></div><p class="mas-pm-note"><b>Rule of thumb:</b> start with one capable agent. Add roles only when a clear boundary, parallel path, expertise gap, or independent review justifies the complexity.</p></article>
+      <article id="roles" class="card wide"><h2>Key concepts</h2><div class="mas-terms"><div class="mas-term"><b>Agent Role</b><p>The responsibility and scope assigned to an agent.</p></div><div class="mas-term"><b>Agent Handoff</b><p>Passing a task, result, or responsibility to another agent.</p></div><div class="mas-term"><b>Agent Communication</b><p>Messages, artifacts, events, or state exchanged between agents.</p></div><div class="mas-term"><b>Agent Coordination</b><p>Managing dependencies, ordering, conflicts, and shared progress.</p></div><div class="mas-term"><b>Agent Orchestration</b><p>The control logic that routes work and decides what runs next.</p></div><div class="mas-term"><b>Shared Memory</b><p>Common state or knowledge that agents can read and update.</p></div><div class="mas-term"><b>Task Delegation</b><p>Assigning a well-defined subtask to the agent best suited for it.</p></div></div></article>
+      <article id="example" class="card wide topic-example"><h2>Example: making an industry report</h2><p class="sample-lede">The manager owns the report outcome. Specialists own the evidence and quality of each step.</p><div class="mas-flow" aria-label="Industry report multi-agent workflow"><div class="mas-flow-step"><b>01 · MANAGER</b><span>Defines the question, scope, format, and deadline.</span></div><div class="mas-arrow">→</div><div class="mas-flow-step"><b>02 · RESEARCH</b><span>Searches sources and returns cited findings.</span></div><div class="mas-arrow">→</div><div class="mas-flow-step"><b>03 · DATA</b><span>Analyzes market data and highlights patterns.</span></div><div class="mas-arrow">→</div><div class="mas-flow-step"><b>04 · WRITER</b><span>Turns evidence into a clear report draft.</span></div><div class="mas-arrow">→</div><div class="mas-flow-step"><b>05 · REVIEW</b><span>Checks accuracy, gaps, and unsupported claims.</span></div><div class="mas-arrow">→</div><div class="mas-flow-step"><b>06 · MANAGER</b><span>Resolves feedback and delivers the final report.</span></div></div><div class="mas-pm-note"><b>Important:</b> the writing step is a Writer Agent. The same principle applies to a Coding Agent or another specialist: give each role a clear input, output, and acceptance check.</div></article>
+      <article id="tradeoffs" class="card wide"><h2>More agents create more system cost</h2><p class="muted">Multi-agent is not automatically better. Each new agent introduces another boundary where context can be lost and work can fail.</p><div class="mas-costs"><div class="mas-cost"><b>Cost</b><span>More model calls and infrastructure</span></div><div class="mas-cost"><b>Latency</b><span>More steps before a result</span></div><div class="mas-cost"><b>Context</b><span>More state to pass and maintain</span></div><div class="mas-cost"><b>Coordination</b><span>More routing and synchronization</span></div><div class="mas-cost"><b>Error propagation</b><span>One bad handoff can affect later work</span></div></div></article>
+      <article id="decision" class="card wide"><h2>When is one agent enough?</h2><div class="mas-decision"><div><h3>Use one agent when...</h3><ul><li>the task follows one coherent loop</li><li>the same context is needed throughout</li><li>latency and operating cost matter</li><li>one review step is enough</li></ul></div><div><h3>Consider multiple agents when...</h3><ul><li>work has independent parallel branches</li><li>roles need different tools or permissions</li><li>specialized expertise improves quality</li><li>an independent reviewer reduces risk</li></ul></div></div></article>
+      <article id="remember" class="card wide topic-takeaway"><h2>Remember this</h2><p class="note mas-takeaway">Single Agent = one person completing the whole job. Multi-Agent System = a project team with different responsibilities. The best product decision is the simplest architecture that reliably achieves the outcome.</p></article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
 </body>
 </html>

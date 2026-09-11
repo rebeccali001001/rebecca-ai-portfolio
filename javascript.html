@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JavaScript · Frontend &amp; Browser</title>
+  <meta name="description" content="A beginner-friendly explanation of JavaScript, the language commonly used to add behavior and interaction to web pages.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .standard-topic .grid>article{order:initial!important}
+    .js-definition{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.8fr);gap:22px;align-items:center}
+    .js-definition-visual{display:grid;place-items:center;min-height:185px;padding:24px;border:1px solid #38516d;border-radius:18px;background:radial-gradient(circle at 50% 42%,rgba(120,229,189,.15),transparent 45%),#07111a}
+    .js-badge{display:grid;place-items:center;width:106px;height:106px;border:2px solid var(--green);border-radius:20px;background:linear-gradient(145deg,#173348,#0d202d);box-shadow:0 0 32px rgba(120,229,189,.14);color:#fff;font:850 42px/1 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .js-badge small{display:block;margin-top:7px;color:var(--green);font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .language-flow,.runtime-flow{display:grid;align-items:stretch;gap:10px;margin-top:20px}
+    .language-flow{grid-template-columns:1fr 42px 1fr 42px 1fr}
+    .language-flow>div:not(.flow-arrow),.runtime-flow>div:not(.flow-arrow){display:flex;align-items:center;justify-content:center;min-height:86px;padding:16px;border:1px solid #38516d;border-radius:15px;background:#07111a;text-align:center;font-weight:800;color:#fff}
+    .language-flow>div:nth-child(5),.runtime-flow>div:last-child{border-color:var(--green);background:rgba(120,229,189,.09)}
+    .flow-arrow{color:var(--green);font-size:24px;text-align:center}
+    .js-capability-grid,.js-usage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .js-capability-grid>div,.js-usage-grid>div{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .js-capability-grid b,.js-usage-grid b{display:block;color:#fff;font-size:16px}
+    .js-code-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);gap:18px;align-items:start;margin-top:18px}
+    .js-code{margin:0;padding:20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .js-explanation{display:grid;gap:10px}.js-explanation div{padding:13px 15px;border-left:3px solid var(--blue);background:#07111a;color:var(--muted)}.js-explanation b{color:#fff}
+    .runtime-flow{grid-template-columns:repeat(13,minmax(0,1fr))}.runtime-flow>div:not(.flow-arrow){min-height:78px;padding:12px 8px;font-size:14px}.runtime-flow .flow-arrow{font-size:20px}
+    .js-confusion-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.js-confusion-grid>div{padding:18px;border:1px solid #38516d;border-radius:15px;background:#07111a}.js-confusion-grid h3{margin:0 0 6px;color:var(--green)}.js-confusion-grid p{margin:0;color:var(--muted)}
+    .glossary-wrap{overflow-x:auto;margin-top:18px;border:1px solid #38516d;border-radius:14px}.glossary{width:100%;min-width:820px;border-collapse:collapse;background:#07111a;font-size:14px}.glossary th,.glossary td{padding:12px 14px;border:1px solid #38516d;vertical-align:top;text-align:left}.glossary th{color:var(--green);background:#07111a;font-size:12px;letter-spacing:.06em;text-transform:uppercase}.glossary td{color:var(--muted)}.glossary td:first-child{color:#fff;font-weight:800}
+    .js-final-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;margin-top:20px;color:var(--green);font-size:20px;font-weight:850}.js-final-flow span{padding:12px 18px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#fff;font-size:16px}
+    .topic-pager{display:flex;align-items:stretch;gap:10px;margin:28px 0 4px}.topic-pager a{flex:1;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.72);color:var(--muted);font-size:13px}.topic-pager a:hover{border-color:var(--green);color:#fff}.topic-pager a:last-child{text-align:right}.topic-pager small{display:block;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}.topic-pager span{display:block;font-weight:750}
+    @media(max-width:900px){.runtime-flow{grid-template-columns:repeat(5,minmax(0,1fr))}.runtime-flow .flow-arrow{display:none}.runtime-flow>div:not(.flow-arrow)::after{content:'↓';display:block;margin-left:6px;color:var(--green)}}
+    @media(max-width:760px){.js-definition,.language-flow,.runtime-flow,.js-code-layout,.js-confusion-grid,.js-capability-grid,.js-usage-grid{grid-template-columns:1fr}.language-flow .flow-arrow,.runtime-flow .flow-arrow{display:block;font-size:0}.language-flow .flow-arrow::after,.runtime-flow .flow-arrow::after{content:'↓';font-size:24px}.runtime-flow>div:not(.flow-arrow)::after{display:none}.js-final-flow{flex-direction:column}.topic-pager{display:grid;grid-template-columns:1fr}.topic-pager a:last-child{text-align:left}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>JavaScript</h1>
+    <p class="lede">The language commonly used to add behavior and interaction to web pages.</p>
+
+    <nav class="topic-pager" aria-label="Topic navigation">
+      <a href="css.html"><small>Previous</small><span>CSS</span></a>
+      <a href="dom.html"><small>Next</small><span>DOM →</span></a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide js-definition topic-definition">
+        <div>
+          <h2>01 · What is it?</h2>
+          <p class="definition">JavaScript is a programming language commonly used in browsers.</p>
+          <p class="muted">It makes web pages respond to user actions and communicate with other systems.</p>
+          <p class="note"><strong>Simple Definition:</strong> JavaScript makes web pages do things.</p>
+        </div>
+        <div class="js-definition-visual" aria-label="JavaScript adds behavior to a web page"><div class="js-badge">JS<small>behavior</small></div></div>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">HTML creates the structure.</p>
+        <p class="definition">CSS controls the appearance.</p>
+        <p class="definition">JavaScript controls the behavior.</p>
+        <div class="language-flow" aria-label="HTML structure, CSS style, JavaScript behavior"><div>HTML<br><small>Structure</small></div><div class="flow-arrow" aria-hidden="true">→</div><div>CSS<br><small>Style</small></div><div class="flow-arrow" aria-hidden="true">→</div><div>JavaScript<br><small>Behavior</small></div></div>
+      </article>
+
+      <article id="does" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">JavaScript can:</p>
+        <div class="js-capability-grid"><div><b>Detect Clicks</b></div><div><b>Read User Input</b></div><div><b>Change Page Content</b></div><div><b>Show or Hide Elements</b></div><div><b>Send API Requests</b></div><div><b>Process Responses</b></div></div>
+      </article>
+
+      <article id="used" class="card wide topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="definition">JavaScript commonly runs inside web browsers.</p>
+        <p class="muted">It is used in websites and web applications to create interactive behavior.</p>
+        <div class="js-usage-grid"><div><b>Websites</b></div><div><b>Web Applications</b></div><div><b>Interactive Interfaces</b></div></div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="js-code-layout">
+          <pre class="js-code"><code>button.addEventListener("click", () =&gt; {
+  menu.classList.toggle("open");
+});</code></pre>
+          <div class="js-explanation"><div><b>button</b><br>is the element being watched.</div><div><b>addEventListener</b><br>waits for an event.</div><div><b>"click"</b><br>is the event.</div><div><b>menu.classList.toggle("open")</b><br>adds or removes the "open" class.</div></div>
+        </div>
+        <div class="js-final-flow" aria-label="User click to page update flow"><span>User Click</span><b>→</b><span>JavaScript Event</span><b>→</b><span>Function Runs</span><b>→</b><span>Class Changes</span><b>→</b><span>Page Updates</span></div>
+      </article>
+
+      <article id="connects" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="runtime-flow" aria-label="HTML Button to JavaScript Event to API Request to Backend to Response to JavaScript to Page Update"><div>HTML Button</div><div class="flow-arrow" aria-hidden="true">→</div><div>JavaScript Event</div><div class="flow-arrow" aria-hidden="true">→</div><div>API Request</div><div class="flow-arrow" aria-hidden="true">→</div><div>Backend</div><div class="flow-arrow" aria-hidden="true">→</div><div>Response</div><div class="flow-arrow" aria-hidden="true">→</div><div>JavaScript</div><div class="flow-arrow" aria-hidden="true">→</div><div>Page Update</div></div>
+        <p class="note">JavaScript connects user interaction with frontend behavior and backend communication.</p>
+      </article>
+
+      <article id="confusion" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="js-confusion-grid"><div><h3>JavaScript</h3><p>A language commonly used for web interaction and browser behavior.</p></div><div><h3>Java</h3><p>A different programming language.</p></div></div>
+        <p class="note">The similar names do not mean they are the same language.</p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>A language used to add behavior to web pages.</td><td>用来给网页增加交互行为的编程语言。</td></tr>
+              <tr><td>Variable</td><td>变量</td><td>A named place used to store a value.</td><td>用一个名称保存数据的方式。</td></tr>
+              <tr><td>Function</td><td>函数</td><td>A reusable block of code that performs a task.</td><td>封装某项操作、可以重复执行的一段代码。</td></tr>
+              <tr><td>Event</td><td>事件</td><td>An action that software can detect.</td><td>软件可以检测到的操作，例如点击或输入。</td></tr>
+              <tr><td>Event Listener</td><td>事件监听</td><td>Code that waits for an event and runs an action.</td><td>等待某个事件发生并执行代码的机制。</td></tr>
+              <tr><td>DOM</td><td>文档对象模型</td><td>The browser's object representation of a page.</td><td>浏览器把网页转换成可被 JavaScript 操作的对象结构。</td></tr>
+              <tr><td>Element</td><td>元素</td><td>A part of a web page that JavaScript can access.</td><td>JavaScript 可以读取或修改的页面元素。</td></tr>
+              <tr><td>Class</td><td>Class 类名</td><td>A name that can be added or removed from an element.</td><td>可以添加到页面元素上并用于控制样式或状态的名称。</td></tr>
+              <tr><td>API Request</td><td>API 请求</td><td>A request JavaScript sends to another service.</td><td>JavaScript 向其他服务发送的数据或操作请求。</td></tr>
+              <tr><td>Response</td><td>响应</td><td>Data returned after an API request.</td><td>API 请求处理完成后返回的数据。</td></tr>
+              <tr><td>JSON</td><td>JSON 数据格式</td><td>A common format used to exchange structured data.</td><td>软件系统交换结构化数据时常用的格式。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">JavaScript adds behavior to web pages.</p>
+        <p class="note">It responds to user actions.</p>
+        <p class="note">It can change the page and communicate with APIs.</p>
+        <div class="js-final-flow" aria-label="User action to JavaScript to software action to page update"><span>User Action</span><b>→</b><span>JavaScript</span><b>→</b><span>Software Action</span><b>→</b><span>Page Update</span></div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

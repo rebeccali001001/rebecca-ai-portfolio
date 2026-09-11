@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Table · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of database tables, rows, columns, keys, and relationships.">
+  <link rel="stylesheet" href="topic.css?v=20260910-table">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .table-page .hero { padding-bottom: 28px; }
+    .table-page .hero h1 { margin-bottom: 14px; }
+    .table-page .definition { max-width: 900px; padding: 18px 20px; border-left: 3px solid var(--green); border-radius: 0 12px 12px 0; background: rgba(120,229,189,.08); font-size: 24px; color: #fff; }
+    .table-page .detail-section > p { max-width: 900px; }
+    .table-page .analogy-box { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .table-page .concept-card, .table-page .use-card, .table-page .confusion-card { min-width: 0; padding: 17px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .table-page .concept-card strong, .table-page .use-card strong { display: block; margin-bottom: 6px; color: var(--green); }
+    .table-page .concept-card p, .table-page .use-card p, .table-page .confusion-card p { margin: 0; color: var(--muted); }
+    .table-page .structure-grid, .table-page .use-grid, .table-page .confusion-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .table-page .structure-card { min-width: 0; padding: 17px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .table-page .structure-card h3, .table-page .confusion-card h3 { margin: 0 0 7px; color: #fff; font-size: 18px; }
+    .table-page .structure-card p { margin: 0; color: var(--muted); }
+    .table-page .use-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .table-page .use-card strong { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .table-page .table-wrap, .table-page .code-wrap { max-width: 100%; margin-top: 20px; overflow-x: auto; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .table-page table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .table-page th, .table-page td { padding: 12px 14px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }
+    .table-page th { color: var(--green); background: #102335; font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .table-page td { color: var(--muted); }
+    .table-page td:first-child { color: #fff; font-weight: 800; }
+    .table-page caption { padding: 13px 14px; color: #fff; text-align: left; font-weight: 800; }
+    .table-page .table-note { margin-top: 14px; color: var(--muted); }
+    .table-page .table-note code, .table-page code { color: #fff; }
+    .table-page pre { margin: 0; padding: 18px; color: #dce8f7; font: 500 14px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+    .table-page .example-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; margin-top: 20px; }
+    .table-page .example-panel { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .table-page .example-panel p { margin: 0; color: var(--muted); }
+    .table-page .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin-top: 20px; }
+    .table-page .flow-node { display: grid; place-items: center; flex: 1 1 112px; min-width: 0; min-height: 66px; padding: 12px 10px; border: 1px solid #38516d; border-radius: 12px; background: #07111a; color: #fff; font-weight: 800; text-align: center; overflow-wrap: anywhere; }
+    .table-page .flow-node.accent { border-color: var(--green); background: rgba(120,229,189,.09); }
+    .table-page .flow-arrow { display: grid; place-items: center; flex: 0 0 22px; color: var(--green); font-size: 22px; }
+    .table-page .confusion-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .table-page .confusion-card h3 { color: var(--green); }
+    .table-page .glossary-wrap { max-width: 100%; overflow-x: auto; }
+    .table-page .glossary { font-size: 14px; }
+    .table-page .glossary th, .table-page .glossary td { border: 1px solid #38516d; }
+    .table-page .glossary th:nth-child(1), .table-page .glossary td:nth-child(1) { width: 18%; }
+    .table-page .glossary th:nth-child(2), .table-page .glossary td:nth-child(2) { width: 14%; }
+    .table-page .glossary th:nth-child(3), .table-page .glossary td:nth-child(3) { width: 32%; }
+    .table-page .glossary th:nth-child(4), .table-page .glossary td:nth-child(4) { width: 36%; }
+    .table-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .table-page .remember p { margin: 8px 0; color: #fff; font-size: 19px; }
+    .table-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding: 20px 0 30px; border-top: 1px solid rgba(255,255,255,.1); }
+    .table-page .prevnext a { min-width: 170px; color: var(--muted); }
+    .table-page .prevnext a:last-child { text-align: right; }
+    .table-page .prevnext a:hover { color: #fff; }
+    .table-page .prevnext small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .table-page .prevnext strong { color: var(--green); }
+    @media (max-width: 1000px) {
+      .table-page .use-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .table-page .flow { gap: 7px; }
+    }
+    @media (max-width: 760px) {
+      .table-page .detail-section { padding: 21px; }
+      .table-page .definition { font-size: 21px; }
+      .table-page .analogy-box, .table-page .structure-grid, .table-page .use-grid, .table-page .confusion-grid, .table-page .example-grid { grid-template-columns: 1fr; }
+      .table-page .flow { flex-direction: column; gap: 6px; }
+      .table-page .flow-node { width: 100%; flex-basis: auto; }
+      .table-page .flow-arrow { min-height: 20px; flex-basis: 20px; font-size: 0; }
+      .table-page .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .table-page th, .table-page td { padding: 10px 9px; font-size: 12px; }
+      .table-page .glossary th, .table-page .glossary td { font-size: 11px; }
+      .table-page pre { font-size: 12px; }
+      .table-page .prevnext { flex-direction: column; }
+      .table-page .prevnext a:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory table-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Table</h1>
+      <p class="lede">A table is a structured collection of related records organized into rows and columns.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A table is a structured collection of related records organized into rows and columns.</p>
+        <p>A table usually represents one entity or one category of related data. For example, a <code>users</code> table stores users, and an <code>orders</code> table stores orders.</p>
+        <p class="note"><strong>Simple idea:</strong> one table keeps one kind of record in a predictable shape.</p>
+      </section>
+
+      <section id="think-of-it" class="card wide detail-section topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p>Think of a spreadsheet tab made for one kind of thing. The column headings name the details, and each horizontal line holds one complete record.</p>
+        <div class="analogy-box" aria-label="The four parts of a database table">
+          <div class="concept-card"><strong>Table</strong><p>The whole organized set of related records.</p></div>
+          <div class="concept-card"><strong>Row</strong><p>One complete record, such as one user.</p></div>
+          <div class="concept-card"><strong>Column</strong><p>One named kind of information, such as email.</p></div>
+          <div class="concept-card"><strong>Field value</strong><p>The actual value at one row and one column.</p></div>
+        </div>
+        <p class="note">In a Users table, Rebecca is a field value in the <code>name</code> column of one row.</p>
+      </section>
+
+      <section id="what-does-it-do" class="card wide detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p>A database table defines how related records can be stored, checked, found, and connected.</p>
+        <div class="structure-grid">
+          <article class="structure-card"><h3>Columns</h3><p>Names describe what information each record can contain.</p></article>
+          <article class="structure-card"><h3>Data types</h3><p>Rules say whether a value is text, a number, a date, or another type.</p></article>
+          <article class="structure-card"><h3>Keys &amp; constraints</h3><p>Keys identify or connect records, while constraints protect data quality.</p></article>
+          <article class="structure-card"><h3>Relationships</h3><p>References can connect records in this table to records in another table.</p></article>
+        </div>
+      </section>
+
+      <section id="where-is-it-used" class="card wide detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p>Tables are used anywhere an application needs to manage many related records.</p>
+        <div class="use-grid">
+          <article class="use-card"><strong>Users</strong><p>One row for each account.</p></article>
+          <article class="use-card"><strong>Customers</strong><p>Contact details and preferences.</p></article>
+          <article class="use-card"><strong>Orders</strong><p>Purchases and their status.</p></article>
+          <article class="use-card"><strong>Products</strong><p>Names, prices, and stock details.</p></article>
+          <article class="use-card"><strong>Inventory</strong><p>Quantities available at each location.</p></article>
+        </div>
+      </section>
+
+      <section id="example" class="card wide detail-section topic-example">
+        <h2>05 · Example</h2>
+        <p>Here is a real-looking <code>users</code> table. The header row names the columns. Each line below it is one row, or one user record.</p>
+        <div class="table-wrap">
+          <table aria-label="Users table with id, name, email, and created date">
+            <caption>Users</caption>
+            <thead><tr><th>id</th><th>name</th><th>email</th><th>created_at</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Rebecca</td><td>rebecca@example.com</td><td>2026-09-10</td></tr>
+              <tr><td>2</td><td>Alex</td><td>alex@example.com</td><td>2026-09-10</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note"><strong>Read one cell:</strong> in the first row, <code>Rebecca</code> is the field value for the <code>name</code> column. The full row describes one user.</p>
+        <div class="example-grid">
+          <div class="example-panel"><pre><code>CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  created_at DATE NOT NULL
+);</code></pre></div>
+          <div class="example-panel"><p>This SQL defines the table’s columns, data types, primary key, and constraints. The stored rows then follow that shape.</p></div>
+        </div>
+      </section>
+
+      <section id="how-it-connects" class="card wide detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="Database to table to row and column to schema to primary key to foreign key to SQL">
+          <div class="flow-node">Database</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node accent">Table</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node">Row + Column</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node">Schema</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node">Primary Key</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node">Foreign Key</div><b class="flow-arrow" aria-hidden="true">→</b>
+          <div class="flow-node">SQL</div>
+        </div>
+        <p class="note">The database contains tables. A table contains rows and columns. Its schema defines the rules, keys connect the data, and SQL is used to work with it.</p>
+      </section>
+
+      <section id="do-not-confuse" class="card wide detail-section topic-related">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <article class="confusion-card"><h3>Table vs Database</h3><p>A database can contain many tables. A table is one organized data structure inside it.</p></article>
+          <article class="confusion-card"><h3>Table vs Schema</h3><p>A table stores records. A schema describes the table’s columns, types, keys, and rules.</p></article>
+          <article class="confusion-card"><h3>Table vs Row</h3><p>A table is the collection. A row is one complete record in that collection.</p></article>
+          <article class="confusion-card"><h3>Table vs Spreadsheet</h3><p>They look similar, but a database table has database rules, keys, constraints, and relationships.</p></article>
+        </div>
+      </section>
+
+      <section id="glossary" class="card wide detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Table</td><td>数据表</td><td>A structured collection of related records.</td><td>把同一类数据按行和列组织起来的结构。</td></tr>
+              <tr><td>Database</td><td>数据库</td><td>A system that stores and manages related data.</td><td>用来保存和管理相关数据的系统。</td></tr>
+              <tr><td>Row</td><td>行</td><td>One complete record in a table.</td><td>表中代表一个对象或事件的一整条记录。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One named type of information in every row.</td><td>每一行都按照同一种信息类别保存数据。</td></tr>
+              <tr><td>Field value</td><td>字段值</td><td>The actual value stored at one row and column.</td><td>某一行某一列里真正保存的内容。</td></tr>
+              <tr><td>Schema</td><td>模式 / 结构</td><td>The blueprint for a table’s columns and rules.</td><td>规定表有哪些列、数据类型和规则的蓝图。</td></tr>
+              <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a row.</td><td>用来唯一标识一行数据的值。</td></tr>
+              <tr><td>Foreign Key</td><td>外键</td><td>A value that points to a row in another table.</td><td>指向另一张表中某一行的值，用来建立连接。</td></tr>
+              <tr><td>Constraint</td><td>约束</td><td>A rule that controls which data is allowed.</td><td>规定什么数据可以被保存的规则。</td></tr>
+              <tr><td>Relationship</td><td>关系</td><td>A connection between related records or tables.</td><td>相关记录或数据表之间的关联。</td></tr>
+              <tr><td>SQL</td><td>结构化查询语言</td><td>A language used to work with relational data.</td><td>用来查询和修改关系型数据库数据的语言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="what-to-remember" class="card wide detail-section remember topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p>A table represents one entity or category of related data.</p>
+        <p>Rows are records, columns describe the records, and each cell holds a field value.</p>
+        <p>A table’s schema, keys, constraints, and relationships help keep data useful and connected.</p>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Table topic navigation">
+      <a href="mysql.html"><small>Previous</small><br><strong>MySQL</strong></a>
+      <a href="row.html"><small>Next</small><br><strong>Row</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

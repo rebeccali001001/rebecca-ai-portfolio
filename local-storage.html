@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Local Storage · Frontend &amp; Browser</title>
+  <meta name="description" content="A beginner-friendly explanation of Local Storage in the browser.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .storage-flow,.connection-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:22px;border:1px solid #38516d;border-radius:16px;background:#07111a}
+    .storage-flow div,.connection-flow div{padding:14px 17px;border:1px solid #38516d;border-radius:12px;background:#0b1723;text-align:center;font-weight:800}
+    .storage-flow .accent,.connection-flow .accent{border-color:rgba(120,229,189,.7);background:rgba(120,229,189,.1)}
+    .flow-arrow{color:var(--green);font-size:23px;font-weight:800}
+    .storage-cards,.usage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .storage-card,.usage-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .storage-card h3,.usage-card h3{margin:0 0 8px;color:#fff;font-size:17px}
+    .storage-card p,.usage-card p{margin:0;color:var(--muted)}
+    .usage-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .usage-card{padding:15px;text-align:center;color:#dbe7f4;font-weight:700}
+    pre{margin:18px 0 16px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#050b12;color:#dbe7f4;font:500 15px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    code{color:#b9f3dd}
+    .code-explanation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .code-explanation div{padding:14px;border:1px solid #38516d;border-radius:12px;background:#07111a}
+    .code-explanation b{display:block;color:var(--green);margin-bottom:5px}
+    .code-explanation span{display:block;color:var(--muted);font-size:14px}
+    .side-note{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:var(--muted);background:rgba(7,17,26,.55)}
+    .comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .comparison-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .comparison-grid h3{margin:0 0 8px;color:#fff}
+    .comparison-grid p{margin:6px 0;color:var(--muted)}
+    .comparison-grid p:first-of-type{color:#fff;font-weight:700}
+    .glossary-wrap{overflow:auto}
+    .glossary{width:100%;min-width:760px;border-collapse:collapse;font-size:13px}
+    .glossary th,.glossary td{padding:11px 12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .glossary th{color:var(--green);font-size:11px;letter-spacing:.06em}
+    .glossary td{color:var(--muted)}
+    .glossary td:first-child{color:#fff;font-weight:700}
+    .topic-pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0 0}
+    .topic-pager a{display:flex;flex-direction:column;gap:3px;padding:15px 17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .topic-pager a:last-child{text-align:right}
+    .topic-pager small{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .topic-pager span{color:#fff;font-weight:750}
+    .sidebar-topic-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0 5px;padding-top:13px;border-top:1px solid rgba(255,255,255,.12)}
+    .sidebar-topic-nav a{padding:8px 9px;border:1px solid #29415a;border-radius:10px;color:var(--muted);font-size:11px;line-height:1.35}
+    .sidebar-topic-nav a:last-child{text-align:right}
+    .sidebar-topic-nav small{display:block;color:var(--green);font-size:9px;text-transform:uppercase;letter-spacing:.06em}
+    @media(max-width:900px){.usage-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.code-explanation{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.storage-flow,.connection-flow{display:grid}.flow-arrow{transform:rotate(90deg)}.storage-cards,.usage-grid,.comparison-grid,.code-explanation{grid-template-columns:1fr}.topic-pager{grid-template-columns:1fr}.topic-pager a:last-child{text-align:left}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Local Storage</h1>
+    <p class="lede">Browser storage used to keep small amounts of data on a user's device.</p>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Local Storage is a browser feature that allows a web application to save data on the user's device.</p>
+        <p class="muted">The data can remain available after the browser tab or window is closed.</p>
+        <p class="note"><b>Simple Definition:</b> Local Storage saves small pieces of data in the browser.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">Think of Local Storage as a small drawer inside the browser.</p>
+          <p class="muted">A web application can place information in the drawer and read it again later.</p>
+          <div class="storage-flow" aria-label="Web App to Save Data to Browser Storage to Read Later">
+            <div class="accent">Web App</div><span class="flow-arrow">→</span><div>Save Data</div><span class="flow-arrow">→</span><div class="accent">Browser Storage</div><span class="flow-arrow">→</span><div>Read Later</div>
+          </div>
+        </div>
+      </article>
+
+      <article id="uses" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">Local Storage can save:</p>
+        <div class="storage-cards">
+          <div class="storage-card"><h3>User Preferences</h3><p>Remember a person's choices in the browser.</p></div>
+          <div class="storage-card"><h3>Theme Settings</h3><p>Keep a light or dark theme between visits.</p></div>
+          <div class="storage-card"><h3>Simple Draft Data</h3><p>Keep small unfinished pieces of work.</p></div>
+          <div class="storage-card"><h3>Recently Viewed Items</h3><p>Remember which items a user opened recently.</p></div>
+          <div class="storage-card"><h3>Small UI Settings</h3><p>Preserve simple interface choices.</p></div>
+        </div>
+      </article>
+
+      <article id="where" class="card wide topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">Local Storage is commonly used for browser-side data that does not need to be stored on the server.</p>
+        <div class="usage-grid">
+          <div class="usage-card">Dark Mode</div>
+          <div class="usage-card">Language Preference</div>
+          <div class="usage-card">Collapsed Menu State</div>
+          <div class="usage-card">Draft Text</div>
+          <div class="usage-card">Recent Search</div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre><code>localStorage.setItem("theme", "dark");
+
+const theme = localStorage.getItem("theme");</code></pre>
+        <div class="code-explanation">
+          <div><b>setItem()</b><span>saves a value.</span></div>
+          <div><b>getItem()</b><span>reads a saved value.</span></div>
+          <div><b>"theme"</b><span>is the key.</span></div>
+          <div><b>"dark"</b><span>is the value.</span></div>
+        </div>
+      </article>
+
+      <article id="connection" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="JavaScript to Local Storage to Browser to JavaScript">
+          <div class="accent">JavaScript</div><span class="flow-arrow">→</span><div class="accent">Local Storage</div><span class="flow-arrow">→</span><div>Browser</div><span class="flow-arrow">→</span><div class="accent">JavaScript</div>
+        </div>
+        <p class="side-note"><b>JavaScript can save and read Local Storage directly in the browser.</b> No backend request is required for this basic operation.</p>
+      </article>
+
+      <article id="not" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <div><h3>Local Storage</h3><p>Small browser-side storage for one user's browser.</p></div>
+          <div><h3>Database</h3><p>Server-side or system-level storage used by applications.</p></div>
+        </div>
+        <p class="note"><b>Local Storage = Browser</b><br><b>Database = Application Data System</b></p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Local Storage</td><td>本地存储</td><td>Browser storage used to save small amounts of data.</td><td>浏览器在用户设备上保存少量数据的机制。</td></tr>
+              <tr><td>Browser Storage</td><td>浏览器存储</td><td>Storage features provided by the browser.</td><td>浏览器提供的本地数据保存能力。</td></tr>
+              <tr><td>Key</td><td>键</td><td>A name used to identify a stored value.</td><td>用来找到某个已保存数据的名称。</td></tr>
+              <tr><td>Value</td><td>值</td><td>The data stored under a key.</td><td>某个 Key 对应保存的实际数据。</td></tr>
+              <tr><td>setItem()</td><td>保存数据</td><td>A method used to save a value in Local Storage.</td><td>用来向 Local Storage 保存数据的方法。</td></tr>
+              <tr><td>getItem()</td><td>读取数据</td><td>A method used to read a stored value.</td><td>用来读取 Local Storage 数据的方法。</td></tr>
+              <tr><td>removeItem()</td><td>删除数据</td><td>A method used to remove one stored value.</td><td>用来删除某个 Local Storage 数据的方法。</td></tr>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>The language commonly used to access Local Storage.</td><td>常用来读取和修改 Local Storage 的语言。</td></tr>
+              <tr><td>Preference</td><td>用户偏好</td><td>A user setting such as theme or language.</td><td>用户对主题、语言等功能的个人设置。</td></tr>
+              <tr><td>Database</td><td>数据库</td><td>A system used to store application data.</td><td>用来保存和管理应用数据的系统。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">Local Storage saves data inside the browser.<br>JavaScript can read and write Local Storage.<br>It is useful for small browser-side settings and simple data.</p>
+        <div class="concept-tree">JavaScript
+→ Local Storage
+→ Browser Data</div>
+      </article>
+    </section>
+
+    <nav class="topic-pager" aria-label="Frontend and Browser topics">
+      <a href="responsive-design.html"><small>Previous</small><span>← Responsive Design</span></a>
+      <a href="cookie.html"><small>Next</small><span>Cookie →</span></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Module 07 · System Architecture</title>
+  <meta name="description" content="An overview of system architecture concepts and how software components fit together.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .module-seven-page .module-hero { max-width: 820px; }
+    .module-seven-page .architecture-flow { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+    .module-seven-page .architecture-flow span { padding: 14px 16px; border: 1px solid #38516d; border-radius: 12px; background: #07111a; color: #fff; font-weight: 800; text-align: center; }
+    .module-seven-page .architecture-flow b { color: var(--green); font-size: 22px; }
+    .module-seven-page .topic-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .module-seven-page .topic-list a { display: grid; gap: 6px; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .module-seven-page .topic-list a:hover { border-color: var(--green); }
+    .module-seven-page .topic-list b { color: #fff; }
+    .module-seven-page .topic-list span { color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .module-seven-page .topic-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .module-seven-page .topic-list { grid-template-columns: 1fr; }
+      .module-seven-page .architecture-flow { flex-direction: column; }
+      .module-seven-page .architecture-flow b { transform: rotate(90deg); }
+      .module-seven-page .architecture-flow span { width: min(100%, 420px); }
+    }
+  </style>
+</head>
+<body id="top" class="overview-page has-site-directory module-seven-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="overview-page">
+    <div class="wrap">
+      <header class="module-hero">
+        <a class="back" href="module-06.html">← Module 06 · Authentication &amp; Security</a>
+        <div class="eyebrow">MODULE 07 · SOFTWARE KNOWLEDGE</div>
+        <h1>System Architecture</h1>
+        <p class="lede">System architecture explains how software components are arranged, connected, and operated as one system.</p>
+      </header>
+      <section class="grid">
+        <article id="architecture" class="card wide">
+          <h2>How the module connects</h2>
+          <p class="definition">Architecture turns individual components into a system with clear paths for requests, data, events, and failures.</p>
+          <div class="architecture-flow" aria-label="Client to services to data and infrastructure flow"><span>Client</span><b aria-hidden="true">→</b><span>Services</span><b aria-hidden="true">→</b><span>Data and Events</span><b aria-hidden="true">→</b><span>Infrastructure</span></div>
+        </article>
+        <article class="card wide">
+          <h2>Module 07 Topics</h2>
+          <div class="topic-list">
+            <a href="architecture.html"><b>Architecture</b><span>Organize components and their boundaries.</span><em>Open topic →</em></a>
+            <a href="component.html"><b>Component</b><span>Give one part of a system a clear responsibility.</span><em>Open topic →</em></a>
+            <a href="service.html"><b>Service</b><span>Provide a focused capability through an interface.</span><em>Open topic →</em></a>
+            <a href="monolith.html"><b>Monolith</b><span>Deploy a system as one main application unit.</span><em>Open topic →</em></a>
+            <a href="microservices.html"><b>Microservices</b><span>Split capabilities into independently operated services.</span><em>Open topic →</em></a>
+            <a href="api-gateway.html"><b>API Gateway</b><span>Route API requests and apply shared controls at the system boundary.</span><em>Open topic →</em></a>
+            <a href="load-balancer.html"><b>Load Balancer</b><span>Distribute traffic across healthy service instances.</span><em>Open topic →</em></a>
+            <a href="redis.html"><b>Redis</b><span>Keep fast-changing state close to the application.</span><em>Open topic →</em></a>
+            <a href="message-queue.html"><b>Message Queue</b><span>Hold messages so producers and consumers can work asynchronously.</span><em>Open topic →</em></a>
+            <a href="event.html"><b>Event</b><span>Represent something that happened and may trigger a response.</span><em>Open topic →</em></a>
+            <a href="event-driven.html"><b>Event-driven</b><span>Organize behavior around events instead of direct calls.</span><em>Open topic →</em></a>
+            <a href="synchronous.html"><b>Synchronous</b><span>Wait for a result before continuing the current step.</span><em>Open topic →</em></a>
+            <a href="asynchronous.html"><b>Asynchronous</b><span>Let work continue without making the caller wait for completion.</span><em>Open topic →</em></a>
+            <a href="cdn.html"><b>CDN</b><span>Serve cached content from edge locations closer to users.</span><em>Open topic →</em></a>
+            <a href="scaling.html"><b>Scaling</b><span>Change system capacity to match demand.</span><em>Open topic →</em></a>
+            <a href="horizontal-scaling.html"><b>Horizontal Scaling</b><span>Add more instances or nodes to share work.</span><em>Open topic →</em></a>
+            <a href="vertical-scaling.html"><b>Vertical Scaling</b><span>Make one machine more powerful.</span><em>Open topic →</em></a>
+            <a href="fault-tolerance.html"><b>Fault Tolerance</b><span>Continue or degrade acceptably when components fail.</span><em>Open topic →</em></a>
+            <a href="high-availability.html"><b>High Availability</b><span>Minimize downtime with redundancy, health checks, failover, and multiple instances.</span><em>Open topic →</em></a>
+          </div>
+        </article>
+        <article class="card wide">
+          <h2>Start here</h2>
+          <p>Begin with <a class="glossary-link" href="synchronous.html">Synchronous</a> to see how a request waits for a result, then compare it with <a class="glossary-link" href="asynchronous.html">Asynchronous</a> processing.</p>
+          <p><a class="glossary-link" href="module-07-glossary.html">Open the Module 07 Glossary →</a></p>
+        </article>
+      </section>
+    </div>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

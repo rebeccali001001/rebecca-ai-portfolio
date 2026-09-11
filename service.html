@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service · 07 · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of software services, interfaces, boundaries, and trade-offs for product managers.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="service.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic service-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>Service</h1>
+      <p class="lede">A software unit that provides a specific capability through a defined interface.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide topic-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>A service is a software unit that provides a specific capability through a defined interface.</p>
+        <p>The interface tells other parts of the product what they can ask for and what kind of result they can expect. The service keeps the details of how it does the work behind that boundary.</p>
+        <p class="definition"><strong>Core definition:</strong><br>A service is a software unit that provides a specific capability through a defined interface.</p>
+        <div class="callout-grid">
+          <article><h3>Capability</h3><p>It does a meaningful job, such as pricing an order, sending a notification, or checking inventory.</p></article>
+          <article><h3>Interface</h3><p>It exposes a stable way to request that job, often an API endpoint, function, or message contract.</p></article>
+          <article><h3>Boundary</h3><p>It separates the caller from implementation details, so the inside can change without changing every caller.</p></article>
+        </div>
+      </section>
+
+      <section id="think" class="card wide topic-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <div class="analogy-grid">
+          <div>
+            <p>Think of a service like a specialist department with a public counter.</p>
+            <p>A product team does not need to know which employee, database query, or outside provider the department uses. It needs to know what request to make and what result will come back.</p>
+          </div>
+          <div class="analogy-card"><strong>Product manager translation</strong><p>“Who owns this capability, what can other teams ask it to do, and what happens when it is unavailable?”</p></div>
+        </div>
+        <div class="responsive-flow" aria-label="Caller to service interface to service logic to result flow">
+          <div>Caller</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Service Interface</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Service Logic</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Result or Event</div>
+        </div>
+      </section>
+
+      <section id="does" class="card wide topic-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <div class="cards six">
+          <article><h3>Expose a capability</h3><p>Give the rest of the system one clear way to request a business operation.</p></article>
+          <article><h3>Apply rules</h3><p>Check decisions such as eligibility, price, inventory, or payment status.</p></article>
+          <article><h3>Coordinate work</h3><p>Call repositories, external APIs, or other services in the right order.</p></article>
+          <article><h3>Hide implementation</h3><p>Keep callers independent from internal storage and provider details.</p></article>
+          <article><h3>Return a useful result</h3><p>Provide success, failure, or a clear status that the caller can act on.</p></article>
+          <article><h3>Protect a boundary</h3><p>Make ownership, permissions, reliability, and change impact easier to reason about.</p></article>
+        </div>
+        <div class="tradeoff"><strong>Trade-off:</strong> a service boundary creates clarity and ownership, but it also adds contracts, testing, monitoring, and failure modes. A boundary is useful when the capability is important enough to justify that cost.</div>
+      </section>
+
+      <section id="where" class="card wide topic-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>Services appear in many architectures. The word describes a responsibility first; it does not automatically mean a separate server or a microservice.</p>
+        <div class="use-grid">
+          <article><h3>Order and checkout</h3><p>Validate an order, calculate totals, reserve stock, and create a purchase.</p></article>
+          <article><h3>Payments</h3><p>Authorize a payment and translate a provider response into a product decision.</p></article>
+          <article><h3>Notifications</h3><p>Choose a channel and send email, SMS, or in-app messages.</p></article>
+          <article><h3>Identity</h3><p>Verify credentials, issue sessions, or check access to a protected action.</p></article>
+          <article><h3>Search and recommendations</h3><p>Turn product data into a ranked result for a user or another system.</p></article>
+          <article><h3>Internal platform capabilities</h3><p>Offer shared files, reporting, feature flags, or audit logging through a stable interface.</p></article>
+        </div>
+      </section>
+
+      <section id="example" class="card wide topic-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <h3>Checkout Service for an online store</h3>
+        <p>When a customer presses “Place order,” the checkout service owns the workflow. The route or frontend does not need to coordinate every rule and integration itself.</p>
+        <div class="responsive-flow checkout-flow" aria-label="Checkout request through service decisions to order confirmation">
+          <div>Checkout request</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Validate cart and stock</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Authorize payment</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Save order</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Confirm and notify</div>
+        </div>
+        <pre class="code-sample"><code>POST /checkout
+{
+  "cart_id": "cart_4821",
+  "payment_method": "card"
+}
+
+→ Checkout Service returns: { "status": "confirmed", "order_id": "ord_1042" }</code></pre>
+        <p class="note">The interface is small and predictable even though the work behind it may involve inventory, payment, order storage, and notifications.</p>
+      </section>
+
+      <section id="connects" class="card wide topic-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="responsive-flow" aria-label="Client to service interface to service to data and event flow">
+          <div>Client</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>API Gateway or Route</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Service Interface</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Service</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Data or External API</div>
+        </div>
+        <div class="connection-grid">
+          <article><h3>Synchronous path</h3><p>The caller waits for a result, such as a price quote or payment decision.</p></article>
+          <article><h3>Asynchronous path</h3><p>The service publishes an event, such as <code>OrderConfirmed</code>, and another worker handles follow-up work later.</p></article>
+          <article><h3>Operational path</h3><p>Logs, metrics, traces, retries, and alerts show whether the capability is healthy and dependable.</p></article>
+        </div>
+      </section>
+
+      <section id="confuse" class="card wide topic-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison">
+          <article><h3>Service vs component</h3><p>A component is any bounded part with a responsibility. A service is a component whose responsibility is exposed as a capability for callers.</p></article>
+          <article><h3>Service vs API</h3><p>An API is the interface or contract. A service is the unit that provides the capability behind that interface.</p></article>
+          <article><h3>Service vs microservice</h3><p>A microservice is a service operated as an independently deployable process. A service can also live inside a monolith.</p></article>
+          <article><h3>Service vs business logic</h3><p>Business logic is the rules and decisions. A service is the boundary and coordinator that can contain or call those rules.</p></article>
+        </div>
+      </section>
+
+      <section id="glossary" class="card wide topic-section">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Service</td><td>服务</td><td>A software unit that provides a specific capability through an interface.</td><td>通过接口提供某项具体能力的软件单元。</td></tr>
+              <tr><td>Service Interface</td><td>服务接口</td><td>The defined way a caller asks a service to do work.</td><td>调用方请求服务执行工作的明确方式。</td></tr>
+              <tr><td>Service Boundary</td><td>服务边界</td><td>The line separating a service's responsibility from its callers.</td><td>把服务负责的事情和调用方分开的界线。</td></tr>
+              <tr><td>Capability</td><td>能力</td><td>A useful operation that a service can provide.</td><td>服务可以提供的一项有用操作。</td></tr>
+              <tr><td>Contract</td><td>契约</td><td>The expected inputs, outputs, and behavior between systems.</td><td>系统之间约定好的输入、输出和行为。</td></tr>
+              <tr><td>Service Layer</td><td>服务层</td><td>A layer that coordinates application operations.</td><td>集中协调应用操作的一层。</td></tr>
+              <tr><td>Microservice</td><td>微服务</td><td>A service deployed and operated as an independent unit.</td><td>作为独立单元部署和运行的服务。</td></tr>
+              <tr><td>Synchronous</td><td>同步</td><td>The caller waits for the service response.</td><td>调用方等待服务返回结果。</td></tr>
+              <tr><td>Asynchronous</td><td>异步</td><td>The service continues through a message or event without making the caller wait.</td><td>服务通过消息或事件继续处理，不让调用方一直等待。</td></tr>
+              <tr><td>Service Ownership</td><td>服务所有权</td><td>Responsibility for a service's behavior, reliability, and change.</td><td>对服务的行为、可靠性和变更负责。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="remember" class="card wide topic-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>A service turns one important capability into a clear, reusable boundary.</p>
+        <p>Its interface is the promise; its implementation can coordinate rules, data, other services, and external systems behind the promise.</p>
+        <div class="pm-perspective"><strong>PM Perspective</strong><p>When a team proposes a new service, ask: What capability is being isolated? Who owns the contract? Which users or products depend on it? What latency, failure, data, and operating cost does the boundary introduce?</p></div>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="component.html">← <small>Previous</small><br>Component</a>
+      <a href="monolith.html"><small>Next</small> →<br>Monolith</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

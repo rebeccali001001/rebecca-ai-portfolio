@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Input · Frontend &amp; Browser</title>
+  <meta name="description" content="An input is a form control used to collect data from users.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .input-page .path{margin:0 0 18px;color:var(--muted);font-size:13px;letter-spacing:.02em}
+    .input-page .topic-main .grid>article{order:initial!important}
+    .input-page .path span{color:var(--green)}
+    .input-page .hero-label{color:var(--green);font-size:13px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+    .input-page .hero-definition{max-width:780px;font-size:22px;color:#dbe7f4}
+    .input-page .section-number{display:block;margin-bottom:8px;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .input-page .definition{font-size:21px;color:#fff}
+    .input-page .analogy-copy{font-size:19px;color:#fff}
+    .input-page .concept-tree{margin-top:18px}
+    .input-page .card p{max-width:850px}
+    .input-page .input-cards,.input-page .use-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .input-page .input-card,.input-page .use-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .input-page .input-card strong,.input-page .use-card strong{display:block;color:#fff;font-size:17px}
+    .input-page .input-card span,.input-page .use-card span{display:block;margin-top:5px;color:var(--muted);font-size:14px}
+    .input-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+    .input-page .flow span{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800}
+    .input-page .flow b{color:var(--green);font-size:20px}
+    .input-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .input-page .code-notes{display:grid;gap:10px;margin-top:10px}
+    .input-page .code-notes div{padding:13px 15px;border-left:3px solid var(--blue);background:rgba(127,177,255,.07);color:var(--muted)}
+    .input-page .code-notes b{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .input-page .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .input-page .compare>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .input-page .compare h3{margin:0 0 8px;color:var(--green);font-size:17px}
+    .input-page .compare p{margin:0;color:var(--muted)}
+    .input-page .glossary-wrap{overflow:auto;margin-top:16px}
+    .input-page .glossary{width:100%;min-width:760px;border-collapse:collapse;font-size:13px}
+    .input-page .glossary th,.input-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .input-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .input-page .glossary td{color:var(--muted)}
+    .input-page .glossary td:first-child{color:#fff;font-weight:800}
+    .input-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .input-page .remember p{font-size:21px;color:#fff}
+    .input-page .topic-sidebar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}
+    .input-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .input-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .input-page .topic-sidebar a:hover{border-color:var(--green)}
+    .input-page .topic-sidebar a:nth-child(3){text-align:right}
+    .input-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .input-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .input-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:760px){
+      .input-page .input-cards,.input-page .use-cards,.input-page .compare{grid-template-columns:1fr}
+      .input-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .input-page .flow span,.input-page .flow b{text-align:center}
+      .input-page .flow b{transform:rotate(90deg)}
+      .input-page .topic-sidebar{grid-template-columns:1fr}
+      .input-page .topic-sidebar .current{grid-column:auto}
+      .input-page .topic-sidebar a:nth-child(3){text-align:left}
+      .input-page .direction-key{order:3}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory input-page software-knowledge-page">
+  <nav>
+    <div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div>
+  </nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <p class="path">Software Knowledge <span>→</span> 02 · Frontend &amp; Browser <span>→</span> Input</p>
+    <div class="hero-label">Part II · Frontend &amp; Browser</div>
+    <h1>Input</h1>
+    <p class="hero-definition">A control used to collect data from users.</p>
+
+    <section class="grid">
+      <article class="card wide">
+        <span class="section-number">01 · What is it?</span>
+        <h2>What is it?</h2>
+        <p class="definition">An input is a form control that lets users enter or select data.</p>
+        <p class="muted">Inputs can collect text, numbers, dates, files, choices, and other values.</p>
+        <p class="note"><strong>Simple Definition:</strong> An input collects one piece of user data.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">02 · Think of it like...</span>
+        <h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of an input as one blank field on a form.</p>
+        <p class="muted">Each field asks the user for one specific value.</p>
+        <div class="concept-tree" aria-label="A form containing name, quantity, date, and file inputs">Form<br>│<br>├─ Name Input<br>├─ Quantity Input<br>├─ Date Input<br>└─ File Input</div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">03 · What does it do?</span>
+        <h2>What does it do?</h2>
+        <p class="muted">Inputs can collect:</p>
+        <div class="input-cards">
+          <div class="input-card"><strong>Text</strong><span>Words and short messages</span></div>
+          <div class="input-card"><strong>Numbers</strong><span>Numeric values and quantities</span></div>
+          <div class="input-card"><strong>Dates</strong><span>Calendar dates</span></div>
+          <div class="input-card"><strong>Passwords</strong><span>Hidden password text</span></div>
+          <div class="input-card"><strong>Files</strong><span>Selected files for upload</span></div>
+          <div class="input-card"><strong>Selections</strong><span>Choices from available options</span></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">04 · Where is it used?</span>
+        <h2>Where is it used?</h2>
+        <p class="muted">Inputs are commonly used in:</p>
+        <div class="use-cards">
+          <div class="use-card"><strong>Login Forms</strong></div>
+          <div class="use-card"><strong>Search Boxes</strong></div>
+          <div class="use-card"><strong>Order Forms</strong></div>
+          <div class="use-card"><strong>Registration Forms</strong></div>
+          <div class="use-card"><strong>Settings</strong></div>
+          <div class="use-card"><strong>File Uploads</strong></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">05 · Example</span>
+        <h2>Example</h2>
+        <pre class="code-block"><code>&lt;label for="quantity"&gt;Quantity&lt;/label&gt;
+&lt;input id="quantity" type="number" value="10"&gt;</code></pre>
+        <div class="code-notes">
+          <div><b>input</b> creates the control.</div>
+          <div><b>type="number"</b> defines the type of data expected.</div>
+          <div><b>value="10"</b> sets the current value.</div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">06 · How it connects</span>
+        <h2>How it connects</h2>
+        <div class="flow" aria-label="User to input to value to form to submit to application">
+          <span>User</span><b>→</b><span>Input</span><b>→</b><span>Value</span><b>→</b><span>Form</span><b>→</b><span>Submit</span><b>→</b><span>Application</span>
+        </div>
+        <p class="note">Inputs collect the values that forms and JavaScript can use.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span>
+        <h2>Do Not Confuse</h2>
+        <div class="compare">
+          <div><h3>Input</h3><p>One control used to collect a value.</p></div>
+          <div><h3>Form</h3><p>A group of controls used to collect related data.</p></div>
+        </div>
+        <p class="note">One form can contain many inputs.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">08 · Topic Glossary</span>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Input</td><td>输入控件</td><td>A control used to collect user data.</td><td>用来收集用户输入数据的页面控件。</td></tr>
+              <tr><td>Value</td><td>值</td><td>The data currently stored in an input.</td><td>输入控件中当前保存的数据。</td></tr>
+              <tr><td>type</td><td>类型</td><td>An attribute that defines what kind of input it is.</td><td>用来指定输入控件类型的属性。</td></tr>
+              <tr><td>text</td><td>文本输入</td><td>An input type used to enter text.</td><td>用来输入普通文字的输入类型。</td></tr>
+              <tr><td>number</td><td>数字输入</td><td>An input type used to enter numeric values.</td><td>用来输入数字的输入类型。</td></tr>
+              <tr><td>password</td><td>密码输入</td><td>An input type used for hidden password text.</td><td>用来输入并隐藏密码内容的输入类型。</td></tr>
+              <tr><td>file</td><td>文件输入</td><td>An input type used to select files.</td><td>用来选择并上传文件的输入类型。</td></tr>
+              <tr><td>placeholder</td><td>占位提示</td><td>Hint text shown inside an empty input.</td><td>输入框为空时显示的提示文字。</td></tr>
+              <tr><td>required</td><td>必填</td><td>An attribute that requires a value.</td><td>要求该输入控件必须填写的属性。</td></tr>
+              <tr><td>Form</td><td>表单</td><td>A group of controls used to collect related data.</td><td>用来收集一组相关数据的页面区域。</td></tr>
+              <tr><td>Event</td><td>事件</td><td>An action such as typing or changing an input.</td><td>输入或修改控件时产生的事件。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <span class="section-number">09 · What to Remember</span>
+        <h2>What to Remember</h2>
+        <p>An input collects one value from the user.</p>
+        <p>Different input types are used for different kinds of data.</p>
+        <p>Inputs are commonly used inside forms.</p>
+        <div class="flow" aria-label="User to input to value">
+          <span>User</span><b>→</b><span>Input</span><b>→</b><span>Value</span>
+        </div>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="Input topic navigation">
+      <div class="current">Input ← active</div>
+      <a href="form.html"><small>Previous</small>Form</a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="button.html"><small>Next</small>Button</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

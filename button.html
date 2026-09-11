@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Button · Frontend &amp; Browser</title>
+  <meta name="description" content="A beginner-friendly explanation of buttons in frontend interfaces and browser software.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .standard-topic .topic-main .grid>article{order:initial!important}
+    .button-hero{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:28px;align-items:center}
+    .button-demo{display:grid;place-items:center;min-height:190px;border:1px solid #38516d;border-radius:18px;background:radial-gradient(circle at 50% 42%,rgba(120,229,189,.15),transparent 42%),#07111a}
+    .button-demo button{border:1px solid #9affd8;border-radius:10px;padding:13px 23px;background:linear-gradient(180deg,#8bf2c9,#5cc9a5);box-shadow:0 10px 24px rgba(120,229,189,.18);color:#071019;font:inherit;font-weight:850;cursor:pointer}
+    .button-demo button:focus-visible{outline:3px solid #7fb1ff;outline-offset:4px}
+    .action-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .action-list div{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4}
+    .action-list b{display:block;color:#fff;margin-bottom:4px}
+    .flow-line{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:18px;padding:21px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .flow-line span{padding:9px 13px;border:1px solid #38516d;border-radius:999px;background:#102335;color:#fff;font-weight:750}
+    .flow-line i{color:var(--green);font-style:normal;font-size:20px}
+    .code-block{margin:18px 0 0;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#050b12;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .code-block .tag{color:#78e5bd}.code-block .attr{color:#7fb1ff}.code-block .value{color:#ffd47f}.code-block .function{color:#fff}
+    .explanation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+    .explanation-grid div{padding:15px;border:1px solid #38516d;border-radius:14px;background:#07111a}.explanation-grid b{display:block;color:var(--green);font:700 14px ui-monospace,SFMono-Regular,Consolas,monospace;margin-bottom:5px}.explanation-grid p{margin:0;color:var(--muted);font-size:14px}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.compare-grid>div{padding:18px;border-radius:15px;border:1px solid #38516d;background:#07111a}.compare-grid h3{margin:0 0 6px;color:var(--green)}.compare-grid p{margin:0;color:var(--muted)}
+    .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}.glossary{width:100%;min-width:700px;border-collapse:collapse;background:#07111a}.glossary th,.glossary td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;vertical-align:top}.glossary th{color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase}.glossary td{color:var(--muted);font-size:14px}.glossary td:first-child{color:#fff;font-weight:750}.glossary tr:last-child td{border-bottom:0}
+    .page-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.page-nav a{display:flex;flex-direction:column;gap:5px;padding:17px;border:1px solid #38516d;border-radius:15px;background:#07111a}.page-nav a:last-child{text-align:right;align-items:flex-end}.page-nav a:hover{border-color:var(--green);transform:translateY(-2px)}.page-nav small{color:var(--muted);font-size:12px}.page-nav strong{color:#fff;font-size:18px}
+    @media(max-width:760px){.button-hero,.action-list,.explanation-grid,.compare-grid,.page-nav{grid-template-columns:1fr}.button-demo{min-height:150px}.flow-line{flex-direction:column}.flow-line i{transform:rotate(90deg)}.page-nav a:last-child{text-align:left;align-items:flex-start}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>Button</h1>
+    <p class="lede">A control users click to trigger an action.</p>
+
+    <section class="grid">
+      <article class="card wide button-hero">
+        <div>
+          <h2>01 · What is it?</h2>
+          <p>A button is an interactive element that users click to start an action.</p>
+          <p>The action may submit a form, open a menu, save data, or trigger JavaScript.</p>
+          <p class="note"><strong>Simple Definition:</strong> A button starts an action when the user clicks it.</p>
+        </div>
+        <div class="button-demo" aria-label="Example button"><button type="button">Save</button></div>
+      </article>
+
+      <article class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p>Think of a button as a switch.</p>
+        <p>The user activates it, and the system responds.</p>
+        <div class="flow-line" aria-label="User to button to action flow"><span>User</span><i aria-hidden="true">→</i><span>Button</span><i aria-hidden="true">→</i><span>Action</span></div>
+      </article>
+
+      <article class="card">
+        <h2>03 · What does it do?</h2>
+        <p>Buttons can:</p>
+        <div class="action-list">
+          <div><b>Submit Forms</b></div><div><b>Save Data</b></div><div><b>Open Menus</b></div>
+          <div><b>Close Dialogs</b></div><div><b>Start Searches</b></div><div><b>Trigger JavaScript</b></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>04 · Where is it used?</h2>
+        <p>Buttons appear throughout user interfaces.</p>
+        <div class="action-list">
+          <div><b>Save</b></div><div><b>Submit</b></div><div><b>Search</b></div>
+          <div><b>Delete</b></div><div><b>Approve</b></div><div><b>Cancel</b></div>
+        </div>
+      </article>
+
+      <article class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre class="code-block"><code><span class="tag">&lt;button</span> <span class="attr">id</span>=<span class="value">"save-button"</span><span class="tag">&gt;</span>Save<span class="tag">&lt;/button&gt;</span>
+
+<span class="function">button.addEventListener("click", saveData);</span></code></pre>
+        <div class="explanation-grid">
+          <div><b>button</b><p>creates the clickable element.</p></div>
+          <div><b>click</b><p>is the event.</p></div>
+          <div><b>saveData</b><p>is the function that runs.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="flow-line" aria-label="User to button to click event to JavaScript to action flow"><span>User</span><i aria-hidden="true">→</i><span>Button</span><i aria-hidden="true">→</i><span>Click Event</span><i aria-hidden="true">→</i><span>JavaScript</span><i aria-hidden="true">→</i><span>Action</span></div>
+        <h3>For data saving</h3>
+        <div class="flow-line" aria-label="Button to JavaScript to API request to backend to response flow"><span>Button</span><i aria-hidden="true">→</i><span>JavaScript</span><i aria-hidden="true">→</i><span>API Request</span><i aria-hidden="true">→</i><span>Backend</span><i aria-hidden="true">→</i><span>Response</span></div>
+      </article>
+
+      <article class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>Button</h3><p>Usually triggers an action.</p></div>
+          <div><h3>Link</h3><p>Usually moves the user to another page or resource.</p></div>
+        </div>
+        <p class="note"><strong>Button = Action</strong><br><strong>Link = Navigation</strong></p>
+      </article>
+
+      <article class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Button</td><td>按钮</td><td>A control users click to trigger an action.</td><td>用户点击后触发某项操作的控件。</td></tr>
+              <tr><td>Click</td><td>点击</td><td>A user action performed by pressing a button or element.</td><td>用户点击某个按钮或页面元素的操作。</td></tr>
+              <tr><td>Event</td><td>事件</td><td>An action software can detect and respond to.</td><td>软件可以检测并响应的操作。</td></tr>
+              <tr><td>Event Listener</td><td>事件监听</td><td>Code that waits for an event.</td><td>等待某个事件发生并执行逻辑的代码。</td></tr>
+              <tr><td>Action</td><td>操作</td><td>Work started after a user interaction.</td><td>用户操作后由软件开始执行的任务。</td></tr>
+              <tr><td>Submit</td><td>提交</td><td>Sending form data for processing.</td><td>将表单数据发送出去进行处理。</td></tr>
+              <tr><td>Link</td><td>链接</td><td>An element used to navigate to another resource.</td><td>用来跳转到其他页面或资源的元素。</td></tr>
+              <tr><td>disabled</td><td>禁用</td><td>A state that prevents a button from being used.</td><td>让按钮暂时无法被点击使用的状态。</td></tr>
+              <tr><td>JavaScript</td><td>JavaScript</td><td>A language often used to control button behavior.</td><td>经常用来控制按钮交互行为的语言。</td></tr>
+              <tr><td>Function</td><td>函数</td><td>A block of code that can run when a button is clicked.</td><td>按钮点击后可以执行的一段代码。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">A button is used to trigger an action.</p>
+        <p class="note">Buttons often work with events and JavaScript.</p>
+        <p class="note">A button can start a larger software flow.</p>
+        <div class="flow-line" aria-label="User to button to action flow"><span>User</span><i aria-hidden="true">→</i><span>Button</span><i aria-hidden="true">→</i><span>Action</span></div>
+      </article>
+
+      <article class="card wide">
+        <div class="page-nav" aria-label="Frontend and Browser topic navigation">
+          <a href="input.html"><small>Previous</small><strong>← Input</strong></a>
+          <a href="event.html"><small>Next</small><strong>Event →</strong></a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

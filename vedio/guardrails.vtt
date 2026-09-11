@@ -1,0 +1,226 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.360
+What are AI guardrails?
+
+2
+00:00:03.360 --> 00:00:07.440
+Guardrails are controls designed to reduce unsafe, unwanted,
+
+3
+00:00:07.440 --> 00:00:09.880
+or invalid AI behavior.
+
+4
+00:00:09.880 --> 00:00:12.160
+They do not promise perfection.
+
+5
+00:00:12.160 --> 00:00:14.720
+They add checks and limits around a model
+
+6
+00:00:14.720 --> 00:00:19.320
+so the whole system can behave more safely.
+
+7
+00:00:19.320 --> 00:00:23.480
+Guardrails can appear at several points in one workflow.
+
+8
+00:00:23.480 --> 00:00:25.640
+A user sends input.
+
+9
+00:00:25.640 --> 00:00:28.160
+An input guardrail checks it.
+
+10
+00:00:28.160 --> 00:00:32.200
+The model produces a response or proposes an action.
+
+11
+00:00:32.200 --> 00:00:37.000
+Tool and permission controls decide what the system is allowed to do.
+
+12
+00:00:37.000 --> 00:00:41.960
+Output validation checks the result before it reaches the user or another system.
+
+13
+00:00:41.960 --> 00:00:46.680
+A human can approve sensitive actions when required.
+
+14
+00:00:46.680 --> 00:00:49.440
+There are five useful categories.
+
+15
+00:00:49.440 --> 00:00:52.720
+Input controls check or filter incoming content,
+
+16
+00:00:52.720 --> 00:00:56.000
+such as blocking a known prompt injection pattern.
+
+17
+00:00:56.000 --> 00:00:58.560
+Output controls validate generated results,
+
+18
+00:00:58.560 --> 00:01:03.240
+such as rejecting an answer that does not match a required format.
+
+19
+00:01:03.240 --> 00:01:05.600
+Tool controls limit available actions,
+
+20
+00:01:05.600 --> 00:01:08.960
+such as allowing search but not deletion.
+
+21
+00:01:08.960 --> 00:01:12.320
+Permission controls restrict access to systems and data,
+
+22
+00:01:12.320 --> 00:01:15.200
+such as denying payment release.
+
+23
+00:01:15.200 --> 00:01:18.640
+Human approval adds explicit review for a sensitive action,
+
+24
+00:01:18.640 --> 00:01:22.000
+such as a large refund.
+
+25
+00:01:22.000 --> 00:01:25.280
+Consider an AI refund agent.
+
+26
+00:01:25.360 --> 00:01:29.560
+A user says refund $10,000 immediately.
+
+27
+00:01:29.560 --> 00:01:31.440
+The model may propose the refund,
+
+28
+00:01:31.440 --> 00:01:34.360
+but the system does not have to execute it.
+
+29
+00:01:34.360 --> 00:01:39.400
+First, an amount check can identify that the request is high value.
+
+30
+00:01:39.400 --> 00:01:44.240
+Next, a permission check can ask whether this agent is allowed to release money.
+
+31
+00:01:44.240 --> 00:01:47.120
+Then a human can review the action.
+
+32
+00:01:47.120 --> 00:01:52.120
+The refund executes only if the controls allow it.
+
+33
+00:01:52.120 --> 00:01:54.680
+Keep four distinctions clear.
+
+34
+00:01:54.680 --> 00:01:57.320
+A guardrail reduces risk.
+
+35
+00:01:57.320 --> 00:02:00.800
+A guarantee would mean that failure cannot happen.
+
+36
+00:02:00.800 --> 00:02:02.800
+Guardrails improve safety,
+
+37
+00:02:02.800 --> 00:02:07.120
+but they do not make an AI system infallible.
+
+38
+00:02:07.120 --> 00:02:09.560
+Permission is narrower.
+
+39
+00:02:09.560 --> 00:02:12.720
+A guardrail is the broader control concept.
+
+40
+00:02:12.720 --> 00:02:17.640
+Permission is a specific rule about what an action or resource allows.
+
+41
+00:02:17.640 --> 00:02:23.480
+For example, a guardrail may say that a high value payment needs a control.
+
+42
+00:02:23.480 --> 00:02:28.920
+The permission rule may say that this agent cannot release the payment.
+
+43
+00:02:28.920 --> 00:02:31.880
+Validation is also narrower.
+
+44
+00:02:31.880 --> 00:02:36.080
+Validation checks whether something meets defined rules.
+
+45
+00:02:36.080 --> 00:02:39.120
+A guardrail is broader and may include validation,
+
+46
+00:02:39.120 --> 00:02:43.680
+permissions, filters, or approval gates.
+
+47
+00:02:43.680 --> 00:02:48.600
+Human approval is a person explicitly reviewing or authorizing an action.
+
+48
+00:02:48.600 --> 00:02:51.840
+A guardrail can be automated or human controlled,
+
+49
+00:02:51.840 --> 00:02:56.120
+so human approval can be one type of guardrail.
+
+50
+00:02:56.120 --> 00:02:59.160
+Real systems use defense and depth.
+
+51
+00:02:59.160 --> 00:03:03.960
+They may combine an input check, a system instruction, tool restriction,
+
+52
+00:03:03.960 --> 00:03:08.520
+permission enforcement, output validation, and human approval.
+
+53
+00:03:08.520 --> 00:03:12.000
+No single control handles every risk.
+
+54
+00:03:12.000 --> 00:03:17.680
+Layers make it harder for one mistake to become an unsafe outcome.
+
+55
+00:03:17.680 --> 00:03:18.920
+Remember this.
+
+56
+00:03:18.920 --> 00:03:25.280
+Guardrails reduce AI system risk by constraining inputs, outputs, actions, and access.
+

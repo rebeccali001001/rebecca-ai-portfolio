@@ -1,0 +1,41 @@
+.http-page .hero{padding-bottom:30px}
+.http-page .hero h1{margin-bottom:12px}
+.http-page .lede{max-width:780px}
+.http-page .section-lede{max-width:860px;color:var(--muted);margin:0 0 18px}
+.http-page .definition{font-size:21px;color:#fff;max-width:860px}
+.http-page .note{max-width:860px}
+.http-page .http-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:center;margin-top:22px}
+.http-page .flow-node{min-height:78px;display:grid;place-items:center;padding:16px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;text-align:center;color:#fff;font-weight:800}
+.http-page .flow-arrow{color:var(--green);font-size:25px;text-align:center}
+.http-page .card-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+.http-page .mini-card{display:grid;place-items:center;min-height:82px;padding:15px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+.http-page .usage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.http-page .usage-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:750}
+.http-page .example-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.http-page .example-card{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+.http-page .example-card code{display:block;margin-bottom:12px;color:var(--green);font:800 18px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}
+.http-page .example-card p{margin:0;color:var(--muted)}
+.http-page .connection-flow{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:8px;align-items:center;margin-top:20px}
+.http-page .connection-flow span{min-height:54px;display:grid;place-items:center;padding:12px 8px;border:1px solid #38516d;border-radius:12px;background:#07111a;text-align:center;color:#fff;font-weight:800}
+.http-page .connection-flow b{color:var(--green);font-size:22px;text-align:center}
+.http-page .confusion-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.http-page .confusion-card{padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+.http-page .confusion-card h3{margin:0 0 8px;color:var(--green)}
+.http-page .confusion-card p{margin:0;color:var(--muted)}
+.http-page .bottom-line{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent)}
+.http-page .glossary-wrap{overflow:auto;margin-top:18px}
+.http-page table{width:100%;min-width:860px;border-collapse:collapse;font-size:14px}
+.http-page th,.http-page td{padding:13px 12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+.http-page th{color:var(--green);font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.http-page td{color:var(--muted)}
+.http-page td:first-child{color:#fff;font-weight:800}
+.http-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+.http-page .remember p{font-size:20px;color:#fff;max-width:860px}
+.http-page .pager{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+.http-page .pager a{display:flex;flex-direction:column;gap:3px;min-width:190px;color:var(--muted)}
+.http-page .pager a:last-child{text-align:right;align-items:flex-end}
+.http-page .pager a:hover{color:#fff}
+.http-page .pager small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.http-page .pager strong{color:var(--green);font-size:15px}
+@media(max-width:900px){.http-page .card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.http-page .connection-flow{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:760px){.http-page .http-flow,.http-page .card-grid,.http-page .usage-grid,.http-page .example-grid,.http-page .connection-flow,.http-page .confusion-grid{grid-template-columns:1fr}.http-page .flow-arrow,.http-page .connection-flow b{transform:rotate(90deg)}.http-page .pager a{min-width:0}.http-page .pager a:last-child{text-align:right}}

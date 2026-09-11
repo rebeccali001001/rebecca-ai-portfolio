@@ -1,0 +1,6 @@
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-0.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-1.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-2.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-3.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-4.mp3'
+file '/Users/rebecca/Desktop/my websit/.foundations-media/artificial-intelligence/audio-5.mp3'

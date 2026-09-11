@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Validation · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of backend validation and validation errors.">
+  <link rel="stylesheet" href="topic.css?v=20260909">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="business-logic.css">
+  <script defer src="sidebar.js?v=20260910-validation-5"></script>
+  <style>
+    body.validation-topic{overflow-x:hidden}
+    .validation-topic .detail-sections{grid-template-columns:minmax(0,1fr)}
+    .validation-topic .hero{padding:36px 0 26px}.validation-topic .hero h1{font-size:clamp(48px,7vw,86px);margin:8px 0 14px}.validation-topic .hero .lede{font-size:20px;max-width:800px}
+    .validation-topic .topic-section{padding:26px;margin:0 0 22px}.validation-topic .topic-section h2{margin:0 0 14px}.validation-topic .topic-section>p{max-width:860px}.validation-topic .definition{font-size:24px;color:#fff;padding:18px 20px;border-left:3px solid var(--green);background:rgba(120,229,189,.08);border-radius:0 12px 12px 0;max-width:900px}
+    .validation-topic .checkpoint{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:20px 0;padding:18px;border:1px solid #38516d;border-radius:16px;background:#07111a}.validation-topic .checkpoint div{padding:14px 16px;border:1px solid #29415a;border-radius:11px;background:#0d1e2d;color:#fff;font-weight:800;text-align:center}.validation-topic .checkpoint .accent{border-color:var(--green);background:rgba(120,229,189,.09)}.validation-topic .checkpoint .arrow{border:0;background:transparent;color:var(--green);font-size:22px;padding:0}.validation-topic .checks,.validation-topic .uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}.validation-topic .checks article,.validation-topic .uses article{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800}.validation-topic .checks p,.validation-topic .uses p{margin:6px 0 0;color:var(--muted);font-size:14px;font-weight:400}.validation-topic .sample-grid,.validation-topic .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.validation-topic .sample-box,.validation-topic .comparison article{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.validation-topic .sample-box h3,.validation-topic .comparison h3{margin:0 0 10px;color:#fff}.validation-topic .sample-box pre{white-space:pre-wrap;margin:0;color:#dce8f7;font:500 13px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}.validation-topic .sample-box.invalid{border-color:#c77e7e;background:rgba(180,70,70,.08)}.validation-topic .sample-box.invalid pre{color:#ffc4c4}.validation-topic .comparison .validation-card{border-color:var(--green);background:rgba(120,229,189,.07)}.validation-topic .comparison .logic-card{border-color:var(--blue);background:rgba(127,177,255,.07)}.validation-topic .comparison p{margin:0;color:var(--muted)}
+    .validation-topic table{width:100%;border-collapse:collapse;min-width:850px;margin-top:16px;font-size:13px}.validation-topic .glossary-wrap{overflow:auto;min-width:0}.validation-topic th,.validation-topic td{padding:12px;border:1px solid #38516d;text-align:left;vertical-align:top}.validation-topic th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.06em}.validation-topic td{color:var(--muted)}.validation-topic td:first-child{color:#fff;font-weight:700}.validation-topic td:nth-child(2){color:var(--blue)}
+    .validation-topic .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}.validation-topic .remember p{font-size:20px;color:#fff}.validation-topic .prevnext{display:flex;justify-content:space-between;gap:16px;padding:8px 0 30px}.validation-topic .prevnext a{color:var(--muted)}.validation-topic .prevnext a:hover{color:#fff}
+    @media(max-width:900px){.validation-topic .checks,.validation-topic .uses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.validation-topic .hero{padding-top:24px}.validation-topic .topic-section{padding:20px}.validation-topic .checks,.validation-topic .uses,.validation-topic .sample-grid,.validation-topic .comparison{grid-template-columns:1fr}.validation-topic .checkpoint{flex-direction:column}.validation-topic .checkpoint .arrow{transform:rotate(90deg)}.validation-topic .prevnext{flex-direction:column}.validation-topic .definition{font-size:20px}}
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic validation-topic" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">PART IV · BACKEND</div>
+      <h1>Validation</h1>
+      <p class="lede">Checking whether incoming data follows required rules before it is processed.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section class="card wide topic-section"><div class="eyebrow">01</div><h2>What is it?</h2><p>Validation checks whether data is acceptable before the system continues processing it.</p><p class="definition">Validation checks whether the input is valid.</p></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">02</div><h2>Think of it like...</h2><p>Think of a security checkpoint.</p><p>Before data enters the main process, it must pass the required checks.</p><div class="checkpoint" aria-label="Input goes through validation and becomes valid or invalid"><div>Input</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Validation</div><div class="arrow" aria-hidden="true">→</div><div>Valid / Invalid</div></div></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">03</div><h2>What does it do?</h2><p>Validation can check:</p><div class="checks"><article>Required Fields<p>Is a value present when it must be?</p></article><article>Data Types<p>Is the value a number, text, boolean, or other expected type?</p></article><article>Allowed Values<p>Does it match one of the accepted choices?</p></article><article>Number Ranges<p>Is a number within the permitted limits?</p></article><article>Formats<p>Does it follow a required pattern, such as an email or date?</p></article><article>Business Constraints<p>Does it meet a rule required by the system?</p></article></div></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">04</div><h2>Where is it used?</h2><p>Validation is used in:</p><div class="uses"><article>API Requests<p>Check data received by an endpoint.</p></article><article>Forms<p>Give users feedback before submission.</p></article><article>Backend Services<p>Protect processing from invalid input.</p></article><article>Data Imports<p>Check rows before they enter the system.</p></article><article>Business Workflows<p>Confirm each step has acceptable data.</p></article><article>Database Operations<p>Keep stored data within required rules.</p></article></div></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">05</div><h2>Example</h2><h3>Order Request</h3><div class="sample-grid"><div class="sample-box"><h3>Input</h3><pre>{
+  "quantity": -10
+}</pre></div><div class="sample-box invalid"><h3>Rule / Result</h3><pre>Rule:
+quantity must be greater than 0
+
+Result:
+Validation Failed</pre></div></div></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">06</div><h2>How it connects</h2><div class="checkpoint" aria-label="Valid request flow"><div>Request</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Validation</div><div class="arrow" aria-hidden="true">→</div><div>Business Logic</div><div class="arrow" aria-hidden="true">→</div><div>Database</div></div><p class="definition">If invalid: Request → Validation → Error Response</p></section>
+
+      <section class="card wide topic-section"><div class="eyebrow">07</div><h2>Do Not Confuse</h2><div class="comparison"><article class="validation-card"><h3>Validation</h3><p>Checks whether data is acceptable.</p></article><article class="logic-card"><h3>Business Logic</h3><p>Decides what the business operation should do.</p></article></div><p class="definition">Validation checks the input.<br>Business logic decides the action.</p></section>
+
+      <section id="glossary" class="card wide topic-section"><div class="eyebrow">08</div><h2>Topic Glossary</h2><div class="glossary-wrap"><table><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>Validation</td><td>校验</td><td>Checking whether data follows required rules.</td><td>在系统继续处理前检查输入数据是否符合要求。</td></tr>
+        <tr><td>Required Field</td><td>必填字段</td><td>A field that must contain a value.</td><td>必须填写或传入数据的字段。</td></tr>
+        <tr><td>Data Type</td><td>数据类型</td><td>The kind of value a field accepts.</td><td>字段允许接收的值类型，例如数字或文本。</td></tr>
+        <tr><td>Constraint</td><td>约束</td><td>A rule that limits allowed data.</td><td>用来限制哪些数据可以被接受的规则。</td></tr>
+        <tr><td>Invalid Data</td><td>无效数据</td><td>Data that does not meet the rules.</td><td>不符合系统规定的数据。</td></tr>
+        <tr><td>Validation Error</td><td>校验错误</td><td>An error returned when data fails validation.</td><td>输入数据没有通过校验时返回的错误。</td></tr>
+      </tbody></table></div></section>
+
+      <section class="card wide topic-section remember"><div class="eyebrow">09</div><h2>What to Remember</h2><p>Validation checks data before processing.</p><p>Invalid input should be rejected clearly.</p><p>Validation protects business logic and data quality.</p></section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation"><a href="parameters.html">← <small>Previous</small><br>Parameter</a><a href="business-logic.html"><small>Next</small> →<br>Business Logic</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

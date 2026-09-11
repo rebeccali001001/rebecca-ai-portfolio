@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login · Authentication &amp; Security</title>
+  <meta name="description" content="A login lets a user prove their identity and start an authenticated session.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .login-flow,.login-flow-compact{display:flex;align-items:stretch;gap:10px;margin-top:20px}
+    .flow-node{display:flex;align-items:center;justify-content:center;min-height:84px;padding:16px;flex:1 1 0;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:750}
+    .flow-node.accent{border-color:var(--green);background:linear-gradient(145deg,rgba(120,229,189,.12),rgba(127,177,255,.08)),#07111a}
+    .flow-arrow{display:grid;place-items:center;flex:0 0 24px;color:var(--green);font-size:24px;font-weight:800}
+    .simple-definition{margin:20px 0 0;padding:16px 18px;border-left:3px solid var(--green);border-radius:0 12px 12px 0;background:rgba(120,229,189,.06);color:#fff;font-size:18px}
+    .login-list,.use-list,.comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+    .login-list .step-card,.use-list .step-card{min-height:104px}
+    .comparison-grid{grid-template-columns:1fr 1fr}
+    .comparison-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .comparison-grid h3{margin:0 0 8px;color:#fff}.comparison-grid p{margin:7px 0;color:var(--muted)}
+    .comparison-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+    .comparison-bottom div{padding:14px 16px;border:1px solid var(--line);border-radius:12px;color:#fff;text-align:center;font-weight:750}
+    .glossary-wrap{overflow-x:auto}.glossary{width:100%;min-width:760px;border-collapse:collapse;margin-top:18px}
+    .glossary th,.glossary td{padding:12px 14px;border:1px solid var(--line);vertical-align:top;text-align:left}
+    .glossary th{color:var(--green);background:#07111a;font-size:12px;letter-spacing:.06em}.glossary td{color:var(--muted)}.glossary td:first-child{color:#fff;font-weight:750}
+    .topic-navigation{display:flex;justify-content:space-between;gap:14px;margin-top:24px}
+    .topic-navigation a{display:grid;gap:3px;min-width:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;color:var(--muted);background:rgba(12,23,34,.72)}
+    .topic-navigation a:last-child{text-align:right}.topic-navigation a:hover{border-color:var(--green);color:#fff}.topic-navigation small{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.topic-navigation strong{color:#fff}
+    @media(max-width:900px){.login-list,.use-list{grid-template-columns:repeat(2,minmax(0,1fr))}.login-flow,.login-flow-compact{flex-wrap:wrap}.login-flow .flow-node,.login-flow-compact .flow-node{flex-basis:130px}}
+    @media(max-width:760px){.login-flow,.login-flow-compact,.login-list,.use-list,.comparison-grid,.comparison-bottom{grid-template-columns:1fr}.login-flow,.login-flow-compact{flex-direction:column}.login-flow .flow-node,.login-flow-compact .flow-node{flex-basis:auto}.flow-arrow{min-height:20px;flex-basis:20px;font-size:0}.flow-arrow::after{content:'↓';font-size:24px}.topic-navigation{flex-direction:column}.topic-navigation a:last-child{text-align:left}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+    <h1>Login</h1>
+    <p class="lede">A login lets a user prove their identity and start an authenticated session.</p>
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition"><h2>01 · What is it?</h2><p>A login is the process a user follows to access an account.</p><p>The user provides credentials, such as an email address and password.</p><p class="simple-definition">Simple Definition: Login is how a system checks a user's identity before granting account access.</p></article>
+      <article id="think-of-it" class="card wide topic-analogy"><h2>02 · Think of it like...</h2><p>Think of a login as showing an entry pass at a guarded door.</p><p>The guard checks the pass, then lets the person enter the area they are allowed to use.</p><div class="login-flow" aria-label="User to credentials to identity check to account access"><div class="flow-node">User</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Credentials</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Identity Check</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Account Access</div></div></article>
+      <article id="what-does-it-do" class="card wide topic-process"><h2>03 · What does it do?</h2><p>A login flow can:</p><div class="login-list"><div class="step-card"><b>Collect Credentials</b></div><div class="step-card"><b>Check Identity</b></div><div class="step-card"><b>Start a Session</b></div><div class="step-card"><b>Issue a Token</b></div><div class="step-card"><b>Return an Error</b></div><div class="step-card"><b>Open the Account</b></div></div></article>
+      <article id="where-used" class="card wide"><h2>04 · Where is it used?</h2><p>Login is used anywhere a product gives different users private or personalized access.</p><div class="use-list"><div class="step-card"><b>Web Applications</b></div><div class="step-card"><b>Mobile Apps</b></div><div class="step-card"><b>Admin Dashboards</b></div><div class="step-card"><b>Learning Platforms</b></div><div class="step-card"><b>Shopping Accounts</b></div><div class="step-card"><b>Developer Portals</b></div></div></article>
+      <article id="example" class="card wide topic-example"><h2>05 · Example</h2><p>A user enters an email address and password, then selects Sign in.</p><p>The server checks the credentials. If they are valid, the system creates an authenticated session and returns the account page.</p><div class="login-flow-compact" aria-label="Login form to server to credentials checked to session created to account page"><div class="flow-node">Login Form</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Server</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Credentials Checked</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Session Created</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Account Page</div></div><p class="note">A successful login does not automatically grant every permission. Authorization decides what the user may do next.</p></article>
+      <article id="how-connects" class="card wide topic-process"><h2>06 · How it connects</h2><div class="login-flow-compact" aria-label="User to frontend to authentication endpoint to session or token to authorized request"><div class="flow-node">User</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Frontend</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Authentication Endpoint</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Session or Token</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Authorized Request</div></div><p class="note">Login connects the user-facing form to authentication services and the account state used by later requests.</p></article>
+      <article id="do-not-confuse" class="card wide topic-comparison"><h2>07 · Do Not Confuse</h2><div class="comparison-grid"><div><h3>Login</h3><p>The user-facing process of signing in to an account.</p></div><div><h3>Authentication</h3><p>The broader process of checking who a user or system is.</p></div><div><h3>Authorization</h3><p>The separate decision about what an authenticated user is allowed to do.</p></div><div><h3>Registration</h3><p>The process of creating a new account before a user can log in.</p></div></div><div class="comparison-bottom"><div>Login = Sign in</div><div>Authorization = Allowed actions</div></div></article>
+      <article id="glossary" class="card wide"><h2>08 · Topic Glossary</h2><div class="glossary-wrap"><table class="glossary"><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody><tr><td>Login</td><td>登录</td><td>The process of signing in to an account.</td><td>进入已有账号的过程。</td></tr><tr><td>Credential</td><td>凭证</td><td>Information used to prove an identity.</td><td>用来证明身份的信息，例如邮箱和密码。</td></tr><tr><td>Password</td><td>密码</td><td>A secret used to help prove a user's identity.</td><td>用来帮助证明用户身份的秘密信息。</td></tr><tr><td>Authentication</td><td>身份认证</td><td>The process of checking who a user or system is.</td><td>检查用户或系统是谁的过程。</td></tr><tr><td>Authorization</td><td>授权</td><td>The process of checking what an authenticated user may do.</td><td>检查已经认证的用户可以做什么。</td></tr><tr><td>Session</td><td>会话</td><td>State that helps a system remember an authenticated user.</td><td>帮助系统记住用户已经登录的状态。</td></tr><tr><td>Token</td><td>令牌</td><td>A value used to represent access after authentication.</td><td>认证后用来表示访问资格的一段值。</td></tr><tr><td>Account</td><td>账号</td><td>A user's identity and stored information in a system.</td><td>系统中属于某个用户的身份和相关信息。</td></tr></tbody></table></div></article>
+      <article id="remember" class="card wide topic-takeaway"><h2>09 · What to Remember</h2><p class="note">Login is the process of signing in to an existing account.</p><p class="note">Credentials help a system check the user's identity.</p><p class="note">A successful login can create a session or return a token for later requests.</p><p class="note">Authentication checks identity; authorization checks allowed actions.</p><div class="login-flow-compact" aria-label="Credentials to authentication to session to authorized request"><div class="flow-node">Credentials</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Authentication</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Session or Token</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Authorized Request</div></div></article>
+    </section>
+    <nav class="topic-navigation" aria-label="Topic navigation"><a href="authorization.html"><small>Previous</small><strong>Authorization</strong></a><a href="password.html"><small>Next</small><strong>Password</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

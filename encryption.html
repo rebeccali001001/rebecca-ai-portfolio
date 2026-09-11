@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encryption · Authentication &amp; Security</title>
+  <meta name="description" content="A beginner-friendly explanation of encryption and how it protects data from being read by unintended people.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260910-encryption-1"></script>
+  <style>
+    .encryption-page .hero{padding:42px 0 30px}
+    .encryption-page .hero h1{margin:12px 0 14px}
+    .encryption-page .hero .lede{max-width:820px}
+    .encryption-page .topic-section{margin:0 0 22px}
+    .encryption-page .topic-section>p{max-width:900px}
+    .encryption-page .definition{max-width:900px;padding:18px 20px;border-left:3px solid var(--green);border-radius:0 12px 12px 0;background:rgba(120,229,189,.08);font-size:21px;color:#fff}
+    .encryption-page .analogy{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+    .encryption-page .analogy-card,.encryption-page .use-card,.encryption-page .confusion-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .encryption-page .analogy-card strong,.encryption-page .use-card strong{display:block;margin-bottom:6px;color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .encryption-page .analogy-card p,.encryption-page .use-card p,.encryption-page .confusion-card p{margin:0;color:var(--muted)}
+    .encryption-page .flow{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr) 34px minmax(0,1fr) 34px minmax(0,1fr);align-items:center;gap:10px;margin:22px 0 4px}
+    .encryption-page .flow-node{min-height:74px;display:grid;place-items:center;padding:14px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:800}
+    .encryption-page .flow-node.accent{border-color:var(--green);background:linear-gradient(145deg,rgba(120,229,189,.12),rgba(127,177,255,.08)),#07111a}
+    .encryption-page .flow-arrow{color:var(--green);font-size:24px;text-align:center}
+    .encryption-page .flow-caption{margin:18px 0 0;color:var(--muted);font-size:14px}
+    .encryption-page .use-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+    .encryption-page .example-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:18px}
+    .encryption-page .example-box{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .encryption-page .example-box h3{margin:0 0 9px;color:#fff}
+    .encryption-page .example-box p{margin:0;color:var(--muted)}
+    .encryption-page .example-box code{display:block;overflow:auto;padding:14px;border-radius:10px;background:#0d1e2d;color:#dbe7f4;font:500 13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .encryption-page .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .encryption-page .confusion-card h3{margin:0 0 8px;color:#fff}
+    .encryption-page .confusion-card.encryption{border-color:var(--green);background:rgba(120,229,189,.07)}
+    .encryption-page .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}
+    .encryption-page table{width:100%;min-width:850px;border-collapse:collapse;font-size:13px}
+    .encryption-page th,.encryption-page td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .encryption-page th{color:var(--green);background:#102335;font-size:11px;letter-spacing:.08em}
+    .encryption-page td{color:var(--muted)}
+    .encryption-page td:first-child{color:#fff;font-weight:800}
+    .encryption-page td:nth-child(2){color:var(--blue)}
+    .encryption-page tr:last-child td{border-bottom:0}
+    .encryption-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .encryption-page .remember p{font-size:20px;color:#fff}
+    .encryption-page .prevnext{display:flex;justify-content:space-between;gap:16px;padding:8px 0 30px}
+    .encryption-page .prevnext a{color:var(--muted)}
+    .encryption-page .prevnext a:hover{color:#fff}
+    @media(max-width:900px){.encryption-page .analogy,.encryption-page .use-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){
+      .encryption-page .hero{padding-top:26px}
+      .encryption-page .analogy,.encryption-page .use-grid,.encryption-page .example-grid,.encryption-page .comparison{grid-template-columns:1fr}
+      .encryption-page .flow{grid-template-columns:1fr;gap:7px}
+      .encryption-page .flow-arrow{font-size:0}
+      .encryption-page .flow-arrow::before{content:'↓';font-size:24px}
+      .encryption-page .prevnext{flex-direction:column}
+      .encryption-page .definition{font-size:19px}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory encryption-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>Encryption</h1>
+      <p class="lede">Changing readable data into protected data so that only an intended reader can understand it.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section class="card wide topic-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>Encryption transforms readable data, called plaintext, into a protected form called ciphertext.</p>
+        <p class="definition">Encryption protects information by making it unreadable without the right key.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p>Think of putting a message inside a locked box before sending it.</p>
+        <div class="analogy" aria-label="Message is locked, sent, and unlocked by the intended reader">
+          <div class="analogy-card"><strong>Readable message</strong><p>Anyone holding the original message can read it.</p></div>
+          <div class="analogy-card"><strong>Locked box</strong><p>The message is transformed into protected ciphertext.</p></div>
+          <div class="analogy-card"><strong>Right key</strong><p>The intended reader uses a key to recover the message.</p></div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <p>Encryption helps protect the confidentiality of data while it is stored or moving between systems.</p>
+        <div class="use-grid">
+          <div class="use-card"><strong>Protects content</strong><p>Unreadable ciphertext hides the original meaning from unintended readers.</p></div>
+          <div class="use-card"><strong>Uses keys</strong><p>A key controls how data is encrypted and how an authorized reader decrypts it.</p></div>
+          <div class="use-card"><strong>Supports trust</strong><p>Secure systems can exchange sensitive information with less risk of exposure.</p></div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>Encryption is used wherever sensitive information needs protection.</p>
+        <div class="use-grid">
+          <div class="use-card"><strong>Web traffic</strong><p>HTTPS encrypts data sent between a browser and a server.</p></div>
+          <div class="use-card"><strong>Stored data</strong><p>Databases, backups, and files can be encrypted at rest.</p></div>
+          <div class="use-card"><strong>Messaging</strong><p>Messages can be encrypted while they travel between participants.</p></div>
+          <div class="use-card"><strong>Payments</strong><p>Payment details are protected during transmission and storage.</p></div>
+          <div class="use-card"><strong>Credentials</strong><p>Secrets and tokens can be protected when systems exchange them.</p></div>
+          <div class="use-card"><strong>Devices</strong><p>Phones and computers can encrypt local storage if a device is lost.</p></div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <p>A client sends a password reset token to a server over an encrypted HTTPS connection.</p>
+        <div class="example-grid">
+          <div class="example-box"><h3>Readable before protection</h3><code>reset_token=7f3a...&amp;user=42</code></div>
+          <div class="example-box"><h3>Protected while travelling</h3><p>The network carries ciphertext. The authorized endpoint decrypts it before processing.</p></div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="flow" aria-label="Readable data becomes ciphertext, travels, and is decrypted by an authorized reader">
+          <div class="flow-node">Plaintext</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node accent">Encrypt with key</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node">Ciphertext</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node accent">Decrypt with key</div>
+        </div>
+        <p class="flow-caption">Encryption protects the data; the key and the access controls determine who can recover it.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison">
+          <article class="confusion-card encryption"><h3>Encryption</h3><p>Designed to be reversible for an authorized reader with the right key.</p></article>
+          <article class="confusion-card"><h3>Hashing</h3><p>Produces a one-way digest used for comparison, integrity checks, or password verification.</p></article>
+        </div>
+        <p class="definition">Encryption is for protected recovery. Hashing is for one-way comparison.</p>
+      </section>
+
+      <section id="glossary" class="card wide topic-section">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Encryption</td><td>加密</td><td>Turning readable data into protected data.</td><td>把可读数据转换成受保护的数据。</td></tr>
+              <tr><td>Decryption</td><td>解密</td><td>Turning protected data back into readable data.</td><td>把受保护的数据还原成可读数据。</td></tr>
+              <tr><td>Plaintext</td><td>明文</td><td>Data in its readable form before encryption.</td><td>加密前人能够直接读懂的数据。</td></tr>
+              <tr><td>Ciphertext</td><td>密文</td><td>Protected data produced by encryption.</td><td>加密后看起来无法直接理解的数据。</td></tr>
+              <tr><td>Key</td><td>密钥</td><td>A value used to encrypt or decrypt data.</td><td>用来加密或解密数据的一段关键值。</td></tr>
+              <tr><td>Symmetric Encryption</td><td>对称加密</td><td>Encryption that uses the same key to encrypt and decrypt.</td><td>加密和解密使用同一把密钥的方式。</td></tr>
+              <tr><td>Asymmetric Encryption</td><td>非对称加密</td><td>Encryption that uses a public key and a private key.</td><td>使用公钥和私钥的一对密钥进行保护的方式。</td></tr>
+              <tr><td>Encryption at Rest</td><td>静态数据加密</td><td>Encryption that protects stored data.</td><td>保护数据库、文件或备份等已存储数据的加密。</td></tr>
+              <tr><td>Encryption in Transit</td><td>传输中加密</td><td>Encryption that protects data while it moves between systems.</td><td>保护数据在系统之间传输过程的加密。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card wide topic-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>Encryption turns readable data into protected ciphertext.</p>
+        <p>The right key is needed to decrypt the data.</p>
+        <p>Encryption protects confidentiality, but it does not replace authentication or authorization.</p>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="secret.html">← <small>Previous</small><br>Secret</a>
+      <a href="hashing.html"><small>Next</small> →<br>Hashing</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

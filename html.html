@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML · Frontend &amp; Browser</title>
+  <meta name="description" content="HTML defines the structure and content of a web page.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .standard-topic .topic-main .grid>article{order:initial!important}
+    .html-page .definition{font-size:22px;color:#fff}
+    .html-page .analogy-copy{font-size:20px;color:#fff}
+    .html-page .card p{max-width:860px}
+    .html-page .building-tree{margin-top:20px;padding:20px 22px;border:1px solid #38516d;border-radius:15px;background:#07111a;color:#dbe7f4;font:600 15px/1.85 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre}
+    .html-page .element-grid,.html-page .usage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .html-page .element-card,.html-page .usage-card{min-height:88px;padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .html-page .element-card strong,.html-page .usage-card strong{display:block;color:#fff;font-size:16px}
+    .html-page .element-card span,.html-page .usage-card span{display:block;margin-top:4px;color:var(--muted);font-size:13px}
+    .html-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#050b12;color:#dbe7f4;font:14px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .html-page .explanation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .html-page .explanation-grid div{padding:15px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .html-page .explanation-grid b{display:block;margin-bottom:5px;color:var(--green);font:700 14px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .html-page .explanation-grid p{margin:0;color:var(--muted);font-size:14px}
+    .html-page .flow-line{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px;padding:21px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .html-page .flow-line span{padding:10px 13px;border:1px solid #38516d;border-radius:999px;background:#102335;color:#fff;font-weight:750}
+    .html-page .flow-line i{color:var(--green);font-style:normal;font-size:20px}
+    .html-page .compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .html-page .compare-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .html-page .compare-grid h3{margin:0 0 6px;color:var(--green);font-size:18px}
+    .html-page .compare-grid p{margin:0;color:var(--muted)}
+    .html-page .bottom-line{margin-top:20px;padding:18px;border:1px solid rgba(120,229,189,.45);border-radius:14px;background:rgba(120,229,189,.08);color:#fff;font-size:20px;font-weight:750;text-align:center}
+    .html-page .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}
+    .html-page .glossary{width:100%;min-width:820px;border-collapse:collapse;background:#07111a}
+    .html-page .glossary th,.html-page .glossary td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.1);text-align:left;vertical-align:top}
+    .html-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#0b1723}
+    .html-page .glossary td{color:var(--muted);font-size:14px}
+    .html-page .glossary td:first-child{color:#fff;font-weight:750}
+    .html-page .glossary td:nth-child(2){color:var(--blue)}
+    .html-page .glossary tr:last-child td{border-bottom:0}
+    .html-page .page-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .html-page .page-nav a{display:flex;flex-direction:column;gap:5px;padding:17px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .html-page .page-nav a:last-child{text-align:right;align-items:flex-end}
+    .html-page .page-nav a:hover{border-color:var(--green);transform:translateY(-2px)}
+    .html-page .page-nav small{color:var(--muted);font-size:12px}
+    .html-page .page-nav strong{color:#fff;font-size:18px}
+    @media(max-width:900px){.html-page .element-grid,.html-page .usage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.html-page .compare-grid{grid-template-columns:1fr}}
+    @media(max-width:760px){.html-page .building-tree{font-size:12px;overflow:auto}.html-page .element-grid,.html-page .usage-grid,.html-page .explanation-grid,.html-page .page-nav{grid-template-columns:1fr}.html-page .flow-line{flex-direction:column}.html-page .flow-line i{transform:rotate(90deg)}.html-page .page-nav a:last-child{text-align:left;align-items:flex-start}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory html-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>HTML</h1>
+    <p class="lede">The language used to define the structure and content of a web page.</p>
+
+    <section class="grid">
+      <article class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">HTML stands for HyperText Markup Language.</p>
+        <p>It defines the structure and content of a web page.</p>
+        <p class="note"><strong>Simple Definition:</strong> HTML describes what is on the page.</p>
+      </article>
+
+      <article class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="analogy-copy">Think of HTML as the structure of a building.</p>
+        <p class="muted">It defines where the major parts belong.</p>
+        <div class="building-tree" aria-label="A web page contains a heading, paragraph, image, form, and button">Web Page
+├─ Heading
+├─ Paragraph
+├─ Image
+├─ Form
+└─ Button</div>
+      </article>
+
+      <article class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p>HTML defines page elements such as:</p>
+        <div class="element-grid">
+          <div class="element-card"><strong>Headings</strong><span>Page and section titles</span></div>
+          <div class="element-card"><strong>Paragraphs</strong><span>Blocks of normal text</span></div>
+          <div class="element-card"><strong>Links</strong><span>Connections to resources</span></div>
+          <div class="element-card"><strong>Images</strong><span>Visual content</span></div>
+          <div class="element-card"><strong>Forms</strong><span>User input areas</span></div>
+          <div class="element-card"><strong>Buttons</strong><span>Clickable controls</span></div>
+          <div class="element-card"><strong>Tables</strong><span>Rows and columns of data</span></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">HTML is used in almost every web page.</p>
+        <p>Browsers read HTML and build a structured representation of the page.</p>
+        <div class="usage-grid">
+          <div class="usage-card"><strong>Web Pages</strong><span>Documents shown in a browser</span></div>
+          <div class="usage-card"><strong>Web Apps</strong><span>Interfaces users interact with</span></div>
+          <div class="usage-card"><strong>Forms</strong><span>Fields that collect input</span></div>
+          <div class="usage-card"><strong>Content Structure</strong><span>Meaningful page organization</span></div>
+        </div>
+      </article>
+
+      <article class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre class="code-block"><code>&lt;h1&gt;Order Details&lt;/h1&gt;
+&lt;p&gt;Order number: 1001&lt;/p&gt;
+&lt;button&gt;Save&lt;/button&gt;</code></pre>
+        <div class="explanation-grid">
+          <div><b>&lt;h1&gt;</b><p>creates a heading.</p></div>
+          <div><b>&lt;p&gt;</b><p>creates a paragraph.</p></div>
+          <div><b>&lt;button&gt;</b><p>creates a button.</p></div>
+        </div>
+      </article>
+
+      <article class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="flow-line" aria-label="HTML provides structure, CSS provides style, JavaScript provides behavior, together they create a web page">
+          <span>HTML</span><i aria-hidden="true">→</i><span>Structure</span>
+          <span>CSS</span><i aria-hidden="true">→</i><span>Style</span>
+          <span>JavaScript</span><i aria-hidden="true">→</i><span>Behavior</span>
+          <span>Together</span><i aria-hidden="true">→</i><span>Web Page</span>
+        </div>
+        <p class="note">HTML provides the structure that CSS styles and JavaScript interacts with.</p>
+      </article>
+
+      <article class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <p class="definition">HTML ≠ CSS ≠ JavaScript</p>
+        <div class="compare-grid">
+          <div><h3>HTML</h3><p>Defines structure.</p></div>
+          <div><h3>CSS</h3><p>Controls appearance.</p></div>
+          <div><h3>JavaScript</h3><p>Controls behavior.</p></div>
+        </div>
+        <div class="bottom-line">HTML = Structure &nbsp; · &nbsp; CSS = Style &nbsp; · &nbsp; JavaScript = Behavior</div>
+      </article>
+
+      <article class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>HTML</td><td>超文本标记语言</td><td>The language used to define web page structure.</td><td>用来定义网页结构的语言。</td></tr>
+              <tr><td>Element</td><td>元素</td><td>A building block of an HTML page.</td><td>HTML 页面中的一个基本组成部分。</td></tr>
+              <tr><td>Tag</td><td>标签</td><td>Markup used to define an HTML element.</td><td>用来定义 HTML 元素的标记。</td></tr>
+              <tr><td>Heading</td><td>标题</td><td>Text used as a page or section title.</td><td>用来表示页面或章节标题的文本。</td></tr>
+              <tr><td>Paragraph</td><td>段落</td><td>A block of normal text.</td><td>页面中的一段普通文字。</td></tr>
+              <tr><td>Link</td><td>链接</td><td>An element that connects to another resource.</td><td>用来跳转到其他页面或资源的元素。</td></tr>
+              <tr><td>Image</td><td>图片</td><td>A visual resource displayed on a page.</td><td>网页中显示的图片资源。</td></tr>
+              <tr><td>Form</td><td>表单</td><td>A structure used to collect user input.</td><td>用来收集用户输入的数据区域。</td></tr>
+              <tr><td>Button</td><td>按钮</td><td>An element users can click to trigger an action.</td><td>用户可以点击并触发操作的元素。</td></tr>
+              <tr><td>Attribute</td><td>属性</td><td>Extra information added to an HTML element.</td><td>添加在 HTML 元素上的附加信息。</td></tr>
+              <tr><td>DOM</td><td>文档对象模型</td><td>The browser's object representation of HTML.</td><td>浏览器根据 HTML 创建的可操作对象结构。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p class="note">HTML defines the structure of a web page.</p>
+        <p class="note">HTML uses elements to represent content and controls.</p>
+        <p class="note">Browsers read HTML and turn it into a page structure.</p>
+        <div class="bottom-line">HTML → Page Structure</div>
+      </article>
+
+      <article class="card wide">
+        <div class="page-nav" aria-label="Frontend and Browser topic navigation">
+          <a href="web-page.html"><small>Previous</small><strong>← Web Page</strong></a>
+          <a href="css.html"><small>Next</small><strong>CSS →</strong></a>
+        </div>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

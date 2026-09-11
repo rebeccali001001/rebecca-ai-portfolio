@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Message Queue · 07 · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of message queues, producers, consumers, asynchronous processing, and the trade-offs product managers should understand.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .message-queue-page .hero { max-width: 860px; padding-bottom: 18px; }
+    .message-queue-page .mq-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; align-items: stretch; margin: 20px 0; }
+    .message-queue-page .mq-flow > div { min-width: 0; min-height: 84px; display: flex; align-items: center; justify-content: center; padding: 14px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; }
+    .message-queue-page .mq-flow > div:nth-child(even) { border: 0; padding: 0; min-height: 0; background: transparent; color: var(--green); font-size: 23px; }
+    .message-queue-page .mq-flow > div.accent { border-color: var(--green); background: rgba(120,229,189,.09); }
+    .message-queue-page .mq-card-grid, .message-queue-page .mq-use-grid, .message-queue-page .mq-example-grid, .message-queue-page .mq-comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .message-queue-page .mq-card-grid article, .message-queue-page .mq-use-grid article, .message-queue-page .mq-example-grid article, .message-queue-page .mq-comparison-grid article { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .message-queue-page .mq-card-grid h3, .message-queue-page .mq-use-grid h3, .message-queue-page .mq-example-grid h3, .message-queue-page .mq-comparison-grid h3 { margin: 0 0 7px; color: #fff; font-size: 17px; }
+    .message-queue-page .mq-card-grid p, .message-queue-page .mq-use-grid p, .message-queue-page .mq-example-grid p, .message-queue-page .mq-comparison-grid p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+    .message-queue-page .mq-card-grid b, .message-queue-page .mq-use-grid b, .message-queue-page .mq-example-grid b { color: var(--green); }
+    .message-queue-page .mq-use-grid, .message-queue-page .mq-example-grid, .message-queue-page .mq-comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .message-queue-page .mq-callout { margin: 18px 0 0; padding: 16px 18px; border-left: 3px solid var(--green); background: rgba(120,229,189,.06); color: var(--muted); }
+    .message-queue-page .mq-callout strong { color: #fff; }
+    .message-queue-page .mq-glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .message-queue-page .mq-glossary { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 14px; }
+    .message-queue-page .mq-glossary th, .message-queue-page .mq-glossary td { padding: 12px 14px; border: 1px solid #38516d; vertical-align: top; text-align: left; }
+    .message-queue-page .mq-glossary th { color: var(--green); background: #07111a; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .message-queue-page .mq-glossary td { color: var(--muted); }
+    .message-queue-page .mq-glossary td:first-child { color: #fff; font-weight: 800; }
+    .message-queue-page .mq-remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .message-queue-page .mq-remember p { color: #fff; font-size: 18px; }
+    .message-queue-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .message-queue-page .prevnext a { color: var(--muted); }
+    .message-queue-page .prevnext small { color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
+    @media (max-width: 900px) { .message-queue-page .mq-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); } .message-queue-page .mq-flow > div:nth-child(4), .message-queue-page .mq-flow > div:nth-child(5) { margin-top: 2px; } }
+    @media (max-width: 760px) {
+      .message-queue-page .mq-flow, .message-queue-page .mq-card-grid, .message-queue-page .mq-use-grid, .message-queue-page .mq-example-grid, .message-queue-page .mq-comparison-grid { grid-template-columns: 1fr; }
+      .message-queue-page .mq-flow > div:nth-child(even) { min-height: 22px; font-size: 0; }
+      .message-queue-page .mq-flow > div:nth-child(even)::after { content: '↓'; font-size: 23px; }
+      .message-queue-page .prevnext { flex-direction: column; }
+    }
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic module07-topic message-queue-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>Message Queue</h1>
+      <p class="lede">A message queue temporarily holds messages between producers and consumers for decoupled asynchronous processing.</p>
+    </header>
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide detail-section topic-definition">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>A message queue is a holding place for work or information that one part of a system wants another part to handle.</p>
+        <p>The sender, called the <b>producer</b>, can put a message into the queue and move on. The receiver, called the <b>consumer</b>, can take that message when it has capacity and process it.</p>
+        <p class="definition"><b>Simple definition:</b><br>A message queue lets one part of a system hand work to another part without needing both parts to be ready at the exact same moment.</p>
+      </section>
+      <section id="think" class="card wide detail-section topic-analogy">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p>Think of a restaurant order rail. The waiter places an order ticket on the rail. The kitchen takes the next ticket when it is ready, instead of making the waiter stand beside the chef until the meal is finished.</p>
+        <div class="mq-flow" aria-label="Producer sends a message to a queue and a consumer processes it">
+          <div>Producer<br><span class="muted">places work</span></div><div aria-hidden="true">→</div><div class="accent">Message Queue<br><span class="muted">holds work</span></div><div aria-hidden="true">→</div><div>Consumer<br><span class="muted">processes work</span></div>
+        </div>
+        <p class="mq-callout"><strong>The useful separation:</strong> the producer does not need to know exactly when the consumer will be free. The queue absorbs the timing difference.</p>
+      </section>
+      <section id="does" class="card wide detail-section topic-process">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <p>A queue turns a direct handoff into a managed flow. That gives a product team several useful capabilities, with trade-offs to plan for.</p>
+        <div class="mq-card-grid">
+          <article><h3>Decouples services</h3><p>The producer and consumer can change, scale, or restart independently.</p></article>
+          <article><h3>Absorbs traffic spikes</h3><p>Messages can wait in the queue while consumers work through a sudden burst.</p></article>
+          <article><h3>Enables async work</h3><p>A user-facing request can finish while slower work continues elsewhere.</p></article>
+          <article><h3>Supports retries</h3><p>Failed work can be attempted again instead of disappearing on the first error.</p></article>
+          <article><h3>Creates a backlog</h3><p>Waiting messages make demand visible, but an unprocessed backlog can become a product problem.</p></article>
+          <article><h3>Adds operating cost</h3><p>Teams must decide how to monitor delivery, duplicates, ordering, and failures.</p></article>
+        </div>
+        <p class="mq-callout"><strong>PM perspective:</strong> “Asynchronous” does not mean “instant.” It means the user or producer does not have to wait for the downstream work to finish.</p>
+      </section>
+      <section id="where" class="card wide detail-section topic-example">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>Message queues are a good fit when work can happen after the immediate interaction or when two system parts should not be tightly coupled.</p>
+        <div class="mq-use-grid">
+          <article><h3>Notifications</h3><p>Queue email, SMS, or push notification work after an account or order changes.</p></article>
+          <article><h3>Media processing</h3><p>Queue image resizing, video transcoding, or document extraction without blocking upload completion.</p></article>
+          <article><h3>Commerce workflows</h3><p>Pass order work to inventory, payment, fulfillment, and customer communication services.</p></article>
+          <article><h3>Data synchronization</h3><p>Move updates between systems when the destination may be slower or temporarily unavailable.</p></article>
+          <article><h3>Reports and exports</h3><p>Start a long-running report and let the user return when the result is ready.</p></article>
+          <article><h3>Batch operations</h3><p>Process many records with a controlled number of workers instead of one huge request.</p></article>
+        </div>
+      </section>
+      <section id="example" class="card wide detail-section topic-example">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <h3>Real business scenario: an online order</h3>
+        <p>A customer places an order. The checkout service should confirm the order quickly, but sending the receipt, updating inventory, and notifying the warehouse may take different amounts of time.</p>
+        <div class="mq-flow" aria-label="Order checkout creates messages for downstream consumers">
+          <div>Checkout Service<br><span class="muted">producer</span></div><div aria-hidden="true">→</div><div class="accent">Order Queue<br><span class="muted">OrderPlaced</span></div><div aria-hidden="true">→</div><div>Inventory / Email / Fulfillment<br><span class="muted">consumers</span></div>
+        </div>
+        <div class="mq-example-grid">
+          <article><h3>Immediate user experience</h3><p>The customer sees “Order received” without waiting for every downstream system.</p></article>
+          <article><h3>Consumer responsibility</h3><p>Each consumer processes the message for its own job and reports failures for retry or review.</p></article>
+          <article><h3>Product benefit</h3><p>A slow warehouse integration does not necessarily make checkout slow for everyone.</p></article>
+          <article><h3>Product risk</h3><p>If the queue is delayed, inventory or email may be stale even though checkout succeeded.</p></article>
+        </div>
+      </section>
+      <section id="connects" class="card wide detail-section topic-process">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <p>The queue sits between a producer and one or more consumers. The surrounding architecture determines whether the system is reliable and understandable.</p>
+        <div class="mq-flow" aria-label="Request to message queue to worker to result flow">
+          <div>Request<br><span class="muted">user intent</span></div><div aria-hidden="true">→</div><div>Producer<br><span class="muted">creates message</span></div><div aria-hidden="true">→</div><div class="accent">Queue<br><span class="muted">stores until read</span></div>
+        </div>
+        <div class="mq-flow" aria-label="Queue to consumer to outcome flow">
+          <div class="accent">Queue<br><span class="muted">message waits</span></div><div aria-hidden="true">→</div><div>Consumer / Worker<br><span class="muted">takes message</span></div><div aria-hidden="true">→</div><div>Outcome<br><span class="muted">side effect or status</span></div>
+        </div>
+        <p class="mq-callout"><strong>Important design question:</strong> what should happen if the consumer fails after receiving a message? The answer may involve retries, idempotency, visibility timeouts, a dead-letter queue, and monitoring.</p>
+      </section>
+      <section id="confuse" class="card wide detail-section topic-comparison">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <p>These concepts can appear together, but they solve different problems.</p>
+        <div class="mq-comparison-grid">
+          <article><h3>Message Queue vs Event</h3><p>An <b>event</b> describes something that happened. A <b>queue</b> is a delivery mechanism that holds work or messages until a consumer handles them.</p></article>
+          <article><h3>Message Queue vs Event Bus</h3><p>A queue commonly gives one work item to one consumer. An event bus or pub/sub pattern can let multiple subscribers receive the same event.</p></article>
+          <article><h3>Message Queue vs Background Job</h3><p>A background job is the work being done later. A queue is one way to store and distribute that work.</p></article>
+          <article><h3>Message Queue vs Cache</h3><p>A cache keeps data for faster reads. A queue holds messages waiting for processing. A cache is not a reliable work ledger.</p></article>
+          <article><h3>Async vs faster</h3><p>Async processing can improve responsiveness, but total completion may still take seconds or minutes.</p></article>
+          <article><h3>Retry vs duplicate-free</h3><p>Retries improve resilience, but they can deliver the same message more than once. Consumers often need idempotent handling.</p></article>
+        </div>
+      </section>
+      <section id="glossary" class="card wide detail-section topic-related">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="mq-glossary-wrap">
+          <table class="mq-glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Message Queue</td><td>消息队列</td><td>A temporary holding place between producers and consumers.</td><td>生产者和消费者之间暂存消息的地方。</td></tr>
+              <tr><td>Producer</td><td>生产者</td><td>A component that sends a message.</td><td>把消息放进队列的系统部分。</td></tr>
+              <tr><td>Consumer</td><td>消费者</td><td>A component that receives and processes a message.</td><td>取出消息并完成工作的系统部分。</td></tr>
+              <tr><td>Worker</td><td>工作进程</td><td>A process that performs queued work.</td><td>专门处理队列任务的程序。</td></tr>
+              <tr><td>Asynchronous Processing</td><td>异步处理</td><td>Work that continues without making the caller wait.</td><td>调用方不用一直等，工作在别处继续。</td></tr>
+              <tr><td>Retry</td><td>重试</td><td>Trying a failed message again.</td><td>任务失败后再次尝试处理。</td></tr>
+              <tr><td>Backlog</td><td>积压</td><td>Messages waiting longer than expected.</td><td>队列里越来越多、还没处理的消息。</td></tr>
+              <tr><td>Dead-Letter Queue</td><td>死信队列</td><td>A separate place for messages that repeatedly fail.</td><td>多次处理失败后暂时隔离消息的地方。</td></tr>
+              <tr><td>Idempotency</td><td>幂等性</td><td>Running the same message more than once does not create an incorrect extra result.</td><td>同一消息重复处理，也不会造成错误的重复结果。</td></tr>
+              <tr><td>Ordering</td><td>顺序</td><td>The sequence in which messages are delivered or processed.</td><td>消息先后处理的次序。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="remember" class="card wide detail-section mq-remember topic-takeaway">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>A message queue separates the moment work is requested from the moment work is processed.</p>
+        <p>It helps systems absorb spikes, isolate services, and run slow work asynchronously.</p>
+        <p>For product decisions, ask about freshness, retries, duplicates, ordering, backlog limits, and what the user should see while work is pending.</p>
+        <p><b>PM Perspective:</b> A queue can make a product feel responsive, but the product still needs a truthful status model so users know whether their work is queued, processing, completed, or failed.</p>
+        <div class="mq-flow" aria-label="Producer to queue to consumer to product outcome"><div>Producer</div><div aria-hidden="true">→</div><div class="accent">Queue</div><div aria-hidden="true">→</div><div>Consumer</div></div>
+      </section>
+    </div>
+    <nav class="prevnext" aria-label="Topic navigation"><a href="data-technologies.html">← <small>Previous</small><br>Redis</a><a href="event.html"><small>Next</small> →<br>Event</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

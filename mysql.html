@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MySQL · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of MySQL as a relational database management system.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="mysql.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory mysql-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="mysql-hero">
+      <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>MySQL</h1>
+      <p class="lede">MySQL is a widely used relational database management system that stores and manages structured data using SQL.</p>
+    </header>
+    <section class="detail-sections">
+      <article id="definition" class="card detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">MySQL is a relational database management system, or DBMS, for storing and managing structured data with SQL.</p>
+        <p class="muted">It organizes data into related tables and lets an application create, read, update, and delete records.</p>
+      </article>
+
+      <article id="analogy" class="card detail-section topic-analogy">
+        <h2>02 · Think of it like…</h2>
+        <div class="analogy-panel">
+          <strong>Think of MySQL as a well-organized set of filing cabinets.</strong>
+          <p>Each table is a cabinet for one kind of record. Rows are individual files, columns describe each file, and SQL is the language used to find or change them.</p>
+        </div>
+      </article>
+
+      <article id="does" class="card detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">MySQL gives software a structured place to keep data and a reliable way to work with it.</p>
+        <div class="mysql-actions">
+          <div><b>Store</b><span>Save records in tables.</span></div>
+          <div><b>Query</b><span>Find records with SQL.</span></div>
+          <div><b>Update</b><span>Change existing data.</span></div>
+          <div><b>Relate</b><span>Connect data across tables.</span></div>
+        </div>
+      </article>
+
+      <article id="used" class="card detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">MySQL is common in web applications and business systems that need structured, relational data.</p>
+        <div class="use-cases">
+          <div><b>User accounts</b><span>Profiles, settings, and account status.</span></div>
+          <div><b>Orders</b><span>Customers, products, payments, and order states.</span></div>
+          <div><b>Content platforms</b><span>Posts, comments, categories, and publishing data.</span></div>
+          <div><b>Business systems</b><span>Inventory, reporting, and operational records.</span></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section topic-example">
+        <h2>05 · Example</h2>
+        <h3 class="example-title">Find a customer’s recent orders</h3>
+        <p class="muted">An application can ask MySQL to join customer and order data, filter by customer, and return the newest results.</p>
+        <pre><code>SELECT orders.id, orders.created_at, orders.total
+FROM orders
+JOIN customers ON customers.id = orders.customer_id
+WHERE customers.email = 'alex@example.com'
+ORDER BY orders.created_at DESC;</code></pre>
+        <p class="note">The application receives structured rows and can use them to render an order history.</p>
+      </article>
+
+      <article id="connects" class="card detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="connection-panel">
+          <div class="flow" aria-label="Frontend to API to backend to SQL to MySQL to response">
+            <span>Frontend</span><i aria-hidden="true">→</i><span>API</span><i aria-hidden="true">→</i><span>Backend</span><i aria-hidden="true">→</i><span>SQL Query</span><i aria-hidden="true">→</i><span>MySQL</span><i aria-hidden="true">→</i><span>Response</span>
+          </div>
+          <p class="connection-note">The backend applies business rules, sends SQL to MySQL, and turns the returned data into a response for the frontend.</p>
+        </div>
+      </article>
+
+      <article id="confuse" class="card detail-section topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>MySQL</h3><p>A database system that stores and manages relational data.</p></div>
+          <div><h3>SQL</h3><p>A language used to work with relational database data.</p></div>
+          <div><h3>Table</h3><p>A structure inside a database that organizes records in rows and columns.</p></div>
+        </div>
+      </article>
+
+      <article id="glossary" class="card detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary-table">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>MySQL</td><td>MySQL 数据库</td><td>A relational database management system that uses SQL.</td><td>一种使用 SQL 管理关系型数据的数据库系统。</td></tr>
+              <tr><td>DBMS</td><td>数据库管理系统</td><td>Software that stores, organizes, and manages database data.</td><td>用来保存、组织和管理数据库数据的软件。</td></tr>
+              <tr><td>Relational Database</td><td>关系型数据库</td><td>A database that organizes data into related tables.</td><td>把数据放进相互关联的数据表中的数据库。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that stores records in rows and columns.</td><td>用行和列保存记录的数据结构。</td></tr>
+              <tr><td>Row</td><td>行</td><td>One record in a table.</td><td>表中的一条完整记录。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One type of information stored for every row.</td><td>每条记录中同一类信息所在的字段。</td></tr>
+              <tr><td>Schema</td><td>模式 / 结构</td><td>The design of a database, including its tables and relationships.</td><td>数据库中表、字段和关系的整体设计。</td></tr>
+              <tr><td>Query</td><td>查询</td><td>A request to read or change database data.</td><td>向数据库发出的读取或修改数据的指令。</td></tr>
+              <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies each row.</td><td>唯一标识每一行记录的值。</td></tr>
+              <tr><td>SQL</td><td>结构化查询语言</td><td>A language used to read and change relational data.</td><td>用来查询和修改关系型数据的语言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <ul class="remember-list">
+          <li>MySQL stores structured data in related tables.</li>
+          <li>Applications use SQL to read, add, update, and organize that data.</li>
+          <li>MySQL is the database system; SQL is the language used to work with it.</li>
+        </ul>
+      </article>
+    </section>
+    <nav class="topic-pagination" aria-label="Topic navigation">
+      <a href="postgresql.html"><small><span class="pagination-arrow" aria-hidden="true"></span> Previous</small><b>PostgreSQL</b></a>
+      <a href="table.html"><small>Next <span class="pagination-arrow" aria-hidden="true"></span></small><b>Table</b></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

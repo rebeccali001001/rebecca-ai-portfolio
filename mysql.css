@@ -1,0 +1,39 @@
+.mysql-page .mysql-hero{max-width:820px}
+.mysql-page .detail-sections{max-width:none}
+.mysql-page .section-lede{max-width:780px;color:var(--muted)}
+.mysql-page .analogy-panel,.mysql-page .connection-panel{padding:22px;border:1px solid #38516d;border-radius:16px;background:#07111a}
+.mysql-page .analogy-panel strong{display:block;color:#fff;font-size:21px}
+.mysql-page .analogy-panel p{max-width:760px;margin:8px 0 0;color:var(--muted)}
+.mysql-page .mysql-actions,.mysql-page .use-cases,.mysql-page .confusion-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.mysql-page .mysql-actions>div,.mysql-page .use-cases>div,.mysql-page .confusion-grid>div{min-width:0;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+.mysql-page .mysql-actions b,.mysql-page .use-cases b,.mysql-page .confusion-grid h3{display:block;color:#fff}
+.mysql-page .mysql-actions span,.mysql-page .use-cases span,.mysql-page .confusion-grid p{display:block;margin-top:7px;color:var(--muted);font-size:14px;line-height:1.45}
+.mysql-page .mysql-actions>div:first-child,.mysql-page .use-cases>div:first-child,.mysql-page .confusion-grid>div:first-child{border-color:var(--green);background:rgba(120,229,189,.08)}
+.mysql-page .example-title{margin:18px 0 10px;color:#fff;font-size:18px}
+.mysql-page pre{max-width:100%;margin:18px 0 0;overflow:auto;padding:18px;border:1px solid #38516d;border-radius:14px;background:#061019;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+.mysql-page code{font:inherit}
+.mysql-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:18px}
+.mysql-page .flow span{padding:12px 14px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+.mysql-page .flow span:last-child{border-color:var(--green);background:rgba(120,229,189,.08)}
+.mysql-page .flow i{color:var(--green);font-size:22px;font-style:normal}
+.mysql-page .connection-note{margin-top:16px;color:var(--muted)}
+.mysql-page .confusion-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mysql-page .confusion-grid h3{margin:0;font-size:18px}
+.mysql-page .confusion-grid p{margin-bottom:0}
+.mysql-page .glossary-wrap{overflow-x:auto;margin-top:18px}
+.mysql-page .glossary-table{width:100%;min-width:820px;border-collapse:collapse;font-size:14px}
+.mysql-page .glossary-table th,.mysql-page .glossary-table td{padding:13px 12px;border:1px solid #38516d;text-align:left;vertical-align:top}
+.mysql-page .glossary-table th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+.mysql-page .glossary-table td{color:var(--muted)}
+.mysql-page .glossary-table td:first-child{color:#fff;font-weight:800}
+.mysql-page .remember-list{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none}
+.mysql-page .remember-list li{padding:14px 16px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#fff}
+.mysql-page .topic-pagination{display:flex;justify-content:space-between;gap:16px;margin:24px 0 8px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+.mysql-page .topic-pagination a{display:grid;gap:5px;min-width:190px;padding:15px 17px;border:1px solid #38516d;border-radius:13px;background:#07111a;text-decoration:none}
+.mysql-page .topic-pagination a:last-child{text-align:right}
+.mysql-page .topic-pagination a:hover{border-color:var(--green)}
+.mysql-page .topic-pagination small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.mysql-page .topic-pagination b{color:#fff}
+.mysql-page .pagination-arrow{color:var(--green);font-size:20px;font-weight:800}
+@media(max-width:900px){.mysql-page .mysql-actions,.mysql-page .use-cases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.mysql-page .mysql-actions,.mysql-page .use-cases,.mysql-page .confusion-grid{grid-template-columns:1fr}.mysql-page .flow{flex-direction:column}.mysql-page .flow i{font-size:0}.mysql-page .flow i::after{content:'↓';font-size:22px}.mysql-page .topic-pagination{flex-direction:column}.mysql-page .topic-pagination a,.mysql-page .topic-pagination a:last-child{min-width:0;text-align:left}.mysql-page .pagination-arrow{font-size:0}.mysql-page .pagination-arrow::before{content:'↓';font-size:20px}}

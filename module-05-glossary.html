@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05 · Database &amp; SQL · Glossary · Software Knowledge</title>
+  <meta name="description" content="Simple English and Chinese definitions for Database and SQL concepts.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .module-five-glossary .glossary-wrap{max-width:100%;overflow-x:auto}
+    .module-five-glossary table{width:100%;min-width:900px;border-collapse:collapse;font-size:14px}
+    .module-five-glossary th,.module-five-glossary td{padding:13px 12px;border:1px solid #38516d;text-align:left;vertical-align:top}
+    .module-five-glossary th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+    .module-five-glossary td{color:var(--muted)}
+    .module-five-glossary td:first-child{color:#fff;font-weight:800}
+    .module-five-glossary .prevnext{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+    .module-five-glossary .prevnext a{color:var(--muted)}
+    .module-five-glossary .prevnext strong{color:var(--green)}
+    @media(max-width:760px){.module-five-glossary .prevnext{flex-direction:column}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory module-five-glossary" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+      <div class="eyebrow">MODULE 05 · GLOSSARY</div>
+      <h1>Database &amp; SQL Glossary</h1>
+      <p class="lede">Simple English and Chinese explanations for the concepts that organize and query relational data.</p>
+    </header>
+    <section id="glossary" class="card wide topic-section">
+      <div class="eyebrow">05 · DATABASE &amp; SQL</div><h2>Topic Glossary</h2>
+      <div class="glossary-wrap">
+        <table>
+          <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+          <tbody>
+            <tr><td>Database</td><td>数据库</td><td>A system used to store and organize application data.</td><td>用来保存和组织应用数据的系统。</td></tr>
+            <tr><td><a href="dbms.html">DBMS</a></td><td>数据库管理系统</td><td>Software that manages databases and access to their data.</td><td>负责管理数据库、处理读写请求并控制访问权限的软件。</td></tr>
+            <tr id="index"><td><a href="index.html">Index</a></td><td>索引</td><td>A structure that helps a database find rows faster.</td><td>帮助数据库更快找到数据行的辅助结构。</td></tr>
+            <tr><td><a href="relational-database.html">Relational Database</a></td><td>关系型数据库</td><td>A database that stores data in tables and connects related records.</td><td>把数据放在表里，并把相关记录连接起来的数据库。</td></tr>
+            <tr><td><a href="postgresql.html">PostgreSQL</a></td><td>PostgreSQL</td><td>An open-source relational database management system.</td><td>一个开源的关系型数据库管理系统。</td></tr>
+            <tr><td><a href="mysql.html">MySQL</a></td><td>MySQL</td><td>A popular relational database management system.</td><td>一种常用的关系型数据库管理系统。</td></tr>
+            <tr><td><a href="table.html">Table</a></td><td>表</td><td>A structure that stores related data in rows and columns.</td><td>按行和列保存相关数据的结构。</td></tr>
+            <tr><td><a href="row.html">Row</a></td><td>行</td><td>One complete record in a database table.</td><td>数据库表中的一条完整记录。</td></tr>
+            <tr><td><a href="column.html">Column</a></td><td>列</td><td>One type of information stored in every row.</td><td>每一行都保存的一种信息类型。</td></tr>
+            <tr id="schema"><td><a href="schema.html">Schema</a></td><td>模式 / 结构</td><td>The blueprint that defines how database data and objects are organized.</td><td>规定数据库如何组织表、字段和关系的蓝图。</td></tr>
+            <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a record.</td><td>唯一标识一条记录的值。</td></tr>
+            <tr><td>Foreign Key</td><td>外键</td><td>A field that points to a record in another table.</td><td>指向另一张表中记录的字段。</td></tr>
+            <tr><td><a href="relationship.html">Relationship</a></td><td>关系</td><td>A connection between records in different tables.</td><td>不同数据表中的记录之间的关联。</td></tr>
+            <tr><td><a href="constraint.html">Constraint</a></td><td>约束</td><td>A rule that controls which data is allowed.</td><td>规定哪些数据可以被保存的规则。</td></tr>
+            <tr><td>Transaction</td><td>事务</td><td>A group of database operations treated as one unit.</td><td>作为一个整体执行的一组数据库操作。</td></tr>
+            <tr><td>NULL</td><td>空值</td><td>A marker for a missing or unknown value.</td><td>表示缺少或未知数据的标记。</td></tr>
+            <tr><td>Normalization</td><td>规范化</td><td>Organizing relational data to reduce unnecessary duplication.</td><td>整理关系型数据，减少不必要的重复。</td></tr>
+            <tr><td>Migration</td><td>迁移</td><td>A controlled change to a database schema or stored data.</td><td>有计划地改变数据库结构或搬移数据。</td></tr>
+            <tr><td><a href="sql.html">SQL</a></td><td>结构化查询语言</td><td>A language used to read and change relational database data.</td><td>用来查询和修改关系型数据库数据的语言。</td></tr>
+            <tr id="one-to-many"><td><a href="one-to-many.html">One-to-Many</a></td><td>一对多</td><td>One record is related to many records.</td><td>一条记录对应很多条记录。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <nav class="prevnext" aria-label="Module 05 navigation"><a href="module-05.html">← <strong>Module 05 Overview</strong></a><a href="authentication.html"><strong>Authentication →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

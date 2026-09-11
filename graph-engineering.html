@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>What is Graph Engineering? · Agents &amp; Agent Systems</title>
+  <meta name="description" content="Graph Engineering models a complex agent workflow as explicit nodes, paths, conditions, branches, loops, and state.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .graph-engineering-page .lede{max-width:860px}
+    .graph-flow{margin-top:22px;padding:24px;border:1px solid #38516d;border-radius:18px;background:radial-gradient(circle at 50% 0,rgba(120,229,189,.11),transparent 40%),#07111a;overflow:auto}
+    .graph-row{display:flex;align-items:center;justify-content:center;gap:10px;min-width:650px}
+    .graph-node{display:flex;flex-direction:column;justify-content:center;min-height:72px;min-width:150px;padding:14px 16px;border:1px solid #38516d;border-radius:14px;background:#102335;text-align:center}
+    .graph-node b{font-size:16px}.graph-node small{margin-top:3px;color:var(--muted);font-size:12px}.graph-node.primary{border-color:var(--green);background:rgba(120,229,189,.1)}.graph-node.condition{border-color:var(--gold);background:rgba(255,212,127,.08)}
+    .graph-arrow{color:var(--green);font-size:22px;font-weight:800}.graph-down{display:block;text-align:center;height:34px;padding-top:4px;color:var(--green);font-size:22px;font-weight:800;min-width:650px}
+    .graph-branches{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(380px,1.5fr);gap:22px;min-width:650px;max-width:900px;margin:0 auto;align-items:start}
+    .graph-branch{display:grid;gap:10px;justify-items:center}.graph-branch-label{margin-bottom:2px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em}.graph-branch .graph-node{width:100%;max-width:230px}.graph-branch .graph-node.wide{max-width:260px}.graph-branch-arrow{color:var(--green);font-size:20px;font-weight:800}.graph-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:520px}.graph-outcome{padding:13px;border:1px dashed #38516d;border-radius:12px;background:#0c1a28;color:var(--muted);font-size:13px;text-align:center}.graph-outcome b{color:var(--green)}
+    .graph-caption{margin:16px 0 0;color:var(--muted);font-size:14px;text-align:center}
+    .vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.vocab-card{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}.vocab-card b{color:var(--green);font-size:15px}.vocab-card p{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .comparison-table{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.comparison-table>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}.comparison-table h3{margin:0 0 9px;font-size:17px}.comparison-table p{margin:7px 0;color:var(--muted);font-size:14px}.comparison-table b{color:var(--green)}
+    .graph-engineering-page .topic-related .chips{display:flex;flex-wrap:wrap;gap:8px}.graph-engineering-page .topic-related .chip{padding:7px 11px;border:1px solid #38516d;border-radius:999px;color:#dbe7f4;font-size:13px}.graph-engineering-page .topic-related .chip:hover{border-color:var(--green)}
+    @media(max-width:760px){.vocab-grid,.comparison-table{grid-template-columns:1fr}.graph-flow{margin-left:-6px;margin-right:-6px;padding:18px 12px}.graph-outcomes{grid-template-columns:1fr}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory graph-engineering-page">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap topic-main">
+    <a class="back" href="agents-tools-mcp.html">← Agents &amp; Agent Systems overview</a>
+    <div class="eyebrow">Module 08 · Agents &amp; Agent Systems · New Topic</div>
+    <h1>What is Graph Engineering?</h1>
+    <p class="lede">Graph Engineering turns a complex agent workflow into a clear execution graph: named steps, explicit paths, conditions, branches, loops, and state.</p>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On this page</b>
+      <a href="#definition">What is it?</a>
+      <a href="#analogy">Think of it like...</a>
+      <a href="#process">The graph</a>
+      <a href="#vocabulary">Key pieces</a>
+      <a href="#compare">Compare</a>
+      <a href="#related">Related concepts</a>
+      <a href="#remember">Remember this</a>
+    </nav>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>What is it?</h2>
+        <p class="definition">Graph Engineering is the practice of modeling an agent workflow as a graph that a system can execute and control.</p>
+        <p class="muted">Each meaningful action becomes a node. Edges describe what can happen next. Conditions decide which path to take, while state records what the workflow currently knows.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>Think of it like...</h2>
+        <div class="analogy-box text-only">
+          <p class="analogy-lede">An Agent Loop is “do one step, then decide what to do next.” A Graph Workflow is “draw the map first, then take the route that matches the situation.”</p>
+          <p class="muted">That map makes complex workflows easier to inspect, test, retry, pause, and resume.</p>
+        </div>
+      </article>
+
+      <article id="process" class="card wide topic-process">
+        <h2>A research-and-review graph</h2>
+        <p class="muted">The agent does not follow one straight line. It checks the current state and takes a different route when information is missing or a review fails.</p>
+        <div class="graph-flow" role="img" aria-label="Start, Research, Analyze. If there is not enough information, return to Research. If there is enough information, Generate, then Review. If review fails, return to Generate. If review passes, Finish.">
+          <div class="graph-row">
+            <div class="graph-node primary"><b>Start</b><small>Receive the goal</small></div><span class="graph-arrow" aria-hidden="true">→</span>
+            <div class="graph-node"><b>Research</b><small>Collect evidence</small></div><span class="graph-arrow" aria-hidden="true">→</span>
+            <div class="graph-node condition"><b>Analyze</b><small>Check the state</small></div>
+          </div>
+          <div class="graph-down" aria-hidden="true">↓</div>
+          <div class="graph-branches">
+            <div class="graph-branch">
+              <div class="graph-branch-label">Condition: not enough information</div>
+              <div class="graph-node condition"><b>Research again</b><small>Loop back for more evidence</small></div>
+              <div class="graph-branch-arrow" aria-hidden="true">↺ Research</div>
+            </div>
+            <div class="graph-branch">
+              <div class="graph-branch-label">Condition: enough information</div>
+              <div class="graph-node primary"><b>Generate</b><small>Create a draft or answer</small></div>
+              <div class="graph-branch-arrow" aria-hidden="true">↓</div>
+              <div class="graph-node"><b>Review</b><small>Check quality and constraints</small></div>
+              <div class="graph-outcomes">
+                <div class="graph-outcome"><b>Failed</b><br>→ Generate again</div>
+                <div class="graph-outcome"><b>Passed</b><br>→ Finish</div>
+              </div>
+              <div class="graph-node primary"><b>Finish</b><small>Return the approved result</small></div>
+            </div>
+          </div>
+        </div>
+        <p class="graph-caption">The graph makes both normal progress and controlled loops visible.</p>
+      </article>
+
+      <article id="vocabulary" class="card wide">
+        <h2>Six pieces of a graph</h2>
+        <div class="vocab-grid">
+          <div class="vocab-card"><b>Node</b><p>A step that does work, such as Research, Generate, or Review.</p></div>
+          <div class="vocab-card"><b>Edge</b><p>A connection that says which step can happen next.</p></div>
+          <div class="vocab-card"><b>State</b><p>The current information, such as “sources collected” or “review failed.”</p></div>
+          <div class="vocab-card"><b>Condition</b><p>A question the system checks before choosing a route.</p></div>
+          <div class="vocab-card"><b>Branch</b><p>Two or more possible paths for different situations.</p></div>
+          <div class="vocab-card"><b>Loop</b><p>A path that returns to an earlier node when more work is needed.</p></div>
+        </div>
+      </article>
+
+      <article id="compare" class="card wide topic-comparison">
+        <h2>What is the difference?</h2>
+        <div class="comparison-table">
+          <div><h3>Agent Loop</h3><p><b>Focus:</b> repeated execution.</p><p>Do something, observe the result, and decide what to do next.</p></div>
+          <div><h3>Graph</h3><p><b>Focus:</b> explicit structure.</p><p>Make nodes, paths, conditions, and state visible and controllable.</p></div>
+          <div><h3>Workflow</h3><p><b>Focus:</b> business steps.</p><p>Describe how work moves from an input to a useful outcome.</p></div>
+        </div>
+        <p class="note">Graph Engineering connects them: it models a complex Agent Workflow as a graph that can run predictably.</p>
+      </article>
+
+      <article class="card wide topic-example">
+        <h2>Why use a graph?</h2>
+        <div class="example-grid">
+          <div><h3>Without an explicit graph</h3><p>The workflow can become a long chain of hidden decisions. It is difficult to see where it is, why it looped, or where it failed.</p></div>
+          <div><h3>With Graph Engineering</h3><p>Each node, route, condition, and state transition can be named, logged, tested, retried, and reviewed.</p></div>
+        </div>
+      </article>
+
+      <article id="related" class="card wide topic-related">
+        <h2>Related concepts</h2>
+        <div class="concept-tree">Agent → Agent Loop → Graph Workflow → Orchestration</div>
+        <p class="muted">Explore next</p>
+        <div class="chips">
+          <a class="chip" href="ai-agent.html">Agent</a>
+          <a class="chip" href="agent-loop.html">Agent Loop</a>
+          <a class="chip" href="workflow-automation.html">Workflow</a>
+          <a class="chip" href="knowledge-placeholder.html?type=ai&amp;title=Graph">Graph</a>
+          <a class="chip" href="knowledge-placeholder.html?type=ai&amp;title=State%20Machine">State Machine</a>
+          <a class="chip" href="knowledge-placeholder.html?type=ai&amp;title=Orchestration">Orchestration</a>
+          <a class="chip" href="multi-agent-systems.html">Multi-Agent Systems</a>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway">
+        <h2>Remember this</h2>
+        <p class="note">Agent Loop means repeated execution. Graph Engineering means making the workflow’s nodes, paths, conditions, branches, loops, and state explicit so a complex agent system can be controlled.</p>
+      </article>
+
+      <article class="card wide video-card">
+        <div class="video-label"><div><div class="eyebrow">Video</div><h2>Video</h2></div><small>No video available yet.</small></div>
+        <p class="video-caption">A video explainer is not available yet.</p>
+      </article>
+    </section>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

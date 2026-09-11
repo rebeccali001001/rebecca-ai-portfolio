@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Business Logic · Software Knowledge</title>
+  <meta name="description" content="Business logic represents the rules that turn business requirements into system behavior.">
+  <link rel="stylesheet" href="topic.css?v=20260909">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="business-logic.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic business-logic-topic" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">PART IV · BACKEND</div>
+      <h1>Business Logic</h1>
+      <p class="lede">The rules and decisions that determine how a business operation should work.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide topic-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>Business logic represents the rules that turn business requirements into system behavior.</p>
+        <p>It determines what should happen when users or systems perform business operations.</p>
+        <p class="definition"><strong>Simple Definition：</strong> Business logic is the system's business decision-making logic.</p>
+      </section>
+
+      <section id="think" class="card wide topic-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p>Think of a company's operating rules.</p>
+        <p>The backend receives an action.</p>
+        <p>Business logic decides whether it is allowed and what should happen next.</p>
+      </section>
+
+      <section id="does" class="card wide topic-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <div class="cards six">
+          <article><strong>Apply Business Rules</strong></article>
+          <article><strong>Calculate Values</strong></article>
+          <article><strong>Check Conditions</strong></article>
+          <article><strong>Control Workflow</strong></article>
+          <article><strong>Make Decisions</strong></article>
+          <article><strong>Coordinate Operations</strong></article>
+        </div>
+      </section>
+
+      <section id="where" class="card wide topic-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>Business logic is used in:</p>
+        <div class="chips" aria-label="Business logic use cases">
+          <span class="chip">Order Management</span>
+          <span class="chip">Pricing</span>
+          <span class="chip">Payments</span>
+          <span class="chip">Approvals</span>
+          <span class="chip">Inventory</span>
+          <span class="chip">Settlement</span>
+        </div>
+      </section>
+
+      <section id="example" class="card wide topic-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <h3>Create Order</h3>
+        <div class="rule-list">
+          <p><strong>Scenario：</strong> Create Order</p>
+          <p><strong>Rules：</strong></p>
+          <ul>
+            <li>Customer must be active.</li>
+            <li>Quantity must be greater than 0.</li>
+            <li>Available credit must be sufficient.</li>
+          </ul>
+        </div>
+        <p class="flow-label">Flow</p>
+        <div class="responsive-flow" aria-label="Request to save result flow">
+          <div>Request</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Business Rules</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Approve / Reject</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Save Result</div>
+        </div>
+      </section>
+
+      <section id="connects" class="card wide topic-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="responsive-flow" aria-label="Route to database flow">
+          <div>Route</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Validation</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div class="accent">Business Logic</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Repository / Service</div><span class="desktop-arrow" aria-hidden="true">→</span><span class="mobile-arrow" aria-hidden="true">↓</span>
+          <div>Database</div>
+        </div>
+      </section>
+
+      <section id="confuse" class="card wide topic-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <div class="comparison">
+          <article class="validation-card"><h3>Validation</h3><p>Checks whether input has acceptable structure or values.</p></article>
+          <article class="logic-card"><h3>Business Logic</h3><p>Applies business decisions and rules.</p></article>
+        </div>
+      </section>
+
+      <section id="glossary" class="card wide topic-section">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Business Logic</td><td>业务逻辑</td><td>Rules that determine how business operations work.</td><td>决定系统业务流程应该如何处理的一组规则。</td></tr>
+              <tr><td>Business Rule</td><td>业务规则</td><td>One rule defining allowed or required behavior.</td><td>规定业务在什么条件下可以或不可以执行的一条规则。</td></tr>
+              <tr><td>Workflow</td><td>工作流</td><td>A sequence of business steps.</td><td>一个业务从开始到结束需要经过的一系列步骤。</td></tr>
+              <tr><td>Condition</td><td>条件</td><td>A rule used to decide what happens next.</td><td>用来判断后续应该执行什么操作的条件。</td></tr>
+              <tr><td>Calculation</td><td>计算逻辑</td><td>Logic used to calculate business values.</td><td>用来计算价格、金额、数量等业务结果的规则。</td></tr>
+              <tr><td>Decision</td><td>决策</td><td>A result chosen based on rules and conditions.</td><td>系统根据业务条件判断后得出的处理结果。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="remember" class="card wide topic-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <p>Business logic represents business rules in software.</p>
+        <p>It sits between request handling and data operations.</p>
+        <p>Good business logic should be separated from transport details when practical.</p>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="validation.html">← <small>Previous</small><br>Validation</a>
+      <a href="service.html"><small>Next</small> →<br>Service</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

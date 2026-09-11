@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One-to-Many · Database &amp; SQL</title>
+  <meta name="description" content="A beginner-friendly explanation of one-to-many relationships in relational databases.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .one-to-many-page { overflow-x: hidden; }
+    .one-to-many-page .hero h1 { margin-bottom: 12px; }
+    .one-to-many-page .definition { max-width: 860px; color: #fff; font-size: 20px; }
+    .one-to-many-page .section-lede { max-width: 860px; color: var(--muted); margin: 0 0 18px; }
+    .one-to-many-page .flow { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; min-width: 0; }
+    .one-to-many-page .flow-node { flex: 1 1 0; min-width: 0; display: grid; place-items: center; min-height: 78px; padding: 14px 12px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; font-weight: 800; text-align: center; overflow-wrap: anywhere; }
+    .one-to-many-page .flow-node.accent { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a; }
+    .one-to-many-page .flow-arrow { flex: 0 0 24px; display: grid; place-items: center; color: var(--green); font-size: 24px; font-weight: 800; }
+    .one-to-many-page .card-grid, .one-to-many-page .use-grid, .one-to-many-page .confusion-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .one-to-many-page .card-grid > div, .one-to-many-page .use-grid > div, .one-to-many-page .confusion-grid > div { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .one-to-many-page .card-grid p, .one-to-many-page .use-grid p, .one-to-many-page .confusion-grid p { margin: 7px 0 0; color: var(--muted); }
+    .one-to-many-page .use-grid strong { display: block; margin-bottom: 6px; color: var(--green); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .one-to-many-page .confusion-grid h3 { margin: 0 0 8px; color: var(--green); }
+    .one-to-many-page .example-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; margin-top: 18px; }
+    .one-to-many-page .example-card { min-width: 0; padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .one-to-many-page .example-card p { margin: 0; color: var(--muted); }
+    .one-to-many-page pre { max-width: 100%; margin: 0; padding: 18px; border: 1px solid #38516d; border-radius: 12px; background: #050b12; color: #dbe7f4; overflow-x: auto; white-space: pre; }
+    .one-to-many-page code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+    .one-to-many-page .bottom-line { margin: 18px 0 0; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+    .one-to-many-page .table-wrap { max-width: 100%; margin-top: 18px; overflow-x: auto; }
+    .one-to-many-page table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }
+    .one-to-many-page th, .one-to-many-page td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .one-to-many-page th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .one-to-many-page td { color: var(--muted); }
+    .one-to-many-page td:first-child { color: #fff; font-weight: 800; }
+    .one-to-many-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .one-to-many-page .remember p { max-width: 840px; font-size: 19px; color: #fff; }
+    .one-to-many-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .one-to-many-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 170px; color: var(--muted); }
+    .one-to-many-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .one-to-many-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .one-to-many-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) { .one-to-many-page .card-grid, .one-to-many-page .use-grid, .one-to-many-page .confusion-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .one-to-many-page .flow { flex-wrap: wrap; } .one-to-many-page .flow-node { flex-basis: 140px; } }
+    @media (max-width: 760px) { .one-to-many-page .flow, .one-to-many-page .card-grid, .one-to-many-page .use-grid, .one-to-many-page .confusion-grid, .one-to-many-page .example-grid { grid-template-columns: 1fr; } .one-to-many-page .flow { flex-direction: column; gap: 6px; } .one-to-many-page .flow-node { width: 100%; flex-basis: auto; } .one-to-many-page .flow-arrow { min-height: 22px; flex-basis: 20px; font-size: 0; } .one-to-many-page .flow-arrow::after { content: '↓'; font-size: 24px; } .one-to-many-page .pager { flex-direction: column; } .one-to-many-page .pager a:last-child { align-items: flex-start; text-align: left; } }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory one-to-many-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero"><div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div><h1>One-to-Many</h1><p class="lede">A one-to-many relationship means one record in one table can be associated with many records in another table.</p></header>
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition"><h2>01 · What is it?</h2><p class="definition">One parent record can connect to many child records, while each child record points back to one parent.</p><p class="section-lede">For example, one customer can place many orders. The relationship is stored with a foreign key in the table on the “many” side.</p></article>
+      <article id="think-of-it" class="card wide topic-analogy"><h2>02 · Think of it like...</h2><p class="definition">Think of one customer as a folder that can hold many order receipts.</p><p class="section-lede">The customer is the single parent. Each order is a separate child record, but every order keeps the customer’s ID so the system knows which folder it belongs to.</p><div class="flow" aria-label="One customer connects to many orders"><div class="flow-node accent">Customer 42</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Order 1001</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Order 1002</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Order 1003</div></div></article>
+      <article id="what-does-it-do" class="card wide"><h2>03 · What does it do?</h2><p class="section-lede">A one-to-many relationship keeps related data connected without repeating the parent’s full details in every child row.</p><div class="card-grid"><div><b>Connect Records</b><p>Use a foreign key to connect each child to its parent.</p></div><div><b>Keep Data Organized</b><p>Store customers, orders, or other entities in separate tables.</p></div><div><b>Query Related Data</b><p>Find all child records that belong to one parent.</p></div></div></article>
+      <article id="where-is-it-used" class="card wide"><h2>04 · Where is it used?</h2><p class="section-lede">One-to-many relationships appear wherever one entity can own, create, or contain multiple related entities.</p><div class="use-grid"><div><strong>Customers → Orders</strong><p>One customer can place many orders.</p></div><div><strong>Authors → Posts</strong><p>One author can publish many posts.</p></div><div><strong>Teams → Members</strong><p>One team can include many members.</p></div><div><strong>Departments → Employees</strong><p>One department can contain many employees.</p></div><div><strong>Invoices → Line Items</strong><p>One invoice can list many purchased items.</p></div><div><strong>Projects → Tasks</strong><p>One project can contain many tasks.</p></div></div></article>
+      <article id="example" class="card wide topic-example"><h2>05 · Example</h2><div class="example-grid"><div class="example-card"><pre><code>CREATE TABLE orders (
+  id INTEGER PRIMARY KEY,
+  customer_id INTEGER NOT NULL,
+  total DECIMAL(10, 2),
+  FOREIGN KEY (customer_id)
+    REFERENCES customers(id)
+);
+
+SELECT *
+FROM orders
+WHERE customer_id = 42;</code></pre></div><div class="example-card"><p>The <code>orders.customer_id</code> foreign key points to <code>customers.id</code>. Customer 42 can therefore have many rows in <code>orders</code>, and the query returns every order for that customer.</p></div></div><p class="bottom-line">The foreign key lives on the many side: every order stores the ID of its one customer.</p></article>
+      <article id="how-it-connects" class="card wide"><h2>06 · How it connects</h2><div class="flow" aria-label="Customer primary key connects to order foreign key and related order rows"><div class="flow-node accent">customers.id</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">orders.customer_id</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node">Many order rows</div><div class="flow-arrow" aria-hidden="true">→</div><div class="flow-node accent">Customer order history</div></div><p class="bottom-line">A primary key identifies the parent; matching foreign-key values gather the related child records.</p></article>
+      <article id="do-not-confuse" class="card wide"><h2>07 · Do Not Confuse</h2><div class="confusion-grid"><div><h3>One-to-Many</h3><p>One parent record can relate to many child records.</p></div><div><h3>Many-to-Many</h3><p>Many records on both sides relate to each other, usually through a join table.</p></div><div><h3>One-to-One</h3><p>One record matches at most one record in the related table.</p></div></div><p class="bottom-line">One-to-many describes the relationship’s cardinality; it does not mean one table is physically nested inside another.</p></article>
+      <article id="glossary" class="card wide"><h2>08 · Topic Glossary</h2><div class="table-wrap"><table><thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead><tbody><tr><td>One-to-Many Relationship</td><td>一对多关系</td><td>One record is related to many records.</td><td>一条记录可以对应很多条记录。</td></tr><tr><td>Parent Record</td><td>父记录</td><td>The single record at the one side.</td><td>关系中“一”的那条记录。</td></tr><tr><td>Child Record</td><td>子记录</td><td>A record connected to a parent.</td><td>连接到父记录的相关记录。</td></tr><tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a row.</td><td>能唯一认出一行数据的值。</td></tr><tr><td>Foreign Key</td><td>外键</td><td>A value that points to a key in another table.</td><td>指向另一张表中某个键的值。</td></tr><tr><td>Cardinality</td><td>基数</td><td>The number pattern between related records.</td><td>描述两边记录数量关系的规则。</td></tr><tr><td>Join</td><td>连接查询</td><td>A query operation that combines related rows.</td><td>把有关联的行查到一起。</td></tr></tbody></table></div></article>
+      <article id="remember" class="card wide remember"><h2>09 · What to Remember</h2><p>In a one-to-many relationship, one parent record connects to many child records. Put the parent’s primary key into the child table as a foreign key.</p></article>
+    </section>
+    <nav class="pager" aria-label="Topic navigation"><a href="relationship.html"><small>Previous</small><strong>← Relationship</strong></a><a href="index.html"><small>Next</small><strong>Index →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Authentication · Authentication &amp; Security</title>
+  <meta name="description" content="Authentication verifies who a user or system is before access is granted.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .authentication-page .hero { padding-bottom: 34px; }
+    .authentication-page .hero h1 { margin-bottom: 12px; }
+    .authentication-page .hero .eyebrow { margin-bottom: 14px; }
+    .authentication-page .lede,
+    .authentication-page .section-lede { max-width: 820px; }
+    .authentication-page .definition { max-width: 860px; font-size: 20px; color: #fff; }
+    .authentication-page .section-lede { color: var(--muted); margin: 0 0 18px; }
+    .authentication-page .analogy-copy { max-width: 820px; }
+    .authentication-page .flow {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      margin-top: 20px;
+      width: 100%;
+      min-width: 0;
+    }
+    .authentication-page .card { min-width: 0; }
+    .authentication-page .flow-node {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 78px;
+      padding: 14px 12px;
+      flex: 1 1 0;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+      color: #fff;
+      text-align: center;
+      font-weight: 800;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .authentication-page .flow-node.accent {
+      border-color: var(--green);
+      background: linear-gradient(145deg, rgba(120,229,189,.12), rgba(127,177,255,.08)), #07111a;
+    }
+    .authentication-page .flow-arrow {
+      display: grid;
+      place-items: center;
+      flex: 0 0 24px;
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .authentication-page .card-grid,
+    .authentication-page .use-grid,
+    .authentication-page .confusion-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .authentication-page .card-grid > div,
+    .authentication-page .use-grid > div,
+    .authentication-page .confusion-grid > div {
+      padding: 18px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+    }
+    .authentication-page .card-grid b,
+    .authentication-page .use-grid strong,
+    .authentication-page .confusion-grid h3 { color: #fff; }
+    .authentication-page .card-grid p,
+    .authentication-page .use-grid p,
+    .authentication-page .confusion-grid p { margin: 7px 0 0; color: var(--muted); }
+    .authentication-page .use-grid strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .authentication-page .example-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .authentication-page .example-card {
+      padding: 20px;
+      border: 1px solid #38516d;
+      border-radius: 14px;
+      background: #07111a;
+    }
+    .authentication-page .example-card p { margin: 0; color: var(--muted); }
+    .authentication-page .example-card ol { margin: 0; padding-left: 22px; color: var(--muted); }
+    .authentication-page .example-card li + li { margin-top: 8px; }
+    .authentication-page .bottom-line {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border-left: 3px solid var(--green);
+      color: #fff;
+      background: linear-gradient(90deg, rgba(120,229,189,.07), transparent);
+    }
+    .authentication-page .confusion-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .authentication-page .confusion-grid h3 { margin: 0 0 8px; color: var(--green); }
+    .authentication-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .authentication-page .glossary { width: 100%; min-width: 840px; border-collapse: collapse; font-size: 14px; }
+    .authentication-page .glossary th,
+    .authentication-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .authentication-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .authentication-page .glossary td { color: var(--muted); }
+    .authentication-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .authentication-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .authentication-page .remember p { max-width: 840px; font-size: 19px; color: #fff; }
+    .authentication-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .authentication-page .pager a { display: flex; flex-direction: column; gap: 3px; min-width: 170px; color: var(--muted); }
+    .authentication-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .authentication-page .pager a:hover { color: #fff; }
+    .authentication-page .pager small { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .authentication-page .pager strong { color: var(--green); font-size: 15px; }
+    @media (max-width: 900px) {
+      .authentication-page .card-grid,
+      .authentication-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .authentication-page .flow { flex-wrap: wrap; }
+      .authentication-page .flow-node { flex-basis: 140px; }
+    }
+    @media (max-width: 760px) {
+      .authentication-page .flow,
+      .authentication-page .card-grid,
+      .authentication-page .use-grid,
+      .authentication-page .confusion-grid,
+      .authentication-page .example-grid { grid-template-columns: 1fr; }
+      .authentication-page .flow { flex-direction: column; gap: 6px; }
+      .authentication-page .flow-node { flex-basis: auto; width: 100%; }
+      .authentication-page .flow-arrow { min-height: 22px; flex-basis: 20px; font-size: 0; }
+      .authentication-page .flow-arrow::after { content: '↓'; font-size: 24px; }
+      .authentication-page .pager { flex-direction: column; }
+      .authentication-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory authentication-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 06 · AUTHENTICATION &amp; SECURITY</div>
+      <h1>Authentication</h1>
+      <p class="lede">Authentication is the process of verifying who a user or system is before access is granted.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">Authentication checks an identity claim against one or more credentials, such as a password, security key, or trusted identity provider.</p>
+        <p class="section-lede">The result is an answer to “Who is this?” It does not by itself decide which actions that identity may perform.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <div class="analogy-copy">
+          <p class="definition">Think of authentication like showing identification at a building entrance.</p>
+          <p>The visitor states who they are, presents a credential, and waits while the entrance system checks it.</p>
+          <p>A successful check establishes an identity that the rest of the building can use.</p>
+        </div>
+        <div class="flow" aria-label="Visitor to credential to identity check to verified identity flow">
+          <div class="flow-node">Visitor</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Credential</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Identity Check</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Verified Identity</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">Authentication gives a system a trustworthy identity to use in later access decisions.</p>
+        <div class="card-grid">
+          <div><b>Verify Identity</b><p>Check that a user or service controls the claimed credential.</p></div>
+          <div><b>Establish a Session</b><p>Keep the verified identity available across related requests.</p></div>
+          <div><b>Issue a Token</b><p>Create a signed or otherwise protected proof for later requests.</p></div>
+          <div><b>Reject Impostors</b><p>Stop requests when credentials are missing, invalid, or expired.</p></div>
+        </div>
+      </article>
+
+      <article id="where-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Authentication appears anywhere a system needs to recognize a person, service, or device.</p>
+        <div class="use-grid">
+          <div><strong>Web Applications</strong><b>Account sign-in</b><p>Users sign in before viewing private pages or personal data.</p></div>
+          <div><strong>APIs</strong><b>Service identity</b><p>Clients prove which application or service is making a request.</p></div>
+          <div><strong>Enterprise Systems</strong><b>Single sign-on</b><p>An identity provider authenticates employees across connected tools.</p></div>
+          <div><strong>Devices</strong><b>Machine identity</b><p>A device proves its identity before connecting to a trusted service.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card">
+            <ol>
+              <li>The user submits an email address and password.</li>
+              <li>The server finds the account and compares a password hash.</li>
+              <li>If the check succeeds, the server creates a session or token.</li>
+              <li>Later requests carry that proof so the server can recognize the user.</li>
+            </ol>
+          </div>
+          <div class="example-card"><p>The password should be checked against a securely stored hash, not stored as readable text. The session or token should also be protected and expire according to the system’s risk.</p></div>
+        </div>
+        <p class="bottom-line">Authentication succeeds only when the system can verify the presented credential under its current rules.</p>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="User to login form to authentication service to session or token to authorization check to protected resource flow">
+          <div class="flow-node">User</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Login Form</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Authentication Service</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Session / Token</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Authorization Check</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Protected Resource</div>
+        </div>
+        <p class="bottom-line">Authentication establishes identity; authorization uses that identity to decide what the request may do.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>Authentication</h3><p>Checks who a user or system is.</p></div>
+          <div><h3>Authorization</h3><p>Checks what that verified identity is allowed to do.</p></div>
+          <div><h3>Credential</h3><p>Is evidence used during authentication, such as a password or security key.</p></div>
+        </div>
+        <p class="bottom-line">A successful login does not automatically grant access to every resource or action.</p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Authentication</td><td>身份认证</td><td>Checking who a user or system is.</td><td>检查用户或系统到底是谁。</td></tr>
+              <tr><td>Identity</td><td>身份</td><td>The user, service, or device represented by a request.</td><td>请求背后代表的用户、服务或设备。</td></tr>
+              <tr><td>Credential</td><td>凭证</td><td>Information used to prove or support an identity claim.</td><td>用来证明身份或支持身份声明的信息。</td></tr>
+              <tr><td>Password</td><td>密码</td><td>A secret value used to help prove a user’s identity.</td><td>帮助证明用户身份的一串秘密字符。</td></tr>
+              <tr><td>Session</td><td>会话</td><td>Server-side state that remembers a verified identity across requests.</td><td>服务器记住已验证身份的一段状态。</td></tr>
+              <tr><td>Token</td><td>令牌</td><td>A protected value that represents a verified identity or granted access.</td><td>代表已验证身份或已授予访问权的一段受保护信息。</td></tr>
+              <tr><td>Authorization</td><td>授权</td><td>Checking what an identity is allowed to do.</td><td>检查这个身份可以执行哪些操作。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>Authentication answers “Who are you?” by verifying a user, service, or device.</p>
+        <p>It creates a trusted identity that later authorization checks can use.</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Authentication and Security topic navigation">
+      <a href="module-06.html"><small>Previous</small><strong>← Module 06 Overview</strong></a>
+      <a href="authorization.html"><small>Next</small><strong>Authorization →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>File Storage · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of file storage, paths, folders, permissions, shares, and product trade-offs.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .file-storage-page .hero{max-width:900px;padding-bottom:28px}
+    .file-storage-page .hero h1{margin-bottom:14px}
+    .file-storage-page .lede,.file-storage-page .section-lede{max-width:860px}
+    .file-storage-page .definition{max-width:900px;font-size:21px;color:#fff}
+    .file-storage-page .section-lede{color:var(--muted);margin:0 0 18px}
+    .file-storage-page .detail-sections{gap:22px;margin-top:38px}
+    .file-storage-page .detail-section{scroll-margin-top:24px}
+    .file-storage-page .flow{display:flex;align-items:stretch;gap:10px;margin-top:20px;padding:20px;border:1px solid #38516d;border-radius:16px;background:#07111a}
+    .file-storage-page .flow-node{display:flex;align-items:center;justify-content:center;min-width:0;min-height:78px;flex:1 1 0;padding:14px 12px;border:1px solid #38516d;border-radius:13px;background:#0d1e2d;color:#fff;text-align:center;font-weight:800;overflow-wrap:anywhere}
+    .file-storage-page .flow-node.accent{border-color:var(--green);background:linear-gradient(145deg,rgba(120,229,189,.12),rgba(127,177,255,.08)),#07111a}
+    .file-storage-page .flow-arrow{display:grid;place-items:center;flex:0 0 24px;color:var(--green);font-size:24px;font-weight:800}
+    .file-storage-page .fact-grid,.file-storage-page .use-grid,.file-storage-page .confusion-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .file-storage-page .fact-grid>div,.file-storage-page .use-grid>div,.file-storage-page .confusion-grid>div,.file-storage-page .example-panel{min-width:0;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .file-storage-page .fact-grid b,.file-storage-page .use-grid strong,.file-storage-page .confusion-grid h3{color:#fff}
+    .file-storage-page .fact-grid p,.file-storage-page .use-grid p,.file-storage-page .confusion-grid p,.file-storage-page .example-panel p{margin:7px 0 0;color:var(--muted)}
+    .file-storage-page .use-grid strong{display:block;margin-bottom:6px;color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    .file-storage-page .example-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:18px}
+    .file-storage-page .example-panel ol{margin:0;padding-left:22px;color:var(--muted)}
+    .file-storage-page .example-panel li+li{margin-top:8px}
+    .file-storage-page .path-example{margin:0 0 14px;padding:14px;overflow-wrap:anywhere;border:1px solid #38516d;border-radius:12px;background:#050b12;color:#dbe7f4;font:600 14px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .file-storage-page .bottom-line{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);color:#fff;background:linear-gradient(90deg,rgba(120,229,189,.07),transparent)}
+    .file-storage-page .tradeoff-table-wrap,.file-storage-page .glossary-wrap{max-width:100%;overflow-x:auto;margin-top:18px}
+    .file-storage-page table{width:100%;border-collapse:collapse;font-size:14px}
+    .file-storage-page .tradeoff-table{min-width:680px}
+    .file-storage-page .glossary{min-width:900px}
+    .file-storage-page th,.file-storage-page td{padding:13px 12px;border:1px solid #38516d;text-align:left;vertical-align:top}
+    .file-storage-page th{color:var(--green);background:#07111a;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+    .file-storage-page td{color:var(--muted)}
+    .file-storage-page td:first-child{color:#fff;font-weight:800}
+    .file-storage-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .file-storage-page .remember p{max-width:880px;font-size:19px;color:#fff}
+    .file-storage-page .pm-perspective{margin-top:18px;padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .file-storage-page .pm-perspective h3{margin:0 0 8px;color:var(--green)}
+    .file-storage-page .pm-perspective p{margin:0;color:var(--muted)}
+    .file-storage-page .pager{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+    .file-storage-page .pager a{display:flex;flex-direction:column;gap:3px;min-width:190px;color:var(--muted)}
+    .file-storage-page .pager a:last-child{align-items:flex-end;text-align:right}
+    .file-storage-page .pager a:hover{color:#fff}
+    .file-storage-page .pager small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .file-storage-page .pager strong{color:var(--green);font-size:15px}
+    @media(max-width:900px){.file-storage-page .fact-grid,.file-storage-page .use-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.file-storage-page .flow{flex-wrap:wrap}.file-storage-page .flow-node{flex-basis:140px}}
+    @media(max-width:760px){.file-storage-page .flow,.file-storage-page .fact-grid,.file-storage-page .use-grid,.file-storage-page .confusion-grid,.file-storage-page .example-grid{grid-template-columns:1fr}.file-storage-page .flow{flex-direction:column;gap:6px}.file-storage-page .flow-node{width:100%;flex-basis:auto}.file-storage-page .flow-arrow{min-height:22px;flex-basis:20px;font-size:0}.file-storage-page .flow-arrow::after{content:'↓';font-size:24px}.file-storage-page .pager{flex-direction:column}.file-storage-page .pager a:last-child{align-items:flex-start;text-align:left}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory file-storage-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>File Storage</h1>
+      <p class="lede">File storage organizes data as files and folders so people and applications can find, protect, share, and update it through familiar paths.</p>
+    </header>
+
+    <section class="detail-sections">
+      <article id="what-is-it" class="card wide detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">File storage is a way to keep data in files, folders, and directories addressed by paths, with permissions and shares controlling who can use it.</p>
+        <p class="section-lede">A file has content plus useful metadata such as a name, size, type, owner, timestamps, and location. The storage system exposes file-like operations such as create, read, rename, move, update, and delete.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide detail-section topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of file storage like a shared office filing cabinet.</p>
+        <p class="muted">Folders provide a hierarchy, a path tells you where a document lives, and a permission or share decides whether you may view, edit, or pass it on.</p>
+        <div class="flow" aria-label="Person to folder to file to permission or share flow">
+          <div class="flow-node">Person or App</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Folder / Directory</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">File at a Path</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Permission / Share</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide detail-section">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">File storage gives a product a durable, navigable place for documents and other file-shaped content.</p>
+        <div class="fact-grid">
+          <div><b>Organize</b><p>Group related files into folders, directories, and naming conventions.</p></div>
+          <div><b>Address</b><p>Use a path or share link to locate one specific file.</p></div>
+          <div><b>Control access</b><p>Apply ownership, permissions, roles, and inherited folder rules.</p></div>
+          <div><b>Share and change</b><p>Let people or applications upload, download, rename, edit, and share files.</p></div>
+        </div>
+      </article>
+
+      <article id="where-is-it-used" class="card wide detail-section">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Choose file storage when users or existing software need a familiar directory and file interface.</p>
+        <div class="use-grid">
+          <div><strong>Team documents</strong><b>Shared workspaces</b><p>Keep proposals, spreadsheets, contracts, and meeting files in a navigable hierarchy.</p></div>
+          <div><strong>Business applications</strong><b>Attachments</b><p>Store invoices, case evidence, resumes, and customer-uploaded documents beside a business record.</p></div>
+          <div><strong>Content workflows</strong><b>Working files</b><p>Support repeated reads and writes while a team reviews, edits, and publishes media or design files.</p></div>
+          <div><strong>Legacy integrations</strong><b>Mounted directories</b><p>Connect software that already expects a shared drive, network file system, or POSIX-like path.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide detail-section topic-example">
+        <h2>05 · Example</h2>
+        <p class="section-lede">A customer-support platform stores evidence uploaded to a case.</p>
+        <div class="example-grid">
+          <div class="example-panel">
+            <div class="path-example">/customers/acme/cases/4821/evidence/return-label.pdf</div>
+            <ol>
+              <li>The customer uploads the PDF through the case page.</li>
+              <li>The file service checks the user’s case permission, scans the file, and writes it to the path.</li>
+              <li>The application stores the path, size, checksum, and scan result in the database record for case 4821.</li>
+              <li>An agent receives a time-limited share link instead of broad access to the whole customer folder.</li>
+            </ol>
+          </div>
+          <div class="example-panel"><p>File storage holds the bytes and the directory structure. The database holds searchable business metadata such as case ID, uploader, document type, and review status.</p><p class="bottom-line">The path is an address, not the business meaning. Products should keep stable IDs and metadata so a rename or move does not break the case record.</p></div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide detail-section">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="User to application to authorization to file service to file storage and database metadata flow">
+          <div class="flow-node">User</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Application</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Authorization</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">File Service</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Files + Metadata</div>
+        </div>
+        <p class="section-lede">A product usually keeps file bytes in file storage and keeps searchable business metadata in a database. Virus scanning, audit logging, versioning, backup, and retention may sit around the file service.</p>
+        <div class="tradeoff-table-wrap">
+          <table class="tradeoff-table">
+            <thead><tr><th>Decision</th><th>File storage helps when...</th><th>Watch for...</th></tr></thead>
+            <tbody>
+              <tr><td>Hierarchy</td><td>Users need folders, paths, and familiar navigation.</td><td>Deep or unstable paths can make moves and migrations expensive.</td></tr>
+              <tr><td>Access</td><td>Permissions and shares map to teams and business roles.</td><td>Inherited permissions and public links need careful review.</td></tr>
+              <tr><td>Scale</td><td>Workloads have predictable file operations and shared access.</td><td>Very large namespaces, concurrent edits, or global traffic may need another storage pattern.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="do-not-confuse" class="card wide detail-section">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>File storage</h3><p>Organizes named files in folders and directories, usually with paths and permissions.</p></div>
+          <div><h3>Object storage</h3><p>Stores self-contained objects in buckets with keys and metadata; it is optimized for durable, large-scale access rather than folder semantics.</p></div>
+          <div><h3>Block storage</h3><p>Provides raw volumes or blocks for a server or database to format and manage; applications do not usually browse its files directly.</p></div>
+          <div><h3>Database storage</h3><p>Stores structured records for querying and relationships. It can store small blobs, but it is not automatically a good home for large files.</p></div>
+        </div>
+        <p class="bottom-line">The product question is not “Where can bytes go?” It is “What access pattern, ownership model, and scale should the storage system support?”</p>
+      </article>
+
+      <article id="glossary" class="card wide detail-section">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>File</td><td>文件</td><td>A named unit of stored content.</td><td>一份有名字、可以保存和读取的内容。</td></tr>
+              <tr><td>Folder</td><td>文件夹</td><td>A container used to group files and other folders.</td><td>用来把文件和其他文件夹放在一起的容器。</td></tr>
+              <tr><td>Directory</td><td>目录</td><td>A structured listing of files and folders.</td><td>按照层级列出文件和文件夹的结构。</td></tr>
+              <tr><td>Path</td><td>路径</td><td>The address that describes where a file or folder is located.</td><td>说明文件或文件夹在哪里的地址。</td></tr>
+              <tr><td>Permission</td><td>权限</td><td>A rule that allows or denies an action on a file or folder.</td><td>决定谁能对文件或文件夹做什么的规则。</td></tr>
+              <tr><td>Share</td><td>共享</td><td>A controlled way to give another person or system access.</td><td>以受控方式把文件访问权给别人或其他系统。</td></tr>
+              <tr><td>Mount</td><td>挂载</td><td>Making a remote or separate storage location appear as a local path.</td><td>让远程或独立存储看起来像本机上的一个目录。</td></tr>
+              <tr><td>File Metadata</td><td>文件元数据</td><td>Information about a file, such as size, owner, type, or timestamps.</td><td>描述文件本身的信息，例如大小、所有者、类型和时间。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="what-to-remember" class="card wide detail-section remember">
+        <h2>09 · What to Remember</h2>
+        <p>File storage is the folder-and-path model: it makes files easy to organize, address, permission, and share.</p>
+        <p>For a PM, define the user’s file workflow first: who uploads, who edits, who shares, how long files remain, and what happens when a file is moved, deleted, or exposed.</p>
+        <div class="pm-perspective"><h3>PM Perspective</h3><p>Ask engineering to separate file bytes from business metadata, make access rules explicit, and measure upload success, download latency, scan failures, storage growth, and link or permission incidents.</p></div>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="System Architecture topic navigation">
+      <a href="object-storage.html"><small>Previous</small><strong>← Object Storage</strong></a>
+      <a href="scaling.html"><small>Next</small><strong>Scaling →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ID · Frontend &amp; Browser</title>
+  <meta name="description" content="An ID is a value used to identify one specific HTML element.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .id-page .topic-main .grid>article{order:initial!important}
+    .id-page .section-number{display:block;margin-bottom:8px;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .id-page .definition{font-size:21px;color:#fff}
+    .id-page .analogy-copy{font-size:19px;color:#fff}
+    .id-page .card p{max-width:880px}
+    .id-page .concept-tree{margin-top:18px}
+    .id-page .action-list,.id-page .use-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .id-page .action-list div,.id-page .use-list div{padding:17px 18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800}
+    .id-page .action-list div::before{content:'✓';margin-right:8px;color:var(--green)}
+    .id-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .id-page .code-block .tag{color:#78e5bd}.id-page .code-block .attr{color:#7fb1ff}.id-page .code-block .value{color:#ffd47f}.id-page .code-block .function{color:#fff}
+    .id-page .code-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+    .id-page .code-notes div{padding:14px 15px;border-left:3px solid var(--blue);background:rgba(127,177,255,.07);color:var(--muted)}
+    .id-page .code-notes b{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .id-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px;padding:20px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .id-page .flow span{padding:12px 15px;border:1px solid #38516d;border-radius:12px;background:#102335;color:#fff;font-weight:800}
+    .id-page .flow b{color:var(--green);font-size:20px}
+    .id-page .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .id-page .compare>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .id-page .compare h3{margin:0 0 8px;color:var(--green);font-size:17px}
+    .id-page .compare p{margin:0;color:var(--muted)}
+    .id-page .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}
+    .id-page .glossary{width:100%;min-width:760px;border-collapse:collapse;background:#07111a;font-size:13px}
+    .id-page .glossary th,.id-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .id-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .id-page .glossary td{color:var(--muted)}
+    .id-page .glossary td:first-child{color:#fff;font-weight:800}
+    .id-page .glossary tr:last-child td{border-bottom:0}
+    .id-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .id-page .remember p{font-size:21px;color:#fff}
+    .id-page .topic-sidebar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}
+    .id-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .id-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .id-page .topic-sidebar a:hover{border-color:var(--green)}
+    .id-page .topic-sidebar a:last-child{text-align:right;align-items:flex-end}
+    .id-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .id-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .id-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:760px){
+      .id-page .action-list,.id-page .use-list,.id-page .compare,.id-page .code-notes{grid-template-columns:1fr}
+      .id-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .id-page .flow span,.id-page .flow b{text-align:center}
+      .id-page .flow b{transform:rotate(90deg)}
+      .id-page .topic-sidebar{grid-template-columns:1fr}
+      .id-page .topic-sidebar .current{grid-column:auto}
+      .id-page .topic-sidebar a:last-child{text-align:left;align-items:flex-start}
+      .id-page .direction-key{order:3}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory id-page software-knowledge-page">
+  <nav>
+    <div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div>
+  </nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>ID</h1>
+    <p class="lede">A name used to identify one specific HTML element.</p>
+
+    <section class="grid">
+      <article class="card wide">
+        <span class="section-number">01 · What is it?</span>
+        <h2>What is it?</h2>
+        <p class="definition">An ID is a value used to identify a specific element on a page.</p>
+        <p>An ID should normally be unique within that page.</p>
+        <p class="note"><strong>Simple Definition:</strong> An ID identifies one specific element.</p>
+      </article>
+
+      <article class="card wide topic-analogy">
+        <span class="section-number">02 · Think of it like...</span>
+        <h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of an ID as a unique employee number.</p>
+        <p>Many people may share the same job role.</p>
+        <p>But each person has a different employee number.</p>
+        <div class="concept-tree" aria-label="Class is a shared category; ID is a unique identifier">HTML version<br>│<br>├─ Class = shared category<br>└─ ID = unique identifier</div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">03 · What does it do?</span>
+        <h2>What does it do?</h2>
+        <p>An ID can help:</p>
+        <div class="action-list">
+          <div>Identify One Element</div>
+          <div>Link to a Page Section</div>
+          <div>Select an Element in CSS</div>
+          <div>Find an Element in JavaScript</div>
+          <div>Connect Labels and Form Fields</div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">04 · Where is it used?</span>
+        <h2>Where is it used?</h2>
+        <p>IDs are commonly used in:</p>
+        <div class="use-list">
+          <div>HTML</div>
+          <div>CSS</div>
+          <div>JavaScript</div>
+          <div>Form Labels</div>
+          <div>Page Anchors</div>
+        </div>
+        <pre class="code-block"><code><span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="value">"order-summary"</span><span class="tag">&gt;&lt;/div&gt;</span></code></pre>
+      </article>
+
+      <article class="card wide topic-example">
+        <span class="section-number">05 · Example</span>
+        <h2>Example</h2>
+        <pre class="code-block"><code><span class="tag">&lt;button</span> <span class="attr">id</span>=<span class="value">"save-order"</span><span class="tag">&gt;</span>Save<span class="tag">&lt;/button&gt;</span>
+
+<span class="function">const button = document.getElementById("save-order");</span></code></pre>
+        <div class="code-notes">
+          <div><b>id="save-order"</b><br>identifies the button.</div>
+          <div><b>getElementById()</b><br>finds that specific element.</div>
+        </div>
+      </article>
+
+      <article class="card wide topic-process">
+        <span class="section-number">06 · How it connects</span>
+        <h2>How it connects</h2>
+        <div class="flow" aria-label="HTML Element to ID to CSS, JavaScript, or Link"><span>HTML Element</span><b>→</b><span>ID</span><b>→</b><span>CSS / JavaScript / Link</span></div>
+        <p class="note">An ID provides a specific reference to one element.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span>
+        <h2>Do Not Confuse</h2>
+        <div class="compare">
+          <div><h3>ID</h3><p>Usually identifies one specific element.</p></div>
+          <div><h3>Class</h3><p>Can be reused on multiple elements.</p></div>
+        </div>
+        <p class="note"><strong>ID = specific</strong><br><strong>Class = reusable</strong></p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">08 · Topic Glossary</span>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>ID</td><td>ID</td><td>A name used to identify one specific element.</td><td>用来标识某个特定页面元素的名称。</td></tr>
+              <tr><td>id Attribute</td><td>id 属性</td><td>The HTML attribute used to assign an ID.</td><td>HTML 中用来给元素设置 ID 的属性。</td></tr>
+              <tr><td>ID Selector</td><td>ID 选择器</td><td>A CSS selector that starts with <code>#</code>.</td><td>CSS 中以 <code>#</code> 开头、用来选择某个 ID 的选择器。</td></tr>
+              <tr><td>Element</td><td>元素</td><td>A page component that can have an ID.</td><td>可以设置 ID 的页面元素。</td></tr>
+              <tr><td>Unique</td><td>唯一</td><td>Existing only once in a given context.</td><td>在当前范围内只应该存在一个。</td></tr>
+              <tr><td>getElementById()</td><td>按 ID 查找元素</td><td>A method used to find an element by its ID.</td><td>JavaScript 中根据 ID 查找页面元素的方法。</td></tr>
+              <tr><td>Class</td><td>Class 类名</td><td>A reusable name that can be shared by many elements.</td><td>可以被多个页面元素共同使用的名称。</td></tr>
+              <tr><td>Anchor</td><td>页面锚点</td><td>A location on a page that can be linked to.</td><td>可以通过链接直接跳转到的页面位置。</td></tr>
+              <tr><td>Selector</td><td>选择器</td><td>A pattern used to find elements.</td><td>用来查找和选择页面元素的规则。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <span class="section-number">09 · What to Remember</span>
+        <h2>What to Remember</h2>
+        <p>An ID identifies one specific element.</p>
+        <p>IDs should normally be unique on a page.</p>
+        <p>CSS and JavaScript can use IDs to find elements.</p>
+        <div class="flow" aria-label="Element to ID to Specific Reference"><span>Element</span><b>→</b><span>ID</span><b>→</b><span>Specific Reference</span></div>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="ID topic navigation">
+      <div class="current">ID ← active</div>
+      <a href="class.html"><small>Previous</small>Class</a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="form.html"><small>Next</small>Form</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

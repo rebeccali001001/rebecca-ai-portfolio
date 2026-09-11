@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQL · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="SQL is the standard language used to define, query, insert, update, and manage data in relational databases.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .sql-page .hero{padding:30px 0 10px}
+    .sql-page .hero h1{margin-bottom:12px}
+    .sql-page .hero .lede{max-width:860px;font-size:22px;color:#dbe7f4}
+    .sql-page h2{margin-bottom:14px}
+    .sql-page .definition{font-size:21px;color:#fff}
+    .sql-page .sql-flow,.sql-page .connection-flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0 4px}
+    .sql-page .flow-node{min-width:150px;padding:16px 18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;text-align:center;font-weight:800}
+    .sql-page .flow-node.accent{border-color:var(--green);background:rgba(120,229,189,.08)}
+    .sql-page .flow-arrow{color:var(--green);font-size:24px;font-weight:800}
+    .sql-page .action-grid,.sql-page .use-grid,.sql-page .compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .sql-page .use-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .sql-page .action-grid>div,.sql-page .use-grid>div,.sql-page .compare-grid>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .sql-page .action-grid strong,.sql-page .use-grid strong{display:block;color:#fff;font-size:17px}
+    .sql-page .action-grid span,.sql-page .use-grid span,.sql-page .compare-grid p{display:block;margin-top:7px;color:var(--muted);font-size:14px}
+    .sql-page .example-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .sql-page .example-card{min-width:0;padding:20px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .sql-page .example-card h3{margin:0 0 12px;color:var(--green);font:800 16px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-page pre{max-width:100%;margin:0;overflow:auto;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+    .sql-page .example-card p{margin:12px 0 0;color:var(--muted);font-size:14px}
+    .sql-page .compare-grid h3{margin:0;color:var(--green);font-size:18px}
+    .sql-page .glossary-wrap{max-width:100%;overflow-x:auto;margin-top:18px}
+    .sql-page .glossary{width:100%;min-width:820px;border-collapse:collapse;font-size:13px}
+    .sql-page .glossary th,.sql-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .sql-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+    .sql-page .glossary td{color:var(--muted)}
+    .sql-page .glossary td:first-child{color:#fff;font-weight:800}
+    .sql-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .sql-page .remember p{font-size:20px;color:#fff}
+    .sql-page .pagination{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:24px 0 34px}
+    .sql-page .pagination a{display:flex;flex-direction:column;gap:4px;padding:15px 16px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .sql-page .pagination a:last-child{text-align:right}
+    .sql-page .pagination a:hover{border-color:var(--green)}
+    .sql-page .pagination small{color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .sql-page .direction-key{display:flex;align-items:center;justify-content:center;gap:7px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .sql-page .direction-key b{color:var(--green);font-size:21px}
+    .sql-page .mobile-arrow{display:none}
+    @media(max-width:900px){.sql-page .use-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){
+      .sql-page .hero{padding-top:24px}
+      .sql-page .hero .lede{font-size:19px}
+      .sql-page .sql-flow,.sql-page .connection-flow{flex-direction:column}
+      .sql-page .flow-arrow{font-size:0;line-height:1}
+      .sql-page .flow-arrow::after{content:'↓';font-size:24px}
+      .sql-page .action-grid,.sql-page .use-grid,.sql-page .example-grid,.sql-page .compare-grid{grid-template-columns:1fr}
+      .sql-page .pagination{grid-template-columns:1fr}
+      .sql-page .pagination a:last-child{text-align:left}
+      .sql-page .direction-key{order:3}
+      .sql-page .direction-key .desktop-arrow{display:none}
+      .sql-page .direction-key .mobile-arrow{display:inline}
+      .sql-page .flow-node{width:100%}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory sql-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="module-05.html">← Database &amp; SQL</a>
+    <header class="hero">
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>SQL</h1>
+      <p class="lede">SQL is the standard language used to define, query, insert, update, and manage data in relational databases.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">SQL is a language for working with structured data in relational databases.</p>
+        <p class="muted">It gives an application a consistent way to describe database structures, ask for rows, add records, change values, remove data, and control groups of related changes.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of SQL as speaking clearly to a very organized librarian.</p>
+        <p class="muted">You name the collection, describe what you want, and state any rules for choosing it. The database finds the matching records or applies the requested change.</p>
+        <div class="sql-flow" aria-label="A person asks a SQL question, the database finds matching rows, and the result is returned">
+          <div class="flow-node">SQL request</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node accent">Relational database</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node">Rows or changes</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">SQL lets software work with both the shape of data and the data itself.</p>
+        <div class="action-grid">
+          <div><strong>Define Structure</strong><span>Create tables, columns, and constraints.</span></div>
+          <div><strong>Query Data</strong><span>Find rows that match a condition.</span></div>
+          <div><strong>Insert Data</strong><span>Add new records to a table.</span></div>
+          <div><strong>Update Data</strong><span>Change values in existing records.</span></div>
+          <div><strong>Delete Data</strong><span>Remove records that are no longer needed.</span></div>
+          <div><strong>Manage Transactions</strong><span>Keep related changes consistent.</span></div>
+        </div>
+      </article>
+
+      <article id="where-is-it-used" class="card wide topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">SQL appears anywhere a system needs reliable, structured access to relational data.</p>
+        <div class="use-grid">
+          <div><strong>Web Applications</strong><span>Users, orders, and settings.</span></div>
+          <div><strong>Backend Services</strong><span>Read and write application data.</span></div>
+          <div><strong>Reports</strong><span>Group and summarize business data.</span></div>
+          <div><strong>Data Operations</strong><span>Move or repair structured records.</span></div>
+          <div><strong>Database Tools</strong><span>Inspect and manage schemas.</span></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <p class="muted">A backend can use SQL to find active customers, then return the result through an API.</p>
+        <div class="example-grid">
+          <div class="example-card">
+            <h3>Read existing data</h3>
+            <pre><code>SELECT id, name
+FROM customers
+WHERE status = 'active'
+ORDER BY name;</code></pre>
+            <p><strong>Meaning:</strong> return the IDs and names of active customers, ordered by name.</p>
+          </div>
+          <div class="example-card">
+            <h3>Change existing data</h3>
+            <pre><code>UPDATE customers
+SET status = 'inactive'
+WHERE id = 42;</code></pre>
+            <p><strong>Meaning:</strong> change the status of customer 42.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="connection-flow" aria-label="Frontend to backend to SQL query to relational database to rows to API response">
+          <div class="flow-node">Frontend</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node">Backend</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node accent">SQL query</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node accent">Relational database</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node">Rows / result</div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node">API response</div>
+        </div>
+        <p class="note">The application usually sends SQL through backend code or a database library rather than exposing the database directly to the browser.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div><h3>SQL</h3><p>A language used to work with relational database data.</p></div>
+          <div><h3>Database</h3><p>The system that stores and organizes the data.</p></div>
+          <div><h3>SQL vs NoSQL</h3><p>SQL commonly describes relational systems; NoSQL is a broader family of non-relational approaches.</p></div>
+        </div>
+        <p class="note">SQL is how software communicates with a relational database; it is not the database itself.</p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>SQL</td><td>结构化查询语言</td><td>The standard language for working with relational database data.</td><td>用来操作关系型数据库数据的标准语言。</td></tr>
+              <tr><td>Relational Database</td><td>关系型数据库</td><td>A database that organizes data into related tables.</td><td>把数据放在相互关联的数据表中的数据库。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure made of rows and columns.</td><td>由行和列组成、用来保存一类数据的结构。</td></tr>
+              <tr><td>Row</td><td>行</td><td>One record in a table.</td><td>数据表中的一条完整数据。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One type of value stored for each row.</td><td>每一行都会有的一类信息，例如姓名或状态。</td></tr>
+              <tr><td>Query</td><td>查询</td><td>A request to read or change database data.</td><td>向数据库发出的读取或修改数据的指令。</td></tr>
+              <tr><td>SELECT</td><td>查询</td><td>The SQL command commonly used to read data.</td><td>最常用的读取数据库数据的 SQL 命令。</td></tr>
+              <tr><td>INSERT</td><td>插入</td><td>The SQL command used to add new rows.</td><td>向数据表中新增数据行的 SQL 命令。</td></tr>
+              <tr><td>UPDATE</td><td>更新</td><td>The SQL command used to change existing rows.</td><td>修改已有数据行的 SQL 命令。</td></tr>
+              <tr><td>DELETE</td><td>删除</td><td>The SQL command used to remove rows.</td><td>删除已有数据行的 SQL 命令。</td></tr>
+              <tr><td>Schema</td><td>模式 / 结构</td><td>The defined structure of database objects and relationships.</td><td>数据库中表、字段、关系等对象的整体结构。</td></tr>
+              <tr><td>Primary Key</td><td>主键</td><td>A value that uniquely identifies a row.</td><td>能够唯一标识一行数据的值。</td></tr>
+              <tr><td>Foreign Key</td><td>外键</td><td>A value that links one table to another.</td><td>把一张表的数据关联到另一张表的字段。</td></tr>
+              <tr><td>Transaction</td><td>事务</td><td>A group of changes treated as one unit.</td><td>需要一起成功或一起失败的一组数据库操作。</td></tr>
+              <tr><td>Migration</td><td>迁移</td><td>A controlled change to a database structure or data.</td><td>有计划地修改数据库结构或数据的过程。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember topic-takeaway">
+        <h2>09 · What to Remember</h2>
+        <p>SQL is the standard language used to work with relational database data.</p>
+        <p>It can define structures, query rows, insert records, update values, and delete data.</p>
+        <p>In an application, backend code usually sends SQL to the database and returns the result through an API.</p>
+      </article>
+    </section>
+
+    <nav class="pagination" aria-label="SQL topic navigation">
+      <a href="migration.html"><small>Previous</small><strong>← Migration</strong></a>
+      <div class="direction-key" aria-hidden="true"><span>Desktop</span><b class="desktop-arrow">→</b><span>Mobile</span><b class="mobile-arrow">↓</b></div>
+      <a href="authentication.html"><small>Next</small><strong>Authentication →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

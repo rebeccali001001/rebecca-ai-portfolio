@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDN · System Architecture · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of CDNs, edge locations, cache hits, origins, and content delivery trade-offs.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .cdn-page .hero { max-width: 920px; }
+    .cdn-page .hero .lede { max-width: 880px; }
+    .cdn-page .detail-sections { gap: 24px; }
+    .cdn-page .definition { max-width: 900px; color: #fff; font-size: 21px; }
+    .cdn-page .muted { max-width: 900px; }
+    .cdn-page .flow { display: flex; align-items: stretch; gap: 10px; margin-top: 20px; padding: 20px; border: 1px solid #38516d; border-radius: 16px; background: #07111a; }
+    .cdn-page .flow span { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 76px; flex: 1 1 0; padding: 14px; border: 1px solid #38516d; border-radius: 13px; background: #0d1e2d; color: #fff; font-weight: 800; text-align: center; overflow-wrap: anywhere; }
+    .cdn-page .flow span.accent { border-color: var(--green); background: linear-gradient(145deg, rgba(120,229,189,.13), rgba(127,177,255,.08)), #07111a; }
+    .cdn-page .flow b { display: grid; place-items: center; flex: 0 0 24px; color: var(--green); font-size: 24px; }
+    .cdn-page .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .cdn-page .cards > div { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .cdn-page .cards strong { display: block; margin-bottom: 7px; color: #fff; }
+    .cdn-page .cards p { margin: 0; color: var(--muted); font-size: 14px; }
+    .cdn-page .example-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px; margin-top: 18px; }
+    .cdn-page .example-grid > div { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+    .cdn-page .example-grid h3 { margin: 0 0 9px; color: #fff; font-size: 17px; }
+    .cdn-page .example-grid p { margin: 7px 0; color: var(--muted); font-size: 14px; }
+    .cdn-page .pm-perspective { margin-top: 18px; padding: 16px; border-left: 3px solid var(--gold); background: rgba(255,212,127,.08); color: var(--muted); }
+    .cdn-page .pm-perspective strong { color: var(--gold); }
+    .cdn-page .glossary-wrap { max-width: 100%; margin-top: 16px; overflow-x: auto; }
+    .cdn-page .glossary { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13px; }
+    .cdn-page .glossary th, .cdn-page .glossary td { padding: 12px 11px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+    .cdn-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .cdn-page .glossary td { color: var(--muted); }
+    .cdn-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .cdn-page .callout { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--green); color: #fff; background: linear-gradient(90deg, rgba(120,229,189,.07), transparent); }
+    .cdn-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .cdn-page .remember p { color: #fff; font-size: 20px; }
+    .cdn-page .pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .cdn-page .pager a { display: flex; min-width: 190px; flex-direction: column; gap: 3px; color: var(--muted); }
+    .cdn-page .pager a:last-child { align-items: flex-end; text-align: right; }
+    .cdn-page .pager small { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .cdn-page .pager strong { color: var(--green); }
+    @media (max-width: 900px) { .cdn-page .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cdn-page .flow { flex-wrap: wrap; } .cdn-page .flow span { flex-basis: 150px; } }
+    @media (max-width: 760px) {
+      .cdn-page .cards, .cdn-page .example-grid { grid-template-columns: 1fr; }
+      .cdn-page .flow { flex-direction: column; gap: 6px; }
+      .cdn-page .flow span { width: 100%; flex-basis: auto; }
+      .cdn-page .flow b { min-height: 20px; flex-basis: 20px; font-size: 0; }
+      .cdn-page .flow b::after { content: '↓'; font-size: 24px; }
+      .cdn-page .pager { flex-direction: column; }
+      .cdn-page .pager a:last-child { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory architecture-concept-page cdn-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="module-07.html">← Module 07 · System Architecture</a>
+      <div class="eyebrow">MODULE 07 · SYSTEM ARCHITECTURE</div>
+      <h1>CDN</h1>
+      <p class="lede">A CDN stores cached copies of content at edge locations closer to users, so repeat requests can travel a shorter network distance.</p>
+    </header>
+    <section class="detail-sections">
+      <article class="card detail-section">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A Content Delivery Network (CDN) is a distributed network that delivers cached content from edge locations near the people requesting it.</p>
+        <p class="muted">The original application or storage location is the <b>origin</b>. The CDN sits in front of that origin, keeps reusable responses for a while, and serves them when the cache is still valid. It can reduce latency and protect the origin from repeated delivery work, but it does not automatically make every request dynamic or personalized.</p>
+      </article>
+      <article class="card detail-section">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of the origin as a central warehouse and edge locations as neighborhood pickup points.</p>
+        <p class="muted">The first customer in a neighborhood may cause a package to be brought from the warehouse. Later customers can receive the same popular package locally. The pickup point needs a freshness rule, and private packages should not be left where anyone can collect them.</p>
+        <div class="flow" aria-label="User to edge location to origin flow"><span>User</span><b aria-hidden="true">→</b><span class="accent">Nearby edge</span><b aria-hidden="true">→</b><span>Origin</span></div>
+      </article>
+      <article class="card detail-section">
+        <h2>03 · What does it do?</h2>
+        <div class="cards">
+          <div><strong>Shorter delivery path</strong><p>Serve cacheable files from a location closer to the user.</p></div>
+          <div><strong>Fewer origin reads</strong><p>Let many users reuse one cached response instead of repeating the origin request.</p></div>
+          <div><strong>Traffic absorption</strong><p>Handle bursts of demand for the same content without sending every request to the application.</p></div>
+          <div><strong>Edge controls</strong><p>Apply TLS, access rules, compression, routing, and other delivery policies at the network edge.</p></div>
+          <div><strong>Freshness management</strong><p>Use TTLs, cache-control headers, versioned URLs, or purges to decide when content changes.</p></div>
+          <div><strong>Miss fallback</strong><p>On a cache miss, fetch from the origin, return the response, and often cache it for the next request.</p></div>
+        </div>
+      </article>
+      <article class="card detail-section">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">CDNs are commonly used for images, CSS, JavaScript bundles, fonts, video segments, software downloads, documentation, and public API responses that are safe to reuse. A CDN can also sit in front of an application for TLS termination and traffic filtering, while dynamic or personalized responses usually need careful cache rules or a pass-through path.</p>
+        <div class="callout">A CDN is most valuable when many users request the same content and the content can be safely reused for those users.</div>
+      </article>
+      <article class="card detail-section">
+        <h2>05 · Example</h2>
+        <p class="muted">Imagine a global product launch for an online store. The product page's image, font, CSS, and JavaScript bundle are the same for nearly everyone, so the CDN can serve those files from nearby edges. The current inventory and a shopper's cart are user-specific or fast-changing, so the application should fetch them with rules that prevent one shopper's data from being cached for another.</p>
+        <div class="example-grid">
+          <div><h3>Request path</h3><p><code>shop.example/product/42</code> loads a versioned image and frontend bundle through the CDN. A cache hit returns the edge copy; a miss asks the origin and may populate the edge.</p></div>
+          <div><h3>PM decision</h3><p>Agree on freshness: a product image can be cached for hours, while inventory may need a direct or very short-lived response. Measure cache-hit rate, origin traffic, latency, error rate, and purge time.</p></div>
+        </div>
+        <div class="pm-perspective"><strong>PM Perspective:</strong> CDN success is not simply “the page is faster.” Define which content is public and reusable, how quickly updates must appear, what happens during a cache miss, and how the team will invalidate an incorrect cached response.</div>
+      </article>
+      <article class="card detail-section">
+        <h2>06 · How it connects</h2>
+        <p class="muted">A typical request reaches the CDN before the origin. DNS or an application configuration points traffic to the CDN; the CDN checks its cache key and freshness policy; only a miss or pass-through request needs the origin.</p>
+        <div class="flow" aria-label="User to DNS to CDN edge to origin to response flow"><span>User</span><b aria-hidden="true">→</b><span>DNS / CDN</span><b aria-hidden="true">→</b><span class="accent">Edge cache</span><b aria-hidden="true">→</b><span>Origin</span><b aria-hidden="true">→</b><span>Response</span></div>
+        <p class="muted">The CDN works alongside object storage for durable source content, a load balancer for application-server routing, and application security controls for private or personalized data.</p>
+      </article>
+      <article class="card detail-section">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="cards">
+          <div><strong>CDN ≠ Object Storage</strong><p>Object storage is a durable source for objects. A CDN is a delivery layer that may cache copies of those objects.</p></div>
+          <div><strong>CDN ≠ Load Balancer</strong><p>A load balancer distributes requests to healthy application instances. A CDN can answer from an edge without reaching an instance at all.</p></div>
+          <div><strong>CDN ≠ Cache everywhere</strong><p>A CDN is one kind of distributed cache. A browser cache or Redis cache lives in a different place and serves a different consumer.</p></div>
+          <div><strong>CDN ≠ Origin database</strong><p>A CDN should not replace the system of record or expose private records through a reusable cache response.</p></div>
+        </div>
+      </article>
+      <article class="card detail-section">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>CDN</td><td>内容分发网络</td><td>A network that delivers content from locations close to users.</td><td>把内容放到离用户更近的网络节点来提供。</td></tr>
+              <tr><td>Edge Location</td><td>边缘节点</td><td>A nearby delivery location where cached content can be served.</td><td>离用户较近、可以直接提供缓存内容的地点。</td></tr>
+              <tr><td>Origin</td><td>源站</td><td>The original server or storage location for content.</td><td>内容最初保存或生成的服务器、应用或存储位置。</td></tr>
+              <tr><td>Cache Hit</td><td>缓存命中</td><td>The edge already has a usable copy of the requested content.</td><td>边缘节点已经有能直接使用的内容副本。</td></tr>
+              <tr><td>Cache Miss</td><td>缓存未命中</td><td>The edge must ask the origin for the requested content.</td><td>边缘节点没有可用副本，需要去源站取内容。</td></tr>
+              <tr><td>TTL</td><td>生存时间</td><td>How long a cached response may be reused before it is checked again.</td><td>缓存内容可以放心重复使用多久。</td></tr>
+              <tr><td>Cache Invalidation</td><td>缓存失效</td><td>Removing or bypassing a cached copy before its normal expiry.</td><td>内容还没自然过期，就主动让旧缓存失效。</td></tr>
+              <tr><td>Cache Key</td><td>缓存键</td><td>The request details used to decide which cached copy matches.</td><td>用来判断两个请求是否可以共用同一份缓存的条件。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      <article class="card detail-section remember">
+        <h2>09 · What to Remember</h2>
+        <p>A CDN is a delivery layer: it serves reusable cached copies from edge locations near users, reducing distance and origin work while making freshness, privacy, and invalidation explicit product decisions.</p>
+      </article>
+    </section>
+    <nav class="pager" aria-label="System Architecture topic navigation"><a href="object-storage.html"><small>Previous</small><strong>← Object Storage</strong></a><a href="cdn.html"><small>Next</small><strong>A CDN stores cached copies of content at edge locations closer to users. →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

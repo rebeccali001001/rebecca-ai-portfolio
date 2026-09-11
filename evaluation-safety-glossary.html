@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evaluation &amp; Safety Glossary · AI Knowledge</title>
+  <meta name="description" content="Plain-English glossary for Evaluation and Safety concepts in AI systems.">
+  <link rel="stylesheet" href="topic.css?v=20260910-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .glossary-table-wrap{overflow:auto}.glossary-table{width:100%;min-width:760px;border-collapse:collapse}.glossary-table th,.glossary-table td{padding:14px 12px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}.glossary-table th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}.glossary-table td:first-child{color:#fff;font-weight:800}.glossary-table td:nth-child(2){color:var(--blue)}.glossary-table td{color:var(--muted)}
+  </style>
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="ai-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="AI Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="evaluation-safety-reliability.html">← Module 12 · Evaluation &amp; Safety</a>
+    <div class="eyebrow">12 · Evaluation &amp; Safety · Glossary</div>
+    <h1>Evaluation &amp; Safety Glossary</h1>
+    <p class="lede">Simple English and Chinese explanations for the concepts that help teams test AI systems and control risk.</p>
+    <section class="card detail-section">
+      <div class="glossary-table-wrap">
+        <table class="glossary-table">
+          <thead><tr><th>English term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+          <tbody>
+            <tr><td>Evaluation</td><td>评估</td><td>Measuring whether an AI system meets its intended requirements.</td><td>检查 AI 系统是否真的达到任务要求。</td></tr>
+            <tr><td id="policy">Policy</td><td>政策 / 规则</td><td>A rule that defines what a system or user should or should not do.</td><td>规定系统或用户什么可以做、什么不可以做的规则。</td></tr>
+            <tr><td>Guardrail</td><td>护栏 / 安全控制</td><td>A control that limits unsafe, disallowed, or invalid behavior.</td><td>限制不安全、不允许或不符合规则行为的控制机制。</td></tr>
+            <tr><td>Input Guardrail</td><td>输入护栏</td><td>A control that checks a request before the model processes it.</td><td>模型处理请求前，先检查输入内容的控制。</td></tr>
+            <tr><td>Output Guardrail</td><td>输出护栏</td><td>A control that checks generated content before delivery.</td><td>结果交给用户或系统前，先检查输出内容的控制。</td></tr>
+            <tr><td>Permission</td><td>权限</td><td>A rule that says which data or action a system may access.</td><td>规定系统可以访问哪些数据、执行哪些动作。</td></tr>
+            <tr><td>Tool Use</td><td>工具使用</td><td>Using a callable function or external system to complete a task.</td><td>调用函数、API 或外部系统来完成任务。</td></tr>
+            <tr><td>Agent</td><td>智能体</td><td>A system that can decide steps and use tools toward a goal.</td><td>能够为目标安排步骤并使用工具的 AI 系统。</td></tr>
+            <tr><td>Sandbox</td><td>沙箱</td><td>An isolated environment that limits what code or tools can access.</td><td>把代码或工具放在隔离环境里，限制它能访问的范围。</td></tr>
+            <tr><td>Content Moderation</td><td>内容审核</td><td>Detecting, filtering, or routing content according to safety rules.</td><td>根据安全规则识别、过滤或转交内容。</td></tr>
+            <tr><td>Human Approval</td><td>人工审批</td><td>A person reviews an action before the system executes it.</td><td>系统执行敏感动作前，由人先确认。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <nav class="topic-sidebar" aria-label="Evaluation and Safety navigation">
+      <a href="evaluation-safety-reliability.html"><small>Overview</small>Evaluation &amp; Safety</a>
+      <a href="guardrails.html"><small>Topic</small>Guardrails</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

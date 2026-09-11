@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 · Frontend &amp; Browser · Overview</title>
+  <meta name="description" content="A beginner-friendly overview of how a browser turns frontend files into an interactive web page.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="overview.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="software-overview.css">
+  <style>
+    .frontend-browser-overview .module-goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .frontend-browser-overview .goal-card{padding:18px;border:1px solid #38516d;border-radius:15px;background:#07111a}
+    .frontend-browser-overview .goal-card strong{display:block;color:#fff;font-size:17px}
+    .frontend-browser-overview .goal-card span{display:block;margin-top:7px;color:var(--muted);font-size:14px}
+    .frontend-browser-overview .main-flow{padding:24px 18px}
+    .frontend-browser-overview .flow-row{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+    .frontend-browser-overview .flow-row span{padding:10px 12px;border:1px solid #38516d;border-radius:999px;background:#0d1e2d;color:#fff;text-align:center;font-size:14px;font-weight:800}
+    .frontend-browser-overview .flow-row i{font-style:normal;color:var(--green);font-size:18px}
+    .frontend-browser-overview .concept-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .frontend-browser-overview .connect-flow{display:flex;align-items:stretch;justify-content:center;gap:8px}
+    .frontend-browser-overview .connect-flow div{display:flex;flex:1 1 0;min-width:0;flex-direction:column;justify-content:center;min-height:92px;padding:15px 12px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+    .frontend-browser-overview .connect-flow small{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:400}
+    .frontend-browser-overview .connect-flow b{align-self:center;flex:0 0 auto;color:var(--green);font-size:18px}
+    .frontend-browser-overview .topic-list a{min-height:66px}
+    .frontend-browser-overview .glossary-entry{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border:1px solid #37665d;border-radius:15px;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .frontend-browser-overview .glossary-entry strong{display:block;color:#fff;font-size:18px}
+    .frontend-browser-overview .glossary-entry span{display:block;margin-top:5px;color:var(--muted);font-size:14px}
+    .frontend-browser-overview .glossary-entry a{flex:0 0 auto;color:var(--green);font-weight:800}
+    @media(max-width:760px){.frontend-browser-overview .module-goals,.frontend-browser-overview .concept-grid{grid-template-columns:1fr}.frontend-browser-overview .flow-row{flex-direction:column;align-items:stretch}.frontend-browser-overview .flow-row span{border-radius:10px}.frontend-browser-overview .flow-row i{font-size:0;line-height:1;text-align:center}.frontend-browser-overview .flow-row i::after{content:'↓';font-size:18px}.frontend-browser-overview .connect-flow{flex-direction:column}.frontend-browser-overview .connect-flow div{min-height:0;flex:none}.frontend-browser-overview .connect-flow b{font-size:0;line-height:1}.frontend-browser-overview .connect-flow b::after{content:'↓';font-size:18px}.frontend-browser-overview .glossary-entry{align-items:flex-start;flex-direction:column}}
+  </style>
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="overview-page has-site-directory software-overview frontend-browser-overview">
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <main>
+    <div class="wrap">
+      <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+      <header class="overview-hero">
+        <p class="overview-eyebrow">02 · Frontend &amp; Browser</p>
+        <h1 class="overview-title">Frontend &amp; Browser</h1>
+        <p class="overview-lede">See how a browser turns frontend files into a web page that people can view, use, and respond to.</p>
+      </header>
+
+      <div class="overview-sections">
+        <section class="overview-section">
+          <div class="section-heading"><span>01</span><h2>Module goals</h2></div>
+          <div class="module-goals">
+            <article class="goal-card"><strong>Understand the browser</strong><span>Learn what the browser receives, builds, and displays.</span></article>
+            <article class="goal-card"><strong>Separate the layers</strong><span>Recognize the different roles of HTML, CSS, JavaScript, and the DOM.</span></article>
+            <article class="goal-card"><strong>Follow interaction</strong><span>Trace how an event changes a page and can continue to an API.</span></article>
+          </div>
+        </section>
+
+        <section class="overview-section big-picture">
+          <div class="section-heading"><span>02</span><h2>Big Picture</h2></div>
+          <div class="main-flow" aria-label="User to backend and API flow">
+            <div class="flow-row">
+              <span>User</span><i aria-hidden="true">→</i><span>Browser</span><i aria-hidden="true">→</i><span>Web Page</span><i aria-hidden="true">→</i><span>HTML + CSS + JavaScript</span><i aria-hidden="true">→</i><span>DOM</span><i aria-hidden="true">→</i><span>Event</span><i aria-hidden="true">→</i><span>Backend / API</span>
+            </div>
+          </div>
+          <p class="section-note">The browser creates the visible page locally, while events can connect that page to services outside the browser.</p>
+        </section>
+
+        <section class="overview-section concepts">
+          <div class="section-heading"><span>03</span><h2>Core Concepts</h2></div>
+          <div class="concept-grid">
+            <article><h3>Frontend</h3><p>The part of a product that users see and interact with.</p></article>
+            <article><h3>Browser</h3><p>Software that loads web resources and renders a web page.</p></article>
+            <article><h3>Web Page</h3><p>The document and interface presented in a browser window.</p></article>
+            <article><h3>HTML</h3><p>The structure and meaning of content on a page.</p></article>
+            <article><h3>CSS</h3><p>The visual presentation, layout, and responsive behavior of a page.</p></article>
+            <article><h3>JavaScript</h3><p>The behavior and logic that make a page interactive.</p></article>
+            <article><h3>DOM</h3><p>The browser's structured representation of the page that scripts can read and change.</p></article>
+            <article><h3>Event</h3><p>A signal that something happened, such as a click, input, or page load.</p></article>
+            <article><h3>Event Listener</h3><p>Code that waits for an event and runs a response when it occurs.</p></article>
+          </div>
+        </section>
+
+        <section class="overview-section connects">
+          <div class="section-heading"><span>04</span><h2>How Everything Connects</h2></div>
+          <div class="connect-flow" aria-label="Frontend and browser connection flow">
+            <div>User action<small>clicks or types</small></div><b aria-hidden="true">→</b>
+            <div>Event<small>the browser reports it</small></div><b aria-hidden="true">→</b>
+            <div>JavaScript<small>handles the event</small></div><b aria-hidden="true">→</b>
+            <div>DOM update<small>the page changes</small></div><b aria-hidden="true">→</b>
+            <div>Optional request<small>the app calls an API</small></div><b aria-hidden="true">→</b>
+            <div>Response<small>data comes back</small></div><b aria-hidden="true">→</b>
+            <div>Updated page<small>the user sees a result</small></div>
+          </div>
+          <p class="section-note">A frontend interaction may end in the browser or continue through a backend / API request.</p>
+        </section>
+
+        <section class="overview-section topics">
+          <div class="section-heading"><span>05</span><h2>Topics in This Module</h2></div>
+          <div class="topic-list">
+            <a href="frontend.html"><b>Frontend</b><span>The user-facing layer of a web product.</span><em>Open →</em></a>
+            <a href="browser.html"><b>Browser</b><span>Software that loads and displays web pages.</span><em>Open →</em></a>
+            <a href="web-page.html"><b>Web Page</b><span>The document and interface shown by a browser.</span><em>Open →</em></a>
+            <a href="html.html"><b>HTML</b><span>Markup that gives a page structure and meaning.</span><em>Open →</em></a>
+            <a href="css.html"><b>CSS</b><span>Rules that control presentation and layout.</span><em>Open →</em></a>
+            <a href="javascript.html"><b>JavaScript</b><span>Language used for browser behavior and interaction.</span><em>Open →</em></a>
+            <a href="dom.html"><b>DOM</b><span>The browser's object model of a page.</span><em>Open →</em></a>
+            <a href="element.html"><b>Element</b><span>A structured unit in an HTML document.</span><em>Open →</em></a>
+            <a href="attribute.html"><b>Attribute</b><span>Additional information attached to an HTML element.</span><em>Open →</em></a>
+            <a href="class.html"><b>Class</b><span>A reusable label for selecting and styling elements.</span><em>Open →</em></a>
+            <a href="id.html"><b>ID</b><span>A unique identifier for an element on a page.</span><em>Open →</em></a>
+            <a href="form.html"><b>Form</b><span>A page control for collecting and submitting input.</span><em>Open →</em></a>
+            <a href="input.html"><b>Input</b><span>A form control that collects user data.</span><em>Open →</em></a>
+            <a href="button.html"><b>Button</b><span>A control that lets a user trigger an action.</span><em>Open →</em></a>
+            <a href="event.html"><b>Event</b><span>A signal that something happened in the browser.</span><em>Open →</em></a>
+            <a href="event-listener.html"><b>Event Listener</b><span>Code that responds when an event occurs.</span><em>Open →</em></a>
+            <a href="responsive-design.html"><b>Responsive Design</b><span>Designing pages that adapt to different screens.</span><em>Open →</em></a>
+            <a href="local-storage.html"><b>Local Storage</b><span>Browser storage that persists data on a device.</span><em>Open →</em></a>
+            <a href="cookie.html"><b>Cookie</b><span>A small piece of data stored by the browser.</span><em>Open →</em></a>
+            <a href="developer-tools.html"><b>Developer Tools</b><span>Browser tools for inspecting and debugging pages.</span><em>Open →</em></a>
+          </div>
+        </section>
+
+        <section class="overview-section">
+          <div class="section-heading"><span>06</span><h2>Glossary</h2></div>
+          <div class="glossary-entry"><div><strong>Frontend &amp; Browser Glossary</strong><span>Review the shared software vocabulary used across this module.</span></div><a href="software-glossary.html">Open Glossary →</a></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <a class="back-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

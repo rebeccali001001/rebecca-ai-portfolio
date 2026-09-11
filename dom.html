@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DOM · Frontend &amp; Browser</title>
+  <meta name="description" content="The DOM is the browser's live object representation of a web page.">
+  <link rel="stylesheet" href="topic.css?v=20260907-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .dom-page .grid>article{order:initial!important}
+    .dom-page .lede{max-width:760px}
+    .dom-page .definition{font-size:21px;color:#fff}
+    .dom-page .analogy-lede{font-size:20px;color:#fff}
+    .dom-page .dom-tree{margin:20px 0 0;padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:600 14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre;overflow:auto}
+    .dom-page .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+    .dom-page .flow span{padding:12px 15px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800;text-align:center}
+    .dom-page .flow b{color:var(--green);font-size:20px}
+    .dom-page .card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .dom-page .mini-card{padding:17px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .dom-page .mini-card strong{display:block;color:#fff;font-size:16px}
+    .dom-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .dom-page .code-notes{display:grid;gap:10px;margin-top:10px}
+    .dom-page .code-notes div{padding:13px 15px;border-left:3px solid var(--blue);background:rgba(127,177,255,.07);color:var(--muted)}
+    .dom-page .code-notes b{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .dom-page .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .dom-page .compare>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .dom-page .compare h3{margin:0 0 8px;color:var(--green);font-size:18px}
+    .dom-page .compare p{margin:7px 0;color:var(--muted)}
+    .dom-page .glossary-wrap{overflow:auto;margin-top:16px;border:1px solid #38516d;border-radius:14px}
+    .dom-page .glossary{width:100%;min-width:760px;border-collapse:collapse;font-size:13px;background:#07111a}
+    .dom-page .glossary th,.dom-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .dom-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#102335}
+    .dom-page .glossary td{color:var(--muted)}
+    .dom-page .glossary td:first-child{color:#fff;font-weight:800}
+    .dom-page .glossary tr:last-child td{border-bottom:0}
+    .dom-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .dom-page .remember p{font-size:20px;color:#fff}
+    .dom-page .topic-sidebar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:22px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}
+    .dom-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .dom-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .dom-page .topic-sidebar a:hover{border-color:var(--green)}
+    .dom-page .topic-sidebar a:last-child{text-align:right}
+    .dom-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .dom-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .dom-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:760px){
+      .dom-page .card-grid,.dom-page .compare{grid-template-columns:1fr}
+      .dom-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .dom-page .flow b{transform:rotate(90deg)}
+      .dom-page .topic-sidebar{grid-template-columns:1fr}
+      .dom-page .topic-sidebar .current{grid-column:auto}
+      .dom-page .topic-sidebar a:last-child{text-align:left}
+      .dom-page .direction-key{order:3}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory dom-page software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <div class="eyebrow">PART II · FRONTEND &amp; BROWSER</div>
+    <h1>DOM</h1>
+    <p class="lede">The browser's object representation of a web page.</p>
+
+    <section class="grid">
+      <article id="definition" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">DOM stands for Document Object Model.</p>
+        <p>When a browser reads HTML, it creates an object structure that JavaScript can access and change.</p>
+        <p class="note"><strong>Simple Definition:</strong> The DOM is the browser's working version of the web page.</p>
+      </article>
+
+      <article id="analogy" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="analogy-lede">Think of HTML as the original document.</p>
+        <p class="muted">The DOM is the browser's live tree built from that document.</p>
+        <div class="flow" aria-label="HTML to Browser to DOM Tree">
+          <span>HTML</span><b aria-hidden="true">→</b><span>Browser</span><b aria-hidden="true">→</b><span>DOM Tree</span>
+        </div>
+        <pre class="dom-tree" aria-label="Example DOM tree">Document
+└─ html
+   └─ body
+      ├─ h1
+      ├─ p
+      └─ button</pre>
+      </article>
+
+      <article id="capabilities" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p>The DOM allows JavaScript to:</p>
+        <div class="card-grid">
+          <div class="mini-card"><strong>Find Elements</strong></div>
+          <div class="mini-card"><strong>Read Content</strong></div>
+          <div class="mini-card"><strong>Change Content</strong></div>
+          <div class="mini-card"><strong>Change Classes</strong></div>
+          <div class="mini-card"><strong>Change Styles</strong></div>
+          <div class="mini-card"><strong>Add or Remove Elements</strong></div>
+        </div>
+      </article>
+
+      <article id="usage" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p>The DOM is used whenever JavaScript reads or changes a web page.</p>
+        <div class="card-grid">
+          <div class="mini-card"><strong>Update Text</strong></div>
+          <div class="mini-card"><strong>Open a Menu</strong></div>
+          <div class="mini-card"><strong>Show an Error</strong></div>
+          <div class="mini-card"><strong>Hide a Panel</strong></div>
+          <div class="mini-card"><strong>Add a New Row</strong></div>
+          <div class="mini-card"><strong>Change a Button State</strong></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <pre class="code-block"><code>const button = document.querySelector(".save-button");
+
+button.textContent = "Saved";</code></pre>
+        <div class="code-notes">
+          <div><b>document</b> represents the current page.</div>
+          <div><b>querySelector()</b> finds an element in the DOM.</div>
+          <div><b>textContent</b> changes the element's text.</div>
+        </div>
+        <div class="flow" aria-label="HTML to DOM to JavaScript to DOM Change to Page Update">
+          <span>HTML</span><b aria-hidden="true">→</b><span>DOM</span><b aria-hidden="true">→</b><span>JavaScript</span><b aria-hidden="true">→</b><span>DOM Change</span><b aria-hidden="true">→</b><span>Page Update</span>
+        </div>
+      </article>
+
+      <article id="connection" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="HTML to Browser to DOM to JavaScript to User Interface">
+          <span>HTML</span><b aria-hidden="true">→</b><span>Browser</span><b aria-hidden="true">→</b><span>DOM</span><b aria-hidden="true">→</b><span>JavaScript</span><b aria-hidden="true">→</b><span>User Interface</span>
+        </div>
+        <p class="note">HTML creates the original structure.</p>
+        <p class="note">The browser turns that structure into the DOM.</p>
+        <p class="note">JavaScript works with the DOM to change the page.</p>
+      </article>
+
+      <article id="confusion" class="card wide topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare">
+          <div><h3>HTML</h3><p>The markup written in the source file.</p></div>
+          <div><h3>DOM</h3><p>The live object structure created by the browser.</p></div>
+        </div>
+        <p class="note">HTML is the source.</p>
+        <p class="note">DOM is the browser's live representation.</p>
+      </article>
+
+      <article id="glossary" class="card wide topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>DOM</td><td lang="zh">文档对象模型</td><td>The browser's object representation of a web page.</td><td lang="zh">浏览器根据网页创建的可被 JavaScript 操作的对象结构。</td></tr>
+              <tr><td>Document</td><td lang="zh">文档对象</td><td>The top-level object representing the current web page.</td><td lang="zh">JavaScript 中代表当前网页的顶层对象。</td></tr>
+              <tr><td>Element</td><td lang="zh">元素</td><td>An object representing one part of a web page.</td><td lang="zh">DOM 中代表某个具体页面元素的对象。</td></tr>
+              <tr><td>Node</td><td lang="zh">节点</td><td>An item inside the DOM tree.</td><td lang="zh">DOM 树中的一个节点。</td></tr>
+              <tr><td>DOM Tree</td><td lang="zh">DOM 树</td><td>The hierarchical structure of page elements.</td><td lang="zh">按父子关系组织页面元素的树状结构。</td></tr>
+              <tr><td>querySelector()</td><td lang="zh">元素选择方法</td><td>A method used to find an element in the DOM.</td><td lang="zh">JavaScript 中用来查找页面元素的方法。</td></tr>
+              <tr><td>textContent</td><td lang="zh">文本内容</td><td>A property used to read or change element text.</td><td lang="zh">用来读取或修改元素文字内容的属性。</td></tr>
+              <tr><td>classList</td><td lang="zh">Class 列表</td><td>A way to read and change an element's CSS classes.</td><td lang="zh">用来读取、添加或删除元素 Class 的接口。</td></tr>
+              <tr><td>Browser</td><td lang="zh">浏览器</td><td>Software that creates and manages the DOM.</td><td lang="zh">创建并管理 DOM 的浏览器软件。</td></tr>
+              <tr><td>JavaScript</td><td lang="zh">JavaScript</td><td>The language commonly used to interact with the DOM.</td><td lang="zh">常用来读取和修改 DOM 的编程语言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide topic-takeaway remember">
+        <h2>09 · What to Remember</h2>
+        <p>The browser creates the DOM from HTML.</p>
+        <p>The DOM represents the live page structure.</p>
+        <p>JavaScript uses the DOM to read and change the page.</p>
+        <div class="flow" aria-label="HTML to DOM to JavaScript to Page Update">
+          <span>HTML</span><b aria-hidden="true">→</b><span>DOM</span><b aria-hidden="true">→</b><span>JavaScript</span><b aria-hidden="true">→</b><span>Page Update</span>
+        </div>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="DOM topic navigation">
+      <div class="current">DOM ← active</div>
+      <a href="javascript.html"><small>Previous</small>JavaScript</a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="element.html"><small>Next</small>Element</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

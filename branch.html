@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Branch · 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of branches and parallel development in Git.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .branch-page .hero { max-width: 900px; padding-bottom: 18px; }
+    .branch-page .branch-flow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: stretch; gap: 10px; margin: 20px 0; }
+    .branch-page .branch-flow > div:not(.arrow) { min-width: 0; min-height: 82px; display: flex; align-items: center; justify-content: center; padding: 15px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; text-align: center; font-weight: 800; }
+    .branch-page .branch-flow > div.accent { border-color: var(--green); background: rgba(120,229,189,.09); }
+    .branch-page .branch-flow .arrow { display: grid; place-items: center; color: var(--green); font-size: 24px; }
+    .branch-page .branch-flow.compact { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+    .branch-page .branch-flow.compact > div:not(.arrow) { min-height: 72px; font-size: 14px; }
+    .branch-page .feature-list, .branch-page .use-list, .branch-page .comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .branch-page .feature-list div, .branch-page .use-list div, .branch-page .comparison-grid article { min-width: 0; padding: 17px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #fff; }
+    .branch-page .feature-list b { display: block; color: var(--green); }
+    .branch-page .use-list div { text-align: center; font-weight: 800; }
+    .branch-page .branch-tree { margin: 18px 0 0; padding: 18px; overflow-wrap: anywhere; white-space: pre-wrap; border: 1px solid #38516d; border-radius: 14px; background: #07111a; color: #dbe7f4; font: 14px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .branch-page .comparison-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .branch-page .comparison-grid h3 { margin: 0 0 7px; color: #fff; }
+    .branch-page .comparison-grid p { margin: 6px 0 0; color: var(--muted); }
+    .branch-page .callout { margin: 18px 0 0; padding: 16px 18px; border-left: 3px solid var(--green); background: rgba(120,229,189,.06); color: var(--muted); }
+    .branch-page .callout strong { color: #fff; }
+    .branch-page .glossary-wrap { overflow-x: auto; margin-top: 18px; }
+    .branch-page .glossary { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 14px; }
+    .branch-page .glossary th, .branch-page .glossary td { padding: 12px 14px; border: 1px solid #38516d; vertical-align: top; text-align: left; }
+    .branch-page .glossary th { color: var(--green); background: #07111a; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .branch-page .glossary td { color: var(--muted); }
+    .branch-page .glossary td:first-child { color: #fff; font-weight: 800; }
+    .branch-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+    .branch-page .remember p { color: #fff; font-size: 18px; }
+    .branch-page .final-flow { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: center; gap: 10px; margin-top: 20px; color: var(--green); font-size: 20px; font-weight: 850; text-align: center; }
+    .branch-page .final-flow span { padding: 12px 14px; border: 1px solid #38516d; border-radius: 999px; background: #07111a; color: #fff; font-size: 16px; }
+    .branch-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+    .branch-page .prevnext a { color: var(--muted); }
+    .branch-page .prevnext small { display: block; color: var(--green); text-transform: uppercase; letter-spacing: .08em; }
+    .branch-page .detail-section { scroll-margin-top: 24px; }
+    @media (max-width: 900px) {
+      .branch-page .branch-flow, .branch-page .branch-flow.compact, .branch-page .final-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .branch-page .branch-flow .arrow, .branch-page .final-flow .arrow { display: none; }
+      .branch-page .branch-flow > div:not(.arrow)::after { content: '↓'; display: block; margin-left: 6px; color: var(--green); }
+      .branch-page .feature-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 760px) {
+      .branch-page .branch-flow, .branch-page .branch-flow.compact, .branch-page .feature-list, .branch-page .use-list, .branch-page .comparison-grid, .branch-page .final-flow { grid-template-columns: 1fr; }
+      .branch-page .branch-flow .arrow { display: block; min-height: 22px; font-size: 0; }
+      .branch-page .branch-flow .arrow::after { content: '↓'; font-size: 24px; }
+      .branch-page .branch-flow > div:not(.arrow)::after { display: none; }
+      .branch-page .prevnext { flex-direction: column; }
+      .branch-page .final-flow { gap: 8px; }
+      .branch-page .final-flow .arrow { display: block; min-height: 22px; font-size: 0; }
+      .branch-page .final-flow .arrow::after { content: '↓'; font-size: 22px; }
+    }
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic module08-topic branch-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <a class="back" href="software-knowledge.html#explore-modules">← Software Knowledge · Development &amp; Git</a>
+      <div class="eyebrow">PART VIII · DEVELOPMENT &amp; GIT</div>
+      <h1>Branch</h1>
+      <p class="lede">An independent line of development in a Git repository.</p>
+    </header>
+    <div class="detail-sections">
+      <section id="what-is-it" class="card wide detail-section topic-definition">
+        <div class="eyebrow">01</div><h2>What is it?</h2>
+        <p>A branch lets developers work on changes without directly changing another branch such as main.</p>
+        <p>Branches allow multiple lines of development to exist in the same repository.</p>
+        <p class="definition"><b>Simple Definition:</b><br>A branch is a separate line of code development.</p>
+      </section>
+      <section id="think" class="card wide detail-section topic-analogy">
+        <div class="eyebrow">02</div><h2>Think of it like...</h2>
+        <p>Think of a branch as creating a side road from the main road.</p>
+        <p>You can work on the side road and later reconnect it.</p>
+        <div class="branch-flow compact" aria-label="Main to feature branch to changes to merge">
+          <div>Main</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Feature Branch</div><div class="arrow" aria-hidden="true">→</div><div>Changes</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Merge</div>
+        </div>
+      </section>
+      <section id="does" class="card wide detail-section topic-process">
+        <div class="eyebrow">03</div><h2>What does it do?</h2>
+        <p>Branches help teams:</p>
+        <div class="feature-list">
+          <div><b>Develop Features</b></div><div><b>Fix Bugs</b></div><div><b>Experiment Safely</b></div>
+          <div><b>Work in Parallel</b></div><div><b>Prepare Releases</b></div><div><b>Review Changes Separately</b></div>
+        </div>
+      </section>
+      <section id="where" class="card wide detail-section topic-example">
+        <div class="eyebrow">04</div><h2>Where is it used?</h2>
+        <p>Branches are used in:</p>
+        <div class="use-list">
+          <div>Git</div><div>GitHub</div><div>Pull Requests</div>
+          <div>Feature Development</div><div>Bug Fixes</div><div>Release Management</div>
+        </div>
+      </section>
+      <section id="example" class="card wide detail-section topic-example">
+        <div class="eyebrow">05</div><h2>Example</h2>
+        <p>Concept:</p>
+        <pre class="branch-tree" aria-label="A feature branch created from main">main
+↓
+feature/order-validation</pre>
+        <p class="callout">Developer changes the feature branch without directly editing main.</p>
+      </section>
+      <section id="connects" class="card wide detail-section topic-process">
+        <div class="eyebrow">06</div><h2>How it connects</h2>
+        <div class="branch-flow compact" aria-label="Main to create branch to commits to pull request to merge">
+          <div>Main</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Create Branch</div><div class="arrow" aria-hidden="true">→</div><div>Commits</div><div class="arrow" aria-hidden="true">→</div><div>Pull Request</div><div class="arrow" aria-hidden="true">→</div><div class="accent">Merge</div>
+        </div>
+      </section>
+      <section id="confuse" class="card wide detail-section topic-comparison">
+        <div class="eyebrow">07</div><h2>Do Not Confuse</h2>
+        <div class="comparison-grid">
+          <article><h3>Branch</h3><p>One line of development inside a repository.</p></article>
+          <article><h3>Repository</h3><p>The whole project containing branches and history.</p></article>
+        </div>
+        <p class="callout"><strong>Branch ≠ Repository</strong></p>
+      </section>
+      <section id="glossary" class="card wide detail-section topic-related">
+        <div class="eyebrow">08</div><h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Branch</td><td>分支</td><td>An independent line of development in Git.</td><td>Git 中可以独立修改代码的一条开发线。</td></tr>
+              <tr><td>Feature Branch</td><td>功能分支</td><td>A branch used to develop a specific feature.</td><td>专门用于开发某个新功能的分支。</td></tr>
+              <tr><td>Main Branch</td><td>主分支</td><td>The primary branch representing the main code line.</td><td>通常代表项目主要稳定代码线的分支。</td></tr>
+              <tr><td>Checkout / Switch</td><td>切换分支</td><td>Changing the current working branch.</td><td>让本地工作目录切换到另一个 Git 分支。</td></tr>
+              <tr><td>Branch Name</td><td>分支名称</td><td>The label used to identify a branch.</td><td>用来区分不同开发分支的名称。</td></tr>
+              <tr><td>Merge</td><td>合并</td><td>Combining a branch's changes into another branch.</td><td>把一个分支上的修改整合进另一个分支。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="remember" class="card wide detail-section remember topic-takeaway">
+        <div class="eyebrow">09</div><h2>What to Remember</h2>
+        <p>Branches allow parallel development.</p>
+        <p>Feature work is often done outside main.</p>
+        <p>Branches can later be merged.</p>
+        <div class="final-flow" aria-label="Main to branch to change to merge"><span>Main</span><b class="arrow" aria-hidden="true">→</b><span>Branch</span><b class="arrow" aria-hidden="true">→</b><span>Change</span><b class="arrow" aria-hidden="true">→</b><span>Merge</span></div>
+      </section>
+    </div>
+    <nav class="prevnext" aria-label="Development and Git topic navigation"><a href="commit.html"><small>Previous</small>← Commit</a><a href="main.html"><small>Next</small>Main →</a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

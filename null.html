@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NULL · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of NULL in databases and SQL.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="null.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory null-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="module-05.html">← Module 05 · Database &amp; SQL</a>
+    <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+    <h1>NULL</h1>
+    <p class="lede">NULL is a special database marker meaning a value is missing, unknown, or not applicable.</p>
+    <section class="detail-sections">
+      <article id="definition" class="card detail-section topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">NULL means that a value is missing, unknown, or not applicable.</p>
+        <p class="muted">It is not the same thing as zero, an empty string, or the word “NULL”. It represents the absence of a usable value.</p>
+        <p class="note"><b>Simple definition:</b> NULL says, “There is no known value here.”</p>
+      </article>
+
+      <article id="analogy" class="card detail-section topic-analogy">
+        <h2>02 · Think of it like…</h2>
+        <p class="definition">Think of NULL as a blank answer on a form when the answer is not known or does not apply.</p>
+        <div class="null-analogy">
+          <table class="null-table" aria-label="Examples of database values and what they mean">
+            <thead><tr><th>Value</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td>NULL</td><td>No usable value is known or needed.</td></tr>
+              <tr><td>0</td><td>The known number is zero.</td></tr>
+              <tr><td>''</td><td>The known text is empty.</td></tr>
+              <tr><td>'NULL'</td><td>The text literally says “NULL”.</td></tr>
+            </tbody>
+          </table>
+          <div class="null-value"><strong>NULL</strong><span>Answer not known<br>or not applicable</span></div>
+        </div>
+      </article>
+
+      <article id="does" class="card detail-section topic-process">
+        <h2>03 · What does it do?</h2>
+        <p class="muted">NULL lets a database record that a field does not currently have a usable value.</p>
+        <div class="value-grid">
+          <div class="value-card"><h3>Preserves uncertainty</h3><p>It keeps “unknown” different from a guessed value.</p></div>
+          <div class="value-card"><h3>Represents not applicable</h3><p>It can show that a field does not apply to this record.</p></div>
+          <div class="value-card"><h3>Changes comparisons</h3><p>SQL treats NULL as unknown, so ordinary equality checks do not match it.</p></div>
+        </div>
+      </article>
+
+      <article id="used" class="card detail-section topic-example">
+        <h2>04 · Where is it used?</h2>
+        <p class="muted">NULL appears in real data whenever information can arrive later, be optional, or not apply.</p>
+        <div class="use-grid">
+          <div class="use-card"><h3>Optional profile data</h3><p>A user has not added a phone number or middle name.</p></div>
+          <div class="use-card"><h3>Pending workflows</h3><p>An order has no shipped date because it has not shipped yet.</p></div>
+          <div class="use-card"><h3>Missing measurements</h3><p>A sensor or imported record did not provide a reading.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card detail-section topic-example">
+        <h2>05 · Example</h2>
+        <h3>Finding orders without a shipped date</h3>
+        <pre class="sql-example"><code><span class="keyword">SELECT</span> order_id, shipped_at
+<span class="keyword">FROM</span> orders
+<span class="keyword">WHERE</span> shipped_at <span class="keyword">IS NULL</span>;</code></pre>
+        <p class="note">Use <b>IS NULL</b> to test for NULL. Writing <b>shipped_at = NULL</b> does not work because NULL is not an ordinary value to compare with equals.</p>
+      </article>
+
+      <article id="connects" class="card detail-section topic-process">
+        <h2>06 · How it connects</h2>
+        <div class="null-flow" aria-label="Input data to validation to database column to NULL or known value to query result">
+          <span class="node">Input data</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node">Validation</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node">Database column</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node">NULL or known value</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="node">Query result</span>
+        </div>
+        <p class="note">A column definition can allow or reject NULL, and queries must use NULL-aware conditions when they need missing records.</p>
+      </article>
+
+      <article id="confuse" class="card detail-section topic-comparison">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div class="compare-card"><h3>NULL</h3><p>A missing, unknown, or not-applicable value.</p></div>
+          <div class="compare-card"><h3>Zero</h3><p>A known numeric value whose amount is 0.</p></div>
+          <div class="compare-card"><h3>Empty string</h3><p>A known text value containing no characters.</p></div>
+        </div>
+        <p class="note"><b>NULL ≠ 0 ≠ ''</b>. They carry different meanings and can behave differently in queries.</p>
+      </article>
+
+      <article id="glossary" class="card detail-section topic-related">
+        <h2>08 · Topic Glossary</h2>
+        <div class="null-glossary-wrap">
+          <table class="null-glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>NULL</td><td>空值 / 未知值</td><td>A marker for a missing, unknown, or not-applicable value.</td><td>表示数据缺失、未知或不适用的特殊标记。</td></tr>
+              <tr><td>Missing Value</td><td>缺失值</td><td>A value that is not available in the data.</td><td>数据中目前没有提供的值。</td></tr>
+              <tr><td>Unknown Value</td><td>未知值</td><td>A value that may exist but is not known yet.</td><td>可能存在，但现在还不知道具体是什么的值。</td></tr>
+              <tr><td>IS NULL</td><td>判断空值</td><td>An SQL condition used to find NULL values.</td><td>SQL 中用来查找 NULL 的判断条件。</td></tr>
+              <tr><td>IS NOT NULL</td><td>判断非空值</td><td>An SQL condition used to find values that are not NULL.</td><td>SQL 中用来查找不是 NULL 的值的判断条件。</td></tr>
+              <tr><td>NOT NULL</td><td>非空约束</td><td>A rule that requires a column to have a value.</td><td>要求某一列必须有值，不能保存 NULL 的规则。</td></tr>
+              <tr><td>Empty String</td><td>空字符串</td><td>Text with zero characters, written as ''.</td><td>长度为零的文字，不等于 NULL。</td></tr>
+              <tr><td>Default Value</td><td>默认值</td><td>A value used automatically when no value is supplied.</td><td>用户没有提供值时，系统自动填入的值。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card detail-section topic-takeaway remember">
+        <h2>09 · What to Remember</h2>
+        <ul class="remember-list">
+          <li>NULL means missing, unknown, or not applicable.</li>
+          <li>NULL is different from zero, an empty string, and the text “NULL”.</li>
+          <li>Use IS NULL or IS NOT NULL when filtering for NULL values.</li>
+        </ul>
+      </article>
+    </section>
+    <nav class="topic-pagination" aria-label="Topic navigation">
+      <a href="transaction.html"><small>Previous</small><b>Transaction</b></a>
+      <a href="normalization.html"><small>Next</small><b>Normalization</b></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Row · Database &amp; SQL · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of rows as complete records in database tables.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory row-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <header class="hero">
+      <div class="eyebrow">MODULE 05 · DATABASE &amp; SQL</div>
+      <h1>Row</h1>
+      <p class="lede">A row is one complete record in a database table.</p>
+    </header>
+
+    <section class="grid">
+      <article id="what-is-it" class="card wide topic-definition">
+        <h2>01 · What is it?</h2>
+        <p class="definition">A row is one complete record in a database table.</p>
+        <p class="section-lede">Each row describes one item, person, event, or other stored thing. The values in that row belong together because they describe the same record.</p>
+        <p class="bottom-line">In a users table, one row can represent one user.</p>
+      </article>
+
+      <article id="think-of-it" class="card wide topic-analogy">
+        <h2>02 · Think of it like...</h2>
+        <p class="definition">Think of a row as one filled-out line on a form.</p>
+        <p class="section-lede">The labels across the top tell you what each piece of information means. One horizontal line then holds the complete information for one item.</p>
+        <div class="flow" aria-label="Column labels combine into one complete row">
+          <div class="flow-node">ID</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Name</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Email</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">One User Row</div>
+        </div>
+      </article>
+
+      <article id="what-does-it-do" class="card wide">
+        <h2>03 · What does it do?</h2>
+        <p class="section-lede">A row keeps the values for one record together so software can work with that record as a unit.</p>
+        <div class="fact-grid">
+          <div><b>Represent One Thing</b><p>Store the information that describes one user, order, product, or event.</p></div>
+          <div><b>Keep Values Together</b><p>Group related values such as an ID, name, and email address.</p></div>
+          <div><b>Support Data Changes</b><p>Let software read, update, or delete one complete record.</p></div>
+          <div><b>Return a Result</b><p>Give a query a record that the application can display or process.</p></div>
+        </div>
+      </article>
+
+      <article id="where-used" class="card wide">
+        <h2>04 · Where is it used?</h2>
+        <p class="section-lede">Rows appear in every table that stores multiple records of the same kind.</p>
+        <div class="use-grid">
+          <div><strong>Users</strong><b>One account</b><p>A row can hold one user’s ID, name, email, and status.</p></div>
+          <div><strong>Orders</strong><b>One purchase</b><p>A row can hold one order’s ID, customer, amount, and date.</p></div>
+          <div><strong>Products</strong><b>One item</b><p>A row can hold one product’s name, price, and inventory count.</p></div>
+          <div><strong>Logs</strong><b>One event</b><p>A row can hold one recorded event and the time it happened.</p></div>
+        </div>
+      </article>
+
+      <article id="example" class="card wide topic-example">
+        <h2>05 · Example</h2>
+        <div class="example-grid">
+          <div class="example-card">
+            <p>Suppose a <b>users</b> table has these columns:</p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>id</th><th>name</th><th>email</th><th>status</th></tr></thead>
+                <tbody><tr><td>42</td><td>Alex</td><td>alex@example.com</td><td>active</td></tr></tbody>
+              </table>
+            </div>
+            <p class="bottom-line">The complete line with ID 42 is one row. Together, its four values describe one user.</p>
+          </div>
+          <div class="example-card">
+            <p>A query can find that one row:</p>
+            <pre><code>SELECT id, name, email, status
+FROM users
+WHERE id = 42;</code></pre>
+            <p class="bottom-line">The database returns the matching row as the query result.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="how-it-connects" class="card wide">
+        <h2>06 · How it connects</h2>
+        <div class="flow" aria-label="Frontend to API to backend to SQL query to table to row to response">
+          <div class="flow-node">Frontend</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">API</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Backend</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">SQL Query</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Table</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node accent">Row</div><div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-node">Response</div>
+        </div>
+        <p class="bottom-line">A query selects rows from tables, and the backend turns those rows into an application response.</p>
+      </article>
+
+      <article id="do-not-confuse" class="card wide">
+        <h2>07 · Do Not Confuse</h2>
+        <div class="confusion-grid">
+          <div><h3>Row</h3><p>One complete record, such as one user or one order.</p></div>
+          <div><h3>Column</h3><p>One type of information shared by every row in a table.</p></div>
+          <div><h3>Table</h3><p>A collection of related rows organized by columns.</p></div>
+          <div><h3>Record</h3><p>Another common word for the complete data represented by one row.</p></div>
+        </div>
+        <p class="bottom-line">A row is horizontal data for one item; a column is vertical data for one attribute.</p>
+      </article>
+
+      <article id="glossary" class="card wide">
+        <h2>08 · Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Row</td><td>行</td><td>One complete record in a database table.</td><td>数据库表中的一条完整记录。</td></tr>
+              <tr><td>Record</td><td>记录</td><td>A complete set of values about one item.</td><td>描述一个对象的完整数据集合。</td></tr>
+              <tr><td>Table</td><td>表</td><td>A structure that organizes related rows and columns.</td><td>用行和列组织相关数据的结构。</td></tr>
+              <tr><td>Column</td><td>列</td><td>One type of information stored for every row.</td><td>每一行都保存的一种信息类型。</td></tr>
+              <tr><td>Field</td><td>字段</td><td>A named place for one value in a record.</td><td>记录中存放某个值的有名字的位置。</td></tr>
+              <tr><td>Query</td><td>查询</td><td>A request to read or change database data.</td><td>向数据库读取或修改数据的请求。</td></tr>
+              <tr><td>SQL</td><td>结构化查询语言</td><td>A language used to work with relational databases.</td><td>用来操作关系型数据库的语言。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article id="remember" class="card wide remember">
+        <h2>09 · What to Remember</h2>
+        <p>A row is one complete record in a database table.</p>
+        <p>Columns describe the kinds of values; a row holds the values for one item.</p>
+        <p>SQL queries can select, update, or delete rows.</p>
+      </article>
+    </section>
+
+    <nav class="pager" aria-label="Topic navigation">
+      <a href="table.html"><small>Previous</small><strong>← Table</strong></a>
+      <a href="column.html"><small>Next</small><strong>Column →</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

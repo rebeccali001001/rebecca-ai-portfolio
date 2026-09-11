@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Form · Frontend &amp; Browser</title>
+  <meta name="description" content="A form is a section of a page used to collect and submit user input.">
+  <link rel="stylesheet" href="topic.css?v=20260909-1">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js"></script>
+  <style>
+    .form-page .path{margin:0 0 18px;color:var(--muted);font-size:13px;letter-spacing:.02em}
+    .form-page .path span{color:var(--green)}
+    .form-page .topic-main .grid>article{order:initial!important}
+    .form-page .hero-label{color:var(--green);font-size:13px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+    .form-page .hero-definition{max-width:780px;font-size:22px;color:#dbe7f4}
+    .form-page .section-number{display:block;margin-bottom:8px;color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .form-page .definition{font-size:21px;color:#fff}
+    .form-page .analogy-copy{font-size:19px;color:#fff}
+    .form-page .card p{max-width:850px}
+    .form-page .grid>article{min-width:0}
+    .form-page .control-cards,.form-page .use-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .form-page .control-card,.form-page .use-card{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .form-page .control-card strong,.form-page .use-card strong{display:block;color:#fff;font-size:17px}
+    .form-page .flow{display:flex;min-width:0;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px}
+    .form-page .flow span{padding:13px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#fff;font-weight:800}
+    .form-page .flow b{color:var(--green);font-size:20px}
+    .form-page .code-block{margin:18px 0 20px;padding:18px 20px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4;font:14px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .form-page .code-notes{display:grid;gap:10px;margin-top:10px}
+    .form-page .code-notes div{padding:13px 15px;border-left:3px solid var(--blue);background:rgba(127,177,255,.07);color:var(--muted)}
+    .form-page .code-notes b{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .form-page .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+    .form-page .compare>div{padding:18px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .form-page .compare h3{margin:0 0 8px;color:var(--green);font-size:17px}
+    .form-page .compare p{margin:0;color:var(--muted)}
+    .form-page .glossary-wrap{overflow:auto;margin-top:16px}
+    .form-page .glossary{width:100%;min-width:820px;border-collapse:collapse;font-size:13px}
+    .form-page .glossary th,.form-page .glossary td{padding:12px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .form-page .glossary th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .form-page .glossary td{color:var(--muted)}
+    .form-page .glossary td:first-child{color:#fff;font-weight:800}
+    .form-page .remember{border-color:#37665d;background:linear-gradient(135deg,rgba(120,229,189,.11),rgba(127,177,255,.07))}
+    .form-page .remember p{font-size:21px;color:#fff}
+    .form-page .topic-sidebar{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(12,23,34,.72)}
+    .form-page .topic-sidebar .current{grid-column:1/-1;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1);color:var(--green);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .form-page .topic-sidebar a{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid #38516d;border-radius:12px;color:#fff}
+    .form-page .topic-sidebar a:hover{border-color:var(--green)}
+    .form-page .topic-sidebar a:last-child{text-align:right}
+    .form-page .topic-sidebar small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .form-page .direction-key{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}
+    .form-page .direction-key b{color:var(--green);font-size:21px}
+    @media(max-width:760px){
+      .form-page .control-cards,.form-page .use-cards,.form-page .compare{grid-template-columns:1fr}
+      .form-page .flow{display:grid;grid-template-columns:1fr;gap:7px}
+      .form-page .flow span,.form-page .flow b{text-align:center}
+      .form-page .flow b{transform:rotate(90deg)}
+      .form-page .topic-sidebar{grid-template-columns:1fr}
+      .form-page .topic-sidebar .current{grid-column:auto}
+      .form-page .topic-sidebar a:last-child{text-align:left}
+      .form-page .direction-key{order:3}
+    }
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory form-page software-knowledge-page" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="software-knowledge.html">← Software Knowledge</a>
+    <p class="path">Software Knowledge <span>→</span> 02 · Frontend &amp; Browser <span>→</span> Form</p>
+    <div class="hero-label">Part II · Frontend &amp; Browser</div>
+    <h1>Form</h1>
+    <p class="hero-definition">A group of controls used to collect and submit user input.</p>
+
+    <section class="grid">
+      <article class="card wide">
+        <span class="section-number">01 · What is it?</span><h2>What is it?</h2>
+        <p class="definition">A form is a section of a page used to collect information from users.</p>
+        <p class="muted">Forms can contain inputs, labels, buttons, checkboxes, dropdowns, and other controls.</p>
+        <p class="note"><strong>Simple Definition:</strong> A form collects user data.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">02 · Think of it like...</span><h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of a form as a digital paper form.</p>
+        <p class="muted">The user fills in fields and submits the completed information.</p>
+        <div class="flow" aria-label="User to fill fields to submit to software"><span>User</span><b>→</b><span>Fill Fields</span><b>→</b><span>Submit</span><b>→</b><span>Software</span></div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">03 · What does it do?</span><h2>What does it do?</h2><p class="muted">Forms help software:</p>
+        <div class="control-cards"><div class="control-card"><strong>Collect Text</strong></div><div class="control-card"><strong>Collect Numbers</strong></div><div class="control-card"><strong>Choose Options</strong></div><div class="control-card"><strong>Upload Files</strong></div><div class="control-card"><strong>Validate Input</strong></div><div class="control-card"><strong>Submit Data</strong></div></div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">04 · Where is it used?</span><h2>Where is it used?</h2><p class="muted">Forms are used in:</p>
+        <div class="use-cards"><div class="use-card"><strong>Login</strong></div><div class="use-card"><strong>Registration</strong></div><div class="use-card"><strong>Search</strong></div><div class="use-card"><strong>Create Order</strong></div><div class="use-card"><strong>Edit Profile</strong></div><div class="use-card"><strong>Payment</strong></div><div class="use-card"><strong>Contact Forms</strong></div></div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">05 · Example</span><h2>Example</h2>
+        <pre class="code-block"><code>&lt;form&gt;
+  &lt;label for="quantity"&gt;Quantity&lt;/label&gt;
+  &lt;input id="quantity" type="number"&gt;
+  &lt;button type="submit"&gt;Create Order&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        <div class="code-notes"><div><b>form</b> groups the controls.</div><div><b>label</b> describes the input.</div><div><b>input</b> collects the value.</div><div><b>button</b> submits the action.</div></div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">06 · How it connects</span><h2>How it connects</h2>
+        <div class="flow" aria-label="User to form to input to submit event to JavaScript to API request to backend"><span>User</span><b>→</b><span>Form</span><b>→</b><span>Input</span><b>→</b><span>Submit Event</span><b>→</b><span>JavaScript</span><b>→</b><span>API Request</span><b>→</b><span>Backend</span></div>
+        <p class="note">Forms collect user data and often start a request to the backend.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span><h2>Do Not Confuse</h2>
+        <div class="compare"><div><h3>Form</h3><p>A container for collecting related user data.</p></div><div><h3>Input</h3><p>One individual control inside a form.</p></div></div>
+        <p class="note">A form can contain many inputs.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">08 · Topic Glossary</span><h2>Topic Glossary</h2>
+        <div class="glossary-wrap"><table class="glossary"><thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+          <tr><td>Form</td><td lang="zh">表单</td><td>A group of controls used to collect user input.</td><td lang="zh">用来收集用户输入的一组页面控件。</td></tr>
+          <tr><td>Input</td><td lang="zh">输入框 / 输入控件</td><td>A control used to enter or select data.</td><td lang="zh">用户输入或选择数据的页面控件。</td></tr>
+          <tr><td>Label</td><td lang="zh">标签说明</td><td>Text that describes a form control.</td><td lang="zh">用来说明某个输入控件含义的文字。</td></tr>
+          <tr><td>Button</td><td lang="zh">按钮</td><td>A control used to trigger an action.</td><td lang="zh">用户点击后触发某项操作的控件。</td></tr>
+          <tr><td>Submit</td><td lang="zh">提交</td><td>Sending form data for processing.</td><td lang="zh">将表单数据发送出去进行处理。</td></tr>
+          <tr><td>Validation</td><td lang="zh">校验</td><td>Checking whether entered data follows required rules.</td><td lang="zh">检查用户输入的数据是否符合要求。</td></tr>
+          <tr><td>Field</td><td lang="zh">字段</td><td>One piece of information collected by a form.</td><td lang="zh">表单中需要收集的一项具体信息。</td></tr>
+          <tr><td>Value</td><td lang="zh">值</td><td>The data entered or selected in a control.</td><td lang="zh">用户在某个控件中输入或选择的数据。</td></tr>
+          <tr><td>required</td><td lang="zh">必填</td><td>An attribute that requires a field to have a value.</td><td lang="zh">要求某个表单字段必须填写的属性。</td></tr>
+          <tr><td>Submit Event</td><td lang="zh">提交事件</td><td>An event triggered when a form is submitted.</td><td lang="zh">用户提交表单时触发的事件。</td></tr>
+          <tr><td>API Request</td><td lang="zh">API 请求</td><td>A request that may carry submitted form data.</td><td lang="zh">可能携带表单数据发送给后端的请求。</td></tr>
+        </tbody></table></div>
+      </article>
+
+      <article class="card wide remember">
+        <span class="section-number">09 · What to Remember</span><h2>What to Remember</h2>
+        <p>Forms collect user input.</p><p>A form can contain many controls.</p><p>Submitting a form often starts the next software action.</p>
+        <div class="flow" aria-label="User to form to submit to system"><span>User</span><b>→</b><span>Form</span><b>→</b><span>Submit</span><b>→</b><span>System</span></div>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="Form topic navigation">
+      <div class="current">Form ← active</div>
+      <a href="id.html"><small>Previous</small>ID</a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="input.html"><small>Next</small>Input</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

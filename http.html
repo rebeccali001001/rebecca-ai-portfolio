@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTTP · HTTP &amp; APIs</title>
+  <meta name="description" content="HTTP is the basic communication protocol used by the web.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="http.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic http-page has-site-directory">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap topic-main">
+    <header class="hero"><div class="eyebrow">PART III · HTTP &amp; APIs</div><h1>HTTP</h1><p class="lede">The basic communication protocol used by the web.</p></header>
+    <section class="grid">
+      <article class="card wide"><h2>01 · What is it?</h2><p class="definition">HTTP stands for HyperText Transfer Protocol.</p><p class="section-lede">It defines how clients and servers exchange requests and responses on the web.</p><p class="note"><strong>Simple Definition：</strong><br>HTTP is the basic communication language of the web.</p></article>
+      <article class="card wide"><h2>02 · Think of it like...</h2><p class="definition">Think of HTTP as a set of delivery rules.</p><p class="section-lede">One side sends a request.</p><p class="section-lede">The other side returns a response.</p><p class="section-lede">Both sides follow the same communication format.</p><p class="section-lede"><strong>Flow:</strong></p><div class="http-flow" aria-label="Client HTTP request server HTTP response client flow"><div class="flow-node">Client</div><div class="flow-arrow">→</div><div class="flow-node">HTTP Request</div><div class="flow-arrow">→</div><div class="flow-node">Server</div><div class="flow-arrow">→</div><div class="flow-node">HTTP Response</div><div class="flow-arrow">→</div><div class="flow-node">Client</div></div></article>
+      <article class="card wide"><h2>03 · What does it do?</h2><p class="section-lede">HTTP helps software:</p><div class="card-grid"><div class="mini-card">Request Web Pages</div><div class="mini-card">Call APIs</div><div class="mini-card">Send Data</div><div class="mini-card">Receive Data</div><div class="mini-card">Return Status Information</div></div></article>
+      <article class="card wide"><h2>04 · Where is it used?</h2><p class="section-lede">HTTP is used between:</p><div class="usage-grid"><div class="usage-card">Browser and Server</div><div class="usage-card">Frontend and Backend</div><div class="usage-card">Mobile App and API</div><div class="usage-card">Service and Service</div><div class="usage-card">System and External API</div></div></article>
+      <article class="card wide"><h2>05 · Example</h2><div class="example-grid"><div class="example-card"><code>GET /api/orders HTTP/1.1</code><p><strong>GET</strong><br>is the request method.<br><br><strong>/api/orders</strong><br>is the requested resource.<br><br><strong>HTTP/1.1</strong><br>shows the HTTP protocol version.</p></div><div class="example-card"><code>HTTP/1.1 200 OK</code><p>The client sends an HTTP request.<br><br>The server returns an HTTP response.</p></div></div></article>
+      <article class="card wide"><h2>06 · How it connects</h2><div class="connection-flow" aria-label="Frontend HTTP request API backend HTTP response frontend flow"><span>Frontend</span><b>→</b><span>HTTP Request</span><b>→</b><span>API</span><b>→</b><span>Backend</span><b>→</b><span>HTTP Response</span><b>→</b><span>Frontend</span></div><p class="note">HTTP carries requests and responses between software systems.</p><p class="note">APIs commonly use HTTP as their communication protocol.</p></article>
+      <article class="card wide"><h2>07 · Do Not Confuse</h2><div class="confusion-grid"><div class="confusion-card"><h3>HTTP</h3><p>A communication protocol.</p></div><div class="confusion-card"><h3>API</h3><p>A defined interface that software uses to request data or actions.</p></div></div><p class="bottom-line">HTTP = How the message travels<br>API = What software interface is being used</p></article>
+      <article class="card wide"><h2>08 · Topic Glossary</h2><div class="glossary-wrap"><table><thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead><tbody>
+        <tr><td>HTTP</td><td>超文本传输协议</td><td>The basic protocol used for web communication.</td><td>Web 客户端和服务器之间进行通信的基础协议。</td></tr>
+        <tr><td>Protocol</td><td>协议</td><td>A set of rules for communication.</td><td>不同系统进行通信时共同遵守的一组规则。</td></tr>
+        <tr><td>Request</td><td>请求</td><td>A message sent from a client to a server.</td><td>客户端发送给服务器的数据或操作请求。</td></tr>
+        <tr><td>Response</td><td>响应</td><td>A message returned by the server.</td><td>服务器处理请求后返回的数据或结果。</td></tr>
+        <tr><td>Client</td><td>客户端</td><td>The side that usually sends HTTP requests.</td><td>通常负责发送 HTTP 请求的一端。</td></tr>
+        <tr><td>Server</td><td>服务器</td><td>The side that receives and processes HTTP requests.</td><td>接收并处理 HTTP 请求的一端。</td></tr>
+        <tr><td>Method</td><td>HTTP 方法</td><td>A word that describes the requested action.</td><td>用来表示 HTTP 请求想执行什么操作的方法。</td></tr>
+        <tr><td>Status Code</td><td>状态码</td><td>A number that shows the result of an HTTP request.</td><td>用数字表示 HTTP 请求的处理结果。</td></tr>
+        <tr><td>Header</td><td>请求头 / 响应头</td><td>Extra information sent with an HTTP message.</td><td>随 HTTP 请求或响应一起发送的附加信息。</td></tr>
+        <tr><td>Body</td><td>请求体 / 响应体</td><td>The main data carried by an HTTP message.</td><td>HTTP 请求或响应中真正携带的数据内容。</td></tr>
+      </tbody></table></div></article>
+      <article class="card wide remember"><h2>09 · What to Remember</h2><p>HTTP is the basic communication protocol of the web.</p><p>HTTP connects clients and servers through requests and responses.</p><p>Many APIs use HTTP.</p><p class="note"><strong>Final Flow：</strong><br>Client → HTTP → Server</p></article>
+    </section>
+    <nav class="pager" aria-label="Software Knowledge topic navigation"><a href="developer-tools.html"><small>Previous</small><strong>02 · Frontend &amp; Browser → Developer Tools</strong></a><a href="https.html"><small>Next</small><strong>HTTPS →</strong></a></nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

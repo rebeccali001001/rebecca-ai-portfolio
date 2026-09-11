@@ -1,0 +1,72 @@
+.repository-page .hero { max-width: 900px; padding-bottom: 28px; }
+.repository-page .hero h1 { margin-bottom: 12px; }
+.repository-page .lede,
+.repository-page .definition,
+.repository-page .note { max-width: 900px; }
+.repository-page .definition { font-size: 21px; color: #fff; }
+.repository-page .section-number { display: block; margin-bottom: 8px; color: var(--green); font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+.repository-page .analogy-copy { max-width: 820px; font-size: 19px; color: #fff; }
+.repository-page .action-grid,
+.repository-page .use-grid,
+.repository-page .compare-grid { display: grid; gap: 12px; margin-top: 18px; }
+.repository-page .action-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.repository-page .use-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.repository-page .compare-grid { grid-template-columns: 1fr 1fr; }
+.repository-page .action-grid > div,
+.repository-page .use-grid > div,
+.repository-page .compare-grid > div { min-width: 0; padding: 18px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+.repository-page .action-grid strong,
+.repository-page .use-grid strong { display: block; color: #fff; font-size: 17px; }
+.repository-page .repository-flow,
+.repository-page .connection-flow,
+.repository-page .final-flow { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+.repository-page .repository-flow span,
+.repository-page .connection-flow span,
+.repository-page .final-flow span { min-width: 0; padding: 13px 16px; border: 1px solid #38516d; border-radius: 12px; background: #07111a; color: #fff; font-weight: 800; text-align: center; }
+.repository-page .repository-flow b,
+.repository-page .connection-flow b,
+.repository-page .final-flow b { color: var(--green); font-size: 22px; }
+.repository-page .repository-flow .operator { border: 0; padding: 0 2px; background: transparent; }
+.repository-page .connection-flow .accent,
+.repository-page .final-flow .accent { border-color: var(--green); background: rgba(120,229,189,.09); }
+.repository-page .example-box { margin-top: 18px; padding: 20px; border: 1px solid #38516d; border-radius: 14px; background: #07111a; }
+.repository-page .example-box pre { margin: 0; overflow: auto; color: #dbe7f4; font: 14px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-wrap; }
+.repository-page .compare-grid h3 { margin: 0 0 8px; color: var(--green); font-size: 18px; }
+.repository-page .compare-grid p { margin: 7px 0 0; color: var(--muted); }
+.repository-page .bottom-line { margin-top: 18px; padding: 16px 18px; border-left: 3px solid var(--green); background: rgba(120,229,189,.07); color: #fff; font-size: 18px; font-weight: 800; }
+.repository-page .glossary-wrap { max-width: 100%; overflow-x: auto; margin-top: 18px; }
+.repository-page .glossary { width: 100%; min-width: 860px; border-collapse: collapse; font-size: 14px; }
+.repository-page .glossary th,
+.repository-page .glossary td { padding: 13px 12px; border-bottom: 1px solid #29415a; text-align: left; vertical-align: top; }
+.repository-page .glossary th { color: var(--green); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+.repository-page .glossary td { color: var(--muted); }
+.repository-page .glossary td:first-child { color: #fff; font-weight: 800; }
+.repository-page .remember { border-color: #37665d; background: linear-gradient(135deg, rgba(120,229,189,.11), rgba(127,177,255,.07)); }
+.repository-page .remember p { max-width: 820px; font-size: 19px; color: #fff; }
+.repository-page .prevnext { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1); }
+.repository-page .prevnext a { display: flex; flex-direction: column; gap: 3px; color: var(--muted); }
+.repository-page .prevnext a:last-child { align-items: flex-end; text-align: right; }
+.repository-page .prevnext a:hover { color: #fff; }
+.repository-page .prevnext small { color: var(--green); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 900px) {
+  .repository-page .action-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .repository-page .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .repository-page .action-grid,
+  .repository-page .use-grid,
+  .repository-page .compare-grid { grid-template-columns: 1fr; }
+  .repository-page .repository-flow,
+  .repository-page .connection-flow,
+  .repository-page .final-flow { flex-direction: column; }
+  .repository-page .repository-flow b,
+  .repository-page .connection-flow b,
+  .repository-page .final-flow b { min-height: 22px; font-size: 0; }
+  .repository-page .repository-flow b::after,
+  .repository-page .connection-flow b::after,
+  .repository-page .final-flow b::after { content: '↓'; font-size: 22px; }
+  .repository-page .repository-flow .operator { min-height: 0; font-size: 0; }
+  .repository-page .repository-flow .operator::after { content: '+'; font-size: 20px; color: var(--green); }
+  .repository-page .prevnext { flex-direction: column; }
+  .repository-page .prevnext a:last-child { align-items: flex-start; text-align: left; }
+}

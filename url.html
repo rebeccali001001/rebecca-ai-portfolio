@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>URL · HTTP &amp; APIs · Software Knowledge</title>
+  <meta name="description" content="A beginner-friendly explanation of URLs and the parts that locate web resources.">
+  <link rel="stylesheet" href="topic.css?v=20260909-2">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="module03.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="standard-topic has-site-directory module03-page url-page software-knowledge-page">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+
+  <main class="wrap topic-main">
+    <a class="back" href="http-apis.html">← HTTP &amp; APIs</a>
+    <p class="path">Software Knowledge <span>→</span> 03 · HTTP &amp; APIs <span>→</span> URL</p>
+    <div class="hero-label">PART III · HTTP &amp; APIs</div>
+    <h1>URL</h1>
+    <p class="hero-definition">The address used to locate a resource on the web.</p>
+
+    <section class="grid">
+      <article class="card wide">
+        <span class="section-number">01 · What is it?</span>
+        <h2>What is it?</h2>
+        <p class="definition">URL stands for Uniform Resource Locator.</p>
+        <p class="muted">A URL tells software where a web resource is located.</p>
+        <p class="note"><strong>Simple Definition:</strong><br>A URL is the address of a web resource.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">02 · Think of it like...</span>
+        <h2>Think of it like...</h2>
+        <p class="analogy-copy">Think of a URL as a street address.</p>
+        <p class="definition">The address tells you where to go.</p>
+        <p class="muted">A URL tells the browser or software where to find a resource.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">03 · What does it do?</span>
+        <h2>What does it do?</h2>
+        <p class="muted">A URL can identify:</p>
+        <div class="part-grid">
+          <div class="part-card"><strong>A Web Page</strong><span>A document shown in a browser.</span></div>
+          <div class="part-card"><strong>An API Endpoint</strong><span>A specific address for an API function.</span></div>
+          <div class="part-card"><strong>An Image</strong><span>A visual resource on the web.</span></div>
+          <div class="part-card"><strong>A File</strong><span>A resource that software can access.</span></div>
+          <div class="part-card"><strong>A Download</strong><span>A resource offered for retrieval.</span></div>
+          <div class="part-card"><strong>A Specific Resource</strong><span>A precise item identified by its address.</span></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">04 · Where is it used?</span>
+        <h2>Where is it used?</h2>
+        <div class="use-grid">
+          <div class="use-card"><strong>Browsers</strong><span>Load pages and other web resources.</span></div>
+          <div class="use-card"><strong>Links</strong><span>Connect one resource to another.</span></div>
+          <div class="use-card"><strong>API Requests</strong><span>Tell software where to send a request.</span></div>
+          <div class="use-card"><strong>Images</strong><span>Point to visual files.</span></div>
+          <div class="use-card"><strong>Downloads</strong><span>Locate files for retrieval.</span></div>
+          <div class="use-card"><strong>Webhooks</strong><span>Identify where event data should be sent.</span></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">05 · Example</span>
+        <h2>Example</h2>
+        <p class="muted">Use:</p>
+        <div class="example-url"><code>https://example.com/api/orders/1001?status=completed</code></div>
+        <p class="muted">Break it into simple parts:</p>
+        <div class="url-parts">
+          <div class="url-part"><code>https</code><span>Protocol</span></div>
+          <div class="url-part"><code>example.com</code><span>Domain</span></div>
+          <div class="url-part"><code>/api/orders/1001</code><span>Path</span></div>
+          <div class="url-part"><code>?status=completed</code><span>Query String</span></div>
+        </div>
+        <p class="note">Different parts of the URL tell the system how and where to access the resource.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">06 · How it connects</span>
+        <h2>How it connects</h2>
+        <div class="connection-flow" aria-label="Client to URL to HTTP request to server resource">
+          <span>Client</span><b>→</b><span>URL</span><b>→</b><span>HTTP Request</span><b>→</b><span>Server Resource</span>
+        </div>
+        <p class="note">HTTP requests are sent to URLs.</p>
+        <p class="muted">API endpoints are usually represented by URLs or URL paths.</p>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">07 · Do Not Confuse</span>
+        <h2>Do Not Confuse</h2>
+        <div class="compare-grid">
+          <div class="compare-card"><h3>URL</h3><p>The complete address of a resource.</p><p><strong>Example:</strong> https://example.com/api/orders</p></div>
+          <div class="compare-card"><h3>Domain</h3><p>The main human-readable name of a website or service.</p><p><strong>Example:</strong> example.com</p></div>
+        </div>
+      </article>
+
+      <article class="card wide">
+        <span class="section-number">08 · Topic Glossary</span>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table class="glossary">
+            <thead><tr><th>English Term</th><th>中文</th><th>Simple English</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>URL</td><td>网址 / 资源地址</td><td>The address used to locate a web resource.</td><td>用来找到网页、接口或其他网络资源的地址。</td></tr>
+              <tr><td>Protocol</td><td>协议</td><td>The communication scheme at the beginning of a URL.</td><td>URL 开头表示使用哪种通信方式的部分。</td></tr>
+              <tr><td>Domain</td><td>域名</td><td>The human-readable name of a website or service.</td><td>用户容易阅读的网站或服务名称。</td></tr>
+              <tr><td>Path</td><td>路径</td><td>The part of a URL that identifies a specific resource.</td><td>URL 中用来定位某个具体资源的路径部分。</td></tr>
+              <tr><td>Query String</td><td>查询字符串</td><td>Extra parameters added after <code>?</code> in a URL.</td><td>URL 中 <code>?</code> 后面携带的一组查询参数。</td></tr>
+              <tr><td>Query Parameter</td><td>查询参数</td><td>A key-value value passed in the URL.</td><td>通过 URL 传递的一组参数值。</td></tr>
+              <tr><td>Resource</td><td>资源</td><td>Something that can be accessed through a URL.</td><td>可以通过 URL 访问的网页、数据、文件或接口资源。</td></tr>
+              <tr><td>Endpoint</td><td>接口地址</td><td>A URL used to access a specific API function.</td><td>用来访问某个具体 API 功能的地址。</td></tr>
+              <tr><td>HTTPS</td><td>HTTPS</td><td>The secure protocol commonly used at the start of web URLs.</td><td>Web URL 开头常见的安全通信协议。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card wide remember">
+        <span class="section-number">09 · What to Remember</span>
+        <h2>What to Remember</h2>
+        <p>A URL identifies where a web resource is located.</p>
+        <p>URLs can point to pages, files, or API endpoints.</p>
+        <p>A URL contains several parts such as protocol, domain, path, and parameters.</p>
+        <p class="formula-line"><strong>Final:</strong><br>Protocol + Domain + Path + Parameters = URL</p>
+      </article>
+    </section>
+
+    <nav class="topic-sidebar" aria-label="URL topic navigation">
+      <div class="current">URL ← active</div>
+      <a href="https.html"><small>Previous</small>HTTPS</a>
+      <div class="direction-key"><span>Horizontal</span><b>→</b><span>Vertical</span><b>↓</b></div>
+      <a href="api-http.html"><small>Next</small>API</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

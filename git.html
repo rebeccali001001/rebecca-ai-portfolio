@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git · Module 08 · Development &amp; Git · Software Knowledge</title>
+  <meta name="description" content="Git is a distributed version control system used to track changes in source code.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="git.css">
+  <script defer src="sidebar.js"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic git-topic" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">PART VIII · DEVELOPMENT &amp; GIT</div>
+      <h1>Git</h1>
+      <p class="lede">A distributed version control system used to track changes in source code.</p>
+    </header>
+
+    <div class="detail-sections">
+      <section class="card wide topic-section">
+        <div class="eyebrow">01</div>
+        <h2>What is it?</h2>
+        <p>Git is a version control system that records changes to files over time.</p>
+        <p>It helps developers create commits, work on branches, compare changes, merge work, and return to earlier versions.</p>
+        <p class="definition">Git tracks how code changes.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">02</div>
+        <h2>Think of it like...</h2>
+        <p>Think of Git as a timeline for a software project.</p>
+        <p>Every important change can be recorded so the team can see what changed and when.</p>
+        <div class="flow analogy-flow" aria-label="Code change to Git to commit history">
+          <div>Code Change</div><span aria-hidden="true">→</span><div>Git</div><span aria-hidden="true">→</span><div>Commit History</div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">03</div>
+        <h2>What does it do?</h2>
+        <p>Git helps developers:</p>
+        <div class="cards six">
+          <article>Track Changes</article>
+          <article>Create Commits</article>
+          <article>Create Branches</article>
+          <article>Merge Work</article>
+          <article>Compare Versions</article>
+          <article>Restore Earlier States</article>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">04</div>
+        <h2>Where is it used?</h2>
+        <p>Git is used in:</p>
+        <div class="usage-grid"><div>Software Development</div><div>Team Collaboration</div><div>GitHub Projects</div><div>Open-source Projects</div><div>CI/CD Workflows</div><div>Local Development</div></div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">05</div>
+        <h2>Example</h2>
+        <p>Conceptual commands:</p>
+        <pre class="code-block"><code>git status
+git add .
+git commit -m "Add order validation"</code></pre>
+        <p>Git records the selected code changes as a commit.</p>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">06</div>
+        <h2>How it connects</h2>
+        <div class="flow connection-flow" aria-label="Repository to Git to commit to branch to merge">
+          <div>Repository</div><span aria-hidden="true">→</span><div>Git</div><span aria-hidden="true">→</span><div>Commit</div><span aria-hidden="true">→</span><div>Branch</div><span aria-hidden="true">→</span><div>Merge</div>
+        </div>
+      </section>
+
+      <section class="card wide topic-section">
+        <div class="eyebrow">07</div>
+        <h2>Do Not Confuse</h2>
+        <h3>Git ≠ GitHub</h3>
+        <div class="comparison">
+          <article><h3>Git</h3><p>The version control system.</p></article>
+          <article><h3>GitHub</h3><p>An online platform for hosting and collaborating on Git repositories.</p></article>
+        </div>
+        <p class="definition">Git = Version Control Tool</p>
+        <p class="definition">GitHub = Collaboration Platform</p>
+      </section>
+
+      <section class="card wide topic-section" id="glossary">
+        <div class="eyebrow">08</div>
+        <h2>Topic Glossary</h2>
+        <div class="glossary-wrap">
+          <table>
+            <thead><tr><th>ENGLISH TERM</th><th>中文</th><th>SIMPLE ENGLISH</th><th>中文小白理解</th></tr></thead>
+            <tbody>
+              <tr><td>Git</td><td>Git 版本控制</td><td>A distributed version control system.</td><td>用来记录代码变化和管理版本历史的分布式版本控制工具。</td></tr>
+              <tr><td>Version Control</td><td>版本控制</td><td>Tracking and managing changes to files over time.</td><td>记录文件在不同时间发生哪些修改的机制。</td></tr>
+              <tr><td>Commit</td><td>提交</td><td>A recorded snapshot of selected changes.</td><td>Git 中保存的一次代码修改记录。</td></tr>
+              <tr><td>Branch</td><td>分支</td><td>An independent line of development.</td><td>从主代码线分出去、可以独立修改代码的开发分支。</td></tr>
+              <tr><td>Merge</td><td>合并</td><td>Combining changes from different branches.</td><td>把不同分支上的修改整合到一起。</td></tr>
+              <tr><td>Distributed</td><td>分布式</td><td>Each developer can have a full repository history locally.</td><td>每个开发人员本地都可以拥有完整仓库历史。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card wide topic-section remember">
+        <div class="eyebrow">09</div>
+        <h2>What to Remember</h2>
+        <ol class="remember-list">
+          <li>Git tracks code changes.</li>
+          <li>Commits create recorded points in history.</li>
+          <li>Branches allow parallel development.</li>
+        </ol>
+        <div class="flow connection-flow final-flow" aria-label="Repository to Git to history">
+          <div>Repository</div><span aria-hidden="true">→</span><div>Git</div><span aria-hidden="true">→</span><div>History</div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="repository.html">← <small>Previous</small><br>Repository</a>
+      <a href="github.html"><small>Next</small> →<br>GitHub</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>
