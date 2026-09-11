@@ -38,8 +38,9 @@ nav{
   position:sticky;top:0;z-index:30;background:rgba(7,16,25,.80);
   backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)
 }
-.navin{height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.navin{height:68px;display:flex;align-items:center;justify-content:flex-end;gap:20px}
 .brand{font-weight:850;letter-spacing:-.03em}.brand span{color:var(--accent2)}
+.portfolio-page .brand{display:none}
 .links{display:flex;gap:18px;color:var(--muted);font-size:14px}
 .links a:hover{color:#fff}
 .hero{padding:92px 0 54px}
@@ -141,7 +142,9 @@ h2{font-size:clamp(34px,4.7vw,54px);line-height:1.05;letter-spacing:-.045em;marg
 .contact-links{display:flex;gap:9px;flex-wrap:wrap}.contact-link{border:1px solid #354b63;background:#0a1520;border-radius:12px;padding:11px 14px;font-weight:750;font-size:14px;color:#d6e0ec}.contact-link:hover{border-color:var(--accent2);color:#fff}
 body.portfolio-page .site-global-links{display:flex;align-items:center;justify-content:flex-end;gap:18px;color:var(--muted);font-size:14px}
 body.portfolio-page .site-global-links a{white-space:nowrap}
-body.portfolio-page>nav>.wrap{box-sizing:border-box}
+body.portfolio-page>nav>.wrap{box-sizing:border-box;width:100%;max-width:none;margin:0}
+body.portfolio-page.site-header-nav>.wrap,
+body.portfolio-page>nav.site-header-nav>.wrap{justify-content:flex-end;width:100%;max-width:none;margin:0}
 @media(max-width:900px){
   .hero-panels,.case-feature,.contact,.grid3,.cert-grid,.cap-grid,.profile-intro,.profile-contact{grid-template-columns:1fr}
   .experience-grid{grid-template-columns:1fr}
@@ -189,7 +192,7 @@ body.portfolio-page>nav>.wrap{box-sizing:border-box}
 }
 </style>
 <script defer src="sidebar.js"></script></head>
-<body class="has-site-directory portfolio-page"><aside id="site-directory" aria-label="Site directory"></aside>
+<body class="portfolio-page">
 
 <nav>
   <div class="wrap navin">
@@ -197,29 +200,19 @@ body.portfolio-page>nav>.wrap{box-sizing:border-box}
   </div>
 </nav>
 
-<header class="hero">
+<header id="profile" class="hero">
   <div class="wrap">
-    <div class="kicker"><span class="dot"></span> Product Management · Complex Business Systems · AI Deployment</div>
     <h1><span class="grad">Product thinking for complex systems, moving closer to AI deployment.</span></h1>
     <p class="lede">
       I’m Rebecca Li, a Product Manager with experience across commodity trading and B2B e-commerce
       platforms. I’m building toward AI deployment roles by combining business-systems depth with
       practical work in AI products, automation, agents, APIs, and local model experiments.
     </p>
-    <div class="ctas">
-      <a class="btn primary" href="#profile">View profile</a>
-      <a class="btn" href="#projects">View projects</a>
-      <a class="btn" href="ai-knowledge.html">Explore Knowledge</a>
-    </div>
   </div>
 </header>
 
-<section id="profile" class="profile-section">
+<section class="profile-section">
   <div class="wrap">
-    <div class="eyebrow">Profile</div>
-    <h2>Product management grounded in real business systems.</h2>
-    <p class="sub">A concise professional profile: who I am, the systems I understand, the work I am building, and how to connect.</p>
-
     <section id="introduction" class="profile-block">
       <div class="eyebrow">01 · Introduction</div>
       <h2>From product ownership to AI deployment.</h2>

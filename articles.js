@@ -1,12 +1,12 @@
 (function () {
-  const grid = document.querySelector('[data-article-grid]');
-  if (!grid) return;
+  const list = document.querySelector('[data-blog-list]');
+  if (!list) return;
 
   const emptyState = document.querySelector('[data-article-empty]');
   const draftPanel = document.querySelector('[data-draft-panel]');
   const draftGrid = document.querySelector('[data-article-grid-drafts]');
   const publishedSection = document.querySelector('.articles-section');
-  const draftMode = new URLSearchParams(location.search).get('drafts') === '1';
+  const visibleSlug = 'local-vs-cloud-api-models';
 
   const escapeHtml = (value) => String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -22,8 +22,8 @@
     return '';
   };
 
-  const dateLabel = (value) => {
-    if (!value) return 'No publish date';
+  const dateLabel = (value, status) => {
+    if (!value) return status === 'published' ? 'Date to verify' : 'Draft · Date TBD';
     const date = new Date(value);
     return Number.isNaN(date.valueOf())
       ? 'Verify publish date'
@@ -43,55 +43,32 @@
   const cardMarkup = (article, allowDraftLink) => {
     const published = article.status === 'published';
     const href = article.path ? safeHref(article.path) : '';
-    const action = href && (published || allowDraftLink)
-      ? '<a href="' + href + '">' + (published ? 'Read article' : 'Open local draft') + ' →</a>'
-      : '<span class="is-disabled">Coming Soon</span>';
-    const tags = Array.isArray(article.tags)
-      ? article.tags.map((tag) => '<span class="article-chip">' + escapeHtml(tag) + '</span>').join('')
-      : '';
     const reading = article.reading_time
       ? ' · ' + escapeHtml(article.reading_time)
-      : ' · Reading time TBD';
+      : '';
 
-    return '<article class="article-card" data-status="' + escapeHtml(article.status || 'draft') + '">'
-      + '<div class="article-card-visual">' + visualMarkup(article) + '</div>'
-      + '<div class="article-card-body">'
-      + '<div class="article-card-topline">'
-      + '<span>' + escapeHtml(article.category || 'Article') + '</span>'
-      + '<span class="article-card-status">' + (published ? 'Published' : 'Coming Soon') + '</span>'
-      + '</div>'
-      + '<h3>' + escapeHtml(article.title) + '</h3>'
-      + '<p class="article-card-summary">' + escapeHtml(article.summary) + '</p>'
-      + '<div class="article-card-tags">' + tags + '</div>'
-      + '<div class="article-card-action">'
-      + '<span>' + escapeHtml(dateLabel(article.published_at)) + reading + '</span>'
-      + action
-      + '</div>'
-      + '</div>'
+    const date = escapeHtml(dateLabel(article.published_at, article.status));
+    return '<article class="blog-post" data-status="' + escapeHtml(article.status || 'draft') + '">'
+      + '<div class="blog-post-meta"><time>' + date + '</time><span>' + escapeHtml(article.category || 'Blog') + reading + '</span></div>'
+      + '<h3>' + (href && (published || allowDraftLink) ? '<a href="' + href + '">' + escapeHtml(article.title) + '</a>' : '<span>' + escapeHtml(article.title) + '</span>') + '</h3>'
       + '</article>';
   };
 
   const render = (records) => {
-    const published = records.filter((article) => article.status === 'published');
-    const upcoming = records.filter((article) => article.status !== 'published');
-
-    grid.innerHTML = '';
+    const ordered = records.filter((article) => article.slug === visibleSlug && article.status === 'published').map((article, index) => ({ article, index })).sort((a, b) => {
+      const aTime = Date.parse(a.article.published_at || '');
+      const bTime = Date.parse(b.article.published_at || '');
+      if (Number.isNaN(aTime) && Number.isNaN(bTime)) return a.index - b.index;
+      if (Number.isNaN(aTime)) return 1;
+      if (Number.isNaN(bTime)) return -1;
+      return bTime - aTime;
+    }).map(({ article }) => article);
+    list.innerHTML = ordered.map((article) => cardMarkup(article, false)).join('');
     if (draftGrid) draftGrid.innerHTML = '';
-    if (!draftMode) grid.innerHTML = published.map((article) => cardMarkup(article, false)).join('');
-    if (draftGrid) draftGrid.innerHTML = upcoming.map((article) => cardMarkup(article, draftMode)).join('');
-    if (emptyState) emptyState.hidden = draftMode || published.length > 0;
-    if (draftPanel) draftPanel.hidden = upcoming.length === 0;
-    if (publishedSection) publishedSection.hidden = draftMode;
-    document.body.classList.toggle('draft-preview', draftMode);
-
-    const count = document.querySelector('[data-article-count]');
-    if (count) count.textContent = published.length + ' published articles';
-    const notice = document.querySelector('[data-draft-notice]');
-    if (notice) {
-      notice.textContent = draftMode
-        ? 'Local draft preview · these cards are intentionally excluded from the default Articles index until their content is verified and published.'
-        : 'Coming Soon · planned topics are shown as metadata-only cards; unfinished article pages remain local-only.';
-    }
+    if (draftGrid) draftGrid.innerHTML = '';
+    if (emptyState) emptyState.hidden = ordered.length > 0;
+    if (draftPanel) draftPanel.hidden = true;
+    if (publishedSection) publishedSection.hidden = false;
   };
 
   fetch('articles/data/articles.json', { cache: 'no-store' })
@@ -104,11 +81,11 @@
       render(records);
     })
     .catch((error) => {
-      grid.innerHTML = '';
+      list.innerHTML = '';
       if (draftGrid) draftGrid.innerHTML = '';
       if (emptyState) {
         emptyState.hidden = false;
-        emptyState.querySelector('h3').textContent = 'Articles are temporarily unavailable.';
+        emptyState.querySelector('h3').textContent = 'Blog is temporarily unavailable.';
         emptyState.querySelector('p').textContent = error.message;
       }
     });
