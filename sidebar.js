@@ -200,7 +200,9 @@
     softwareTopicSlugs.push('main');
     softwareTopicSlugs.push('postgresql');
   const isSoftwareTopic = softwareTopicSlugs.some((slug) => pathname.endsWith(`/${slug}`) || pathname.endsWith(`/${slug}.html`));
-  const knowledgeType = requestedType || document.body.dataset.forceKnowledgeType || (pathname.includes('software-knowledge') || pathname.includes('software-') || pathname.endsWith('/software.html') || pathname.endsWith('/application.html') || pathname.includes('/software/') || pathname.endsWith('/backend.html') || isSoftwareTopic ? 'software' : pathname.includes('syntax') || pathname.includes('/language/') ? 'syntax' : 'ai');
+  const pythonSyntaxSlugs = ['python-summary','python-overview','python-basics','data-types','collections','operators','conditions','loops','python-functions','strings','modules-imports','files','exceptions','classes-objects','comprehensions','iterators-generators','api-requests','paths-os','virtual-environments','useful-standard-libraries'];
+  const isPythonSyntaxPage = pythonSyntaxSlugs.some((slug) => pathname.endsWith(`/${slug}.html`));
+  const knowledgeType = requestedType || document.body.dataset.forceKnowledgeType || (isPythonSyntaxPage ? 'syntax' : document.body.dataset.knowledgeType || (pathname.includes('software-knowledge') || pathname.includes('software-') || pathname.endsWith('/software.html') || pathname.endsWith('/application.html') || pathname.includes('/software/') || pathname.endsWith('/backend.html') || isSoftwareTopic ? 'software' : pathname.includes('syntax') || pathname.includes('/language/') ? 'syntax' : 'ai'));
   document.body.dataset.knowledgeType = knowledgeType;
   const knowledgeTrigger = document.querySelector('.site-nav-trigger');
   if (knowledgeTrigger) knowledgeTrigger.classList.add('active');
@@ -310,7 +312,10 @@
       '09 · Cloud & Deployment':['Glossary','Overview','Cloud','Server','Hosting','Deployment','Domain','DNS','IP Address','CDN','Docker','Container','Image','CI','CD','CI/CD','Development','Test','UAT','Staging','Production','Serverless','Environment Variable','Artifact'],
       '10 · Testing & Observability':['Glossary','Overview','Testing','Test Case','Unit Test','Integration Test','E2E Test','Regression Test','QA','Bug','Error','Exception','Log','Log Level','Metric','Monitoring','Alert','Tracing','Observability','Root Cause','Incident']
     };
-    const syntax = {Python:['Glossary','Overview','01 · Python Basics','02 · Data Types','03 · Collections','04 · Operators','05 · Conditions','06 · Loops','07 · Functions','08 · Strings','09 · Modules & Packages','10 · Files','11 · Exceptions','12 · Classes & Objects','13 · Comprehensions','14 · Iterators & Generators','15 · JSON & CSV','16 · API Requests','17 · Virtual Environments','18 · Useful Libraries'],SQL:['Glossary','Overview','01 · Query Basics','02 · Filtering','03 · Sorting & Aggregation','04 · Joining Tables','05 · Logic','06 · Data Modification','07 · Database Definition'],Web:['Glossary','Overview','HTML','CSS','JavaScript']};
+    const syntax = {Python:['Summary','Glossary','Overview','01 · Python Basics','02 · Data Types','03 · Collections','04 · Operators','05 · Conditions','06 · Loops','07 · Functions','08 · Strings','09 · Modules & Packages','10 · Files','11 · Exceptions','12 · Classes & Objects','13 · Comprehensions','14 · Iterators & Generators','15 · JSON & CSV','16 · API Requests','17 · Virtual Environments','18 · Useful Libraries'],SQL:['Summary','Glossary','Overview','01 · Query Basics','02 · Filtering','03 · Sorting & Aggregation','04 · Joining Tables','05 · Logic','06 · Data Modification','07 · Database Definition'],Web:['Summary','Overview','__html__'],HTML:['HTML Summary','Overview','01 · Document Structure','02 · Elements & Tags','03 · Attributes','04 · Text & Headings','05 · Links','06 · Images & Media','07 · Lists','08 · Tables','09 · Forms','10 · Semantic HTML','11 · Metadata & Head','12 · IDs & Classes','13 · Data Attributes','14 · Accessibility','15 · HTML Entities'],CSS:['Overview','01 · Selectors','02 · Cascade & Specificity','03 · Box Model','04 · Units','05 · Colors & Backgrounds','06 · Typography','07 · Display','08 · Position','09 · Flexbox','10 · Grid','11 · Spacing & Sizing','12 · Borders & Shadows','13 · Pseudo Classes','14 · Pseudo Elements','15 · Responsive Design','16 · Media Queries','17 · Transitions','18 · Animations','19 · CSS Variables','20 · Functions','21 · Overflow & Z-index','Summary']};
+    syntax.Web = syntax.Web.filter((label) => label !== 'JavaScript');
+    if (!syntax.Web.includes('Summary')) syntax.Web.unshift('Summary');
+    syntax.JavaScript = ['Summary','Overview','01 · Variables','02 · Data Types','03 · Operators','04 · Conditions','05 · Loops','06 · Functions','07 · Scope','08 · Arrays','09 · Objects','10 · Strings','11 · Numbers & Math','12 · Destructuring','13 · Spread & Rest','14 · DOM','15 · DOM Selection','16 · DOM Manipulation','17 · Events','18 · Forms','19 · JSON','20 · Modules','21 · Errors','22 · Async JavaScript','23 · Promises','24 · Async & Await','25 · Fetch & APIs','26 · Local Storage','27 · Classes','28 · Map & Set','29 · Array Methods','30 · Modern JavaScript'];
     const current = new URL(location.href).searchParams.get('title') || (location.pathname.toLowerCase().endsWith('/software-glossary.html') || location.pathname.toLowerCase().endsWith('/module03-glossary.html') || location.pathname.toLowerCase().endsWith('/module04-glossary.html') || location.pathname.toLowerCase().endsWith('/module05-glossary.html') || location.pathname.toLowerCase().endsWith('/module-05-glossary.html') || location.pathname.toLowerCase().endsWith('/module06-glossary.html') || location.pathname.toLowerCase().endsWith('/module-06-glossary.html') || location.pathname.toLowerCase().endsWith('/module-07-glossary.html') || location.pathname.toLowerCase().endsWith('/module-08-glossary.html') ? 'Glossary' : location.pathname.toLowerCase().endsWith('/frontend-browser.html') || location.pathname.toLowerCase().endsWith('/http-apis.html') || location.pathname.toLowerCase().endsWith('/backend-overview.html') || location.pathname.toLowerCase().endsWith('/database-sql.html') || location.pathname.toLowerCase().endsWith('/module-05.html') || location.pathname.toLowerCase().endsWith('/authentication-security.html') || location.pathname.toLowerCase().endsWith('/module-06.html') || location.pathname.toLowerCase().endsWith('/module-07.html') || location.pathname.toLowerCase().endsWith('/module-08.html') ? 'Overview' : document.title.split(' · ')[0]);
     const completedSoftwareTopics = {
       'Event': 'event.html',
@@ -469,13 +474,18 @@
       'High Availability': 'high-availability.html'
     };
     const item = (label, moduleName) => {
+      const cssPages = {'Overview':'css.html','01 · Selectors':'css-01-selectors.html','02 · Cascade & Specificity':'css-02-cascade-specificity.html','03 · Box Model':'css-03-box-model.html','04 · Units':'css-04-units.html','05 · Colors & Backgrounds':'css-05-colors-backgrounds.html','06 · Typography':'css-06-typography.html','07 · Display':'css-07-display.html','08 · Position':'css-08-position.html','09 · Flexbox':'css-09-flexbox.html','10 · Grid':'css-10-grid.html','11 · Spacing & Sizing':'css-11-spacing-sizing.html','12 · Borders & Shadows':'css-12-borders-shadows.html','13 · Pseudo Classes':'css-13-pseudo-classes.html','14 · Pseudo Elements':'css-14-pseudo-elements.html','15 · Responsive Design':'css-15-responsive-design.html','16 · Media Queries':'css-16-media-queries.html','17 · Transitions':'css-17-transitions.html','18 · Animations':'css-18-animations.html','19 · CSS Variables':'css-19-variables.html','20 · Functions':'css-20-functions.html','21 · Overflow & Z-index':'css-21-overflow-z-index.html','Summary':'css-summary.html'};
+      const javascriptPages = {'Summary':'javascript-summary.html','Overview':'javascript-overview.html','02 · Data Types':'javascript-data-types.html','03 · Operators':'javascript-operators.html','04 · Conditions':'javascript-conditions.html','05 · Loops':'javascript-loops.html','06 · Functions':'javascript-functions.html','07 · Scope':'javascript-scope.html','08 · Arrays':'javascript-arrays.html','09 · Objects':'javascript-objects.html','10 · Strings':'javascript-strings.html','11 · Numbers & Math':'javascript-numbers-math.html','12 · Destructuring':'javascript-destructuring.html','13 · Spread & Rest':'javascript-spread-rest.html','14 · DOM':'javascript-dom-intro.html','15 · DOM Selection':'javascript-dom-selection.html','16 · DOM Manipulation':'javascript-dom-manipulation.html','17 · Events':'javascript-events.html','18 · Forms':'javascript-forms.html','19 · JSON':'javascript-json.html','20 · Modules':'javascript-modules.html','21 · Errors':'javascript-errors.html','22 · Async JavaScript':'javascript-async-javascript.html','23 · Promises':'javascript-promises.html','24 · Async & Await':'javascript-async-await.html','25 · Fetch & APIs':'javascript-fetch-apis.html','26 · Local Storage':'javascript-local-storage-js.html','27 · Classes':'javascript-classes.html','28 · Map & Set':'javascript-map-set.html','29 · Array Methods':'javascript-array-methods.html','30 · Modern JavaScript':'javascript-modern-javascript.html'};
       const syntaxPages = {
         'Summary': moduleName === 'Python' ? 'python-summary.html' : moduleName === 'Web' ? 'web-summary.html' : moduleName === 'SQL' ? 'sql-summary.html' : null,
-        'Overview': moduleName === 'Python' ? 'python-overview.html' : moduleName === 'Web' ? 'web-overview.html' : null,
-        '01 · Python Basics':'python-basics.html', '02 · Data Types':'data-types.html', '03 · Collections':'collections.html', '04 · Operators':'operators.html', '05 · Conditions':'conditions.html', '06 · Loops':'loops.html', '07 · Functions':'python-functions.html', '08 · Strings':'strings.html', '09 · Indexing & Slicing':'indexing-slicing.html', '10 · Comprehensions':'comprehensions.html', '11 · Modules & Imports':'modules-imports.html', '12 · Files':'files.html', '13 · Exceptions':'exceptions.html', '14 · Classes & Objects':'classes-objects.html', '15 · Iterators & Generators':'iterators-generators.html', '16 · JSON & CSV':'json.html', '17 · API Requests':'api-requests.html', '18 · Paths & OS':'paths-os.html', '19 · Virtual Environments & pip':'virtual-environments.html', '20 · Useful Standard Libraries':'useful-standard-libraries.html', HTML:'html.html', CSS:'css.html', JavaScript:'javascript.html'
+        'HTML Summary':'html-summary.html',
+        'Overview': moduleName === 'Python' ? 'python-overview.html' : moduleName === 'HTML' ? 'html-overview.html' : moduleName === 'Web' ? 'web-overview.html' : moduleName === 'CSS' ? 'css.html' : moduleName === 'JavaScript' ? 'javascript-overview.html' : null,
+        '01 · Python Basics':'python-basics.html', '02 · Data Types':'data-types.html', '03 · Collections':'collections.html', '04 · Operators':'operators.html', '05 · Conditions':'conditions.html', '06 · Loops':'loops.html', '07 · Functions':'python-functions.html', '08 · Strings':'strings.html', '09 · Indexing & Slicing':'indexing-slicing.html', '10 · Comprehensions':'comprehensions.html', '11 · Modules & Imports':'modules-imports.html', '12 · Files':'files.html', '13 · Exceptions':'exceptions.html', '14 · Classes & Objects':'classes-objects.html', '15 · Iterators & Generators':'iterators-generators.html', '16 · JSON & CSV':'json.html', '17 · API Requests':'api-requests.html', '18 · Paths & OS':'paths-os.html', '19 · Virtual Environments & pip':'virtual-environments.html', '20 · Useful Standard Libraries':'useful-standard-libraries.html',
+        '01 · Document Structure':'html-document-structure.html', '02 · Elements & Tags':'html-elements-tags.html', '03 · Attributes':'html-attributes.html', '04 · Text & Headings':'html-text-headings.html', '05 · Links':'html-links.html', '06 · Images & Media':'html-images-media.html', '07 · Lists':'html-lists.html', '08 · Tables':'html-tables.html', '09 · Forms':'html-forms.html', '10 · Semantic HTML':'html-semantic.html', '11 · Metadata & Head':'html-metadata-head.html', '12 · IDs & Classes':'html-ids-classes.html', '13 · Data Attributes':'html-data-attributes.html', '14 · Accessibility':'html-accessibility.html', '15 · HTML Entities':'html-entities.html', CSS:'css.html', JavaScript:'javascript.html'
       };
-      if (type === 'syntax' && syntaxPages[label]) {
-        const page = syntaxPages[label];
+      if (type === 'syntax' && (syntaxPages[label] || moduleName === 'SQL' || (moduleName === 'CSS' && cssPages[label]) || (moduleName === 'JavaScript' && javascriptPages[label]))) {
+        const sqlAnchors = {'01 · Query Basics':'01-basic-query','02 · Filtering':'03-filtering','03 · Sorting & Aggregation':'07-sorting','04 · Joining Tables':'12-join-basics','05 · Logic':'04-logical-conditions','06 · Data Modification':'27-data-modification','07 · Database Definition':'35-database-definition'};
+        const page = moduleName === 'JavaScript' ? javascriptPages[label] : moduleName === 'CSS' ? cssPages[label] : moduleName === 'SQL' ? `sql-summary.html#${sqlAnchors[label] || '01-basic-query'}` : syntaxPages[label];
         return `<li><a href="${page}" class="${pathname.endsWith(`/${page}`) ? 'active' : ''}">${label}</a></li>`;
       }
       const moduleId = (moduleName.match(/^\d+/) || [])[0];
@@ -529,11 +539,19 @@
       const resolvedActive = errorHandlingPage ? (label === 'Error Handling' && moduleName === '04 · Backend') : frameworkPage ? (label === 'Framework' && moduleName === '04 · Backend') : environmentVariablePage ? (label === 'Environment Variable' && moduleName === '04 · Backend') : module05OverviewPage ? (label === 'Overview' && moduleName === '05 · Database & SQL') : module05GlossaryPage ? (label === 'Glossary' && moduleName === '05 · Database & SQL') : schemaPage ? (label === 'Schema' && moduleName === '05 · Database & SQL') : primaryKeyPage ? (label === 'Primary Key' && moduleName === '05 · Database & SQL') : postgresqlPage ? (label === 'PostgreSQL' && moduleName === '05 · Database & SQL') : apiHttpPage ? (label === 'API' && moduleName === '03 · HTTP & APIs') : componentPage ? (label === 'Component' && moduleName === '07 · System Architecture') : active;
       const currentPath = pathname.replace(/\/$/, '').replace(/\.html$/, '');
       const linkPath = new URL(resolvedHref, base).pathname.replace(/\/$/, '').replace(/\.html$/, '');
-      const contextActive = requestedModule ? moduleId === requestedModule && currentPath === linkPath : resolvedActive || module08Active;
+      const pageTitleActive = document.body.dataset.pageTitle && document.body.dataset.pageTitle === label && moduleName === (document.body.dataset.pageModule || moduleName);
+      const pathActive = type === 'syntax' && !resolvedHref.startsWith('knowledge-placeholder') && currentPath === linkPath && (new URL(resolvedHref, base).hash === location.hash || (!location.hash && label === 'Summary'));
+      const contextActive = requestedModule ? moduleId === requestedModule && currentPath === linkPath : pathActive || pageTitleActive || resolvedActive || module08Active;
       const unavailableModule08Topic = moduleName === '08 · Development & Git' && resolvedHref.startsWith('knowledge-placeholder.html');
       return `<li>${unavailableModule08Topic ? `<span>${label}</span>` : `<a href="${contextualHref}" class="${contextActive ? 'active' : ''}">${label}</a>`}</li>`;
     };
-    const group = (name, items) => `<details><summary>${name}</summary><ul>${items.map((label) => {
+    const group = (name, items) => {
+      const javascriptNested = type === 'syntax' && name === 'Web';
+      const displayItems = (javascriptNested ? [...items, '__css__', '__javascript__'] : items).filter((label) => label !== 'Overview');
+      return `<details><summary>${name}</summary><ul>${displayItems.map((label) => {
+      if (label === '__html__') return `<li><details class="sidebar-submodule"><summary>HTML</summary><ul>${syntax.HTML.map((htmlLabel) => item(htmlLabel, 'HTML')).join('')}</ul></details></li>`;
+      if (label === '__javascript__') return `<li><details class="sidebar-submodule"><summary>JavaScript</summary><ul>${syntax.JavaScript.map((jsLabel) => item(jsLabel, 'JavaScript')).join('')}</ul></details></li>`;
+      if (label === '__css__') return `<li><details class="sidebar-submodule"><summary>CSS</summary><ul>${syntax.CSS.map((cssLabel) => item(cssLabel, 'CSS')).join('')}</ul></details></li>`;
       if (type === 'software' && name === '01 · How Software Works' && label === 'Overview') {
         return `<li><a href="software-how-software-works.html" class="${location.pathname.toLowerCase().endsWith('/software-how-software-works.html') ? 'active' : ''}">Overview</a></li>`;
       }
@@ -578,9 +596,10 @@
       }
       return item(label, name);
     }).join('')}</ul></details>`;
+    };
     const mapLink = `<a class="sidebar-map ${current === 'Software Knowledge Map' || current === 'Home' ? 'active' : ''}" href="software-knowledge.html">Home</a>`;
     if (type === 'software') target.innerHTML = `<nav class="sidebar-nav" aria-label="Software Knowledge site directory"><div class="sidebar-heading"><span>Software Knowledge</span><small>Site directory</small></div>${mapLink}${Object.entries(software).map(([name,items])=>group(name,items)).join('')}</nav>`;
-    else target.innerHTML = `<nav class="sidebar-nav" aria-label="Language and Syntax site directory"><div class="sidebar-heading"><span>Language &amp; Syntax</span><small>Site directory</small></div><a class="sidebar-map ${current === 'Language & Syntax Overview' ? 'active' : ''}" href="syntax-overview.html">Overview</a>${Object.entries(syntax).map(([name,items])=>group(name,items)).join('')}</nav>`;
+    else target.innerHTML = `<nav class="sidebar-nav" aria-label="Language and Syntax site directory"><div class="sidebar-heading"><span>Language &amp; Syntax</span><small>Site directory</small></div>${Object.entries(syntax).filter(([name]) => name !== 'HTML' && name !== 'JavaScript' && name !== 'CSS').map(([name,items])=>group(name,items)).join('')}</nav>`;
     if (type === 'software' && pathname.endsWith('/package.html')) {
       target.querySelectorAll('a[href*="knowledge-placeholder"]').forEach((link) => {
         const label = document.createElement('span');
@@ -637,7 +656,22 @@
         glossaryBody.insertAdjacentHTML('beforeend', '<tr><td><a href="mysql.html">MySQL</a></td><td>MySQL 数据库</td><td>A widely used relational database management system that uses SQL.</td><td>一种广泛使用、通过 SQL 管理关系型数据的数据库系统。</td></tr>');
       }
     }
-    const active = target.querySelector('a.active'); const activeGroup = active?.closest('details'); target.querySelectorAll('details').forEach(d => { d.open = d === activeGroup; });
-    target.querySelectorAll('summary').forEach(s => s.addEventListener('click', () => { target.querySelectorAll('details').forEach(d => { if (d !== s.parentElement) d.open = false; }); }));
+    const active = target.querySelector('a.active'); const activeGroup = active?.closest('.sidebar-nav > details') || active?.closest('details'); target.querySelectorAll('.sidebar-nav > details').forEach(d => { d.open = d === activeGroup; });
+    const activeSubmodule = active?.closest('.sidebar-submodule'); if (activeSubmodule) activeSubmodule.open = true;
+    // The Web module is a single learning area made up of three parallel
+    // languages. Keep all three language directories visible together so
+    // navigating among HTML, CSS, and JavaScript never hides the other two.
+    if (type === 'syntax' && activeGroup?.querySelector(':scope > summary')?.textContent.trim() === 'Web') {
+      activeGroup.open = true;
+      activeGroup.querySelectorAll(':scope > ul > li > details.sidebar-submodule').forEach(d => { d.open = true; });
+    }
+    target.querySelectorAll('summary').forEach(s => s.addEventListener('click', () => {
+      const selected = s.parentElement;
+      const selectedWeb = type === 'syntax' && selected?.querySelector(':scope > summary')?.textContent.trim() === 'Web';
+      target.querySelectorAll('details').forEach(d => {
+        if (d !== selected && !(selectedWeb && d.classList.contains('sidebar-submodule') && selected.contains(d))) d.open = false;
+      });
+      if (selectedWeb) selected.querySelectorAll(':scope > ul > li > details.sidebar-submodule').forEach(d => { d.open = true; });
+    }));
   }
 })();
