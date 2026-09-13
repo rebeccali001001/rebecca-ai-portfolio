@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20 · Useful Standard Libraries · Language &amp; Syntax</title><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script><style>.python-page .layout{display:grid;grid-template-columns:minmax(0,860px) 220px;gap:26px;align-items:start;margin-top:34px}.python-page .on-page{position:sticky;top:96px}.python-page .on-page a{display:block;padding:5px 8px;border-left:2px solid transparent}.python-page pre{margin:14px 0;padding:17px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#f7fafc;font:14px/1.65 ui-monospace,monospace}.python-page section{margin-top:18px}@media(max-width:900px){.python-page .layout{grid-template-columns:1fr}.python-page .on-page{position:relative;top:auto;order:-1}.python-page .on-page a{display:inline-block;border-left:0;border-bottom:2px solid transparent}}</style></head><body id="top" class="topic-page standard-topic has-site-directory python-page" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Site directory"></aside><main class="detail-page"><div class="wrap"><a class="back" href="syntax-overview.html">← Language &amp; Syntax</a><div class="eyebrow">PYTHON · LANGUAGE &amp; SYNTAX</div><h1>20 · Useful Standard Libraries</h1><p class="lede">Python includes many useful modules without installing extra packages.</p><div class="layout"><div><section id="intro"><p>These are part of the:</p><pre>Python Standard Library</pre><p>This page only covers commonly seen modules.</p></section><section id="libraries"><h2>1. datetime</h2><p>Dates and times.</p><pre>from datetime import datetime
+now = datetime.now()
+print(now)</pre><h2>2. date</h2><pre>from datetime import date
+today = date.today()
+print(today)</pre><h2>3. timedelta</h2><p>Adds or subtracts time.</p><pre>from datetime import datetime, timedelta
+now = datetime.now()
+tomorrow = now + timedelta(days=1)</pre><h2>4. pathlib</h2><p>File and folder paths.</p><pre>from pathlib import Path
+file_path = Path("data/orders.csv")
+
+exists()
+is_file()
+is_dir()
+mkdir()
+glob()</pre><h2>5. os</h2><p>Operating-system related functions and environment variables.</p><pre>import os
+api_key = os.getenv("API_KEY")</pre><h2>6. json</h2><p>Read and write JSON.</p><pre>import json
+data = json.loads(json_text)</pre><h2>7. csv</h2><p>Read and write CSV files.</p><pre>import csv</pre><h2>8. math</h2><p>Mathematical functions.</p><pre>import math
+result = math.sqrt(16)
+
+4.0
+
+sqrt()
+ceil()
+floor()</pre><h2>9. random</h2><p>Generate random values.</p><pre>import random
+number = random.randint(1, 10)</pre><h2>10. re</h2><p>Pattern matching with regular expressions.</p><pre>import re
+text = "Order 1001"
+match = re.search(r"\d+", text)
+print(match.group())
+
+1001</pre><h2>11. collections</h2><p>Provides additional collection tools.</p><pre>from collections import Counter
+products = ["Copper", "Copper", "Aluminum"]
+counts = Counter(products)
+print(counts)
+
+Copper   → 2
+Aluminum → 1</pre><h2>12. defaultdict</h2><pre>from collections import defaultdict
+groups = defaultdict(list)
+groups["Copper"].append(1001)
+groups["Copper"].append(1002)</pre><p>Automatically creates a default value when a key does not exist.</p><h2>13. statistics</h2><p>Basic statistics.</p><pre>import statistics
+prices = [8500, 8600, 8400]
+average = statistics.mean(prices)</pre><h2>14. itertools</h2><p>Provides tools for working with iterators.</p><pre>from itertools import chain
+a = [1, 2]
+b = [3, 4]
+combined = chain(a, b)
+print(list(combined))
+
+[1, 2, 3, 4]</pre><h2>15. sys</h2><p>Information about the Python runtime.</p><pre>import sys
+print(sys.version)
+print(sys.executable)</pre><h2>16. time</h2><p>Basic time-related operations.</p><pre>import time
+time.sleep(2)</pre><p>Pause the program for 2 seconds.</p><h2>17. logging</h2><p>Record information about what a program is doing.</p><pre>import logging
+logging.basicConfig(level=logging.INFO)
+logging.info("Order processing started")</pre><p>Real projects often use logging instead of many <code>print()</code> statements.</p></section><section id="comparison"><h2>18. Standard Library vs Third-Party</h2><h3>Standard Library:</h3><pre>No separate pip install usually needed
+
+os
+pathlib
+json
+csv
+datetime
+math
+random
+re
+logging</pre><h3>Third-party:</h3><pre>Installed separately
+
+requests
+pandas
+numpy
+fastapi
+openpyxl</pre></section><section id="import"><h2>19. Practical Import Example</h2><pre>import json
+import os
+from datetime import datetime
+from pathlib import Path</pre><p>It is normal for a Python file to use several modules together.</p></section></div><nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#intro">Introduction</a><a href="#libraries">Useful libraries</a><a href="#comparison">Standard Library vs Third-Party</a><a href="#import">Practical Import Example</a></nav></div></div></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

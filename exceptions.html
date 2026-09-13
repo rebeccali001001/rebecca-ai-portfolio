@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>13 · Exceptions · Language &amp; Syntax</title><meta name="description" content="Handle errors so Python programs can respond safely."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script></head><body id="top" class="has-site-directory standard-topic" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">PYTHON · LANGUAGE &amp; SYNTAX</div><h1>13 · Exceptions</h1><p class="lede">Handle errors so Python programs can respond safely.</p><p>Exceptions are errors that happen while a Python program is running.</p><pre><code>number = int("abc")</code></pre><p>This causes:</p><pre><code>ValueError</code></pre><p>Exception handling lets the program respond to errors instead of stopping immediately.</p></header><nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#try">try</a><a href="#except">except</a><a href="#specific">Specific Exception</a><a href="#value">ValueError</a><a href="#zero">ZeroDivisionError</a><a href="#key">KeyError</a><a href="#index">IndexError</a><a href="#file">FileNotFoundError</a><a href="#multiple">Multiple except</a><a href="#else">else</a><a href="#finally">finally</a><a href="#message">Error Message</a><a href="#exception">Exception</a><a href="#raise">raise</a><a href="#raise-function">raise in Function</a><a href="#practical">Practical Example</a><a href="#pattern">Common Pattern</a></nav><div class="detail-sections">
+<section id="try" class="card detail-section"><h2>1. <code>try</code></h2><p>Put code that may fail inside <code>try</code>.</p><pre><code>try:
+    code</code></pre><p>A <code>try</code> block is normally followed by <code>except</code>.</p></section>
+<section id="except" class="card detail-section"><h2>2. <code>except</code></h2><p><code>except</code> handles an error.</p><pre><code>try:
+    quantity = int("abc")
+except:
+    print("Invalid quantity")</code></pre><p>Output:</p><pre><code>Invalid quantity</code></pre></section>
+<section id="specific" class="card detail-section"><h2>3. Catch a Specific Exception</h2><p>Only handles <code>ValueError</code>.</p><pre><code>try:
+    quantity = int("abc")
+except ValueError:
+    print("Invalid quantity")</code></pre><p>This is better than catching every possible error.</p></section>
+<section id="value" class="card detail-section"><h2>4. ValueError</h2><pre><code>quantity = int("abc")</code></pre><p>Error:</p><pre><code>ValueError</code></pre><p>Handling:</p><pre><code>try:
+    quantity = int("abc")
+except ValueError:
+    print("Quantity must be a number")</code></pre></section>
+<section id="zero" class="card detail-section"><h2>5. ZeroDivisionError</h2><pre><code>result = 10 / 0</code></pre><p>Error:</p><pre><code>ZeroDivisionError</code></pre><p>Handling:</p><pre><code>try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")</code></pre></section>
+<section id="key" class="card detail-section"><h2>6. KeyError</h2><pre><code>order = {
+    "product": "Copper"
+}
+
+print(order["customer"])</code></pre><p>Error:</p><pre><code>KeyError</code></pre><p>Safer option:</p><pre><code>customer = order.get("customer")</code></pre><p>Or handle it:</p><pre><code>try:
+    customer = order["customer"]
+except KeyError:
+    print("Customer not found")</code></pre></section>
+<section id="index" class="card detail-section"><h2>7. IndexError</h2><pre><code>products = ["Copper", "Aluminum"]
+
+print(products[5])</code></pre><p>Error:</p><pre><code>IndexError</code></pre></section>
+<section id="file" class="card detail-section"><h2>8. FileNotFoundError</h2><pre><code>open("missing.txt", "r")</code></pre><p>May cause:</p><pre><code>FileNotFoundError</code></pre><p>Handling:</p><pre><code>try:
+    with open("missing.txt", "r") as file:
+        content = file.read()
+except FileNotFoundError:
+    print("File not found")</code></pre></section>
+<section id="multiple" class="card detail-section"><h2>9. Multiple except Blocks</h2><pre><code>try:
+    value = int(user_input)
+    result = 100 / value
+
+except ValueError:
+    print("Please enter a number")
+
+except ZeroDivisionError:
+    print("Number cannot be zero")</code></pre><p>Different errors can have different responses.</p></section>
+<section id="else" class="card detail-section"><h2>10. <code>else</code></h2><p><code>else</code> runs when no exception occurs.</p><pre><code>try:
+    quantity = int("10")
+
+except ValueError:
+    print("Invalid quantity")
+
+else:
+    print("Quantity is valid")</code></pre><p>Output:</p><pre><code>Quantity is valid</code></pre></section>
+<section id="finally" class="card detail-section"><h2>11. <code>finally</code></h2><p><code>finally</code> runs whether an error happens or not.</p><pre><code>try:
+    print("Processing order")
+
+except Exception:
+    print("Something went wrong")
+
+finally:
+    print("Finished")</code></pre><p>Common uses:</p><ul><li>cleanup</li><li>close resources</li><li>final logging</li></ul></section>
+<section id="message" class="card detail-section"><h2>12. Get the Error Message</h2><pre><code>try:
+    quantity = int("abc")
+
+except ValueError as error:
+    print(error)</code></pre><p><code>error</code> contains information about what went wrong.</p></section>
+<section id="exception" class="card detail-section"><h2>13. Exception</h2><p><code>Exception</code> is a general exception type.</p><pre><code>try:
+    do_something()
+
+except Exception as error:
+    print(error)</code></pre><p>Prefer specific exception types when you know which errors are expected.</p></section>
+<section id="raise" class="card detail-section"><h2>14. <code>raise</code></h2><p><code>raise</code> creates an exception intentionally.</p><pre><code>quantity = -5
+
+if quantity &lt; 0:
+    raise ValueError(
+        "Quantity cannot be negative"
+    )</code></pre></section>
+<section id="raise-function" class="card detail-section"><h2>15. <code>raise</code> Inside a Function</h2><pre><code>def calculate_total(price, quantity):
+
+    if quantity &lt; 0:
+        raise ValueError(
+            "Quantity cannot be negative"
+        )
+
+    return price * quantity</code></pre><p>The function rejects invalid data.</p></section>
+<section id="practical" class="card detail-section"><h2>16. Practical Example</h2><pre><code>def calculate_total(
+    price_text,
+    quantity_text
+):
+
+    try:
+        price = float(price_text)
+        quantity = int(quantity_text)
+
+        return price * quantity
+
+    except ValueError:
+        return None</code></pre><p>Call:</p><pre><code>result = calculate_total(
+    "8500",
+    "10"
+)
+
+print(result)</code></pre><p>Output:</p><pre><code>85000.0</code></pre><p>Invalid example:</p><pre><code>result = calculate_total(
+    "ABC",
+    "10"
+)</code></pre><p>Result:</p><pre><code>None</code></pre><p>The function safely handles invalid numeric input.</p></section>
+<section id="pattern" class="card detail-section"><h2>17. Common Pattern</h2><pre><code>try:
+    risky_operation()
+
+except SpecificError as error:
+    print(error)
+
+else:
+    print("Success")
+
+finally:
+    print("Finished")</code></pre><p>Simple flow:</p><pre><code>try
+↓
+error?
+├── yes → except
+└── no  → else
+↓
+finally</code></pre></section>
+</div><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></main></body></html>

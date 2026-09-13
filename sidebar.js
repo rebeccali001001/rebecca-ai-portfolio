@@ -469,6 +469,15 @@
       'High Availability': 'high-availability.html'
     };
     const item = (label, moduleName) => {
+      const syntaxPages = {
+        'Summary': moduleName === 'Python' ? 'python-summary.html' : moduleName === 'Web' ? 'web-summary.html' : moduleName === 'SQL' ? 'sql-summary.html' : null,
+        'Overview': moduleName === 'Python' ? 'python-overview.html' : moduleName === 'Web' ? 'web-overview.html' : null,
+        '01 · Python Basics':'python-basics.html', '02 · Data Types':'data-types.html', '03 · Collections':'collections.html', '04 · Operators':'operators.html', '05 · Conditions':'conditions.html', '06 · Loops':'loops.html', '07 · Functions':'python-functions.html', '08 · Strings':'strings.html', '09 · Indexing & Slicing':'indexing-slicing.html', '10 · Comprehensions':'comprehensions.html', '11 · Modules & Imports':'modules-imports.html', '12 · Files':'files.html', '13 · Exceptions':'exceptions.html', '14 · Classes & Objects':'classes-objects.html', '15 · Iterators & Generators':'iterators-generators.html', '16 · JSON & CSV':'json.html', '17 · API Requests':'api-requests.html', '18 · Paths & OS':'paths-os.html', '19 · Virtual Environments & pip':'virtual-environments.html', '20 · Useful Standard Libraries':'useful-standard-libraries.html', HTML:'html.html', CSS:'css.html', JavaScript:'javascript.html'
+      };
+      if (type === 'syntax' && syntaxPages[label]) {
+        const page = syntaxPages[label];
+        return `<li><a href="${page}" class="${pathname.endsWith(`/${page}`) ? 'active' : ''}">${label}</a></li>`;
+      }
       const moduleId = (moduleName.match(/^\d+/) || [])[0];
       const withModuleContext = (value) => {
         if (type !== 'software' || !moduleId) return value;

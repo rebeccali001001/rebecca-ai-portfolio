@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>05 · Conditions · Language &amp; Syntax</title><meta name="description" content="Conditions let Python run different code depending on whether something is True or False."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script></head><body id="top" class="has-site-directory standard-topic" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">PYTHON · LANGUAGE &amp; SYNTAX</div><h1>05 · Conditions</h1><p class="lede">Conditions let Python run different code depending on whether something is True or False.</p></header><nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#flow">Simple flow</a><a href="#if">if</a><a href="#indentation">Indentation</a><a href="#else">else</a><a href="#elif">elif</a><a href="#multiple">Multiple conditions</a><a href="#values">None and values</a><a href="#nested">Nested if</a><a href="#conditional">Conditional expression</a></nav><div class="detail-sections">
+<section id="flow" class="card detail-section"><h2>Simple flow</h2><div class="concept-tree">Condition
+↓
+True?
+↓
+Run this code</div><pre><code>price = 8500
+
+if price &gt; 8000:
+    print("High price")</code></pre><p>High price</p></section>
+<section id="if" class="card detail-section"><h2>1. if</h2><p><code>if</code> runs code only when a condition is True.</p><h3>Syntax</h3><pre><code>if condition:
+    code</code></pre><h3>Example</h3><pre><code>quantity = 20
+
+if quantity &gt; 10:
+    print("Large order")</code></pre><p>The message is printed only when <code>quantity &gt; 10</code>.</p><h3>Common scenarios</h3><ul><li>check price</li><li>check quantity</li><li>check status</li><li>check whether data exists</li><li>validate user input</li></ul></section>
+<section id="indentation" class="card detail-section"><h2>2. Indentation</h2><p>Python uses indentation to show which code belongs to an <code>if</code> block.</p><h3>Correct</h3><pre><code>if price &gt; 8000:
+    print("High price")</code></pre><h3>Incorrect</h3><pre><code>if price &gt; 8000:
+print("High price")</code></pre><p>The line inside the condition must be indented.</p></section>
+<section id="else" class="card detail-section"><h2>3. else</h2><p><code>else</code> runs when the <code>if</code> condition is False.</p><pre><code>quantity = 5
+
+if quantity &gt;= 10:
+    print("Large order")
+else:
+    print("Small order")</code></pre><p>Small order</p></section>
+<section id="elif" class="card detail-section"><h2>4. elif</h2><p><code>elif</code> checks another condition when the previous condition is False.</p><pre><code>if condition1:
+    code
+elif condition2:
+    code
+else:
+    code</code></pre><pre><code>quantity = 60
+
+if quantity &gt;= 100:
+    print("Large")
+elif quantity &gt;= 50:
+    print("Medium")
+else:
+    print("Small")</code></pre><p>Medium</p></section>
+<section id="multiple" class="card detail-section"><h2>5–7. Multiple conditions</h2><h3>Multiple Conditions with and</h3><p>Use <code>and</code> when both conditions must be True.</p><pre><code>product = "Copper"
+quantity = 20
+
+if product == "Copper" and quantity &gt; 10:
+    print("Matched")</code></pre><p>Matched</p><h3>Multiple Conditions with or</h3><p>Use <code>or</code> when at least one condition must be True.</p><pre><code>product = "Copper"
+
+if product == "Copper" or product == "Aluminum":
+    print("Supported product")</code></pre><h3>not</h3><p><code>not</code> reverses a condition.</p><pre><code>is_completed = False
+
+if not is_completed:
+    print("Still pending")</code></pre></section>
+<section id="values" class="card detail-section"><h2>8–9. Check values</h2><h3>Check None</h3><pre><code>if delivery_date is None:
+    print("No delivery date")</code></pre><p>This checks whether <code>delivery_date</code> has no value.</p><h3>Check a Value Exists</h3><pre><code>customer = "Apple"
+
+if customer:
+    print("Customer exists")</code></pre><p>Non-empty strings are treated as True.</p><p>Common examples that are treated as False:</p><pre><code>""
+0
+[]
+{}
+None
+False</code></pre></section>
+<section id="nested" class="card detail-section"><h2>10. Nested if</h2><p>An <code>if</code> statement can be placed inside another <code>if</code>.</p><pre><code>product = "Copper"
+quantity = 20
+
+if product == "Copper":
+    if quantity &gt; 10:
+        print("Large Copper order")</code></pre><p>Do not overuse nested conditions.</p></section>
+<section id="conditional" class="card detail-section"><h2>11. Conditional Expression</h2><p>Also called: ternary expression</p><p>A short way to write a simple <code>if / else</code>.</p><pre><code>value_if_true if condition else value_if_false</code></pre><pre><code>quantity = 20
+
+size = "Large" if quantity &gt;= 10 else "Small"</code></pre><p>Large</p><p>Use this only for simple conditions.</p></section></div><nav class="prevnext" aria-label="Topic navigation"><a href="syntax-overview.html">← <small>Back</small><br>Language &amp; Syntax</a><a href="loops.html"><small>Next</small> →<br>06 · Loops</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

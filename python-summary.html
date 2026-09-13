@@ -1,0 +1,3233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Python Syntax Master Summary</title>
+    <link rel="stylesheet" href="topic.css?v=20260910" />
+    <link rel="stylesheet" href="site-directory.css" />
+    <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+    <style>
+      .summary-table {
+        overflow-x: auto;
+        margin-top: 28px;
+      }
+      .summary-table section {
+        scroll-margin-top: 24px;
+        margin: 38px 0;
+      }
+      .summary-table h2 {
+        margin-bottom: 14px;
+      }
+      .summary-table table {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+        background: #07111a;
+      }
+      .summary-table th,
+      .summary-table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #29415a;
+        text-align: left;
+        vertical-align: top;
+      }
+      .summary-table th {
+        color: var(--green);
+        background: #102335;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .summary-table td:first-child {
+        color: #fff;
+        font-weight: 700;
+      }
+      .summary-table code {
+        color: #dce8f7;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .summary-table pre {
+        margin: 16px 0 0;
+        padding: 18px;
+        overflow-x: auto;
+        border: 1px solid #38516d;
+        border-radius: 12px;
+        background: #050b12;
+        color: #e8f2fb;
+        font:
+          600 13px/1.6 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          monospace;
+        white-space: pre;
+      }
+      .summary-note {
+        margin: 16px 0 0;
+        padding: 14px 16px;
+        border-left: 3px solid var(--green);
+        border-radius: 0 10px 10px 0;
+        background: rgba(16, 35, 53, 0.65);
+        color: var(--muted);
+      }
+      .toc-group {
+        display: contents;
+      }
+      .toc-group b {
+        width: 100%;
+        margin-top: 8px;
+        color: #9ab1ca;
+        font-size: 10px;
+      }
+      .summary-search {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        margin: 0 0 12px;
+        background: #07111a;
+        color: #fff;
+        border: 1px solid #29415a;
+        border-radius: 8px;
+      }
+      @media (max-width: 760px) {
+        .summary-table table {
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body
+    id="top"
+    class="topic-page standard-topic has-site-directory"
+    data-knowledge-type="syntax"
+    data-page-title="Summary"
+  >
+    <nav>
+      <div class="wrap">
+        <a class="brand" href="syntax-overview.html"
+          >Rebecca <span>Forward-Deployed AI</span></a
+        >
+      </div>
+    </nav>
+    <aside id="site-directory" aria-label="Site directory"></aside>
+    <main class="detail-page">
+      <div class="wrap">
+        <a class="back" href="syntax-overview.html">← Language &amp; Syntax</a>
+        <div class="eyebrow">PYTHON · LANGUAGE &amp; SYNTAX</div>
+        <h1>Python Syntax Master Summary</h1>
+        <p class="lede">
+          A comprehensive quick reference to the Python syntax commonly used in
+          scripts, automation, APIs, data processing, and real-world projects.
+        </p>
+        <p>
+          Use this page to quickly identify Python syntax.<br />Syntax → Meaning
+          → Example
+        </p>
+        <p>For deeper explanations, open the corresponding Python chapter.</p>
+        <div class="summary-table">
+          <section id="comments-basic-syntax">
+            <h2>01 — Comments &amp; Basic Syntax</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>#</code></td>
+                  <td>单行注释</td>
+                  <td><code># calculate total</code></td>
+                </tr>
+                <tr>
+                  <td><code>"""..."""</code></td>
+                  <td>多行字符串，也常用于 docstring</td>
+                  <td><code>"""Load orders."""</code></td>
+                </tr>
+                <tr>
+                  <td><code>;</code></td>
+                  <td>可在同一行分隔语句，但通常不推荐</td>
+                  <td><code>a = 1; b = 2</code></td>
+                </tr>
+                <tr>
+                  <td>indentation</td>
+                  <td>Python 用缩进定义代码块</td>
+                  <td><code>if x &gt; 0:</code></td>
+                </tr>
+                <tr>
+                  <td><code>:</code></td>
+                  <td>开始一个代码块</td>
+                  <td><code>if active:</code></td>
+                </tr>
+                <tr>
+                  <td><code>print()</code></td>
+                  <td>输出内容</td>
+                  <td><code>print("Hello")</code></td>
+                </tr>
+                <tr>
+                  <td><code>input()</code></td>
+                  <td>获取用户输入</td>
+                  <td><code>name = input("Name: ")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="variables-assignment">
+            <h2>02 — Variables &amp; Assignment</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>=</code></td>
+                  <td>赋值</td>
+                  <td><code>price = 8500</code></td>
+                </tr>
+                <tr>
+                  <td><code>a = b = value</code></td>
+                  <td>多个变量赋相同值</td>
+                  <td><code>x = y = 0</code></td>
+                </tr>
+                <tr>
+                  <td><code>a, b = ...</code></td>
+                  <td>一次给多个变量赋值</td>
+                  <td><code>x, y = 10, 20</code></td>
+                </tr>
+                <tr>
+                  <td>swap</td>
+                  <td>交换变量</td>
+                  <td><code>a, b = b, a</code></td>
+                </tr>
+                <tr>
+                  <td>unpacking</td>
+                  <td>拆包</td>
+                  <td><code>product, price = item</code></td>
+                </tr>
+                <tr>
+                  <td><code>*_</code> / <code>*rest</code></td>
+                  <td>接收剩余值</td>
+                  <td><code>first, *rest = items</code></td>
+                </tr>
+                <tr>
+                  <td><code>+=</code></td>
+                  <td>加后重新赋值</td>
+                  <td><code>count += 1</code></td>
+                </tr>
+                <tr>
+                  <td><code>-=</code></td>
+                  <td>减后重新赋值</td>
+                  <td><code>count -= 1</code></td>
+                </tr>
+                <tr>
+                  <td><code>*=</code></td>
+                  <td>乘后重新赋值</td>
+                  <td><code>price *= 1.1</code></td>
+                </tr>
+                <tr>
+                  <td><code>/=</code></td>
+                  <td>除后重新赋值</td>
+                  <td><code>total /= 2</code></td>
+                </tr>
+                <tr>
+                  <td><code>//=</code></td>
+                  <td>整除后重新赋值</td>
+                  <td><code>x //= 2</code></td>
+                </tr>
+                <tr>
+                  <td><code>%=</code></td>
+                  <td>取余后重新赋值</td>
+                  <td><code>x %= 2</code></td>
+                </tr>
+                <tr>
+                  <td><code>**=</code></td>
+                  <td>幂运算后赋值</td>
+                  <td><code>x **= 2</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="data-types">
+            <h2>03 — Data Types</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>int</code></td>
+                  <td>整数</td>
+                  <td><code>quantity = 10</code></td>
+                </tr>
+                <tr>
+                  <td><code>float</code></td>
+                  <td>小数</td>
+                  <td><code>price = 8500.5</code></td>
+                </tr>
+                <tr>
+                  <td><code>str</code></td>
+                  <td>字符串</td>
+                  <td><code>product = "Copper"</code></td>
+                </tr>
+                <tr>
+                  <td><code>bool</code></td>
+                  <td>布尔值</td>
+                  <td><code>is_active = True</code></td>
+                </tr>
+                <tr>
+                  <td><code>None</code></td>
+                  <td>没有值</td>
+                  <td><code>result = None</code></td>
+                </tr>
+                <tr>
+                  <td><code>complex</code></td>
+                  <td>复数</td>
+                  <td><code>x = 2 + 3j</code></td>
+                </tr>
+                <tr>
+                  <td><code>bytes</code></td>
+                  <td>字节数据</td>
+                  <td><code>data = b"ABC"</code></td>
+                </tr>
+                <tr>
+                  <td><code>bytearray</code></td>
+                  <td>可修改字节数据</td>
+                  <td><code>data = bytearray(b"ABC")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="type-checking-conversion">
+            <h2>04 — Type Checking &amp; Conversion</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>type()</code></td>
+                  <td>查看数据类型</td>
+                  <td><code>type(price)</code></td>
+                </tr>
+                <tr>
+                  <td><code>isinstance()</code></td>
+                  <td>判断对象是否属于某类型</td>
+                  <td><code>isinstance(price, int)</code></td>
+                </tr>
+                <tr>
+                  <td><code>int()</code></td>
+                  <td>转换为整数</td>
+                  <td><code>int("10")</code></td>
+                </tr>
+                <tr>
+                  <td><code>float()</code></td>
+                  <td>转换为小数</td>
+                  <td><code>float("8.5")</code></td>
+                </tr>
+                <tr>
+                  <td><code>str()</code></td>
+                  <td>转换为字符串</td>
+                  <td><code>str(1001)</code></td>
+                </tr>
+                <tr>
+                  <td><code>bool()</code></td>
+                  <td>转换为布尔值</td>
+                  <td><code>bool(1)</code></td>
+                </tr>
+                <tr>
+                  <td><code>list()</code></td>
+                  <td>转换为 List</td>
+                  <td><code>list(values)</code></td>
+                </tr>
+                <tr>
+                  <td><code>tuple()</code></td>
+                  <td>转换为 Tuple</td>
+                  <td><code>tuple(values)</code></td>
+                </tr>
+                <tr>
+                  <td><code>set()</code></td>
+                  <td>转换为 Set</td>
+                  <td><code>set(values)</code></td>
+                </tr>
+                <tr>
+                  <td><code>dict()</code></td>
+                  <td>创建/转换 Dictionary</td>
+                  <td><code>dict(name="Rebecca")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="boolean-values-truthy-falsy">
+            <h2>05 — Boolean Values / Truthy / Falsy</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>True</code></td>
+                  <td>真</td>
+                  <td><code>is_active = True</code></td>
+                </tr>
+                <tr>
+                  <td><code>False</code></td>
+                  <td>假</td>
+                  <td><code>is_active = False</code></td>
+                </tr>
+                <tr>
+                  <td><code>None</code></td>
+                  <td>无值，条件判断中通常为 False</td>
+                  <td><code>result = None</code></td>
+                </tr>
+                <tr>
+                  <td><code>if value:</code></td>
+                  <td>判断值是否为 Truthy</td>
+                  <td><code>if customer:</code></td>
+                </tr>
+                <tr>
+                  <td><code>if not value:</code></td>
+                  <td>判断值是否为空/False</td>
+                  <td><code>if not items:</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="arithmetic-operators">
+            <h2>06 — Arithmetic Operators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>+</code></td>
+                  <td>加法</td>
+                  <td><code>10 + 5</code></td>
+                </tr>
+                <tr>
+                  <td><code>-</code></td>
+                  <td>减法</td>
+                  <td><code>10 - 5</code></td>
+                </tr>
+                <tr>
+                  <td><code>*</code></td>
+                  <td>乘法</td>
+                  <td><code>price * quantity</code></td>
+                </tr>
+                <tr>
+                  <td><code>/</code></td>
+                  <td>普通除法</td>
+                  <td><code>10 / 4</code></td>
+                </tr>
+                <tr>
+                  <td><code>//</code></td>
+                  <td>整除</td>
+                  <td><code>10 // 3</code></td>
+                </tr>
+                <tr>
+                  <td><code>%</code></td>
+                  <td>取余</td>
+                  <td><code>10 % 3</code></td>
+                </tr>
+                <tr>
+                  <td><code>**</code></td>
+                  <td>幂运算</td>
+                  <td><code>2 ** 3</code></td>
+                </tr>
+                <tr>
+                  <td><code>abs()</code></td>
+                  <td>绝对值</td>
+                  <td><code>abs(-10)</code></td>
+                </tr>
+                <tr>
+                  <td><code>round()</code></td>
+                  <td>四舍五入</td>
+                  <td><code>round(8.567, 2)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="comparison-operators">
+            <h2>07 — Comparison Operators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>==</code></td>
+                  <td>等于</td>
+                  <td><code>status == "Done"</code></td>
+                </tr>
+                <tr>
+                  <td><code>!=</code></td>
+                  <td>不等于</td>
+                  <td><code>status != "Rejected"</code></td>
+                </tr>
+                <tr>
+                  <td><code>&gt;</code></td>
+                  <td>大于</td>
+                  <td><code>price &gt; 8000</code></td>
+                </tr>
+                <tr>
+                  <td><code>&lt;</code></td>
+                  <td>小于</td>
+                  <td><code>price &lt; 9000</code></td>
+                </tr>
+                <tr>
+                  <td><code>&gt;=</code></td>
+                  <td>大于等于</td>
+                  <td><code>quantity &gt;= 10</code></td>
+                </tr>
+                <tr>
+                  <td><code>&lt;=</code></td>
+                  <td>小于等于</td>
+                  <td><code>quantity &lt;= 100</code></td>
+                </tr>
+                <tr>
+                  <td>chained comparison</td>
+                  <td>连续比较</td>
+                  <td><code>0 &lt; price &lt; 10000</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="logical-operators">
+            <h2>08 — Logical Operators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>and</code></td>
+                  <td>两个条件都为 True</td>
+                  <td><code>active and approved</code></td>
+                </tr>
+                <tr>
+                  <td><code>or</code></td>
+                  <td>至少一个条件为 True</td>
+                  <td><code>draft or pending</code></td>
+                </tr>
+                <tr>
+                  <td><code>not</code></td>
+                  <td>反转条件</td>
+                  <td><code>not is_completed</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="identity-membership">
+            <h2>09 — Identity &amp; Membership</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>is</code></td>
+                  <td>是否是同一个对象</td>
+                  <td><code>value is None</code></td>
+                </tr>
+                <tr>
+                  <td><code>is not</code></td>
+                  <td>是否不是同一个对象</td>
+                  <td><code>value is not None</code></td>
+                </tr>
+                <tr>
+                  <td><code>in</code></td>
+                  <td>是否存在于集合</td>
+                  <td><code>"Copper" in products</code></td>
+                </tr>
+                <tr>
+                  <td><code>not in</code></td>
+                  <td>是否不存在于集合</td>
+                  <td><code>"Gold" not in products</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="strings">
+            <h2>10 — Strings</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>"..."</code></td>
+                  <td>字符串</td>
+                  <td><code>"Copper"</code></td>
+                </tr>
+                <tr>
+                  <td><code>'...'</code></td>
+                  <td>字符串</td>
+                  <td><code>'Copper'</code></td>
+                </tr>
+                <tr>
+                  <td><code>"""..."""</code></td>
+                  <td>多行字符串</td>
+                  <td><code>"""Hello\nWorld"""</code></td>
+                </tr>
+                <tr>
+                  <td><code>f"..."</code></td>
+                  <td>f-string</td>
+                  <td><code>f"Hello {name}"</code></td>
+                </tr>
+                <tr>
+                  <td><code>r"..."</code></td>
+                  <td>Raw String</td>
+                  <td><code>r"C:\Users\Rebecca"</code></td>
+                </tr>
+                <tr>
+                  <td><code>+</code></td>
+                  <td>拼接字符串</td>
+                  <td><code>"Hello " + name</code></td>
+                </tr>
+                <tr>
+                  <td><code>*</code></td>
+                  <td>重复字符串</td>
+                  <td><code>"-" * 20</code></td>
+                </tr>
+                <tr>
+                  <td><code>len()</code></td>
+                  <td>字符串长度</td>
+                  <td><code>len(product)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="string-methods">
+            <h2>11 — String Methods</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.lower()</code></td>
+                  <td>转小写</td>
+                  <td><code>text.lower()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.upper()</code></td>
+                  <td>转大写</td>
+                  <td><code>text.upper()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.title()</code></td>
+                  <td>单词首字母大写</td>
+                  <td><code>name.title()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.capitalize()</code></td>
+                  <td>首字母大写</td>
+                  <td><code>text.capitalize()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.strip()</code></td>
+                  <td>去首尾空白</td>
+                  <td><code>text.strip()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.lstrip()</code></td>
+                  <td>去左侧空白</td>
+                  <td><code>text.lstrip()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.rstrip()</code></td>
+                  <td>去右侧空白</td>
+                  <td><code>text.rstrip()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.replace()</code></td>
+                  <td>替换内容</td>
+                  <td><code>text.replace("A", "B")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.split()</code></td>
+                  <td>字符串拆成 List</td>
+                  <td><code>text.split(",")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.rsplit()</code></td>
+                  <td>从右侧拆分</td>
+                  <td><code>text.rsplit("/", 1)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.splitlines()</code></td>
+                  <td>按行拆分</td>
+                  <td><code>text.splitlines()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.join()</code></td>
+                  <td>List 合并为字符串</td>
+                  <td><code>",".join(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.startswith()</code></td>
+                  <td>判断开头</td>
+                  <td><code>id.startswith("ORD")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.endswith()</code></td>
+                  <td>判断结尾</td>
+                  <td><code>file.endswith(".csv")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.find()</code></td>
+                  <td>查找位置</td>
+                  <td><code>text.find("order")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.index()</code></td>
+                  <td>查找位置，找不到报错</td>
+                  <td><code>text.index("order")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.count()</code></td>
+                  <td>统计出现次数</td>
+                  <td><code>text.count("a")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.isdigit()</code></td>
+                  <td>是否全是数字</td>
+                  <td><code>"123".isdigit()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.isalpha()</code></td>
+                  <td>是否全是字母</td>
+                  <td><code>"ABC".isalpha()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.isalnum()</code></td>
+                  <td>是否字母数字</td>
+                  <td><code>"A100".isalnum()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="escape-characters">
+            <h2>12 — Escape Characters</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>\n</code></td>
+                  <td>换行</td>
+                  <td><code>"Hello\nWorld"</code></td>
+                </tr>
+                <tr>
+                  <td><code>\t</code></td>
+                  <td>Tab</td>
+                  <td><code>"A\tB"</code></td>
+                </tr>
+                <tr>
+                  <td><code>\\</code></td>
+                  <td>Backslash</td>
+                  <td><code>"C:\\data"</code></td>
+                </tr>
+                <tr>
+                  <td><code>\"</code></td>
+                  <td>双引号</td>
+                  <td><code>"Say \"Hi\""</code></td>
+                </tr>
+                <tr>
+                  <td><code>\'</code></td>
+                  <td>单引号</td>
+                  <td><code>'It\'s OK'</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="list">
+            <h2>13 — List</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>[]</code></td>
+                  <td>创建 List</td>
+                  <td><code>items = []</code></td>
+                </tr>
+                <tr>
+                  <td><code>[a, b]</code></td>
+                  <td>创建带数据的 List</td>
+                  <td><code>items = ["A", "B"]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[0]</code></td>
+                  <td>第一个元素</td>
+                  <td><code>items[0]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[-1]</code></td>
+                  <td>最后一个元素</td>
+                  <td><code>items[-1]</code></td>
+                </tr>
+                <tr>
+                  <td><code>.append()</code></td>
+                  <td>末尾新增</td>
+                  <td><code>items.append("C")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.extend()</code></td>
+                  <td>加入多个元素</td>
+                  <td><code>items.extend(other)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.insert()</code></td>
+                  <td>指定位置插入</td>
+                  <td><code>items.insert(0, "A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.remove()</code></td>
+                  <td>删除指定值</td>
+                  <td><code>items.remove("A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.pop()</code></td>
+                  <td>删除并返回元素</td>
+                  <td><code>items.pop()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.clear()</code></td>
+                  <td>清空</td>
+                  <td><code>items.clear()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.index()</code></td>
+                  <td>找元素位置</td>
+                  <td><code>items.index("A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.count()</code></td>
+                  <td>统计元素数量</td>
+                  <td><code>items.count("A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.sort()</code></td>
+                  <td>原地排序</td>
+                  <td><code>items.sort()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.reverse()</code></td>
+                  <td>原地倒序</td>
+                  <td><code>items.reverse()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.copy()</code></td>
+                  <td>浅复制</td>
+                  <td><code>new_items = items.copy()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="tuple">
+            <h2>14 — Tuple</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>()</code></td>
+                  <td>空 Tuple</td>
+                  <td><code>items = ()</code></td>
+                </tr>
+                <tr>
+                  <td><code>(a, b)</code></td>
+                  <td>Tuple</td>
+                  <td><code>point = (10, 20)</code></td>
+                </tr>
+                <tr>
+                  <td><code>(value,)</code></td>
+                  <td>单元素 Tuple</td>
+                  <td><code>item = ("Copper",)</code></td>
+                </tr>
+                <tr>
+                  <td>unpacking</td>
+                  <td>Tuple 拆包</td>
+                  <td><code>x, y = point</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="dictionary">
+            <h2>15 — Dictionary</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>{}</code></td>
+                  <td>空 Dictionary</td>
+                  <td><code>order = {}</code></td>
+                </tr>
+                <tr>
+                  <td><code>{key: value}</code></td>
+                  <td>创建 Dictionary</td>
+                  <td><code>{"id": 1001}</code></td>
+                </tr>
+                <tr>
+                  <td><code>dict()</code></td>
+                  <td>创建 Dictionary</td>
+                  <td><code>dict(id=1001)</code></td>
+                </tr>
+                <tr>
+                  <td><code>dict[key]</code></td>
+                  <td>获取值</td>
+                  <td><code>order["status"]</code></td>
+                </tr>
+                <tr>
+                  <td><code>dict[key] = value</code></td>
+                  <td>新增/更新值</td>
+                  <td><code>order["status"] = "Done"</code></td>
+                </tr>
+                <tr>
+                  <td><code>.get()</code></td>
+                  <td>安全获取值</td>
+                  <td><code>order.get("status")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.keys()</code></td>
+                  <td>获取所有 key</td>
+                  <td><code>order.keys()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.values()</code></td>
+                  <td>获取所有 value</td>
+                  <td><code>order.values()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.items()</code></td>
+                  <td>获取 key/value</td>
+                  <td><code>order.items()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.update()</code></td>
+                  <td>更新多个字段</td>
+                  <td><code>order.update(data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.pop()</code></td>
+                  <td>删除一个 key</td>
+                  <td><code>order.pop("status")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.setdefault()</code></td>
+                  <td>key 不存在时设置默认值</td>
+                  <td><code>order.setdefault("status", "Pending")</code></td>
+                </tr>
+                <tr>
+                  <td><code>in dict</code></td>
+                  <td>检查 key 是否存在</td>
+                  <td><code>"status" in order</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="set">
+            <h2>16 — Set</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>set()</code></td>
+                  <td>空 Set</td>
+                  <td><code>items = set()</code></td>
+                </tr>
+                <tr>
+                  <td><code>{a, b}</code></td>
+                  <td>Set</td>
+                  <td><code>{"A", "B"}</code></td>
+                </tr>
+                <tr>
+                  <td><code>.add()</code></td>
+                  <td>添加元素</td>
+                  <td><code>items.add("C")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.remove()</code></td>
+                  <td>删除，不存在时报错</td>
+                  <td><code>items.remove("A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.discard()</code></td>
+                  <td>删除，不存在不报错</td>
+                  <td><code>items.discard("A")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.union()</code></td>
+                  <td>并集</td>
+                  <td><code>a.union(b)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.intersection()</code></td>
+                  <td>交集</td>
+                  <td><code>a.intersection(b)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.difference()</code></td>
+                  <td>差集</td>
+                  <td><code>a.difference(b)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="indexing">
+            <h2>17 — Indexing</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>[0]</code></td>
+                  <td>第一个元素</td>
+                  <td><code>items[0]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[1]</code></td>
+                  <td>第二个元素</td>
+                  <td><code>items[1]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[-1]</code></td>
+                  <td>最后一个元素</td>
+                  <td><code>items[-1]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[-2]</code></td>
+                  <td>倒数第二个元素</td>
+                  <td><code>items[-2]</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="slicing">
+            <h2>18 — Slicing</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>[start:stop]</code></td>
+                  <td>取一段</td>
+                  <td><code>items[1:4]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[:stop]</code></td>
+                  <td>从头开始</td>
+                  <td><code>items[:3]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[start:]</code></td>
+                  <td>到结尾</td>
+                  <td><code>items[3:]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[::step]</code></td>
+                  <td>按步长取值</td>
+                  <td><code>items[::2]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[::-1]</code></td>
+                  <td>倒序</td>
+                  <td><code>items[::-1]</code></td>
+                </tr>
+                <tr>
+                  <td><code>[:]</code></td>
+                  <td>浅复制序列</td>
+                  <td><code>copy = items[:]</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="conditions">
+            <h2>19 — Conditions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>if</code></td>
+                  <td>条件判断</td>
+                  <td><code>if price &gt; 8000:</code></td>
+                </tr>
+                <tr>
+                  <td><code>elif</code></td>
+                  <td>检查其他条件</td>
+                  <td><code>elif price &gt; 7000:</code></td>
+                </tr>
+                <tr>
+                  <td><code>else</code></td>
+                  <td>其他情况</td>
+                  <td><code>else:</code></td>
+                </tr>
+                <tr>
+                  <td>nested if</td>
+                  <td>嵌套条件</td>
+                  <td><code>if active: if approved:</code></td>
+                </tr>
+                <tr>
+                  <td>conditional expression</td>
+                  <td>三元表达式</td>
+                  <td><code>"Yes" if active else "No"</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="for-loops">
+            <h2>20 — For Loops</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>for</code></td>
+                  <td>遍历数据</td>
+                  <td><code>for item in items:</code></td>
+                </tr>
+                <tr>
+                  <td><code>range()</code></td>
+                  <td>数字序列</td>
+                  <td><code>range(5)</code></td>
+                </tr>
+                <tr>
+                  <td><code>range(start, stop)</code></td>
+                  <td>指定起止</td>
+                  <td><code>range(1, 5)</code></td>
+                </tr>
+                <tr>
+                  <td><code>range(start, stop, step)</code></td>
+                  <td>指定步长</td>
+                  <td><code>range(0, 10, 2)</code></td>
+                </tr>
+                <tr>
+                  <td><code>enumerate()</code></td>
+                  <td>index + value</td>
+                  <td><code>enumerate(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>enumerate(..., start=1)</code></td>
+                  <td>从指定序号开始</td>
+                  <td><code>enumerate(items, 1)</code></td>
+                </tr>
+                <tr>
+                  <td><code>zip()</code></td>
+                  <td>同时遍历多个集合</td>
+                  <td><code>zip(names, prices)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.items()</code></td>
+                  <td>遍历 Dictionary</td>
+                  <td><code>for k, v in data.items():</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="while-loops">
+            <h2>21 — While Loops</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>while</code></td>
+                  <td>条件为 True 时循环</td>
+                  <td><code>while count &lt; 5:</code></td>
+                </tr>
+                <tr>
+                  <td><code>break</code></td>
+                  <td>退出循环</td>
+                  <td><code>break</code></td>
+                </tr>
+                <tr>
+                  <td><code>continue</code></td>
+                  <td>跳过当前循环</td>
+                  <td><code>continue</code></td>
+                </tr>
+                <tr>
+                  <td><code>pass</code></td>
+                  <td>空操作</td>
+                  <td><code>pass</code></td>
+                </tr>
+                <tr>
+                  <td>loop <code>else</code></td>
+                  <td>正常循环结束后执行</td>
+                  <td><code>for x in items: ... else:</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="comprehensions">
+            <h2>22 — Comprehensions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>List Comprehension</td>
+                  <td>快速创建 List</td>
+                  <td><code>[x * 2 for x in nums]</code></td>
+                </tr>
+                <tr>
+                  <td>List + if</td>
+                  <td>筛选数据</td>
+                  <td><code>[x for x in nums if x &gt; 10]</code></td>
+                </tr>
+                <tr>
+                  <td>if/else comprehension</td>
+                  <td>条件转换</td>
+                  <td>
+                    <code>["High" if x &gt; 10 else "Low" for x in nums]</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Dict Comprehension</td>
+                  <td>创建 Dictionary</td>
+                  <td><code>{x: x * 2 for x in nums}</code></td>
+                </tr>
+                <tr>
+                  <td>Set Comprehension</td>
+                  <td>创建 Set</td>
+                  <td><code>{x for x in nums}</code></td>
+                </tr>
+                <tr>
+                  <td>Nested Comprehension</td>
+                  <td>嵌套遍历</td>
+                  <td><code>[x for row in matrix for x in row]</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="functions">
+            <h2>23 — Functions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>def</code></td>
+                  <td>定义函数</td>
+                  <td><code>def save():</code></td>
+                </tr>
+                <tr>
+                  <td>parameter</td>
+                  <td>定义参数</td>
+                  <td><code>def greet(name):</code></td>
+                </tr>
+                <tr>
+                  <td>argument</td>
+                  <td>传入参数</td>
+                  <td><code>greet("Rebecca")</code></td>
+                </tr>
+                <tr>
+                  <td><code>return</code></td>
+                  <td>返回结果</td>
+                  <td><code>return total</code></td>
+                </tr>
+                <tr>
+                  <td>multiple return</td>
+                  <td>返回多个值</td>
+                  <td><code>return price, quantity</code></td>
+                </tr>
+                <tr>
+                  <td>default parameter</td>
+                  <td>默认参数</td>
+                  <td><code>def greet(name="Guest"):</code></td>
+                </tr>
+                <tr>
+                  <td>keyword argument</td>
+                  <td>按名字传参</td>
+                  <td><code>greet(name="Rebecca")</code></td>
+                </tr>
+                <tr>
+                  <td>positional argument</td>
+                  <td>按位置传参</td>
+                  <td><code>greet("Rebecca")</code></td>
+                </tr>
+                <tr>
+                  <td><code>*args</code></td>
+                  <td>接收多个位置参数</td>
+                  <td><code>def show(*items):</code></td>
+                </tr>
+                <tr>
+                  <td><code>**kwargs</code></td>
+                  <td>接收多个命名参数</td>
+                  <td><code>def show(**data):</code></td>
+                </tr>
+                <tr>
+                  <td><code>/</code></td>
+                  <td><code>/</code> 前参数只能按位置传入</td>
+                  <td><code>def f(x, /):</code></td>
+                </tr>
+                <tr>
+                  <td><code>*</code></td>
+                  <td><code>*</code> 后参数只能按关键字传入</td>
+                  <td><code>def f(*, name):</code></td>
+                </tr>
+                <tr>
+                  <td>lambda</td>
+                  <td>小型匿名函数</td>
+                  <td><code>lambda x: x * 2</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="variable-scope">
+            <h2>24 — Variable Scope</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>local variable</td>
+                  <td>函数内部变量</td>
+                  <td><code>def f(): x = 1</code></td>
+                </tr>
+                <tr>
+                  <td>global variable</td>
+                  <td>模块级变量</td>
+                  <td><code>x = 1</code></td>
+                </tr>
+                <tr>
+                  <td><code>global</code></td>
+                  <td>在函数内修改全局变量</td>
+                  <td><code>global count</code></td>
+                </tr>
+                <tr>
+                  <td><code>nonlocal</code></td>
+                  <td>修改外层函数变量</td>
+                  <td><code>nonlocal count</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="built-in-functions">
+            <h2>25 — Built-In Functions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>len()</code></td>
+                  <td>获取长度</td>
+                  <td><code>len(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>min()</code></td>
+                  <td>最小值</td>
+                  <td><code>min(prices)</code></td>
+                </tr>
+                <tr>
+                  <td><code>max()</code></td>
+                  <td>最大值</td>
+                  <td><code>max(prices)</code></td>
+                </tr>
+                <tr>
+                  <td><code>sum()</code></td>
+                  <td>求和</td>
+                  <td><code>sum(amounts)</code></td>
+                </tr>
+                <tr>
+                  <td><code>sorted()</code></td>
+                  <td>返回排序结果</td>
+                  <td><code>sorted(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>reversed()</code></td>
+                  <td>返回倒序迭代器</td>
+                  <td><code>reversed(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>any()</code></td>
+                  <td>是否至少一个为 True</td>
+                  <td><code>any(results)</code></td>
+                </tr>
+                <tr>
+                  <td><code>all()</code></td>
+                  <td>是否全部为 True</td>
+                  <td><code>all(results)</code></td>
+                </tr>
+                <tr>
+                  <td><code>enumerate()</code></td>
+                  <td>index + value</td>
+                  <td><code>enumerate(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>zip()</code></td>
+                  <td>合并多个 iterable</td>
+                  <td><code>zip(a, b)</code></td>
+                </tr>
+                <tr>
+                  <td><code>map()</code></td>
+                  <td>对每个元素执行函数</td>
+                  <td><code>map(str, values)</code></td>
+                </tr>
+                <tr>
+                  <td><code>filter()</code></td>
+                  <td>过滤元素</td>
+                  <td><code>filter(is_valid, items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>range()</code></td>
+                  <td>数字序列</td>
+                  <td><code>range(10)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="sorting">
+            <h2>26 — Sorting</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>sorted()</code></td>
+                  <td>返回新排序结果</td>
+                  <td><code>sorted(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.sort()</code></td>
+                  <td>原地排序 List</td>
+                  <td><code>items.sort()</code></td>
+                </tr>
+                <tr>
+                  <td><code>reverse=True</code></td>
+                  <td>倒序排序</td>
+                  <td><code>sorted(items, reverse=True)</code></td>
+                </tr>
+                <tr>
+                  <td><code>key=</code></td>
+                  <td>指定排序字段</td>
+                  <td><code>sorted(orders, key=lambda x: x["price"])</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="modules-imports">
+            <h2>27 — Modules &amp; Imports</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>import</code></td>
+                  <td>导入模块</td>
+                  <td><code>import json</code></td>
+                </tr>
+                <tr>
+                  <td><code>import ... as ...</code></td>
+                  <td>导入并设置别名</td>
+                  <td><code>import pandas as pd</code></td>
+                </tr>
+                <tr>
+                  <td><code>from ... import ...</code></td>
+                  <td>导入某个对象</td>
+                  <td><code>from pathlib import Path</code></td>
+                </tr>
+                <tr>
+                  <td><code>from ... import ... as ...</code></td>
+                  <td>导入并重命名</td>
+                  <td><code>from math import sqrt as root</code></td>
+                </tr>
+                <tr>
+                  <td>multiple imports</td>
+                  <td>导入多个对象</td>
+                  <td><code>from math import sqrt, ceil</code></td>
+                </tr>
+                <tr>
+                  <td>relative import</td>
+                  <td>相对模块导入</td>
+                  <td><code>from .utils import helper</code></td>
+                </tr>
+                <tr>
+                  <td><code>__name__</code></td>
+                  <td>当前模块名称</td>
+                  <td><code>__name__</code></td>
+                </tr>
+                <tr>
+                  <td><code>__main__</code></td>
+                  <td>文件直接执行时的模块名</td>
+                  <td><code>if __name__ == "__main__":</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="files">
+            <h2>28 — Files</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>open()</code></td>
+                  <td>打开文件</td>
+                  <td><code>open("file.txt", "r")</code></td>
+                </tr>
+                <tr>
+                  <td><code>"r"</code></td>
+                  <td>读取</td>
+                  <td><code>open("file.txt", "r")</code></td>
+                </tr>
+                <tr>
+                  <td><code>"w"</code></td>
+                  <td>写入并覆盖</td>
+                  <td><code>open("file.txt", "w")</code></td>
+                </tr>
+                <tr>
+                  <td><code>"a"</code></td>
+                  <td>追加</td>
+                  <td><code>open("file.txt", "a")</code></td>
+                </tr>
+                <tr>
+                  <td><code>"b"</code></td>
+                  <td>Binary 模式</td>
+                  <td><code>open("file.bin", "rb")</code></td>
+                </tr>
+                <tr>
+                  <td><code>with open()</code></td>
+                  <td>自动关闭文件</td>
+                  <td><code>with open("file.txt") as f:</code></td>
+                </tr>
+                <tr>
+                  <td><code>.read()</code></td>
+                  <td>全部读取</td>
+                  <td><code>f.read()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.readline()</code></td>
+                  <td>读取一行</td>
+                  <td><code>f.readline()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.readlines()</code></td>
+                  <td>读取所有行</td>
+                  <td><code>f.readlines()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.write()</code></td>
+                  <td>写数据</td>
+                  <td><code>f.write("Hello")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.writelines()</code></td>
+                  <td>写多行</td>
+                  <td><code>f.writelines(lines)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.close()</code></td>
+                  <td>关闭文件</td>
+                  <td><code>f.close()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.seek()</code></td>
+                  <td>移动文件位置</td>
+                  <td><code>f.seek(0)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="exceptions">
+            <h2>29 — Exceptions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>try</code></td>
+                  <td>尝试执行代码</td>
+                  <td><code>try:</code></td>
+                </tr>
+                <tr>
+                  <td><code>except</code></td>
+                  <td>捕获异常</td>
+                  <td><code>except ValueError:</code></td>
+                </tr>
+                <tr>
+                  <td>multiple except</td>
+                  <td>处理不同异常</td>
+                  <td><code>except KeyError:</code></td>
+                </tr>
+                <tr>
+                  <td><code>except ... as ...</code></td>
+                  <td>获取异常对象</td>
+                  <td><code>except ValueError as e:</code></td>
+                </tr>
+                <tr>
+                  <td><code>else</code></td>
+                  <td>没发生异常时执行</td>
+                  <td><code>else:</code></td>
+                </tr>
+                <tr>
+                  <td><code>finally</code></td>
+                  <td>无论如何都会执行</td>
+                  <td><code>finally:</code></td>
+                </tr>
+                <tr>
+                  <td><code>raise</code></td>
+                  <td>主动抛出异常</td>
+                  <td><code>raise ValueError()</code></td>
+                </tr>
+                <tr>
+                  <td><code>raise ... from ...</code></td>
+                  <td>建立异常链</td>
+                  <td><code>raise RuntimeError() from e</code></td>
+                </tr>
+                <tr>
+                  <td><code>Exception</code></td>
+                  <td>常见基础异常类型</td>
+                  <td><code>except Exception:</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="common-exceptions">
+            <h2>30 — Common Exceptions</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>ValueError</code></td>
+                  <td>值不合法</td>
+                  <td><code>int("abc")</code></td>
+                </tr>
+                <tr>
+                  <td><code>TypeError</code></td>
+                  <td>数据类型不合适</td>
+                  <td><code>"1" + 1</code></td>
+                </tr>
+                <tr>
+                  <td><code>KeyError</code></td>
+                  <td>Dictionary key 不存在</td>
+                  <td><code>data["missing"]</code></td>
+                </tr>
+                <tr>
+                  <td><code>IndexError</code></td>
+                  <td>Index 不存在</td>
+                  <td><code>items[99]</code></td>
+                </tr>
+                <tr>
+                  <td><code>FileNotFoundError</code></td>
+                  <td>文件不存在</td>
+                  <td><code>open("missing.txt")</code></td>
+                </tr>
+                <tr>
+                  <td><code>ZeroDivisionError</code></td>
+                  <td>除数为零</td>
+                  <td><code>10 / 0</code></td>
+                </tr>
+                <tr>
+                  <td><code>ModuleNotFoundError</code></td>
+                  <td>模块找不到</td>
+                  <td><code>import missing</code></td>
+                </tr>
+                <tr>
+                  <td><code>AttributeError</code></td>
+                  <td>属性不存在</td>
+                  <td><code>obj.missing</code></td>
+                </tr>
+                <tr>
+                  <td><code>NameError</code></td>
+                  <td>变量名不存在</td>
+                  <td><code>print(unknown)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="classes">
+            <h2>31 — Classes</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>class</code></td>
+                  <td>定义 Class</td>
+                  <td><code>class Order:</code></td>
+                </tr>
+                <tr>
+                  <td>object</td>
+                  <td>创建实例</td>
+                  <td><code>order = Order()</code></td>
+                </tr>
+                <tr>
+                  <td><code>__init__()</code></td>
+                  <td>初始化对象</td>
+                  <td><code>def __init__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>self</code></td>
+                  <td>当前对象</td>
+                  <td><code>self.status</code></td>
+                </tr>
+                <tr>
+                  <td>attribute</td>
+                  <td>对象属性</td>
+                  <td><code>order.status</code></td>
+                </tr>
+                <tr>
+                  <td>method</td>
+                  <td>对象方法</td>
+                  <td><code>order.save()</code></td>
+                </tr>
+                <tr>
+                  <td>class attribute</td>
+                  <td>Class 共享属性</td>
+                  <td><code>class Order: status = "New"</code></td>
+                </tr>
+                <tr>
+                  <td>inheritance</td>
+                  <td>继承</td>
+                  <td><code>class SalesOrder(Order):</code></td>
+                </tr>
+                <tr>
+                  <td><code>super()</code></td>
+                  <td>调用父类</td>
+                  <td><code>super().__init__()</code></td>
+                </tr>
+                <tr>
+                  <td><code>isinstance()</code></td>
+                  <td>检查实例类型</td>
+                  <td><code>isinstance(order, Order)</code></td>
+                </tr>
+                <tr>
+                  <td><code>issubclass()</code></td>
+                  <td>检查继承关系</td>
+                  <td><code>issubclass(SalesOrder, Order)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="special-methods">
+            <h2>32 — Special Methods</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>__init__</code></td>
+                  <td>初始化</td>
+                  <td><code>def __init__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__str__</code></td>
+                  <td>对象可读字符串</td>
+                  <td><code>def __str__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__repr__</code></td>
+                  <td>对象开发者表示</td>
+                  <td><code>def __repr__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__len__</code></td>
+                  <td>支持 <code>len()</code></td>
+                  <td><code>def __len__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__iter__</code></td>
+                  <td>支持迭代</td>
+                  <td><code>def __iter__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__enter__</code></td>
+                  <td>Context Manager 进入</td>
+                  <td><code>def __enter__(self):</code></td>
+                </tr>
+                <tr>
+                  <td><code>__exit__</code></td>
+                  <td>Context Manager 退出</td>
+                  <td><code>def __exit__(...)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="property-decorators">
+            <h2>33 — Property &amp; Decorators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>@decorator</code></td>
+                  <td>用 Decorator 包装函数或 Class</td>
+                  <td><code>@timer</code></td>
+                </tr>
+                <tr>
+                  <td><code>@property</code></td>
+                  <td>方法像属性一样访问</td>
+                  <td><code>@property</code></td>
+                </tr>
+                <tr>
+                  <td><code>@staticmethod</code></td>
+                  <td>不需要 self 的类内函数</td>
+                  <td><code>@staticmethod</code></td>
+                </tr>
+                <tr>
+                  <td><code>@classmethod</code></td>
+                  <td>接收 Class 本身</td>
+                  <td><code>@classmethod</code></td>
+                </tr>
+                <tr>
+                  <td><code>cls</code></td>
+                  <td>Class Method 中的当前 Class</td>
+                  <td><code>def create(cls):</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="iterables-iterators">
+            <h2>34 — Iterables &amp; Iterators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>iterable</td>
+                  <td>可以被循环的数据</td>
+                  <td>
+                    <code>list</code>, <code>str</code>, <code>dict</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>iter()</code></td>
+                  <td>创建 Iterator</td>
+                  <td><code>iter(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>next()</code></td>
+                  <td>读取下一个值</td>
+                  <td><code>next(iterator)</code></td>
+                </tr>
+                <tr>
+                  <td><code>StopIteration</code></td>
+                  <td>Iterator 没有更多值</td>
+                  <td><code>StopIteration</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="generators">
+            <h2>35 — Generators</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>yield</code></td>
+                  <td>一次产生一个值</td>
+                  <td><code>yield item</code></td>
+                </tr>
+                <tr>
+                  <td>generator function</td>
+                  <td>包含 yield 的函数</td>
+                  <td><code>def items(): yield 1</code></td>
+                </tr>
+                <tr>
+                  <td>generator expression</td>
+                  <td>Generator 简写</td>
+                  <td><code>(x * 2 for x in nums)</code></td>
+                </tr>
+                <tr>
+                  <td><code>yield from</code></td>
+                  <td>从另一个 iterable 继续 yield</td>
+                  <td><code>yield from items</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="context-managers">
+            <h2>36 — Context Managers</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>with</code></td>
+                  <td>自动管理资源</td>
+                  <td><code>with open("a.txt") as f:</code></td>
+                </tr>
+                <tr>
+                  <td><code>as</code></td>
+                  <td>给资源绑定变量</td>
+                  <td><code>with open(...) as file:</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="json">
+            <h2>37 — Json</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>json.loads()</code></td>
+                  <td>JSON string → Python</td>
+                  <td><code>json.loads(text)</code></td>
+                </tr>
+                <tr>
+                  <td><code>json.dumps()</code></td>
+                  <td>Python → JSON string</td>
+                  <td><code>json.dumps(data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>json.load()</code></td>
+                  <td>JSON file → Python</td>
+                  <td><code>json.load(file)</code></td>
+                </tr>
+                <tr>
+                  <td><code>json.dump()</code></td>
+                  <td>Python → JSON file</td>
+                  <td><code>json.dump(data, file)</code></td>
+                </tr>
+                <tr>
+                  <td><code>indent=</code></td>
+                  <td>美化 JSON</td>
+                  <td><code>json.dumps(data, indent=2)</code></td>
+                </tr>
+                <tr>
+                  <td><code>ensure_ascii=False</code></td>
+                  <td>保留非 ASCII 字符</td>
+                  <td><code>json.dumps(data, ensure_ascii=False)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="csv">
+            <h2>38 — Csv</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>csv.reader()</code></td>
+                  <td>CSV Reader</td>
+                  <td><code>csv.reader(file)</code></td>
+                </tr>
+                <tr>
+                  <td><code>csv.writer()</code></td>
+                  <td>CSV Writer</td>
+                  <td><code>csv.writer(file)</code></td>
+                </tr>
+                <tr>
+                  <td><code>csv.DictReader()</code></td>
+                  <td>每行转换为 Dictionary</td>
+                  <td><code>csv.DictReader(file)</code></td>
+                </tr>
+                <tr>
+                  <td><code>csv.DictWriter()</code></td>
+                  <td>Dictionary 写入 CSV</td>
+                  <td><code>csv.DictWriter(file, fieldnames=...)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.writerow()</code></td>
+                  <td>写一行</td>
+                  <td><code>writer.writerow(row)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.writerows()</code></td>
+                  <td>写多行</td>
+                  <td><code>writer.writerows(rows)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.writeheader()</code></td>
+                  <td>写 header</td>
+                  <td><code>writer.writeheader()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="pathlib">
+            <h2>39 — Pathlib</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Path()</code></td>
+                  <td>创建路径对象</td>
+                  <td><code>Path("data/file.csv")</code></td>
+                </tr>
+                <tr>
+                  <td><code>Path.cwd()</code></td>
+                  <td>当前目录</td>
+                  <td><code>Path.cwd()</code></td>
+                </tr>
+                <tr>
+                  <td><code>Path.home()</code></td>
+                  <td>Home 目录</td>
+                  <td><code>Path.home()</code></td>
+                </tr>
+                <tr>
+                  <td><code>/</code></td>
+                  <td>拼接 Path</td>
+                  <td><code>folder / "file.csv"</code></td>
+                </tr>
+                <tr>
+                  <td><code>.exists()</code></td>
+                  <td>是否存在</td>
+                  <td><code>path.exists()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.is_file()</code></td>
+                  <td>是否文件</td>
+                  <td><code>path.is_file()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.is_dir()</code></td>
+                  <td>是否目录</td>
+                  <td><code>path.is_dir()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.mkdir()</code></td>
+                  <td>创建目录</td>
+                  <td><code>path.mkdir()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.name</code></td>
+                  <td>文件名</td>
+                  <td><code>path.name</code></td>
+                </tr>
+                <tr>
+                  <td><code>.stem</code></td>
+                  <td>无后缀文件名</td>
+                  <td><code>path.stem</code></td>
+                </tr>
+                <tr>
+                  <td><code>.suffix</code></td>
+                  <td>扩展名</td>
+                  <td><code>path.suffix</code></td>
+                </tr>
+                <tr>
+                  <td><code>.parent</code></td>
+                  <td>父目录</td>
+                  <td><code>path.parent</code></td>
+                </tr>
+                <tr>
+                  <td><code>.glob()</code></td>
+                  <td>当前目录匹配文件</td>
+                  <td><code>path.glob("*.csv")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.rglob()</code></td>
+                  <td>递归匹配</td>
+                  <td><code>path.rglob("*.csv")</code></td>
+                </tr>
+                <tr>
+                  <td><code>.read_text()</code></td>
+                  <td>读取文本</td>
+                  <td><code>path.read_text()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.write_text()</code></td>
+                  <td>写文本</td>
+                  <td><code>path.write_text("Hello")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="os">
+            <h2>40 — Os</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>os.getcwd()</code></td>
+                  <td>当前工作目录</td>
+                  <td><code>os.getcwd()</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.getenv()</code></td>
+                  <td>获取环境变量</td>
+                  <td><code>os.getenv("API_KEY")</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.environ</code></td>
+                  <td>所有环境变量</td>
+                  <td><code>os.environ</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.path.exists()</code></td>
+                  <td>判断路径存在</td>
+                  <td><code>os.path.exists(path)</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.listdir()</code></td>
+                  <td>查看目录内容</td>
+                  <td><code>os.listdir(".")</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.remove()</code></td>
+                  <td>删除文件</td>
+                  <td><code>os.remove("a.txt")</code></td>
+                </tr>
+                <tr>
+                  <td><code>os.rename()</code></td>
+                  <td>重命名</td>
+                  <td><code>os.rename("a.txt", "b.txt")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="api-requests">
+            <h2>41 — Api Requests</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>requests.get()</code></td>
+                  <td>GET 请求</td>
+                  <td><code>requests.get(url)</code></td>
+                </tr>
+                <tr>
+                  <td><code>requests.post()</code></td>
+                  <td>POST 请求</td>
+                  <td><code>requests.post(url, json=data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>requests.put()</code></td>
+                  <td>PUT 请求</td>
+                  <td><code>requests.put(url, json=data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>requests.patch()</code></td>
+                  <td>PATCH 请求</td>
+                  <td><code>requests.patch(url, json=data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>requests.delete()</code></td>
+                  <td>DELETE 请求</td>
+                  <td><code>requests.delete(url)</code></td>
+                </tr>
+                <tr>
+                  <td><code>params=</code></td>
+                  <td>Query Parameters</td>
+                  <td><code>requests.get(url, params=params)</code></td>
+                </tr>
+                <tr>
+                  <td><code>headers=</code></td>
+                  <td>HTTP Headers</td>
+                  <td><code>requests.get(url, headers=headers)</code></td>
+                </tr>
+                <tr>
+                  <td><code>json=</code></td>
+                  <td>JSON Body</td>
+                  <td><code>requests.post(url, json=data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>data=</code></td>
+                  <td>Form/body data</td>
+                  <td><code>requests.post(url, data=data)</code></td>
+                </tr>
+                <tr>
+                  <td><code>timeout=</code></td>
+                  <td>超时</td>
+                  <td><code>requests.get(url, timeout=10)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.status_code</code></td>
+                  <td>HTTP 状态码</td>
+                  <td><code>response.status_code</code></td>
+                </tr>
+                <tr>
+                  <td><code>.text</code></td>
+                  <td>文本响应</td>
+                  <td><code>response.text</code></td>
+                </tr>
+                <tr>
+                  <td><code>.content</code></td>
+                  <td>Bytes 响应</td>
+                  <td><code>response.content</code></td>
+                </tr>
+                <tr>
+                  <td><code>.json()</code></td>
+                  <td>JSON → Python</td>
+                  <td><code>response.json()</code></td>
+                </tr>
+                <tr>
+                  <td><code>.raise_for_status()</code></td>
+                  <td>HTTP 错误时抛异常</td>
+                  <td><code>response.raise_for_status()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="datetime">
+            <h2>42 — Datetime</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>datetime.now()</code></td>
+                  <td>当前日期时间</td>
+                  <td><code>datetime.now()</code></td>
+                </tr>
+                <tr>
+                  <td><code>date.today()</code></td>
+                  <td>今天日期</td>
+                  <td><code>date.today()</code></td>
+                </tr>
+                <tr>
+                  <td><code>timedelta()</code></td>
+                  <td>时间加减</td>
+                  <td><code>timedelta(days=1)</code></td>
+                </tr>
+                <tr>
+                  <td><code>.strftime()</code></td>
+                  <td>datetime → string</td>
+                  <td><code>now.strftime("%Y-%m-%d")</code></td>
+                </tr>
+                <tr>
+                  <td><code>datetime.strptime()</code></td>
+                  <td>string → datetime</td>
+                  <td><code>datetime.strptime(text, "%Y-%m-%d")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="math">
+            <h2>43 — Math</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>math.sqrt()</code></td>
+                  <td>平方根</td>
+                  <td><code>math.sqrt(16)</code></td>
+                </tr>
+                <tr>
+                  <td><code>math.ceil()</code></td>
+                  <td>向上取整</td>
+                  <td><code>math.ceil(4.2)</code></td>
+                </tr>
+                <tr>
+                  <td><code>math.floor()</code></td>
+                  <td>向下取整</td>
+                  <td><code>math.floor(4.8)</code></td>
+                </tr>
+                <tr>
+                  <td><code>math.pi</code></td>
+                  <td>π</td>
+                  <td><code>math.pi</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="random">
+            <h2>44 — Random</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>random.randint()</code></td>
+                  <td>随机整数</td>
+                  <td><code>random.randint(1, 10)</code></td>
+                </tr>
+                <tr>
+                  <td><code>random.choice()</code></td>
+                  <td>随机选择一个</td>
+                  <td><code>random.choice(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>random.shuffle()</code></td>
+                  <td>打乱 List</td>
+                  <td><code>random.shuffle(items)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="regex">
+            <h2>45 — Regex</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>re.search()</code></td>
+                  <td>查找第一个匹配</td>
+                  <td><code>re.search(r"\d+", text)</code></td>
+                </tr>
+                <tr>
+                  <td><code>re.match()</code></td>
+                  <td>从字符串开头匹配</td>
+                  <td><code>re.match(pattern, text)</code></td>
+                </tr>
+                <tr>
+                  <td><code>re.findall()</code></td>
+                  <td>找到所有匹配</td>
+                  <td><code>re.findall(r"\d+", text)</code></td>
+                </tr>
+                <tr>
+                  <td><code>re.sub()</code></td>
+                  <td>替换匹配内容</td>
+                  <td><code>re.sub(pattern, value, text)</code></td>
+                </tr>
+                <tr>
+                  <td><code>r"..."</code></td>
+                  <td>Raw Regex String</td>
+                  <td><code>r"\d+"</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="collections-module">
+            <h2>46 — Collections Module</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Counter</code></td>
+                  <td>统计元素次数</td>
+                  <td><code>Counter(items)</code></td>
+                </tr>
+                <tr>
+                  <td><code>defaultdict</code></td>
+                  <td>自动默认值的 Dictionary</td>
+                  <td><code>defaultdict(list)</code></td>
+                </tr>
+                <tr>
+                  <td><code>deque</code></td>
+                  <td>双端队列</td>
+                  <td><code>deque(items)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="statistics">
+            <h2>47 — Statistics</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>statistics.mean()</code></td>
+                  <td>平均值</td>
+                  <td><code>statistics.mean(values)</code></td>
+                </tr>
+                <tr>
+                  <td><code>statistics.median()</code></td>
+                  <td>中位数</td>
+                  <td><code>statistics.median(values)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="itertools">
+            <h2>48 — Itertools</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>chain()</code></td>
+                  <td>合并 iterables</td>
+                  <td><code>chain(a, b)</code></td>
+                </tr>
+                <tr>
+                  <td><code>repeat()</code></td>
+                  <td>重复值</td>
+                  <td><code>repeat("A", 3)</code></td>
+                </tr>
+                <tr>
+                  <td><code>islice()</code></td>
+                  <td>Iterator 切片</td>
+                  <td><code>islice(items, 5)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="sys">
+            <h2>49 — Sys</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>sys.version</code></td>
+                  <td>Python 版本</td>
+                  <td><code>sys.version</code></td>
+                </tr>
+                <tr>
+                  <td><code>sys.executable</code></td>
+                  <td>当前 Python 路径</td>
+                  <td><code>sys.executable</code></td>
+                </tr>
+                <tr>
+                  <td><code>sys.argv</code></td>
+                  <td>Command-line 参数</td>
+                  <td><code>sys.argv</code></td>
+                </tr>
+                <tr>
+                  <td><code>sys.path</code></td>
+                  <td>Module 搜索路径</td>
+                  <td><code>sys.path</code></td>
+                </tr>
+                <tr>
+                  <td><code>sys.exit()</code></td>
+                  <td>退出程序</td>
+                  <td><code>sys.exit(1)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="time">
+            <h2>50 — Time</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>time.sleep()</code></td>
+                  <td>暂停程序</td>
+                  <td><code>time.sleep(2)</code></td>
+                </tr>
+                <tr>
+                  <td><code>time.time()</code></td>
+                  <td>Unix timestamp</td>
+                  <td><code>time.time()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="logging">
+            <h2>51 — Logging</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>logging.debug()</code></td>
+                  <td>Debug 日志</td>
+                  <td><code>logging.debug("value")</code></td>
+                </tr>
+                <tr>
+                  <td><code>logging.info()</code></td>
+                  <td>Info 日志</td>
+                  <td><code>logging.info("Started")</code></td>
+                </tr>
+                <tr>
+                  <td><code>logging.warning()</code></td>
+                  <td>Warning 日志</td>
+                  <td><code>logging.warning("Slow")</code></td>
+                </tr>
+                <tr>
+                  <td><code>logging.error()</code></td>
+                  <td>Error 日志</td>
+                  <td><code>logging.error("Failed")</code></td>
+                </tr>
+                <tr>
+                  <td><code>logging.exception()</code></td>
+                  <td>输出异常及 traceback</td>
+                  <td><code>logging.exception("Failed")</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="pip">
+            <h2>52 — Pip</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>pip install</code></td>
+                  <td>安装包</td>
+                  <td><code>pip install requests</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip install X==version</code></td>
+                  <td>指定版本</td>
+                  <td><code>pip install requests==2.32.0</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip uninstall</code></td>
+                  <td>卸载包</td>
+                  <td><code>pip uninstall requests</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip list</code></td>
+                  <td>查看安装包</td>
+                  <td><code>pip list</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip show</code></td>
+                  <td>查看某个包</td>
+                  <td><code>pip show requests</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip freeze</code></td>
+                  <td>输出依赖版本</td>
+                  <td><code>pip freeze</code></td>
+                </tr>
+                <tr>
+                  <td><code>pip install -r</code></td>
+                  <td>从 requirements 安装</td>
+                  <td><code>pip install -r requirements.txt</code></td>
+                </tr>
+                <tr>
+                  <td><code>python -m pip</code></td>
+                  <td>用当前 Python 执行 pip</td>
+                  <td><code>python -m pip install requests</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="virtual-environment">
+            <h2>53 — Virtual Environment</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>python -m venv .venv</code></td>
+                  <td>创建虚拟环境</td>
+                  <td><code>python -m venv .venv</code></td>
+                </tr>
+                <tr>
+                  <td><code>source .venv/bin/activate</code></td>
+                  <td>macOS/Linux 激活</td>
+                  <td><code>source .venv/bin/activate</code></td>
+                </tr>
+                <tr>
+                  <td><code>.venv\Scripts\Activate.ps1</code></td>
+                  <td>PowerShell 激活</td>
+                  <td><code>.venv\Scripts\Activate.ps1</code></td>
+                </tr>
+                <tr>
+                  <td><code>deactivate</code></td>
+                  <td>退出虚拟环境</td>
+                  <td><code>deactivate</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="type-hints">
+            <h2>54 — Type Hints</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>name: str</code></td>
+                  <td>变量类型提示</td>
+                  <td><code>name: str = "Rebecca"</code></td>
+                </tr>
+                <tr>
+                  <td><code>quantity: int</code></td>
+                  <td>整数类型提示</td>
+                  <td><code>quantity: int = 10</code></td>
+                </tr>
+                <tr>
+                  <td><code>price: float</code></td>
+                  <td>小数类型提示</td>
+                  <td><code>price: float = 8500.5</code></td>
+                </tr>
+                <tr>
+                  <td><code>active: bool</code></td>
+                  <td>Boolean 类型提示</td>
+                  <td><code>active: bool = True</code></td>
+                </tr>
+                <tr>
+                  <td><code>param: int</code></td>
+                  <td>函数参数类型提示</td>
+                  <td><code>def total(qty: int):</code></td>
+                </tr>
+                <tr>
+                  <td><code>-&gt; str</code></td>
+                  <td>返回 String 类型</td>
+                  <td><code>def get_name() -&gt; str:</code></td>
+                </tr>
+                <tr>
+                  <td><code>-&gt; None</code></td>
+                  <td>函数没有返回值</td>
+                  <td><code>def save() -&gt; None:</code></td>
+                </tr>
+                <tr>
+                  <td><code>list[str]</code></td>
+                  <td>字符串 List 类型</td>
+                  <td><code>products: list[str] = []</code></td>
+                </tr>
+                <tr>
+                  <td><code>list[int]</code></td>
+                  <td>整数 List 类型</td>
+                  <td><code>ids: list[int] = []</code></td>
+                </tr>
+                <tr>
+                  <td><code>dict[str, int]</code></td>
+                  <td>Dictionary 类型</td>
+                  <td><code>prices: dict[str, int]</code></td>
+                </tr>
+                <tr>
+                  <td><code>tuple[int, int]</code></td>
+                  <td>Tuple 类型提示</td>
+                  <td><code>point: tuple[int, int] = (10, 20)</code></td>
+                </tr>
+                <tr>
+                  <td><code>set[str]</code></td>
+                  <td>Set 类型提示</td>
+                  <td><code>products: set[str] = set()</code></td>
+                </tr>
+                <tr>
+                  <td><code>str | None</code></td>
+                  <td>可能是 String 或 None</td>
+                  <td><code>name: str | None = None</code></td>
+                </tr>
+                <tr>
+                  <td><code>int | float</code></td>
+                  <td>可以是 int 或 float</td>
+                  <td><code>price: int | float = 8500</code></td>
+                </tr>
+                <tr>
+                  <td><code>Any</code></td>
+                  <td>任意类型</td>
+                  <td><code>value: Any</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <pre><code>from typing import Any</code></pre>
+          </section>
+          <section id="dataclasses">
+            <h2>55 — Dataclasses</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Explanation</th>
+                  <th>Sample</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>@dataclass</code></td>
+                  <td>自动生成常见 Class 初始化等代码</td>
+                  <td><code>@dataclass</code></td>
+                </tr>
+                <tr>
+                  <td>typed field</td>
+                  <td>定义 Dataclass 字段</td>
+                  <td><code>order_id: int</code></td>
+                </tr>
+                <tr>
+                  <td>default value</td>
+                  <td>字段默认值</td>
+                  <td><code>status: str = "Pending"</code></td>
+                </tr>
+                <tr>
+                  <td><code>field()</code></td>
+                  <td>配置 Dataclass 字段</td>
+                  <td><code>field(default_factory=list)</code></td>
+                </tr>
+                <tr>
+                  <td><code>default_factory</code></td>
+                  <td>为 List/Dict 创建独立默认值</td>
+                  <td><code>field(default_factory=list)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </main>
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+    <script>
+      (() => {
+        const S = document.querySelector(".summary-table");
+        const R = (a, b, c) =>
+          `<tr><td><code>${a}</code></td><td>${b}</td><td><code>${c}</code></td></tr>`;
+        const D = {
+          "match-case": [
+            ["match", "根据一个值开始模式匹配", "match status:"],
+            ["case", "定义一个匹配分支", 'case "Pending":'],
+            ["case _", "默认分支", "case _:"],
+            [
+              "case value1 | value2",
+              "一个分支匹配多个值",
+              'case "Pending" | "Processing":',
+            ],
+            ["case variable", "匹配并绑定变量", "case value:"],
+            ["guard if", "给 case 增加额外条件", "case value if value > 100:"],
+          ],
+          "walrus-operator": [
+            [":=", "在表达式中赋值并立即使用", "if count := len(items):"],
+            ["assignment expression", "赋值表达式", "value := get_value()"],
+          ],
+          "async-python": [
+            ["async def", "定义异步函数", "async def load_data():"],
+            ["await", "等待异步操作完成", "await fetch_data()"],
+            ["async for", "异步遍历数据", "async for item in stream:"],
+            ["async with", "异步 Context Manager", "async with session:"],
+            [
+              "coroutine",
+              "调用 async function 后得到的异步任务对象",
+              "load_data()",
+            ],
+          ],
+          "common-python-keywords": [
+            ["False", "Boolean False", "active = False"],
+            ["None", "表示没有值", "result = None"],
+            ["True", "Boolean True", "active = True"],
+            ["and", "Logical AND", "a and b"],
+            ["as", "设置别名", "import pandas as pd"],
+            ["assert", "检查条件", "assert quantity >= 0"],
+            ["async", "定义异步语法", "async def load():"],
+            ["await", "等待异步结果", "await load()"],
+            ["break", "退出循环", "break"],
+            ["class", "定义 Class", "class Order:"],
+            ["continue", "跳过当前循环", "continue"],
+            ["def", "定义函数", "def save():"],
+            ["del", "删除值", 'del order["status"]'],
+            ["elif", "另一个条件", 'elif status == "Done":'],
+            ["else", "其他情况", "else:"],
+            ["except", "捕获异常", "except ValueError:"],
+            ["finally", "始终执行", "finally:"],
+            ["for", "遍历 iterable", "for item in items:"],
+            ["from", "导入指定对象", "from pathlib import Path"],
+            ["global", "引用全局变量", "global count"],
+            ["if", "条件判断", "if active:"],
+            ["import", "导入模块", "import json"],
+            ["in", "成员判断", '"Copper" in products'],
+            ["is", "Identity 判断", "value is None"],
+            ["lambda", "匿名函数", "lambda x: x * 2"],
+            ["nonlocal", "修改外层变量", "nonlocal count"],
+            ["not", "Logical NOT", "not active"],
+            ["or", "Logical OR", "a or b"],
+            ["pass", "占位", "pass"],
+            ["raise", "主动抛错", "raise ValueError()"],
+            ["return", "返回结果", "return total"],
+            ["try", "异常处理开始", "try:"],
+            ["while", "条件循环", "while active:"],
+            ["with", "Context Manager", "with open(...) as file:"],
+            ["yield", "Generator 产生值", "yield item"],
+            ["match", "模式匹配", "match status:"],
+            ["case", "match 分支", 'case "Pending":'],
+          ],
+          "common-special-symbols": [
+            ["()", "函数调用、Tuple 或分组", 'print("Hello")'],
+            ["[]", "List、Index 或 Slice", "items[0]"],
+            ["{}", "Dictionary 或 Set", '{"id": 1001}'],
+            [":", "代码块、Slice 或 Dict 分隔", "if active:"],
+            [",", "分隔元素", "a, b = 1, 2"],
+            [".", "访问属性或方法", "response.json()"],
+            ["_", "忽略值或命名分隔", "for _ in range(3):"],
+            ["*", "乘法、Unpacking、*args", "def show(*items):"],
+            ["**", "幂、Dict unpacking、**kwargs", "def show(**data):"],
+            ["@", "Decorator 前缀", "@dataclass"],
+            ["->", "返回类型提示", "def get_name() -> str:"],
+            [":=", "Walrus assignment", "if count := len(items):"],
+            ["|", "Union 或 match 多值", "str | None"],
+            ["...", "Ellipsis / 占位", "def todo(): ..."],
+            ["#", "单行注释", "# load orders"],
+            ["\\", "Escape / Backslash", '"C:\\data"'],
+          ],
+          "unpacking-spread-like": [
+            ["a, b = values", "序列拆包", "price, quantity = values"],
+            ["first, *rest = items", "其余值放入 List", "first, *rest = items"],
+            ["*items", "展开 Iterable", "print(*items)"],
+            [
+              "**data",
+              "展开 Dictionary 为 Keyword Arguments",
+              "create_order(**data)",
+            ],
+            ["[*a, *b]", "合并 Iterable 到 List", "items = [*a, *b]"],
+            ["{**a, **b}", "合并 Dictionary", "data = {**a, **b}"],
+            ["(*items,)", "展开到 Tuple", "values = (*items,)"],
+            ["{*a, *b}", "展开并合并为 Set", "values = {*a, *b}"],
+          ],
+          delete: [
+            ["del variable", "删除变量引用", "del result"],
+            ["del list[index]", "删除指定元素", "del items[0]"],
+            ["del list[start:stop]", "删除一段 List", "del items[1:3]"],
+            ["del dict[key]", "删除 Dictionary key", 'del order["status"]'],
+            [".pop()", "删除并返回元素", 'order.pop("status")'],
+            [".remove()", "按值删除 List 元素", 'items.remove("Copper")'],
+            [".clear()", "清空 Collection", "items.clear()"],
+          ],
+          assert: [
+            [
+              "assert condition",
+              "False 时抛出 AssertionError",
+              "assert quantity >= 0",
+            ],
+            [
+              "assert condition, message",
+              "失败时提供错误信息",
+              'assert quantity >= 0, "Invalid quantity"',
+            ],
+            ["AssertionError", "Assert 失败产生的异常", "AssertionError"],
+          ],
+          "command-line-script-pattern": [
+            ["main()", "主要程序流程函数", "def main():"],
+            ["__name__", "当前模块名称", "__name__"],
+            ['"__main__"', "直接执行时的模块名", '"__main__"'],
+            [
+              'if __name__ == "__main__"',
+              "仅直接运行时执行",
+              'if __name__ == "__main__":',
+            ],
+            ["sys.argv", "获取命令行参数", "sys.argv"],
+          ],
+          "common-real-world-pattern": [
+            ["from ... import", "导入指定对象", "from pathlib import Path"],
+            ["import", "导入模块", "import json"],
+            ["third-party import", "导入 pip Package", "import requests"],
+            [
+              "logging.basicConfig()",
+              "设置日志",
+              "logging.basicConfig(level=logging.INFO)",
+            ],
+            ["def", "定义函数", "def load_orders(...):"],
+            ["parameter", "函数参数", "status"],
+            ["str | None", "String 或 None", "status: str | None"],
+            ["= None", "默认参数值", "status: str | None = None"],
+            ["-> list[dict]", "返回类型提示", "-> list[dict]"],
+            ["-> None", "无业务返回值", "-> None"],
+            ["os.getenv()", "获取环境变量", 'os.getenv("ORDER_API")'],
+            ["if not value", "检查 Falsy", "if not api_url:"],
+            ["raise", "主动抛异常", "raise ValueError(...)"],
+            ["{}", "创建 Dictionary", "params = {}"],
+            ["is not None", "不是 None", "status is not None"],
+            [
+              "dict[key] = value",
+              "新增/更新 Dictionary",
+              'params["status"] = status',
+            ],
+            ["requests.get()", "发送 GET Request", "requests.get(...)"],
+            ["params=", "URL Query Parameters", "params=params"],
+            ["timeout=", "Request Timeout", "timeout=10"],
+            [
+              ".raise_for_status()",
+              "HTTP 失败抛异常",
+              "response.raise_for_status()",
+            ],
+            [".json()", "JSON → Python data", "response.json()"],
+            ["Path()", "创建 Path 对象", 'Path("output/orders.json")'],
+            [".parent", "父目录", "output_file.parent"],
+            [".mkdir()", "创建目录", "mkdir(...)"],
+            ["parents=True", "创建父目录", "parents=True"],
+            ["exist_ok=True", "已存在不报错", "exist_ok=True"],
+            [".write_text()", "写文本文件", "output_file.write_text(...)"],
+            ["json.dumps()", "Python → JSON String", "json.dumps(orders)"],
+            ["indent=2", "JSON 缩进", "indent=2"],
+            ["ensure_ascii=False", "保留非 ASCII", "ensure_ascii=False"],
+            ['encoding="utf-8"', "UTF-8 写文件", 'encoding="utf-8"'],
+            ["try", "开始异常处理", "try:"],
+            ["except", "捕获异常", "except ...:"],
+            ["as error", "保存异常对象", "except ... as error:"],
+            [
+              "requests.RequestException",
+              "requests 基础异常",
+              "except requests.RequestException",
+            ],
+            ["Exception", "通用异常", "except Exception"],
+            ["logging.info()", "写 Info Log", "logging.info(...)"],
+            ["logging.error()", "写 Error Log", "logging.error(...)"],
+            [
+              "logging.exception()",
+              "日志和 traceback",
+              "logging.exception(...)",
+            ],
+            ["len()", "获取数量", "len(orders)"],
+            [
+              'if __name__ == "__main__"',
+              "直接执行入口",
+              'if __name__ == "__main__":',
+            ],
+            ["main()", "启动主程序", "main()"],
+          ],
+        };
+        const X = {
+          "match-case": `status = "Pending"\n\nmatch status:\n    case "Pending":\n        print("Waiting")\n    case "Completed":\n        print("Done")\n    case _:\n        print("Unknown")\n\nmatch status:\n    case "Pending" | "Processing":\n        print("Open")`,
+          "walrus-operator": `orders = [1001, 1002, 1003]\n\nif count := len(orders):\n    print(count)\n\nwhile line := file.readline():\n    print(line)`,
+          "async-python": `async def load_data():\n    response = await fetch_data()\n    return response\n\nasync for item in stream:\n    print(item)\n\nasync with session:\n    data = await session.get()`,
+          dataclasses: `from dataclasses import dataclass, field\n\n@dataclass\nclass Order:\n    order_id: int\n    product: str\n    status: str = "Pending"\n    tags: list[str] = field(default_factory=list)`,
+          "command-line-script-pattern": `import sys\n\ndef main():\n    print(sys.argv)\n\nif __name__ == "__main__":\n    main()`,
+          "unpacking-spread-like": `order = ["Copper", 10]\nproduct, quantity = order\n\nitems = ["Copper", "Aluminum", "Nickel"]\nfirst, *rest = items\n\ndef calculate(price, quantity):\n    return price * quantity\n\ntotal = calculate(*[8500, 10])\n\norder = {"product": "Copper", "quantity": 10}\ncreate_order(**order)`,
+          delete: `order = {"id": 1001, "status": "Pending"}\ndel order["status"]\n\nitems = ["Copper", "Aluminum", "Nickel"]\ndel items[1]`,
+          assert: `quantity = 10\nassert quantity >= 0\n\nquantity = -10\nassert quantity >= 0, "Quantity cannot be negative"`,
+          "common-real-world-pattern": `from pathlib import Path\nimport json\nimport logging\nimport os\n\nimport requests\n\nlogging.basicConfig(level=logging.INFO)\n\ndef load_orders(status: str | None = None) -> list[dict]:\n    api_url = os.getenv("ORDER_API")\n    if not api_url:\n        raise ValueError("ORDER_API is missing")\n\n    params = {}\n    if status is not None:\n        params["status"] = status\n\n    response = requests.get(api_url, params=params, timeout=10)\n    response.raise_for_status()\n    return response.json()\n\ndef save_orders(orders: list[dict], output_file: Path) -> None:\n    output_file.parent.mkdir(parents=True, exist_ok=True)\n    output_file.write_text(\n        json.dumps(orders, indent=2, ensure_ascii=False),\n        encoding="utf-8",\n    )\n\ndef main() -> None:\n    try:\n        orders = load_orders(status="Completed")\n        save_orders(orders, Path("output/orders.json"))\n        logging.info("Saved %s orders", len(orders))\n    except requests.RequestException as error:\n        logging.error("API request failed: %s", error)\n    except Exception as error:\n        logging.exception("Unexpected error: %s", error)\n\nif __name__ == "__main__":\n    main()`,
+        };
+        const titles = [
+          "Match / Case",
+          "Walrus Operator",
+          "Async Python",
+          "Common Python Keywords",
+          "Common Special Symbols",
+          "Unpacking / Spread-like Syntax",
+          "Delete",
+          "Assert",
+          "Command-line Script Pattern",
+          "Common Real-World Pattern",
+        ];
+        const ids = Object.keys(D);
+        ids.forEach((id, index) => {
+          if (document.getElementById(id)) return;
+          const section = document.createElement("section");
+          section.id = id;
+          section.innerHTML = `<h2>${56 + index} — ${titles[index]}</h2><table><thead><tr><th>Syntax</th><th>Explanation</th><th>Sample</th></tr></thead><tbody>${D[id].map((row) => R(...row)).join("")}</tbody></table>`;
+          S.append(section);
+        });
+
+        Object.entries(X).forEach(([id, code]) => {
+          const sec = document.getElementById(id);
+          if (sec) {
+            let p = document.createElement("pre");
+            p.innerHTML = "<code></code>";
+            p.firstChild.textContent = code;
+            sec.append(p);
+          }
+        });
+        const notes = {
+          "match-case":
+            "<strong>match status</strong> checks the value; <strong>case _</strong> is the fallback. Inside a case, <code>|</code> means either value.",
+          "walrus-operator":
+            "The walrus operator calculates a value, saves it, and immediately uses it in the same expression. Keep it short and readable.",
+          "async-python":
+            "Recognition only: <code>async def</code> defines asynchronous work; <code>await</code> waits for its result.",
+          "common-special-symbols":
+            "A symbol’s meaning depends on context. <code>*</code> can mean multiplication, unpacking, a parameter separator, or <code>*args</code>; <code>**</code> can mean power, dictionary unpacking, or <code>**kwargs</code>.",
+          "unpacking-spread-like":
+            "<code>*values</code> turns a sequence into positional arguments. <code>**order</code> turns dictionary keys and values into keyword arguments.",
+          delete:
+            "<code>del</code> is language syntax; <code>.pop()</code> returns the removed value; <code>.remove()</code> removes a List value.",
+          assert:
+            "Use <code>assert</code> for development checks, tests, and assumptions that should always be true—not as general user-input validation.",
+          "command-line-script-pattern":
+            'Direct run: <code>python main.py</code> makes <code>__name__ == "__main__"</code>. When imported, <code>main()</code> does not run automatically.',
+        };
+        Object.entries(notes).forEach(([id, html]) => {
+          const note = document.createElement("p");
+          note.className = "summary-note";
+          note.innerHTML = html;
+          document.getElementById(id)?.append(note);
+        });
+        const guide = document.createElement("aside");
+        guide.className = "summary-note";
+        guide.innerHTML = `<h2>How to Use This Summary</h2><p>When reading Python code: identify unfamiliar syntax, search this Summary, read the short explanation, check the sample, then open the detailed chapter when you need more context.</p><pre><code>response = requests.get(\n    url,\n    params=params,\n    timeout=10\n)</code></pre><p><code>requests.get()</code> → GET API request · <code>params=</code> → Query Parameters · <code>timeout=</code> → Maximum waiting time</p>`;
+        S.append(guide);
+        Object.entries(D).forEach(([id, rs]) => {
+          const sec = document.getElementById(id);
+          if (sec)
+            sec.querySelector("tbody").innerHTML = rs
+              .map((x) => R(...x))
+              .join("");
+        });
+        const names = [
+          "JSON",
+          "CSV",
+          "pathlib",
+          "OS",
+          "API Requests",
+          "datetime",
+          "math",
+          "random",
+          "Regex",
+          "Collections Module",
+          "statistics",
+          "itertools",
+          "sys",
+          "time",
+          "logging",
+          "pip",
+        ];
+        names.forEach((n) => {
+          const h = [...S.querySelectorAll("h2")].find((x) =>
+            x.textContent
+              .toLowerCase()
+              .includes(
+                n.toLowerCase().replace("api requests", "api requests"),
+              ),
+          );
+          if (h)
+            h.textContent = h.textContent.replace(
+              /Json|Csv|Pathlib|Os|Api Requests|Datetime|Math|Random|Sys|Time|Logging|Pip/,
+              (m) =>
+                ({
+                  Json: "JSON",
+                  Csv: "CSV",
+                  Pathlib: "pathlib",
+                  Os: "OS",
+                  "Api Requests": "API Requests",
+                  Datetime: "datetime",
+                  Math: "math",
+                  Random: "random",
+                  Sys: "sys",
+                  Time: "time",
+                  Logging: "logging",
+                  Pip: "pip",
+                })[m] || m,
+            );
+        });
+      })();
+    </script>
+  </body>
+</html>

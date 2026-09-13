@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>11 · Modules &amp; Imports · Language &amp; Syntax</title><meta name="description" content="Modules let Python code use functions, classes, and variables defined in other files or libraries."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script></head><body id="top" class="has-site-directory standard-topic" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">PYTHON · LANGUAGE &amp; SYNTAX</div><h1>11 · Modules &amp; Imports</h1><p class="lede">Modules let Python code use functions, classes, and variables defined in other files or libraries.</p></header><nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#flow">Simple idea</a><a href="#import">import</a><a href="#module-function">module.function</a><a href="#from-import">from ... import ...</a><a href="#multiple">Import Multiple Items</a><a href="#as">as</a><a href="#aliases">Common Alias Examples</a><a href="#own-file">Import Your Own Python File</a><a href="#local-module">import Entire Local Module</a><a href="#name">__name__</a><a href="#third-party">Third-Party Packages</a><a href="#standard">Standard Library vs Third-Party Package</a><a href="#error">Import Error</a></nav><div class="detail-sections">
+<section id="flow" class="card detail-section"><h2>Simple idea</h2><div class="concept-tree">Python File
+↓
+import
+↓
+Use Code From Another Module</div></section>
+<section id="import" class="card detail-section"><h2>1. import</h2><p><code>import</code> loads a module.</p><h3>Syntax</h3><pre><code>import module_name</code></pre><h3>Example</h3><pre><code>import math</code></pre><h3>Use it</h3><pre><code>result = math.sqrt(16)
+
+print(result)</code></pre><h3>Output</h3><pre><code>4.0</code></pre></section>
+<section id="module-function" class="card detail-section"><h2>2. module.function</h2><p>After importing a module, access its functions with:</p><pre><code>module.function()</code></pre><h3>Example</h3><pre><code>import random
+
+number = random.randint(1, 10)</code></pre></section>
+<section id="from-import" class="card detail-section"><h2>3. from ... import ...</h2><p>Imports a specific item from a module.</p><h3>Syntax</h3><pre><code>from module_name import item_name</code></pre><h3>Example</h3><pre><code>from math import sqrt
+
+result = sqrt(16)</code></pre><p>Now you can use <code>sqrt()</code> directly.</p></section>
+<section id="multiple" class="card detail-section"><h2>4. Import Multiple Items</h2><pre><code>from math import sqrt, ceil, floor</code></pre><p>Then:</p><pre><code>sqrt(16)
+ceil(4.2)
+floor(4.8)</code></pre></section>
+<section id="as" class="card detail-section"><h2>5. as</h2><p><code>as</code> gives an imported module or item a shorter name.</p><pre><code>import pandas as pd</code></pre><p>Then:</p><pre><code>df = pd.DataFrame()</code></pre><p>Another example:</p><pre><code>import numpy as np</code></pre></section>
+<section id="aliases" class="card detail-section"><h2>6. Common Alias Examples</h2><pre><code>pandas      → pd
+numpy       → np
+matplotlib.pyplot → plt</code></pre><p>Aliases are not mandatory.</p></section>
+<section id="own-file" class="card detail-section"><h2>7. Import Your Own Python File</h2><pre><code>project/
+├── main.py
+└── calculator.py</code></pre><h3>calculator.py</h3><pre><code>def calculate_total(price, quantity):
+    return price * quantity</code></pre><h3>main.py</h3><pre><code>from calculator import calculate_total
+
+total = calculate_total(8500, 10)
+
+print(total)</code></pre><h3>Output</h3><pre><code>85000</code></pre></section>
+<section id="local-module" class="card detail-section"><h2>8. import Entire Local Module</h2><h3>calculator.py</h3><pre><code>def calculate_total(price, quantity):
+    return price * quantity</code></pre><h3>main.py</h3><pre><code>import calculator
+
+total = calculator.calculate_total(8500, 10)</code></pre></section>
+<section id="name" class="card detail-section"><h2>9. __name__</h2><p>Python files have a built-in variable called:</p><pre><code>__name__</code></pre><p>A common pattern is:</p><pre><code>if __name__ == "__main__":
+    main()</code></pre><h3>Example</h3><pre><code>def main():
+    print("Program started")
+
+if __name__ == "__main__":
+    main()</code></pre><p>This means: Run <code>main()</code> when this file is executed directly.</p></section>
+<section id="third-party" class="card detail-section"><h2>10. Third-Party Packages</h2><p>Some modules are not included with Python. They must be installed first.</p><pre><code>pip install requests</code></pre><p>Then:</p><pre><code>import requests</code></pre><p>Examples of third-party packages:</p><ul><li>requests</li><li>pandas</li><li>numpy</li><li>fastapi</li></ul></section>
+<section id="standard" class="card detail-section"><h2>11. Standard Library vs Third-Party Package</h2><div class="cards"><article><h3>Standard Library</h3><p>Included with Python</p><pre><code>os
+json
+datetime
+pathlib
+csv
+math</code></pre></article><article><h3>Third-party</h3><p>Installed separately</p><pre><code>requests
+pandas
+numpy
+fastapi</code></pre></article></div></section>
+<section id="error" class="card detail-section"><h2>12. Import Error</h2><pre><code>import something_missing</code></pre><p>May cause:</p><pre><code>ModuleNotFoundError</code></pre><p>Common reasons:</p><ul><li>package is not installed</li><li>wrong Python environment</li><li>wrong module name</li><li>wrong project path</li></ul></section>
+</div><nav class="prevnext" aria-label="Topic navigation"><a href="indexing-slicing.html">← <small>Back</small><br>09 · Indexing &amp; Slicing</a><a href="files.html"><small>Next</small> →<br>12 · Files</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

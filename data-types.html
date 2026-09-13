@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 · Data Types · Python</title>
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic" data-knowledge-type="software">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero"><div class="eyebrow">PYTHON LANGUAGE &amp; SYNTAX · BATCH 1</div><h1>02 · Data Types</h1><p class="lede">A data type tells Python what kind of value is being stored.</p></header>
+    <nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#summary">Summary</a><a href="#int">int</a><a href="#float">float</a><a href="#str">str</a><a href="#bool">bool</a><a href="#none">None</a><a href="#type">type()</a><a href="#conversion">Type Conversion</a></nav>
+    <div class="detail-sections">
+      <section id="summary" class="card wide detail-section"><h2>Data Types</h2><pre class="concept-tree">int     → whole number
+float   → decimal number
+str     → text
+bool    → True / False
+None    → no value</pre></section>
+      <section id="int" class="card wide detail-section"><div class="eyebrow">01</div><h2>int</h2><p><code>int</code> stores whole numbers without decimals.</p><p>Common scenarios:</p><div class="chips"><span>quantity</span><span>age</span><span>year</span><span>page number</span><span>count</span><span>ID when stored as a number</span></div><pre><code>count = 99
+age = 20
+page = 5
+quantity = 100</code></pre></section>
+      <section id="float" class="card wide detail-section"><div class="eyebrow">02</div><h2>float</h2><p><code>float</code> stores numbers with decimals.</p><p>Common scenarios:</p><div class="chips"><span>price</span><span>weight</span><span>exchange rate</span><span>percentage</span></div><pre><code>price = 8500.50
+weight = 12.75
+rate = 7.18</code></pre></section>
+      <section id="str" class="card wide detail-section"><div class="eyebrow">03</div><h2>str</h2><p><code>str</code> stores text. Text is usually written inside quotes.</p><pre><code>customer = "Apple"
+product = "Copper"
+status = "Pending"
+
+customer = 'Apple'</code></pre><p>Single quotes also work.</p></section>
+      <section id="bool" class="card wide detail-section"><div class="eyebrow">04</div><h2>bool</h2><p><code>bool</code> stores only two values:</p><pre><code>True
+False</code></pre><p>Common scenarios:</p><div class="chips"><span>enabled / disabled</span><span>completed / not completed</span><span>approved / rejected</span></div><pre><code>is_active = True
+is_completed = False</code></pre></section>
+      <section id="none" class="card wide detail-section"><div class="eyebrow">05</div><h2>None</h2><p><code>None</code> means there is currently no value.</p><pre><code>delivery_date = None</code></pre><p>Common scenario: A value has not been assigned yet.</p></section>
+      <section id="type" class="card wide detail-section"><div class="eyebrow">06</div><h2>type()</h2><p><code>type()</code> checks the data type of a value.</p><pre><code>price = 8500
+print(type(price))</code></pre><p>Output:</p><pre><code>&lt;class 'int'&gt;</code></pre><pre><code>customer = "Apple"
+print(type(customer))</code></pre><p>Output:</p><pre><code>&lt;class 'str'&gt;</code></pre></section>
+      <section id="conversion" class="card wide detail-section"><div class="eyebrow">07–11</div><h2>Type Conversion</h2><h3>int()</h3><p><code>int()</code> converts a compatible value into an integer.</p><pre><code>quantity = "10"
+quantity = int(quantity)</code></pre><p>Before: <code>"10"</code> is text. After: <code>10</code> is an integer.</p><h3>float()</h3><pre><code>price = "8500.50"
+price = float(price)</code></pre><p>Converts text into a decimal number.</p><h3>str()</h3><pre><code>order_id = 1001
+text = str(order_id)</code></pre><p>Converts a value into text.</p><h3>bool()</h3><pre><code>is_active = bool(1)</code></pre><p>Result: <code>True</code></p><h3>Type Conversion Example</h3><pre><code>price = "8500"
+quantity = "10"
+
+total = int(price) * int(quantity)
+
+print(total)</code></pre><p>Output:</p><pre><code>85000</code></pre><p>The values originally arrive as strings. <code>int()</code> converts them into numbers before calculation.</p></section>
+    </div>
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  </main>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10 · Comprehensions · Python</title>
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic" data-knowledge-type="syntax">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero"><div class="eyebrow">PYTHON LANGUAGE &amp; SYNTAX · BATCH 3</div><h1>10 · Comprehensions</h1><p class="lede">Comprehensions provide a short way to create collections from existing data.</p></header>
+    <nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#comparison">Comparison</a><a href="#list">List Comprehension</a><a href="#transform">Transform Values</a><a href="#filter">Filter with if</a><a href="#transform-filter">Transform + Filter</a><a href="#if-else">if / else in Comprehension</a><a href="#dictionary">Dictionary Comprehension</a><a href="#dictionary-filter">Dictionary Comprehension from Dictionary</a><a href="#set">Set Comprehension</a><a href="#nested">Nested Comprehension</a><a href="#when">When to Use Comprehensions</a></nav>
+    <div class="detail-sections">
+      <section id="comparison" class="card wide detail-section"><h2>Most commonly used</h2><div class="chips"><span>list comprehension</span><span>dictionary comprehension</span><span>set comprehension</span></div><h3>Normal loop</h3><pre><code>products = ["Copper", "Aluminum", "Nickel"]
+upper_products = []
+
+for product in products:
+    upper_products.append(product.upper())</code></pre><h3>List comprehension</h3><pre><code>upper_products = [product.upper() for product in products]</code></pre><p>Both create:</p><pre><code>["COPPER", "ALUMINUM", "NICKEL"]</code></pre></section>
+      <section id="list" class="card wide detail-section"><div class="eyebrow">01</div><h2>List Comprehension</h2><p>A list comprehension creates a new list from another iterable.</p><p>Basic syntax:</p><pre><code>[new_value for item in collection]</code></pre><p>Example:</p><pre><code>numbers = [1, 2, 3, 4]
+
+doubled = [number * 2 for number in numbers]</code></pre><p>Result:</p><pre><code>[2, 4, 6, 8]</code></pre></section>
+      <section id="transform" class="card wide detail-section"><div class="eyebrow">02</div><h2>Transform Values</h2><pre><code>products = ["Copper", "Aluminum", "Nickel"]
+
+upper_products = [
+    product.upper()
+    for product in products
+]</code></pre><p>Result:</p><pre><code>["COPPER", "ALUMINUM", "NICKEL"]</code></pre><p>Each product is converted to uppercase.</p></section>
+      <section id="filter" class="card wide detail-section"><div class="eyebrow">03</div><h2>Filter with if</h2><p>A comprehension can keep only items that match a condition.</p><p>Syntax:</p><pre><code>[item for item in collection if condition]</code></pre><p>Example:</p><pre><code>quantities = [5, 10, 20, 3, 50]
+
+large_orders = [
+    quantity
+    for quantity in quantities
+    if quantity &gt;= 10
+]</code></pre><p>Result:</p><pre><code>[10, 20, 50]</code></pre></section>
+      <section id="transform-filter" class="card wide detail-section"><div class="eyebrow">04</div><h2>Transform + Filter</h2><pre><code>products = [
+    "Copper",
+    "Aluminum",
+    "Nickel",
+    "Copper"
+]
+
+result = [
+    product.upper()
+    for product in products
+    if product != "Nickel"
+]</code></pre><p>Result:</p><pre><code>["COPPER", "ALUMINUM", "COPPER"]</code></pre></section>
+      <section id="if-else" class="card wide detail-section"><div class="eyebrow">05</div><h2>if / else in Comprehension</h2><p>A conditional expression can choose different output values.</p><p>Syntax:</p><pre><code>[value_if_true if condition else value_if_false
+ for item in collection]</code></pre><p>Example:</p><pre><code>quantities = [5, 20, 8, 50]
+
+sizes = [
+    "Large" if quantity &gt;= 10 else "Small"
+    for quantity in quantities
+]</code></pre><p>Result:</p><pre><code>["Small", "Large", "Small", "Large"]</code></pre></section>
+      <section id="dictionary" class="card wide detail-section"><div class="eyebrow">06</div><h2>Dictionary Comprehension</h2><p>Creates a dictionary using key-value pairs.</p><p>Syntax:</p><pre><code>{key: value for item in collection}</code></pre><p>Example:</p><pre><code>products = ["Copper", "Aluminum", "Nickel"]
+
+product_lengths = {
+    product: len(product)
+    for product in products
+}</code></pre><p>Result:</p><pre><code>{
+    "Copper": 6,
+    "Aluminum": 8,
+    "Nickel": 6
+}</code></pre></section>
+      <section id="dictionary-filter" class="card wide detail-section"><div class="eyebrow">07</div><h2>Dictionary Comprehension from Dictionary</h2><pre><code>prices = {
+    "Copper": 8500,
+    "Aluminum": 2300,
+    "Nickel": 16000
+}
+
+high_prices = {
+    product: price
+    for product, price in prices.items()
+    if price &gt; 8000
+}</code></pre><p>Result:</p><pre><code>{
+    "Copper": 8500,
+    "Nickel": 16000
+}</code></pre></section>
+      <section id="set" class="card wide detail-section"><div class="eyebrow">08</div><h2>Set Comprehension</h2><p>Creates a set, automatically keeping unique values.</p><pre><code>products = [
+    "Copper",
+    "Aluminum",
+    "Copper",
+    "Nickel"
+]
+
+unique_products = {
+    product
+    for product in products
+}</code></pre><p>Result:</p><pre><code>{"Copper", "Aluminum", "Nickel"}</code></pre></section>
+      <section id="nested" class="card wide detail-section"><div class="eyebrow">09</div><h2>Nested Comprehension</h2><pre><code>matrix = [
+    [1, 2],
+    [3, 4]
+]
+
+numbers = [
+    number
+    for row in matrix
+    for number in row
+]</code></pre><p>Result:</p><pre><code>[1, 2, 3, 4]</code></pre><p>The comprehension reads values from nested lists.</p></section>
+      <section id="when" class="card wide detail-section"><div class="eyebrow">10</div><h2>When to Use Comprehensions</h2><p>Use comprehensions when:</p><div class="chips"><span>the operation is simple</span><span>the result is easy to understand</span><span>you are creating a new collection</span></div><p>Prefer a normal loop when:</p><div class="chips"><span>there are many steps</span><span>there are many conditions</span><span>readability becomes worse</span></div><p>Example:</p><pre><code>prices = [price * 1.1 for price in prices]</code></pre><p>Less readable:</p><p>Do not create long, complex comprehensions with many nested conditions.</p></section>
+    </div>
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  </main>
+</body>
+</html>

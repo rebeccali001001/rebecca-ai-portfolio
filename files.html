@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>12 · Files · Language &amp; Syntax</title><meta name="description" content="Read, write, and work with files in Python."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script><style>.python-files .on-page{position:sticky;top:18px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;margin:0 0 24px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.94)}.python-files .on-page strong{width:100%;font-size:12px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}.python-files .on-page a{font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid #29415a;border-radius:999px}.python-files pre{overflow:auto;margin:0;padding:16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}.python-files .syntax-block{margin:16px 0 20px}.python-files .output{border-left:3px solid var(--green);padding-left:14px;color:var(--muted)}.python-files .topic-section ul{color:var(--muted)}@media(max-width:760px){.python-files .on-page{position:static}.python-files .topic-section{padding:21px}}</style></head><body id="top" class="has-site-directory standard-topic python-files" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">LANGUAGE &amp; SYNTAX · PYTHON</div><h1>12 · Files</h1><p class="lede">Read, write, and work with files in Python.</p></header><p>Python can read and write files.</p><p>Common uses:</p><ul><li>read text files</li><li>save results</li><li>process logs</li><li>read configuration</li><li>export data</li></ul><nav class="on-page" aria-label="On This Page"><strong>On This Page</strong><a href="#open">open()</a><a href="#read-file">Read a File</a><a href="#with-open">with open()</a><a href="#read">read()</a><a href="#readline">readline()</a><a href="#readlines">readlines()</a><a href="#loop">Loop Through a File</a><a href="#write">Write a File</a><a href="#multiple-lines">Write Multiple Lines</a><a href="#append">Append</a><a href="#encoding">Encoding</a><a href="#relative-path">Relative Path</a><a href="#absolute-path">Absolute Path</a><a href="#exists">Check File Exists</a><a href="#practical">Practical Example</a></nav><div class="detail-sections"><section id="open" class="card wide topic-section"><div class="eyebrow">01</div><h2>open()</h2><p><code>open()</code> opens a file.</p><h3>Syntax</h3><pre><code>open(file_path, mode)</code></pre><h3>Common modes</h3><pre><code>r → read
+w → write
+a → append</code></pre></section><section id="read-file" class="card wide topic-section"><div class="eyebrow">02</div><h2>Read a File</h2><h3>Example</h3><pre><code>file = open("orders.txt", "r")
+
+content = file.read()
+
+print(content)
+
+file.close()</code></pre><p>The file is opened, read, and then closed.</p></section><section id="with-open" class="card wide topic-section"><div class="eyebrow">03</div><h2>with open()</h2><p><code>with open()</code> is the recommended pattern because Python closes the file automatically.</p><h3>Example</h3><pre><code>with open("orders.txt", "r") as file:
+    content = file.read()</code></pre></section><section id="read" class="card wide topic-section"><div class="eyebrow">04</div><h2>read()</h2><p>Reads the entire file.</p><h3>Example</h3><pre><code>with open("orders.txt", "r") as file:
+    content = file.read()
+
+print(content)</code></pre></section><section id="readline" class="card wide topic-section"><div class="eyebrow">05</div><h2>readline()</h2><p>Reads one line from a file.</p><h3>Example</h3><pre><code>with open("orders.txt", "r") as file:
+    first_line = file.readline()</code></pre></section><section id="readlines" class="card wide topic-section"><div class="eyebrow">06</div><h2>readlines()</h2><p>Reads all lines into a list.</p><h3>Example</h3><pre><code>with open("orders.txt", "r") as file:
+    lines = file.readlines()</code></pre><h3>Possible result</h3><pre><code>[
+    "Order 1001\n",
+    "Order 1002\n",
+    "Order 1003\n"
+]</code></pre></section><section id="loop" class="card wide topic-section"><div class="eyebrow">07</div><h2>Loop Through a File</h2><h3>Example</h3><pre><code>with open("orders.txt", "r") as file:
+    for line in file:
+        print(line.strip())</code></pre><p>Reads the file one line at a time.</p></section><section id="write" class="card wide topic-section"><div class="eyebrow">08</div><h2>Write a File</h2><p>Use mode:</p><pre><code>w</code></pre><h3>Example</h3><pre><code>with open("result.txt", "w") as file:
+    file.write("Completed")</code></pre><p><strong>Important:</strong> <code>w</code> replaces existing content.</p></section><section id="multiple-lines" class="card wide topic-section"><div class="eyebrow">09</div><h2>Write Multiple Lines</h2><h3>Example</h3><pre><code>with open("result.txt", "w") as file:
+    file.write("Order 1001\n")
+    file.write("Order 1002\n")</code></pre><h3>Result</h3><pre><code>Order 1001
+Order 1002</code></pre></section><section id="append" class="card wide topic-section"><div class="eyebrow">10</div><h2>Append</h2><p>Use mode:</p><pre><code>a</code></pre><h3>Example</h3><pre><code>with open("log.txt", "a") as file:
+    file.write("New order created\n")</code></pre><p>Append adds content to the end of the file.</p></section><section id="encoding" class="card wide topic-section"><div class="eyebrow">11</div><h2>File Encoding</h2><h3>Recommended example</h3><pre><code>with open(
+    "orders.txt",
+    "r",
+    encoding="utf-8"
+) as file:
+    content = file.read()</code></pre><p>UTF-8 helps Python correctly read many languages and characters.</p></section><section id="relative-path" class="card wide topic-section"><div class="eyebrow">12</div><h2>Relative Path</h2><h3>Example</h3><pre><code>"orders.txt"</code></pre><h3>Another example</h3><pre><code>"data/orders.txt"</code></pre><p>A relative path is based on the current working directory.</p></section><section id="absolute-path" class="card wide topic-section"><div class="eyebrow">13</div><h2>Absolute Path</h2><h3>macOS example</h3><pre><code>/Users/rebecca/project/data/orders.txt</code></pre><h3>Windows example</h3><pre><code>C:\Users\Rebecca\project\data\orders.txt</code></pre></section><section id="exists" class="card wide topic-section"><div class="eyebrow">14</div><h2>Check File Exists</h2><h3>Example</h3><pre><code>from pathlib import Path
+
+file_path = Path("orders.txt")
+
+if file_path.exists():
+    print("File exists")</code></pre></section><section id="practical" class="card wide topic-section"><div class="eyebrow">15</div><h2>Practical Example</h2><h3>orders.txt:</h3><pre><code>1001,Copper,10
+1002,Aluminum,20
+1003,Nickel,5</code></pre><h3>Python:</h3><pre><code>with open("orders.txt", "r") as file:
+    for line in file:
+        order_id, product, quantity = line.strip().split(",")
+
+        print(order_id, product, quantity)</code></pre><h3>Output:</h3><pre><code>1001 Copper 10
+1002 Aluminum 20
+1003 Nickel 5</code></pre><p>Each line is:</p><ol><li>read</li><li>cleaned with <code>strip()</code></li><li>split by comma</li><li>assigned to variables</li></ol></section></div></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

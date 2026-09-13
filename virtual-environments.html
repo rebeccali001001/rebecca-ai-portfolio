@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>19 · Virtual Environments &amp; pip · Language &amp; Syntax</title><meta name="description" content="Understand Python packages, pip, and isolated project environments."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script><style>.virtual-environments .on-page{position:sticky;top:18px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;margin:0 0 24px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.94)}.virtual-environments .on-page strong{width:100%;font-size:12px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}.virtual-environments .on-page a{font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid #29415a;border-radius:999px}.virtual-environments pre{overflow:auto;margin:0;padding:16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}.virtual-environments .topic-section{margin-bottom:20px}.virtual-environments .topic-section ul{color:var(--muted)}@media(max-width:760px){.virtual-environments .on-page{position:static}.virtual-environments .topic-section{padding:21px}}</style></head><body id="top" class="has-site-directory standard-topic virtual-environments" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">LANGUAGE &amp; SYNTAX · PYTHON</div><h1>19 · Virtual Environments &amp; pip</h1><p class="lede">Understand Python packages, pip, and isolated project environments.</p></header><nav class="on-page" aria-label="On This Page"><strong>On This Page</strong><a href="#package">Package</a><a href="#pip">pip</a><a href="#requirements">requirements.txt</a><a href="#venv">Virtual Environment</a><a href="#create">Create venv</a><a href="#activate">Activate</a><a href="#interpreter">Which Python?</a><a href="#error">ModuleNotFoundError</a><a href="#structure">Project Structure</a></nav><div class="detail-sections">
+<section id="package" class="card wide topic-section"><div class="eyebrow">01</div><h2>Package</h2><p>A package is reusable Python code that can be installed and imported.</p><pre><code>requests
+pandas
+numpy
+fastapi
+openpyxl</code></pre></section>
+<section id="pip" class="card wide topic-section"><div class="eyebrow">02–09</div><h2>pip</h2><p><code>pip</code> installs Python packages.</p><pre><code>pip install requests
+python -m pip install requests
+pip list
+pip show requests
+pip uninstall requests
+pip install requests==2.32.0</code></pre><p><code>python -m pip</code> tells the currently selected Python interpreter to run pip. This helps reduce confusion when multiple Python installations exist.</p><h3>Possible output</h3><pre><code>Package     Version
+requests    2.x.x
+pandas      2.x.x</code></pre><p><code>==</code> means install exactly this version.</p></section>
+<section id="requirements" class="card wide topic-section"><div class="eyebrow">10–11</div><h2>requirements.txt</h2><p><code>requirements.txt</code> stores packages needed by a project.</p><pre><code>requests==2.32.0
+pandas==2.2.0
+openpyxl==3.1.0
+
+pip install -r requirements.txt
+pip freeze
+pip freeze &gt; requirements.txt</code></pre><p><code>pip freeze</code> shows installed packages in requirements format.</p></section>
+<section id="venv" class="card wide topic-section"><div class="eyebrow">12–13</div><h2>Virtual Environment</h2><p>A virtual environment creates an isolated Python environment for one project.</p><pre><code>Project A
+↓
+its own Python packages
+
+Project B
+↓
+its own Python packages</code></pre><p>The projects do not have to use the same package versions.</p><h3>Why Use a Virtual Environment</h3><ul><li>keep project dependencies separate</li><li>avoid package conflicts</li><li>make projects easier to reproduce</li><li>avoid changing global Python packages</li></ul></section>
+<section id="create" class="card wide topic-section"><div class="eyebrow">14</div><h2>Create venv</h2><pre><code>python -m venv .venv</code></pre><p>Creates a virtual environment folder named <code>.venv</code>.</p></section>
+<section id="activate" class="card wide topic-section"><div class="eyebrow">15–18</div><h2>Activate and Deactivate</h2><h3>macOS / Linux</h3><pre><code>source .venv/bin/activate</code></pre><p>After activation, the terminal may show:</p><pre><code>(.venv)</code></pre><h3>Windows PowerShell</h3><pre><code>.venv\Scripts\Activate.ps1</code></pre><h3>Windows cmd</h3><pre><code>.venv\Scripts\activate</code></pre><p>Activation command depends on the shell.</p><h3>Deactivate</h3><pre><code>deactivate</code></pre><p>Leaves the current virtual environment.</p></section>
+<section id="interpreter" class="card wide topic-section"><div class="eyebrow">19</div><h2>Which Python Is Running?</h2><pre><code>which python</code></pre><pre><code>where python</code></pre><pre><code>import sys
+print(sys.executable)</code></pre><p>This shows which Python interpreter is currently running.</p></section>
+<section id="error" class="card wide topic-section"><div class="eyebrow">20</div><h2>ModuleNotFoundError</h2><pre><code>ModuleNotFoundError:
+No module named 'requests'</code></pre><h3>Common reasons</h3><ul><li>package is not installed</li><li>package was installed in another virtual environment</li><li>wrong Python interpreter is running</li><li>wrong environment is activated</li></ul><h3>Simple check</h3><pre><code>python -m pip show requests</code></pre></section>
+<section id="structure" class="card wide topic-section"><div class="eyebrow">21</div><h2>Typical Project Structure</h2><pre><code>my-project/
+├── .venv/
+├── main.py
+└── requirements.txt</code></pre></section></div><nav class="prevnext" aria-label="Topic navigation"><a href="paths-os.html">← <small>Previous</small><br>18 · Paths &amp; OS</a><a href="useful-standard-libraries.html"><small>Next</small> →<br>20 · Useful Standard Libraries</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Web Overview · Language &amp; Syntax</title><meta name="description" content="Understand how HTML, CSS, and JavaScript work together in a browser."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sidebar.js?v=20260913-syntax-2"></script><style>
+.web-overview-page .web-layout{display:grid;grid-template-columns:minmax(0,860px) 220px;gap:26px;align-items:start;margin-top:34px}.web-overview-page .on-page{position:sticky;top:96px}.web-overview-page .on-page b{display:block;margin-bottom:10px}.web-overview-page .on-page a{display:block;border:0;border-left:2px solid transparent;border-radius:0;padding:5px 8px}.web-overview-page .on-page a:hover{border-left-color:var(--green)}.web-overview-page section{margin-top:32px}.web-overview-page pre{margin:14px 0 0;padding:17px;overflow:auto;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#f7fafc;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.web-overview-page code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.web-overview-page .flow{display:grid;gap:8px;max-width:360px;margin:18px 0}.web-overview-page .flow span{padding:11px 14px;border:1px solid #38516d;border-radius:12px;background:#07111a;text-align:center;color:#fff}.web-overview-page .flow b{text-align:center;color:var(--green);font-size:20px;line-height:1}.web-overview-page .model{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.web-overview-page .model div{border-top:2px solid var(--green);padding-top:10px}@media(max-width:900px){.web-overview-page .web-layout{grid-template-columns:1fr}.web-overview-page .on-page{position:relative;top:auto;order:-1}.web-overview-page .on-page a{display:inline-block;border-left:0;border-bottom:2px solid transparent}.web-overview-page .model{grid-template-columns:1fr}}
+</style></head><body id="top" class="topic-page standard-topic has-site-directory web-overview-page" data-knowledge-type="syntax" data-page-title="Overview"><nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Site directory"></aside><main class="detail-page"><div class="wrap"><a class="back" href="syntax-overview.html">← Language &amp; Syntax</a><div class="eyebrow">WEB · LANGUAGE &amp; SYNTAX</div><h1>Web Overview</h1><p class="lede">Understand how HTML, CSS, and JavaScript work together in a browser.</p><div class="web-layout"><div>
+<section id="languages"><h2>1. The Three Core Web Languages</h2><div class="model"><div><h3>HTML</h3><p>Structure and content.</p><pre><code>&lt;h1&gt;Order Details&lt;/h1&gt;</code></pre></div><div><h3>CSS</h3><p>Visual appearance and layout.</p><pre><code>h1 {
+    color: white;
+}</code></pre></div><div><h3>JavaScript</h3><p>Behavior and interaction.</p><pre><code>button.addEventListener(
+    "click",
+    saveOrder
+);</code></pre></div></div></section>
+<section id="mental-model"><h2>2. Simple Mental Model</h2><div class="flow"><span>HTML — What exists on the page</span><span>CSS — What it looks like</span><span>JavaScript — What happens</span></div></section>
+<section id="browser-flow"><h2>3. Browser Flow</h2><div class="flow"><span>URL</span><b>↓</b><span>Browser</span><b>↓</b><span>HTML</span><b>↓</b><span>Build DOM</span><b>↓</b><span>CSS</span><b>↓</b><span>Apply Styles</span><b>↓</b><span>JavaScript</span><b>↓</b><span>Add Behavior</span><b>↓</b><span>Web Page</span></div></section>
+<section id="example"><h2>4. Example Page</h2><h3>HTML:</h3><pre><code>&lt;button id="save"&gt;
+    Save Order
+&lt;/button&gt;</code></pre><h3>CSS:</h3><pre><code>#save {
+    padding: 10px 16px;
+}</code></pre><h3>JavaScript:</h3><pre><code>const button =
+    document.querySelector("#save");
+
+button.addEventListener(
+    "click",
+    () =&gt; {
+        alert("Saved");
+    }
+);</code></pre><p>HTML → creates the button</p><p>CSS → styles the button</p><p>JavaScript → reacts when the button is clicked</p></section>
+<section id="dom"><h2>5. HTML → DOM</h2><pre><code>&lt;body&gt;
+    &lt;h1&gt;Orders&lt;/h1&gt;
+    &lt;button&gt;Save&lt;/button&gt;
+&lt;/body&gt;</code></pre><pre><code>Document
+└── body
+    ├── h1
+    └── button</code></pre><p>This browser representation is called the DOM. JavaScript can read and change the DOM.</p></section>
+<section id="changes"><h2>6. JavaScript Changes HTML</h2><pre><code>&lt;p id="status"&gt;
+    Pending
+&lt;/p&gt;</code></pre><pre><code>const status =
+    document.querySelector("#status");
+
+status.textContent = "Completed";</code></pre><p>Pending becomes: Completed</p></section>
+<section id="backend"><h2>7. Frontend → Backend</h2><div class="flow"><span>User</span><b>↓</b><span>Browser</span><b>↓</b><span>HTML / CSS / JavaScript</span><b>↓</b><span>HTTP Request</span><b>↓</b><span>Backend API</span><b>↓</b><span>Database</span></div><p>Response: Database → Backend → JSON → JavaScript → Browser UI</p></section>
+<section id="system"><h2>8. Real System Example</h2><div class="flow"><span>User clicks Save</span><b>↓</b><span>HTML Button</span><b>↓</b><span>JavaScript click event</span><b>↓</b><span>POST /api/knowledge</span><b>↓</b><span>Python Backend</span><b>↓</b><span>SQL INSERT</span><b>↓</b><span>PostgreSQL</span><b>↓</b><span>JSON Response</span><b>↓</b><span>JavaScript</span><b>↓</b><span>“Saved” shown on page</span></div></section>
+<section id="files"><h2>9. Files in a Simple Website</h2><pre><code>project/
+├── index.html
+├── style.css
+└── app.js</code></pre><pre><code>&lt;link
+    rel="stylesheet"
+    href="style.css"
+&gt;
+
+&lt;script
+    src="app.js"
+&gt;&lt;/script&gt;</code></pre><p>HTML references CSS and JavaScript files.</p></section>
+<section id="next"><h2>10. What to Learn Next</h2><div class="flow"><span>HTML → Learn structure</span><b>↓</b><span>CSS → Learn styling &amp; layout</span><b>↓</b><span>JavaScript → Learn behavior &amp; interaction</span><b>↓</b><span>HTTP / API → Backend → Database</span></div></section><script>const s=[...document.querySelectorAll('.web-overview-page section')],a=[...document.querySelectorAll('.on-page a')];s.forEach(x=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)a.forEach(y=>y.classList.toggle('active',y.hash===`#${e.target.id}`))}),{rootMargin:'-20% 0px -65% 0px'}).observe(x));</script>
+</div><nav class="on-page" aria-label="On This Page"><b>On This Page</b><a href="#languages">Three Core Languages</a><a href="#mental-model">Mental Model</a><a href="#browser-flow">Browser Flow</a><a href="#example">Example Page</a><a href="#dom">HTML → DOM</a><a href="#changes">JavaScript Changes HTML</a><a href="#backend">Frontend → Backend</a><a href="#system">Real System Example</a><a href="#files">Website Files</a><a href="#next">What to Learn Next</a></nav></div></div></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

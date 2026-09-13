@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>08 · Strings · Python · Software Knowledge</title>
+  <meta name="description" content="Strings are text values in Python.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <link rel="stylesheet" href="module04-topic.css">
+  <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic module04-topic topic-page" data-knowledge-type="software" data-module04-topic="Strings">
+  <nav><div class="wrap"><a class="brand" href="software-knowledge.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Software Knowledge site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="python.html">← Python</a>
+    <header class="hero">
+      <div class="eyebrow">PYTHON LANGUAGE &amp; SYNTAX · BATCH 2</div>
+      <h1>08 · Strings</h1>
+      <p class="lede">Strings are text values in Python.</p>
+    </header>
+    <nav class="on-page" aria-label="On This Page">
+      <b>On This Page</b>
+      <a href="#create">Create</a><a href="#multiline">Multiline</a><a href="#concatenation">Concatenation</a><a href="#f-string">f-string</a><a href="#methods">Methods</a><a href="#search">Search</a><a href="#comparison">Comparison</a><a href="#escape">Escape Characters</a>
+    </nav>
+    <div class="detail-sections">
+      <section class="detail-section topic-example" id="create"><h2>Create a String</h2><pre><code>customer = "Apple"
+product = "Copper"
+status = "Pending"
+
+name = "Rebecca"</code></pre><p>Single quotes also work:</p><pre><code>name = 'Rebecca'</code></pre></section>
+      <section class="detail-section" id="multiline"><h2>Multiline String</h2><pre><code>message = """
+Order created.
+Waiting for approval.
+"""</code></pre><p>Triple quotes can store text across multiple lines.</p></section>
+      <section class="detail-section" id="concatenation"><h2>String Concatenation</h2><p>Use <code>+</code> to combine strings.</p><pre><code>first_name = "Rebecca"
+last_name = "Li"
+
+full_name = first_name + " " + last_name</code></pre><p>Result:</p><pre><code>Rebecca Li</code></pre></section>
+      <section class="detail-section" id="f-string"><h2>f-string</h2><p>f-strings insert variables directly into text.</p><pre><code>customer = "Apple"
+product = "Copper"
+
+message = f"{customer} ordered {product}"</code></pre><p>Result:</p><pre><code>Apple ordered Copper</code></pre><p>This is usually easier to read than string concatenation.</p></section>
+      <section class="detail-section" id="methods"><h2>String Methods</h2><div class="examples">
+        <div><h3>len()</h3><p>Returns the number of characters in a string.</p><pre><code>product = "Copper"
+print(len(product))</code></pre><p>Output: <code>6</code></p></div>
+        <div><h3>lower()</h3><pre><code>status = "PENDING"
+status = status.lower()</code></pre><p>Result: <code>pending</code></p></div>
+        <div><h3>upper()</h3><pre><code>product = "copper"
+product = product.upper()</code></pre><p>Result: <code>COPPER</code></p></div>
+        <div><h3>title()</h3><pre><code>name = "rebecca li"
+name = name.title()</code></pre><p>Result: <code>Rebecca Li</code></p></div>
+        <div><h3>strip()</h3><p>Removes spaces from the beginning and end of text.</p><pre><code>name = "  Rebecca  "
+name = name.strip()</code></pre><p>Result: <code>Rebecca</code></p></div>
+        <div><h3>replace()</h3><p>Replaces part of a string.</p><pre><code>status = "Pending Approval"
+status = status.replace("Pending", "Waiting")</code></pre><p>Result: <code>Waiting Approval</code></p></div>
+        <div><h3>split()</h3><p>Splits a string into a list.</p><pre><code>products = "Copper,Aluminum,Nickel"
+items = products.split(",")</code></pre><p>Result: <code>["Copper", "Aluminum", "Nickel"]</code></p></div>
+        <div><h3>join()</h3><p>Combines list items into one string.</p><pre><code>products = ["Copper", "Aluminum", "Nickel"]
+text = ", ".join(products)</code></pre><p>Result: <code>Copper, Aluminum, Nickel</code></p></div>
+      </div></section>
+      <section class="detail-section" id="search"><h2>String Search</h2><div class="examples">
+        <div><h3>startswith()</h3><pre><code>order_id = "ORD-1001"
+order_id.startswith("ORD-")</code></pre><p>Result: <code>True</code></p></div>
+        <div><h3>endswith()</h3><pre><code>filename = "orders.csv"
+filename.endswith(".csv")</code></pre><p>Result: <code>True</code></p></div>
+        <div><h3>find()</h3><p>Finds the position of text.</p><pre><code>text = "Copper order"
+text.find("order")</code></pre><p>Result: <code>7</code></p><p>If the text is not found: <code>-1</code></p></div>
+        <div><h3>in with Strings</h3><pre><code>message = "Order completed"
+"completed" in message</code></pre><p>Result: <code>True</code></p></div>
+      </div></section>
+      <section class="detail-section" id="comparison"><h2>String Comparison</h2><pre><code>status = "Completed"
+
+if status == "Completed":
+    print("Done")</code></pre></section>
+      <section class="detail-section" id="escape"><h2>Escape Characters</h2><pre><code>message = "Customer said: \"Approved\""</code></pre><p>Common escape sequences:</p><pre><code>\n   new line
+\t   tab
+\"   double quote
+\'   single quote
+\\   backslash</code></pre></section>
+    </div>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>
