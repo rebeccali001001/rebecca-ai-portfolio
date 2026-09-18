@@ -524,7 +524,9 @@
         const sqlModule = moduleName === 'SQL' ? sqlStructure.find((module) => `${module.id} · ${module.title}` === label) : null;
         const page = moduleName === 'JavaScript' ? javascriptPages[label] : moduleName === 'CSS' ? cssPages[label] : moduleName === 'SQL' ? (label === 'Summary' ? 'sql-summary.html' : sqlModule?.page || `sql-summary.html#${sqlAnchors[label] || '01-basic-query'}`) : syntaxPages[label];
         const pagePath = page.split('#')[0];
-        return `<li><a href="${page}" class="${pathname.endsWith(`/${pagePath}`) ? 'active' : ''}">${label}</a></li>`;
+        const cleanPagePath = pagePath.replace(/\.html$/, '');
+        const isCurrentPage = pathname.endsWith(`/${pagePath}`) || pathname.endsWith(`/${cleanPagePath}`);
+        return `<li><a href="${page}" class="${isCurrentPage ? 'active' : ''}">${label}</a></li>`;
       }
       const moduleId = (moduleName.match(/^\d+/) || [])[0];
       const withModuleContext = (value) => {
