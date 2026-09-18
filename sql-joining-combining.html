@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>04 · Joining &amp; Combining Data · Language &amp; Syntax</title>
+  <meta name="description" content="Learn how SQL combines related tables and combines the results of multiple queries.">
+  <link rel="stylesheet" href="topic.css">
+  <link rel="stylesheet" href="site-directory.css">
+  <style>
+    .sql-joining-combining .on-page{position:sticky;top:18px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;margin:0 0 24px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.94)}
+    .sql-joining-combining .on-page strong{width:100%;font-size:12px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}
+    .sql-joining-combining .on-page a{font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid #29415a;border-radius:999px}
+    .syntax-card{margin-top:30px;padding-top:26px;border-top:1px solid rgba(255,255,255,.12)}
+    .syntax-card:first-of-type{margin-top:24px}
+    .syntax-title{margin:0 0 16px;color:#fff;font-size:clamp(28px,4vw,42px);line-height:1.05;letter-spacing:-.025em;font-weight:900}
+    .syntax-title code{font:inherit;color:var(--green)}
+    .syntax-card h4{margin:22px 0 8px;color:var(--green);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+    .syntax-card pre{overflow:auto;margin:0;padding:16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .syntax-card p{max-width:850px}
+    .syntax-card .key-point,.syntax-card .meaning{border-left:3px solid var(--green);padding-left:14px;color:var(--muted)}
+    .syntax-card .note{border-left:3px solid #e6ad5c;padding:13px 15px;background:rgba(230,173,92,.08);color:#ffe0a6}
+    .sample-table{width:100%;min-width:440px;border-collapse:collapse;margin:10px 0 4px;font-size:13px}
+    .table-wrap{max-width:100%;overflow-x:auto}
+    .sample-table th,.sample-table td{padding:9px 11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}
+    .sample-table th{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .sample-table td{color:var(--muted)}
+    .sample-table caption{text-align:left;padding:0 0 7px;color:#fff;font-weight:800}
+    .sql-joining-combining .topic-section>h2{margin-bottom:8px}
+    .comparison{display:grid;gap:8px;margin-top:18px}
+    .comparison div{display:grid;grid-template-columns:minmax(140px,.6fr) 1fr;gap:12px;padding:11px 13px;border:1px solid #29415a;border-radius:10px;color:var(--muted)}
+    .comparison strong{color:#fff}
+    @media(max-width:760px){.sql-joining-combining .on-page{position:static}.syntax-title{font-size:32px}.sql-joining-combining .topic-section{padding:21px}.comparison div{grid-template-columns:1fr}}
+  </style>
+  <script defer src="sql-structure.js"></script>
+  <script defer src="sidebar.js?v=20260918-sql-joining-combining"></script>
+</head>
+<body id="top" class="has-site-directory standard-topic sql-joining-combining" data-knowledge-type="syntax" data-sql-module="04">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <header class="hero">
+      <div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div>
+      <h1>04 · Joining &amp; Combining Data</h1>
+      <p class="lede">Learn how SQL combines related tables and combines the results of multiple queries.</p>
+    </header>
+    <nav class="on-page" aria-label="On This Page">
+      <strong>On This Page</strong>
+      <a href="#join-basics">JOIN Basics</a>
+      <a href="#self-join">Self Join</a>
+      <a href="#table-alias">Table Alias</a>
+      <a href="#union">UNION</a>
+      <a href="#intersect-except">INTERSECT / EXCEPT</a>
+    </nav>
+    <div class="detail-sections" id="content"></div>
+    <nav class="prevnext" aria-label="Topic navigation">
+      <a href="sql-sorting-aggregation.html"><small>Previous</small><br>03 · Sorting &amp; Aggregation</a>
+      <a href="sql-expressions-functions.html"><small>Next</small> →<br>05 · Expressions &amp; Functions</a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script>
+    const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const table = (caption, headers, rows) => `<div class="table-wrap"><table class="sample-table"><caption>${esc(caption)}</caption><thead><tr>${headers.map((header) => `<th>${esc(header)}</th>`).join('')}</tr></thead><tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    const code = (label, text) => `<h4>${label}</h4><pre><code>${esc(text)}</code></pre>`;
+    const input = (...tables) => `<h4>Input Tables</h4>${tables.join('')}`;
+    const output = (headers, rows) => `<h4>Output</h4>${table('Result', headers, rows)}`;
+    const meaning = (text) => `<h4>What it means</h4><p class="meaning">${text}</p>`;
+    const key = (text) => `<p class="key-point"><strong>Key point</strong><br>${text}</p>`;
+    const note = (text) => `<p class="note">${text}</p>`;
+    const syntaxFor = {
+      'INNER JOIN':'SELECT columns\nFROM left_table\nINNER JOIN right_table\n    ON match_condition;',
+      'LEFT JOIN':'SELECT columns\nFROM left_table\nLEFT JOIN right_table\n    ON match_condition;',
+      'RIGHT JOIN':'SELECT columns\nFROM left_table\nRIGHT JOIN right_table\n    ON match_condition;',
+      'FULL JOIN':'SELECT columns\nFROM left_table\nFULL JOIN right_table\n    ON match_condition;',
+      'FULL OUTER JOIN':'SELECT columns\nFROM left_table\nFULL OUTER JOIN right_table\n    ON match_condition;',
+      'CROSS JOIN':'SELECT columns\nFROM table1\nCROSS JOIN table2;',
+      'Self Join':'SELECT columns\nFROM table_name first\nJOIN table_name second\n    ON first.related_id = second.id;',
+      'Column Alias':'SELECT column_name AS alias_name\nFROM table_name;',
+      'UNION':'SELECT column\nFROM table1\nUNION\nSELECT column\nFROM table2;',
+      'UNION ALL':'SELECT column\nFROM table1\nUNION ALL\nSELECT column\nFROM table2;',
+      'INTERSECT':'SELECT column\nFROM table1\nINTERSECT\nSELECT column\nFROM table2;',
+      'EXCEPT':'SELECT column\nFROM table1\nEXCEPT\nSELECT column\nFROM table2;'
+    };
+    const card = (title, explanation, body) => `<article class="syntax-card"><h3 class="syntax-title"><code>${title}</code></h3><p>${explanation}</p>${body.includes('<h4>Syntax</h4>') ? '' : code('Syntax', syntaxFor[title] || title)}${body}${body.includes('What it means') ? '' : meaning(explanation)}</article>`;
+    const section = (id, number, title, intro, cards) => `<section id="${id}" class="card wide topic-section"><div class="eyebrow">${number}</div><h2>${title}</h2><p>${intro}</p>${cards.join('')}</section>`;
+
+    const orders = table('orders', ['order_id','customer_id','product','quantity'], [['1001','C01','Copper','20'],['1002','C02','Aluminum','50'],['1003','C03','Nickel','10'],['1004','C99','Copper','35']]);
+    const customers = table('customers', ['customer_id','customer_name','country'], [['C01','ABC Metals','Singapore'],['C02','Global Trade','China'],['C03','Eastern Metals','Japan'],['C04','Pacific Metals','Australia']]);
+    const products = table('products', ['product'], [['Copper'],['Aluminum']]);
+    const regions = table('regions', ['region'], [['Asia'],['Europe']]);
+    const employees = table('employees', ['employee_id','employee_name','manager_id'], [['1','Alice','NULL'],['2','Bob','1'],['3','Carol','1']]);
+    const currentProducts = table('current_products', ['product'], [['Copper'],['Aluminum']]);
+    const archiveProducts = table('archive_products', ['product'], [['Copper'],['Nickel']]);
+
+    const joinBasics = section('join-basics','01','JOIN Basics','JOIN combines related rows from multiple tables.',[
+      card('JOIN','JOIN lets one query use related data stored in different tables.',code('Syntax','SELECT columns\nFROM table1\nJOIN table2\n    ON table1.column = table2.column;')+'<p><code>orders.customer_id</code> matches <code>customers.customer_id</code>.</p>'+code('Example','SELECT o.order_id,\n       c.customer_name\nFROM orders o\nJOIN customers c\n    ON o.customer_id = c.customer_id;')+meaning('Match each order to the customer with the same customer_id.')+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals']])+'<p>Order 1004 does not have a matching customer because C99 does not exist in the customers table.</p>'),
+      card('ON','ON defines how SQL should match rows between tables.',code('Syntax','ON table1.column = table2.column')+code('Example','ON o.customer_id = c.customer_id')+'<p>SQL compares customer_id values from orders and customers.</p>'+input(orders,customers)+output(['orders.customer_id','customers.customer_id'],[['C01','C01'],['C02','C02'],['C03','C03']])+key('JOIN chooses the tables. ON defines the relationship used to match rows.')),
+      card('INNER JOIN','INNER JOIN returns only rows that have a match in both tables.',code('Example','SELECT o.order_id,\n       c.customer_name,\n       o.product\nFROM orders o\nINNER JOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['order_id','customer_name','product'],[['1001','ABC Metals','Copper'],['1002','Global Trade','Aluminum'],['1003','Eastern Metals','Nickel']])+'<p>1004 is excluded because customer C99 has no match. C04 is also absent because there is no matching order.</p>'),
+      card('LEFT JOIN','LEFT JOIN keeps every row from the left table. Matching data from the right table is added when available.',code('Example','SELECT o.order_id,\n       c.customer_name\nFROM orders o\nLEFT JOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals'],['1004','NULL']])+'<p>Order 1004 stays because orders is the left table. Its customer_name is NULL because C99 has no match.</p>'+key('LEFT JOIN keeps all rows from the table written before LEFT JOIN.')),
+      card('RIGHT JOIN','RIGHT JOIN keeps every row from the right table.',code('Example','SELECT o.order_id,\n       c.customer_name\nFROM orders o\nRIGHT JOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals'],['NULL','Pacific Metals']])+'<p>Pacific Metals remains because customers is the right table. It has no matching order.</p>'+note('Database support can vary.')),
+      card('FULL JOIN','FULL JOIN keeps matched rows and unmatched rows from both tables.',code('Example','SELECT o.order_id,\n       c.customer_name\nFROM orders o\nFULL JOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals'],['1004','NULL'],['NULL','Pacific Metals']])),
+      card('FULL OUTER JOIN','FULL OUTER JOIN is the full form of FULL JOIN in database systems that support it.',code('Example','SELECT o.order_id,\n       c.customer_name\nFROM orders o\nFULL OUTER JOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals'],['1004','NULL'],['NULL','Pacific Metals']])+'<p>FULL JOIN and FULL OUTER JOIN represent the same general join type.</p>'),
+      card('CROSS JOIN','CROSS JOIN creates every possible combination of rows from two tables.',code('Example','SELECT p.product, r.region\nFROM products p\nCROSS JOIN regions r;')+input(products,regions)+output(['product','region'],[['Copper','Asia'],['Copper','Europe'],['Aluminum','Asia'],['Aluminum','Europe']])+'<p>2 products × 2 regions = 4 result rows.</p>'),
+      '<div class="comparison"><div><strong>INNER JOIN</strong><span>matched rows only</span></div><div><strong>LEFT JOIN</strong><span>all left rows + matches</span></div><div><strong>RIGHT JOIN</strong><span>all right rows + matches</span></div><div><strong>FULL JOIN</strong><span>all rows from both sides</span></div><div><strong>CROSS JOIN</strong><span>every possible combination</span></div></div>'
+    ]);
+
+    const selfJoin = section('self-join','02','Self Join','A self join joins a table to itself.',[
+      card('Self Join','A self join is useful when rows inside the same table are related to other rows.',code('Example','SELECT\n    e.employee_name,\n    m.employee_name AS manager_name\nFROM employees e\nLEFT JOIN employees m\n    ON e.manager_id = m.employee_id;')+input(employees)+output(['employee_name','manager_name'],[['Alice','NULL'],['Bob','Alice'],['Carol','Alice']])+'<p>The employees table is used twice. <code>e</code> represents employees and <code>m</code> represents managers.</p>')
+    ]);
+
+    const tableAlias = section('table-alias','03','Table Alias','Table aliases make JOIN queries shorter and easier to read.',[
+      card('Table Alias','A table alias gives a table a shorter temporary name inside a query.',code('Syntax','FROM table_name alias\n\nor:\n\nFROM table_name AS alias')+code('Example 1','SELECT o.order_id\nFROM orders o;')+'<p><code>o</code> is a short name for <code>orders</code>.</p>'+input(orders)+output(['order_id'],[['1001'],['1002'],['1003'],['1004']])+code('Example 2','SELECT\n    o.order_id,\n    c.customer_name\nFROM orders o\nJOIN customers c\n    ON o.customer_id = c.customer_id;')+'<p><code>o = orders</code><br><code>c = customers</code></p>'+input(orders,customers)+output(['order_id','customer_name'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals']])+key('Aliases are temporary names used only inside the query.')),
+      card('Column Alias','A column alias changes the display name of a result column.',code('Example','SELECT\n    o.order_id AS id,\n    c.customer_name AS customer\nFROM orders o\nJOIN customers c\n    ON o.customer_id = c.customer_id;')+input(orders,customers)+output(['id','customer'],[['1001','ABC Metals'],['1002','Global Trade'],['1003','Eastern Metals']])+'<p>The database column names are not permanently changed.</p>')
+    ]);
+
+    const union = section('union','04','UNION','UNION combines the results of multiple SELECT queries.',[
+      card('UNION','UNION combines the results of two SELECT queries and removes duplicates.',code('Example','SELECT product\nFROM current_products\n\nUNION\n\nSELECT product\nFROM archive_products;')+input(currentProducts,archiveProducts)+output(['product'],[['Copper'],['Aluminum'],['Nickel']])+'<p>Copper exists in both sources but appears only once.</p>'),
+      card('UNION ALL','UNION ALL combines query results and keeps duplicate rows.',code('Example','SELECT product\nFROM current_products\n\nUNION ALL\n\nSELECT product\nFROM archive_products;')+input(currentProducts,archiveProducts)+output(['product'],[['Copper'],['Aluminum'],['Copper'],['Nickel']])+key('UNION removes duplicates. UNION ALL keeps duplicates.'))
+    ]);
+
+    const intersectExcept = section('intersect-except','05','INTERSECT / EXCEPT','Set operators compare the rows returned by two SELECT queries.',[
+      card('INTERSECT','INTERSECT returns rows that appear in both query results.',code('Example','SELECT product\nFROM current_products\n\nINTERSECT\n\nSELECT product\nFROM archive_products;')+input(currentProducts,archiveProducts)+output(['product'],[['Copper']])+'<p>Copper is the only value found in both sources.</p>'),
+      card('EXCEPT','EXCEPT returns rows from the first query that do not appear in the second query.',code('Example','SELECT product\nFROM current_products\n\nEXCEPT\n\nSELECT product\nFROM archive_products;')+input(currentProducts,archiveProducts)+output(['product'],[['Aluminum']])+'<p>Aluminum exists in current_products but not archive_products.</p>'+note('Support and exact syntax can vary by database system.'))
+    ]);
+
+    document.getElementById('content').innerHTML = joinBasics + selfJoin + tableAlias + union + intersectExcept;
+  </script>
+</body>
+</html>

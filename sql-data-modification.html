@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>06 · Data Modification · Language &amp; Syntax</title><meta name="description" content="A beginner-friendly guide to inserting, updating, and deleting SQL data."><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><style>
+.sql-data-modification .on-page{position:sticky;top:18px;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;margin:0 0 24px;border:1px solid var(--line);border-radius:14px;background:rgba(12,23,34,.94)}.sql-data-modification .on-page strong{width:100%;font-size:12px;color:var(--green);text-transform:uppercase;letter-spacing:.08em}.sql-data-modification .on-page a{font-size:12px;color:var(--muted);padding:3px 8px;border:1px solid #29415a;border-radius:999px}.sql-data-modification pre{overflow:auto;margin:0;padding:16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}.sql-data-modification .topic-section ul{color:var(--muted)}.sql-data-modification .output{border-left:3px solid var(--green);padding-left:14px;color:var(--muted)}.sql-data-modification .warning{border-left:3px solid #e6ad5c;padding:13px 15px;background:rgba(230,173,92,.08);color:#ffe0a6}.sql-data-modification .query-flow{display:grid;gap:8px;max-width:560px;margin:16px 0;color:var(--muted)}.sql-data-modification .query-flow div{padding:12px 14px;border:1px solid #38516d;border-radius:10px;background:rgba(7,17,26,.72)}.sql-data-modification .query-flow div:not(:last-child)::after{content:'↓';display:block;margin-top:8px;color:var(--green);font-weight:800}.sql-data-modification table{width:100%;border-collapse:collapse;margin-top:12px}.sql-data-modification th,.sql-data-modification td{padding:11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}.sql-data-modification th{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.sql-data-modification td{color:var(--muted)}.sql-data-modification td:first-child{color:#fff;font-weight:800}@media(max-width:760px){.sql-data-modification .on-page{position:static}.sql-data-modification .topic-section{padding:21px}.sql-data-modification table{font-size:13px}}
+</style><script defer src="sql-structure.js"></script><script defer src="sidebar.js?v=20260918-sql-data-modification"></script></head><body id="top" class="has-site-directory standard-topic sql-data-modification" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div><h1>06 · Data Modification</h1><p class="lede">Learn how SQL adds, changes, and removes data stored in database tables.</p></header><nav class="on-page" aria-label="On This Page"><strong>On This Page</strong><a href="#querying-vs-modifying">Querying vs Modifying</a><a href="#insert">INSERT</a><a href="#multiple-row-insert">Multiple Rows</a><a href="#insert-select">INSERT ... SELECT</a><a href="#update">UPDATE</a><a href="#update-columns">Multiple Columns</a><a href="#delete">DELETE</a><a href="#check-before-change">Check Before You Change</a><a href="#putting-together">Putting It Together</a><a href="#quick-comparison">Quick Comparison</a><a href="#mental-model">Mental Model</a></nav><div class="detail-sections">
+<section id="querying-vs-modifying" class="card wide topic-section"><div class="eyebrow">01</div><h2>Querying vs Modifying Data</h2><p><code>SELECT</code> reads data. Data modification statements change stored data in a table.</p><div class="query-flow"><div><code>SELECT</code> → reads data</div><div><code>INSERT</code> → adds rows</div><div><code>UPDATE</code> → changes existing rows</div><div><code>DELETE</code> → removes rows</div></div><p class="warning"><strong>Keep this distinction in mind:</strong> Unlike <code>SELECT</code>, data modification statements can affect the database itself.</p></section>
+<section id="insert" class="card wide topic-section"><div class="eyebrow">02</div><h2>INSERT</h2><p><code>INSERT INTO</code> adds a new row to a table.</p><h3>Example</h3><pre><code>INSERT INTO sales_orders (
+    order_id,
+    customer_name,
+    metal,
+    quantity_mt,
+    price_usd,
+    status,
+    order_date
+)
+VALUES (
+    'SO1004',
+    'Eastern Metals',
+    'Copper',
+    25,
+    8550,
+    'Pending',
+    '2026-09-04'
+);</code></pre><h3>How to read it</h3><ul><li><code>INSERT INTO</code> → target table</li><li>column list → fields being populated</li><li><code>VALUES</code> → values for the new row</li></ul><p class="output"><strong>What happens</strong><br>A new row is added to <code>sales_orders</code>.</p></section>
+<section id="multiple-row-insert" class="card wide topic-section"><div class="eyebrow">03</div><h2>INSERT Multiple Rows</h2><p>Place multiple value groups after <code>VALUES</code> to add more than one row in one statement.</p><pre><code>INSERT INTO sales_orders (order_id, customer_name, metal, quantity_mt)
+VALUES
+    ('SO1005', 'North Star Metals', 'Nickel', 18),
+    ('SO1006', 'Pacific Alloy', 'Aluminum', 32);</code></pre><p><strong>PM takeaway:</strong> Each parenthesized group represents one new row, and the values follow the column order.</p></section>
+<section id="insert-select" class="card wide topic-section"><div class="eyebrow">04</div><h2>INSERT ... SELECT</h2><p><code>INSERT ... SELECT</code> uses the result of a query as the new data.</p><pre><code>INSERT INTO archived_orders
+SELECT *
+FROM sales_orders
+WHERE status = 'Completed';</code></pre><p>This pattern is useful when copying matching rows into another table. The selected columns must match the destination table's expected structure.</p></section>
+<section id="update" class="card wide topic-section"><div class="eyebrow">05</div><h2>UPDATE</h2><p><code>UPDATE</code> changes existing rows. <code>SET</code> provides the new value, and <code>WHERE</code> identifies the rows to change.</p><pre><code>UPDATE sales_orders
+SET status = 'Confirmed'
+WHERE order_id = 'SO1002';</code></pre><h3>How to read it</h3><ul><li><code>UPDATE</code> → table to change</li><li><code>SET</code> → new value</li><li><code>WHERE</code> → rows to change</li></ul><p class="warning"><strong>Be careful:</strong> Without <code>WHERE</code>, an <code>UPDATE</code> can affect every row in the table.</p></section>
+<section id="update-columns" class="card wide topic-section"><div class="eyebrow">06</div><h2>UPDATE Multiple Columns</h2><p>Separate multiple assignments in the <code>SET</code> clause with commas.</p><pre><code>UPDATE sales_orders
+SET
+    status = 'Confirmed',
+    price_usd = 8500
+WHERE order_id = 'SO1002';</code></pre></section>
+<section id="delete" class="card wide topic-section"><div class="eyebrow">07</div><h2>DELETE</h2><p><code>DELETE FROM</code> removes matching rows from a table.</p><pre><code>DELETE FROM sales_orders
+WHERE order_id = 'SO1002';</code></pre><p><code>DELETE</code> removes matching rows.</p><p class="warning"><strong>Be careful:</strong> Without <code>WHERE</code>, <code>DELETE</code> can remove every row from the table.</p></section>
+<section id="check-before-change" class="card wide topic-section"><div class="eyebrow">08</div><h2>Check Before You Change</h2><p>A common safe workflow is to test the <code>WHERE</code> condition with <code>SELECT</code> before modifying data.</p><h3>Step 1: Inspect the row</h3><pre><code>SELECT *
+FROM sales_orders
+WHERE order_id = 'SO1002';</code></pre><h3>Step 2: Confirm the rows</h3><p>Make sure the returned rows are exactly the rows you intend to change or remove.</p><h3>Step 3: Reuse the same condition</h3><p>Use the same <code>WHERE</code> condition in your <code>UPDATE</code> or <code>DELETE</code> statement.</p></section>
+<section id="putting-together" class="card wide topic-section"><div class="eyebrow">09</div><h2>Putting It Together</h2><p>A simple modification workflow is: inspect the row, update the row, and query again to verify the result.</p><pre><code>SELECT *
+FROM sales_orders
+WHERE order_id = 'SO1002';
+
+UPDATE sales_orders
+SET status = 'Confirmed'
+WHERE order_id = 'SO1002';
+
+SELECT *
+FROM sales_orders
+WHERE order_id = 'SO1002';</code></pre><p><strong>PM takeaway:</strong> The first query checks the target, the update applies the change, and the final query verifies what is now stored.</p></section>
+<section id="quick-comparison" class="card wide topic-section"><div class="eyebrow">10</div><h2>Quick Comparison</h2><div style="overflow-x:auto"><table><thead><tr><th>Syntax</th><th>Purpose</th></tr></thead><tbody><tr><td>INSERT</td><td>Add rows</td></tr><tr><td>INSERT INTO</td><td>Choose the target table</td></tr><tr><td>VALUES</td><td>Provide new row values</td></tr><tr><td>UPDATE</td><td>Change existing rows</td></tr><tr><td>SET</td><td>Provide new values</td></tr><tr><td>DELETE</td><td>Remove rows</td></tr><tr><td>WHERE</td><td>Choose which existing rows are affected</td></tr></tbody></table></div></section>
+<section id="mental-model" class="card wide topic-section"><div class="eyebrow">11</div><h2>How to Think About Data Modification</h2><div class="query-flow"><div><code>INSERT</code> → Add</div><div><code>UPDATE</code> → Change</div><div><code>DELETE</code> → Remove</div></div><p><code>WHERE</code> determines which existing rows are affected by <code>UPDATE</code> and <code>DELETE</code>. Treat it as the part of the statement that defines the target.</p></section></div><nav class="prevnext" aria-label="Topic navigation"><a href="sql-expressions-functions.html">← <small>Previous</small><br>05 · Expressions &amp; Functions</a><a href="sql-database-structure.html"> <small>Next</small> →<br>08 · Database Structure</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

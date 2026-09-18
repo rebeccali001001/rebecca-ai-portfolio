@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 · Filtering &amp; Conditions · SQL</title>
+  <meta name="description" content="Learn how SQL filters rows, combines conditions, handles missing values, and matches lists, ranges, and text patterns.">
+  <link rel="stylesheet" href="topic.css?v=20260912">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sql-structure.js"></script>
+  <script defer src="sidebar.js?v=20260918-sql-filtering"></script>
+  <style>
+    .sql-detail{max-width:1180px}
+    .sql-hero{padding:38px 0 24px}
+    .sql-hero h1{max-width:900px;margin:16px 0 14px}
+    .sql-hero .lede{max-width:820px}
+    .page-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:28px;align-items:start;margin-top:18px}
+    .sql-content{min-width:0}
+    .page-toc{position:sticky;top:24px;display:block;height:auto;border-bottom:0;padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(12,23,34,.9)}
+    .page-toc strong{display:block;color:var(--green);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+    .page-toc a{display:block;padding:7px 0;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,.08)}
+    .page-toc a:hover,.page-toc a:focus-visible{color:#fff}
+    .sample-card,.sql-section{padding:26px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#102032,#0b1622);margin:0 0 20px;scroll-margin-top:24px}
+    .sample-card h2,.sql-section>h2{margin:0 0 9px;font-size:28px}
+    .sample-card>p,.sql-section>p{max-width:850px;color:var(--muted);margin:0 0 16px}
+    .section-mark{display:block;color:var(--green);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+    .data-wrap,.output-wrap{overflow-x:auto;border:1px solid #29415a;border-radius:12px;background:#07111a}
+    table{width:100%;border-collapse:collapse;min-width:600px}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #29415a;white-space:nowrap}
+    th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    td{color:var(--muted);font-size:13px}
+    td:first-child{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700}
+    tr:last-child td{border-bottom:0}
+    .syntax-topic{padding:24px 0 8px;border-top:1px solid rgba(255,255,255,.1)}
+    .syntax-topic:first-of-type{border-top:0;padding-top:4px}
+    .syntax-title{margin:0 0 8px;color:#fff;font:800 clamp(30px,4vw,44px)/1.08 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:-.05em;overflow-wrap:anywhere}
+    .syntax-explanation{color:var(--muted);max-width:850px;margin:0 0 16px}
+    .label{margin:18px 0 7px;color:var(--green);font-size:11px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+    pre{margin:0;overflow:auto;padding:15px 16px;border:1px solid #38516d;border-radius:10px;background:#061019;color:#dbe7f4;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2}
+    .example{margin-top:20px;padding:18px;border:1px solid #29415a;border-radius:13px;background:rgba(7,17,26,.62)}
+    .example h4{margin:0 0 10px;color:#fff;font-size:16px}
+    .example p{color:var(--muted);margin:8px 0}
+    .example p strong{color:#fff}
+    .output-wrap{margin-top:10px}
+    .output-wrap table{min-width:0}
+    .output-lines{margin-top:10px;padding:12px 14px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#fff;font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}
+    .note,.key-point{margin:18px 0 0;padding:14px 16px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#dbe7f4}
+    .note strong,.key-point strong{color:#fff}
+    .warning{border-left-color:var(--gold);background:rgba(255,212,127,.08)}
+    .pager{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 50px}
+    .pager a{display:block;padding:16px 18px;border:1px solid #38516d;border-radius:13px;background:#07111a;color:var(--muted)}
+    .pager a:last-child{text-align:right}
+    .pager a:hover{border-color:var(--green);color:#fff}
+    .pager small{display:block;color:var(--green);font-size:11px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+    @media(max-width:900px){.page-grid{grid-template-columns:1fr}.page-toc{position:relative;top:auto;order:-1;display:flex;flex-wrap:wrap;gap:7px 12px;align-items:center}.page-toc strong{width:100%;margin-bottom:0}.page-toc a{border:1px solid #29415a;border-radius:999px;padding:5px 9px}}
+    @media(max-width:760px){.sample-card,.sql-section{padding:20px 18px}.pager{grid-template-columns:1fr}.pager a:last-child{text-align:left}.sql-hero{padding-top:24px}.syntax-topic{padding-top:20px}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory sql-filtering-page" data-knowledge-type="syntax">
+  <nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page sql-detail">
+    <a class="back" href="sql-summary.html">← SQL Syntax Summary</a>
+    <header class="sql-hero">
+      <div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div>
+      <h1>02 · Filtering &amp; Conditions</h1>
+      <p class="lede">Learn how SQL filters rows, combines conditions, handles missing values, and matches lists, ranges, and text patterns.</p>
+    </header>
+
+    <div class="page-grid">
+      <div class="sql-content">
+        <section class="sample-card" aria-labelledby="sample-data-title">
+          <h2 id="sample-data-title">Sample Data</h2>
+          <p>This page uses the same <code>orders</code> table for each example.</p>
+          <div class="data-wrap"><table><thead><tr><th>order_id</th><th>customer</th><th>product</th><th>quantity</th><th>price</th><th>status</th><th>delivery_date</th></tr></thead><tbody>
+            <tr><td>1001</td><td>ABC Metals</td><td>Copper</td><td>20</td><td>8500</td><td>Completed</td><td>2026-09-20</td></tr>
+            <tr><td>1002</td><td>Global Trade</td><td>Aluminum</td><td>50</td><td>2450</td><td>Pending</td><td>NULL</td></tr>
+            <tr><td>1003</td><td>Eastern Metals</td><td>Nickel</td><td>10</td><td>16000</td><td>Rejected</td><td>NULL</td></tr>
+            <tr><td>1004</td><td>Apple Resources</td><td>Copper</td><td>35</td><td>8700</td><td>Completed</td><td>2026-09-25</td></tr>
+            <tr><td>1005</td><td>Pacific Metals</td><td>Zinc</td><td>8</td><td>2800</td><td>Cancelled</td><td>2026-09-28</td></tr>
+          </tbody></table></div>
+        </section>
+
+        <section id="filtering" class="sql-section">
+          <span class="section-mark">01</span><h2>Filtering</h2>
+          <p>Filtering lets you return only the rows that match a condition.</p>
+
+          <article class="syntax-topic" id="where">
+            <h3 class="syntax-title">WHERE</h3><p class="syntax-explanation">WHERE filters rows based on a condition. Only rows where the condition is true remain in the query result.</p>
+            <div class="label">Syntax</div><pre><code>SELECT columns
+FROM table_name
+WHERE condition;</code></pre>
+            <div class="example"><h4>Example 1</h4><pre><code>SELECT order_id, customer, product
+FROM orders
+WHERE product = 'Copper';</code></pre><p><strong>What it means:</strong> Return only orders where the product is Copper.</p><div class="label">Output</div><div class="output-wrap"><table><thead><tr><th>order_id</th><th>customer</th><th>product</th></tr></thead><tbody><tr><td>1001</td><td>ABC Metals</td><td>Copper</td></tr><tr><td>1004</td><td>Apple Resources</td><td>Copper</td></tr></tbody></table></div><p>Only the two Copper orders remain.</p></div>
+            <div class="example"><h4>Example 2</h4><pre><code>SELECT order_id, quantity
+FROM orders
+WHERE quantity &gt; 20;</code></pre><p><strong>What it means:</strong> Return orders where quantity is greater than 20.</p><div class="label">Output</div><div class="output-wrap"><table><thead><tr><th>order_id</th><th>quantity</th></tr></thead><tbody><tr><td>1002</td><td>50</td></tr><tr><td>1004</td><td>35</td></tr></tbody></table></div></div>
+            <div class="key-point"><strong>Key point:</strong> WHERE controls which rows appear in the result.</div>
+          </article>
+
+          <article class="syntax-topic" id="equals"><h3 class="syntax-title">=</h3><p class="syntax-explanation">= checks whether two values are equal.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, status
+FROM orders
+WHERE status = 'Completed';</code></pre><div class="label">Output</div><div class="output-wrap"><table><thead><tr><th>order_id</th><th>status</th></tr></thead><tbody><tr><td>1001</td><td>Completed</td></tr><tr><td>1004</td><td>Completed</td></tr></tbody></table></div><p>Only rows where status exactly equals Completed are returned.</p></div></article>
+
+          <article class="syntax-topic" id="not-equal-standard"><h3 class="syntax-title">&lt;&gt;</h3><p class="syntax-explanation">&lt;&gt; means “not equal to”.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, status
+FROM orders
+WHERE status &lt;&gt; 'Rejected';</code></pre><div class="label">Output</div><div class="output-lines">1001  Completed
+1002  Pending
+1004  Completed
+1005  Cancelled</div><p>Order 1003 is excluded because its status is Rejected.</p></div></article>
+
+          <article class="syntax-topic" id="not-equal-common"><h3 class="syntax-title">!=</h3><p class="syntax-explanation">!= is another commonly supported way to write “not equal to”.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id
+FROM orders
+WHERE status != 'Rejected';</code></pre><div class="label">Output</div><div class="output-lines">1001
+1002
+1004
+1005</div><p>This produces the same idea as:</p><pre><code>status &lt;&gt; 'Rejected'</code></pre><p class="note"><strong>Note:</strong> &lt;&gt; is standard SQL. != is also supported by many database systems.</p></div></article>
+
+          <article class="syntax-topic" id="greater-than"><h3 class="syntax-title">&gt;</h3><p class="syntax-explanation">&gt; means greater than.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, quantity
+FROM orders
+WHERE quantity &gt; 20;</code></pre><div class="label">Output</div><div class="output-lines">1002  |  50
+1004  |  35</div></div></article>
+
+          <article class="syntax-topic" id="less-than"><h3 class="syntax-title">&lt;</h3><p class="syntax-explanation">&lt; means less than.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, price
+FROM orders
+WHERE price &lt; 3000;</code></pre><div class="label">Output</div><div class="output-lines">1002  |  2450
+1005  |  2800</div></div></article>
+
+          <article class="syntax-topic" id="greater-than-or-equal"><h3 class="syntax-title">&gt;=</h3><p class="syntax-explanation">&gt;= means greater than or equal to.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, quantity
+FROM orders
+WHERE quantity &gt;= 20;</code></pre><div class="label">Output</div><div class="output-lines">1001  |  20
+1002  |  50
+1004  |  35</div><p>Quantity 20 is included because the comparison includes the boundary value.</p></div></article>
+
+          <article class="syntax-topic" id="less-than-or-equal"><h3 class="syntax-title">&lt;=</h3><p class="syntax-explanation">&lt;= means less than or equal to.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, quantity
+FROM orders
+WHERE quantity &lt;= 10;</code></pre><div class="label">Output</div><div class="output-lines">1003  |  10
+1005  |  8</div></div></article>
+        </section>
+
+        <section id="logical-conditions" class="sql-section">
+          <span class="section-mark">02</span><h2>Logical Conditions</h2>
+          <p>Logical operators let you combine or reverse filtering conditions.</p>
+
+          <article class="syntax-topic" id="and"><h3 class="syntax-title">AND</h3><p class="syntax-explanation">AND requires all connected conditions to be true.</p><div class="label">Syntax</div><pre><code>WHERE condition1
+  AND condition2</code></pre><div class="example"><h4>Example 1</h4><pre><code>SELECT order_id, product, quantity
+FROM orders
+WHERE product = 'Copper'
+  AND quantity &gt; 20;</code></pre><p><strong>What it means:</strong> Return Copper orders only when quantity is also greater than 20.</p><div class="label">Output</div><div class="output-wrap"><table><thead><tr><th>order_id</th><th>product</th><th>quantity</th></tr></thead><tbody><tr><td>1004</td><td>Copper</td><td>35</td></tr></tbody></table></div></div><div class="example"><h4>Example 2</h4><pre><code>SELECT order_id, status, product
+FROM orders
+WHERE status = 'Completed'
+  AND product = 'Copper';</code></pre><div class="label">Output</div><div class="output-lines">1001  |  Completed  |  Copper
+1004  |  Completed  |  Copper</div></div><div class="key-point"><strong>Key point:</strong> With AND, every condition must be true.</div></article>
+
+          <article class="syntax-topic" id="or"><h3 class="syntax-title">OR</h3><p class="syntax-explanation">OR keeps a row when at least one condition is true.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, product
+FROM orders
+WHERE product = 'Copper'
+   OR product = 'Nickel';</code></pre><div class="label">Output</div><div class="output-lines">1001  |  Copper
+1003  |  Nickel
+1004  |  Copper</div><div class="key-point"><strong>Key point:</strong> With OR, one matching condition is enough.</div></div></article>
+
+          <article class="syntax-topic" id="not"><h3 class="syntax-title">NOT</h3><p class="syntax-explanation">NOT reverses a condition.</p><div class="example"><h4>Example 1</h4><pre><code>SELECT order_id, status
+FROM orders
+WHERE NOT status = 'Rejected';</code></pre><p>Return rows where status is anything other than Rejected.</p><div class="label">Output</div><div class="output-lines">1001  |  Completed
+1002  |  Pending
+1004  |  Completed
+1005  |  Cancelled</div></div><div class="example"><h4>Example 2</h4><pre><code>SELECT order_id, product
+FROM orders
+WHERE NOT product = 'Copper';</code></pre><div class="label">Output</div><div class="output-lines">1002  |  Aluminum
+1003  |  Nickel
+1005  |  Zinc</div></div></article>
+
+          <article class="syntax-topic" id="parentheses"><h3 class="syntax-title">Parentheses ( )</h3><p class="syntax-explanation">Parentheses control how multiple logical conditions are grouped.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, product, status
+FROM orders
+WHERE (product = 'Copper' OR product = 'Nickel')
+  AND status = 'Completed';</code></pre><p><strong>What it means:</strong> First allow Copper or Nickel. Then require the order to also be Completed.</p><div class="label">Output</div><div class="output-lines">1001  |  Copper  |  Completed
+1004  |  Copper  |  Completed</div><p>Parentheses make complex conditions easier to understand and prevent ambiguous logic.</p></div></article>
+        </section>
+
+        <section id="null" class="sql-section">
+          <span class="section-mark">03</span><h2>NULL</h2>
+          <p>NULL represents a missing or unknown value.</p>
+
+          <article class="syntax-topic" id="null-value"><h3 class="syntax-title">NULL</h3><p class="syntax-explanation">NULL means that a value is missing, unknown, or not available.</p><p class="syntax-explanation">It is not the same as 0, an empty string, or the text 'NULL'.</p><p class="syntax-explanation">In the sample data, rows 1002 and 1003 have delivery_date = NULL.</p></article>
+
+          <article class="syntax-topic" id="is-null"><h3 class="syntax-title">IS NULL</h3><p class="syntax-explanation">IS NULL checks whether a value is missing.</p><div class="label">Syntax</div><pre><code>WHERE column_name IS NULL</code></pre><div class="example"><h4>Example</h4><pre><code>SELECT order_id, customer
+FROM orders
+WHERE delivery_date IS NULL;</code></pre><div class="label">Output</div><div class="output-wrap"><table><thead><tr><th>order_id</th><th>customer</th></tr></thead><tbody><tr><td>1002</td><td>Global Trade</td></tr><tr><td>1003</td><td>Eastern Metals</td></tr></tbody></table></div><p>These rows do not currently have a delivery date.</p><p class="note warning"><strong>Important note:</strong> Do not write <code>delivery_date = NULL</code>. Use <code>delivery_date IS NULL</code>.</p></div></article>
+
+          <article class="syntax-topic" id="is-not-null"><h3 class="syntax-title">IS NOT NULL</h3><p class="syntax-explanation">IS NOT NULL returns rows where a value exists.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, delivery_date
+FROM orders
+WHERE delivery_date IS NOT NULL;</code></pre><div class="label">Output</div><div class="output-lines">1001  |  2026-09-20
+1004  |  2026-09-25
+1005  |  2026-09-28</div></div></article>
+
+          <article class="syntax-topic" id="coalesce"><h3 class="syntax-title">COALESCE()</h3><p class="syntax-explanation">COALESCE returns the first non-NULL value.</p><div class="label">Syntax</div><pre><code>COALESCE(value1, value2, ...)</code></pre><div class="example"><h4>Example 1</h4><pre><code>SELECT order_id,
+       COALESCE(status, 'Unknown') AS order_status
+FROM orders;</code></pre><p>If status is NULL, SQL returns Unknown instead.</p><p class="note">Tiny example dataset: order_id 1006 has status NULL.</p><div class="label">Output</div><div class="output-lines">1006  |  Unknown</div></div><div class="example"><h4>Example 2</h4><pre><code>SELECT order_id,
+       COALESCE(delivery_date, 'Not scheduled') AS delivery
+FROM orders;</code></pre><p>Missing delivery dates are displayed as Not scheduled.</p><div class="label">Output</div><div class="output-lines">1002  |  Not scheduled
+1003  |  Not scheduled</div></div><div class="key-point"><strong>Key point:</strong> COALESCE changes the query output. It does not update the stored database value.</div></article>
+
+          <article class="syntax-topic" id="nullif"><h3 class="syntax-title">NULLIF()</h3><p class="syntax-explanation">NULLIF compares two values. If they are equal, it returns NULL. Otherwise, it returns the first value.</p><div class="label">Syntax</div><pre><code>NULLIF(value1, value2)</code></pre><div class="example"><h4>Example 1</h4><pre><code>SELECT NULLIF(10, 10);</code></pre><div class="label">Output</div><div class="output-lines">NULL</div></div><div class="example"><h4>Example 2</h4><pre><code>SELECT NULLIF(20, 0);</code></pre><div class="label">Output</div><div class="output-lines">20</div></div><div class="example"><h4>Example 3</h4><pre><code>SELECT order_id,
+       NULLIF(quantity, 0) AS quantity_value
+FROM orders;</code></pre><p>A quantity of 0 would be returned as NULL.</p><div class="label">Output</div><div class="output-lines">1001  |  20
+1002  |  50
+1003  |  10
+1004  |  35
+1005  |  8</div></div></article>
+        </section>
+
+        <section id="in-between-like" class="sql-section">
+          <span class="section-mark">04</span><h2>IN / BETWEEN / LIKE</h2>
+          <p>These operators provide shorter ways to match lists, ranges, and text patterns.</p>
+
+          <article class="syntax-topic" id="in"><h3 class="syntax-title">IN</h3><p class="syntax-explanation">IN checks whether a value matches any value in a list.</p><div class="label">Syntax</div><pre><code>WHERE column_name IN (value1, value2, ...)</code></pre><div class="example"><h4>Example 1</h4><pre><code>SELECT order_id, product
+FROM orders
+WHERE product IN ('Copper', 'Nickel');</code></pre><div class="label">Output</div><div class="output-lines">1001  |  Copper
+1003  |  Nickel
+1004  |  Copper</div><p>IN is easier to read than writing several OR conditions.</p><p>Compare:</p><pre><code>product = 'Copper'
+OR product = 'Nickel'</code></pre><p>with:</p><pre><code>product IN ('Copper', 'Nickel')</code></pre></div></article>
+
+          <article class="syntax-topic" id="not-in"><h3 class="syntax-title">NOT IN</h3><p class="syntax-explanation">NOT IN excludes values listed inside the parentheses.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, status
+FROM orders
+WHERE status NOT IN ('Rejected', 'Cancelled');</code></pre><div class="label">Output</div><div class="output-lines">1001  |  Completed
+1002  |  Pending
+1004  |  Completed</div></div></article>
+
+          <article class="syntax-topic" id="between"><h3 class="syntax-title">BETWEEN</h3><p class="syntax-explanation">BETWEEN checks whether a value falls inside a range. It includes both boundary values.</p><div class="label">Syntax</div><pre><code>WHERE column_name BETWEEN low_value AND high_value</code></pre><div class="example"><h4>Example 1</h4><pre><code>SELECT order_id, price
+FROM orders
+WHERE price BETWEEN 8000 AND 9000;</code></pre><div class="label">Output</div><div class="output-lines">1001  |  8500
+1004  |  8700</div></div><div class="example"><h4>Example 2</h4><pre><code>SELECT order_id, quantity
+FROM orders
+WHERE quantity BETWEEN 10 AND 20;</code></pre><div class="label">Output</div><div class="output-lines">1001  |  20
+1003  |  10</div><p>10 and 20 are both included.</p></div></article>
+
+          <article class="syntax-topic" id="not-between"><h3 class="syntax-title">NOT BETWEEN</h3><p class="syntax-explanation">NOT BETWEEN returns values outside a range.</p><div class="example"><h4>Example</h4><pre><code>SELECT order_id, price
+FROM orders
+WHERE price NOT BETWEEN 8000 AND 9000;</code></pre><div class="label">Output</div><div class="output-lines">1002  |  2450
+1003  |  16000
+1005  |  2800</div></div></article>
+
+          <article class="syntax-topic" id="like"><h3 class="syntax-title">LIKE</h3><p class="syntax-explanation">LIKE matches text using a pattern.</p><div class="example"><h4>Example 1</h4><pre><code>SELECT customer
+FROM orders
+WHERE customer LIKE 'A%';</code></pre><p><strong>What it means:</strong> Return customers whose names begin with A.</p><div class="label">Output</div><div class="output-lines">ABC Metals
+Apple Resources</div><p>% matches zero or more characters.</p></div><div class="example"><h4>Example 2</h4><pre><code>SELECT customer
+FROM orders
+WHERE customer LIKE '%Metals';</code></pre><div class="label">Output</div><div class="output-lines">ABC Metals
+Eastern Metals
+Pacific Metals</div><p>The pattern means the value must end with Metals.</p></div></article>
+
+          <article class="syntax-topic" id="not-like"><h3 class="syntax-title">NOT LIKE</h3><p class="syntax-explanation">NOT LIKE excludes text that matches a pattern.</p><div class="example"><h4>Example</h4><pre><code>SELECT customer
+FROM orders
+WHERE customer NOT LIKE 'A%';</code></pre><div class="label">Output</div><div class="output-lines">Global Trade
+Eastern Metals
+Pacific Metals</div></div></article>
+
+          <article class="syntax-topic" id="percent-wildcard"><h3 class="syntax-title">% Wildcard</h3><p class="syntax-explanation">% matches zero or more characters inside a LIKE pattern.</p><div class="example"><h4>Examples</h4><div class="output-lines">'A%'       → starts with A
+'%Metals'  → ends with Metals
+'%Trade%'  → contains Trade</div></div></article>
+
+          <article class="syntax-topic" id="underscore-wildcard"><h3 class="syntax-title">_ Wildcard</h3><p class="syntax-explanation">_ matches exactly one character.</p><div class="example"><h4>Example</h4><pre><code>WHERE code LIKE 'A_'</code></pre><p><strong>Possible matches:</strong></p><div class="output-lines">A1
+AB
+AX</div><p><strong>Not a match:</strong> A100, because _ matches only one character.</p></div></article>
+        </section>
+
+        <nav class="pager" aria-label="SQL topic navigation">
+          <a href="sql-query-basics.html"><small>Previous</small>01 · Query Basics <span aria-hidden="true">←</span></a>
+          <a href="sql-sorting-aggregation.html"><small>Next</small>03 · Sorting &amp; Aggregation <span aria-hidden="true">→</span></a>
+        </nav>
+      </div>
+      <nav class="page-toc" aria-label="On This Page">
+        <strong>On This Page</strong>
+        <a href="#filtering">Filtering</a>
+        <a href="#logical-conditions">Logical Conditions</a>
+        <a href="#null">NULL</a>
+        <a href="#in-between-like">IN / BETWEEN / LIKE</a>
+      </nav>
+    </div>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

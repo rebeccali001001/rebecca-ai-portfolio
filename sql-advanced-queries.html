@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>06 · Subqueries &amp; Advanced Queries · Language &amp; Syntax</title>
+  <meta name="description" content="Learn SQL subqueries, CTEs, recursive CTEs, EXISTS, and window functions.">
+  <link rel="stylesheet" href="topic.css?v=20260912">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sidebar.js?v=20260918-sql-advanced"></script>
+  <style>
+    .sql-advanced-page .hero{padding-top:8px}
+    .sql-advanced-page .hero h1{max-width:900px}
+    .sql-advanced-page .hero .lede{max-width:860px}
+    .sql-advanced-page .on-page{position:sticky;top:18px;background:rgba(12,23,34,.94)}
+    .sql-advanced-page .detail-section{padding:28px}
+    .sql-advanced-page .detail-section>p{color:var(--muted)}
+    .sql-advanced-page .section-intro{font-size:19px;color:#fff!important;max-width:860px!important}
+    .sql-advanced-page .syntax-item{padding:24px 0;border-top:1px solid rgba(255,255,255,.1)}
+    .sql-advanced-page .syntax-item:first-of-type{border-top:0;padding-top:4px}
+    .sql-advanced-page .syntax-item h3{margin:0 0 10px;color:#fff;font-size:30px;line-height:1.15}
+    .sql-advanced-page .syntax-item h3 code{color:var(--green);font:800 29px/1.15 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-advanced-page .syntax-item p{max-width:860px;color:var(--muted)}
+    .sql-advanced-page pre{margin:14px 0;padding:17px;overflow:auto;border:1px solid #38516d;border-radius:12px;background:#061019;color:#dbe7f4;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-advanced-page .result{margin:14px 0;padding:13px 16px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#fff!important}
+    .sql-advanced-page .result-label{margin:14px 0 6px;color:var(--green)!important;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+    .sql-advanced-page .sample-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 4px}
+    .sql-advanced-page .sample-data figure{margin:0;padding:14px;border:1px solid #29415a;border-radius:12px;background:#07111a;overflow:auto}
+    .sql-advanced-page .sample-data figcaption{margin-bottom:9px;color:var(--green);font:800 13px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-advanced-page table{width:100%;border-collapse:collapse}
+    .sql-advanced-page th,.sql-advanced-page td{padding:8px 9px;border-bottom:1px solid #29415a;text-align:left;white-space:nowrap}
+    .sql-advanced-page th{color:var(--green);font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+    .sql-advanced-page td{color:var(--muted);font-size:12px}
+    .sql-advanced-page td:first-child{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-advanced-page .output-table{overflow-x:auto;border:1px solid #29415a;border-radius:10px;background:#07111a}
+    .sql-advanced-page .output-table table{min-width:420px}
+    .sql-advanced-page .output-table th,.sql-advanced-page .output-table td{padding:9px 11px}
+    .sql-advanced-page .compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+    .sql-advanced-page .compare>div{padding:16px;border:1px solid #29415a;border-radius:12px;background:#07111a}
+    .sql-advanced-page .compare h4{margin:0 0 8px;color:var(--green)}
+    .sql-advanced-page .key-point{padding:14px 16px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#dbe7f4!important}
+    .sql-advanced-page .warning{padding:14px 16px;border-left:3px solid #e6ad5c;background:rgba(230,173,92,.08);color:#ffe0a6!important}
+    .sql-advanced-page .prevnext{margin-top:28px}
+    @media(max-width:900px){.sql-advanced-page .sample-data{grid-template-columns:1fr}.sql-advanced-page .compare{grid-template-columns:1fr}}
+    @media(max-width:760px){.sql-advanced-page .on-page{position:static}.sql-advanced-page .detail-section{padding:21px}.sql-advanced-page .syntax-item h3{font-size:25px}.sql-advanced-page .syntax-item h3 code{font-size:24px}.sql-advanced-page pre{font-size:13px}}
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic sql-advanced-page" data-knowledge-type="syntax">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="syntax-overview.html">← Language &amp; Syntax</a>
+    <header class="hero">
+      <div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div>
+      <h1>06 · Subqueries &amp; Advanced Queries</h1>
+      <p class="lede">Learn how SQL nests queries, checks related data, creates reusable temporary results, and performs calculations across groups without collapsing rows.</p>
+    </header>
+
+    <nav class="on-page" aria-label="On This Page">
+      <b>On This Page</b>
+      <a href="#subquery">Subquery</a>
+      <a href="#exists">EXISTS</a>
+      <a href="#cte">Common Table Expression</a>
+      <a href="#recursive-cte">Recursive CTE</a>
+      <a href="#window-functions">Window Functions</a>
+      <a href="#partitioned-aggregation">Partitioned Aggregation</a>
+      <a href="#exists-vs-in">EXISTS vs IN</a>
+      <a href="#group-by-vs-window">GROUP BY vs Window</a>
+    </nav>
+
+    <div class="detail-sections">
+      <section id="subquery" class="detail-section card" data-summary-topics="22 · Subquery">
+        <div class="eyebrow">01</div>
+        <h2>Subquery</h2>
+        <p class="section-intro">A subquery is a SQL query placed inside another SQL query.</p>
+        <div class="sample-data" aria-label="Shared sample data">
+          <figure><figcaption>orders</figcaption><table><thead><tr><th>order_id</th><th>customer_id</th><th>customer</th><th>product</th><th>quantity</th><th>price</th><th>amount</th></tr></thead><tbody>
+            <tr><td>1001</td><td>C01</td><td>ABC Metals</td><td>Copper</td><td>20</td><td>8500</td><td>170000</td></tr>
+            <tr><td>1002</td><td>C02</td><td>Global Trade</td><td>Aluminum</td><td>50</td><td>2450</td><td>122500</td></tr>
+            <tr><td>1003</td><td>C01</td><td>ABC Metals</td><td>Nickel</td><td>10</td><td>16000</td><td>160000</td></tr>
+            <tr><td>1004</td><td>C03</td><td>Eastern Metals</td><td>Copper</td><td>35</td><td>8700</td><td>304500</td></tr>
+            <tr><td>1005</td><td>C02</td><td>Global Trade</td><td>Copper</td><td>15</td><td>8600</td><td>129000</td></tr>
+          </tbody></table></figure>
+          <figure><figcaption>vip_customers</figcaption><table><thead><tr><th>id</th><th>customer_name</th></tr></thead><tbody>
+            <tr><td>C01</td><td>ABC Metals</td></tr><tr><td>C03</td><td>Eastern Metals</td></tr>
+          </tbody></table></figure>
+          <figure><figcaption>payments</figcaption><table><thead><tr><th>payment_id</th><th>order_id</th><th>amount</th></tr></thead><tbody>
+            <tr><td>P001</td><td>1001</td><td>170000</td></tr><tr><td>P002</td><td>1003</td><td>160000</td></tr><tr><td>P003</td><td>1004</td><td>304500</td></tr>
+          </tbody></table></figure>
+        </div>
+        <div class="syntax-item">
+          <h3><code>Subquery</code></h3>
+          <p>A subquery lets one query use the result of another query.</p>
+          <pre><code>SELECT order_id, customer
+FROM orders
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM vip_customers
+);</code></pre>
+          <p>First, the inner query returns VIP customer IDs. Then, the outer query returns orders from those customers.</p>
+          <p class="result-label">Inner query output</p><p class="result">C01<br>C03</p>
+          <p class="result-label">Final output</p>
+          <div class="output-table"><table><thead><tr><th>order_id</th><th>customer</th></tr></thead><tbody><tr><td>1001</td><td>ABC Metals</td></tr><tr><td>1003</td><td>ABC Metals</td></tr><tr><td>1004</td><td>Eastern Metals</td></tr></tbody></table></div>
+          <p class="key-point">The inner query runs logically as an input to the outer query.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>Scalar Subquery</code></h3>
+          <p>A scalar subquery returns one value.</p>
+          <pre><code>SELECT (
+    SELECT MAX(price)
+    FROM orders
+) AS highest_price;</code></pre>
+          <p class="result">Output: <strong>16000</strong></p>
+          <p>The inner query returns one value, 16000. The outer SELECT displays that value as <code>highest_price</code>.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>Derived Table</code></h3>
+          <p>A derived table is a subquery used inside <code>FROM</code>.</p>
+          <pre><code>SELECT x.product, x.total_quantity
+FROM (
+    SELECT product,
+           SUM(quantity) AS total_quantity
+    FROM orders
+    GROUP BY product
+) x;</code></pre>
+          <p>The inner query creates a temporary result. The outer query reads from that result using the alias <code>x</code>.</p>
+          <p class="result-label">Inner result and final output from x</p>
+          <div class="output-table"><table><thead><tr><th>product</th><th>total_quantity</th></tr></thead><tbody><tr><td>Copper</td><td>70</td></tr><tr><td>Aluminum</td><td>50</td></tr><tr><td>Nickel</td><td>10</td></tr></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="exists" class="detail-section card" data-summary-topics="23 · EXISTS">
+        <div class="eyebrow">02</div>
+        <h2>EXISTS</h2>
+        <div class="syntax-item">
+          <h3><code>EXISTS</code></h3>
+          <p><code>EXISTS</code> checks whether a subquery returns at least one row. It returns true when matching data exists.</p>
+          <pre><code>SELECT o.order_id, o.customer
+FROM orders o
+WHERE EXISTS (
+    SELECT 1
+    FROM payments p
+    WHERE p.order_id = o.order_id
+);</code></pre>
+          <p>For each order, SQL checks whether a related payment exists.</p>
+          <div class="output-table"><table><thead><tr><th>order_id</th><th>customer</th></tr></thead><tbody><tr><td>1001</td><td>ABC Metals</td></tr><tr><td>1003</td><td>ABC Metals</td></tr><tr><td>1004</td><td>Eastern Metals</td></tr></tbody></table></div>
+          <p>Orders 1002 and 1005 are excluded because no payment row exists for them.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>NOT EXISTS</code></h3>
+          <p><code>NOT EXISTS</code> returns rows when the subquery finds no match.</p>
+          <pre><code>SELECT o.order_id, o.customer
+FROM orders o
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM payments p
+    WHERE p.order_id = o.order_id
+);</code></pre>
+          <div class="output-table"><table><thead><tr><th>order_id</th><th>customer</th></tr></thead><tbody><tr><td>1002</td><td>Global Trade</td></tr><tr><td>1005</td><td>Global Trade</td></tr></tbody></table></div>
+          <p class="key-point"><code>EXISTS</code> means related data exists. <code>NOT EXISTS</code> means related data does not exist.</p>
+        </div>
+      </section>
+
+      <section id="cte" class="detail-section card" data-summary-topics="24 · Common Table Expression">
+        <div class="eyebrow">03</div>
+        <h2>Common Table Expression</h2>
+        <div class="syntax-item">
+          <h3><code>WITH</code></h3>
+          <p><code>WITH</code> starts a Common Table Expression, usually called a CTE. A CTE gives a temporary query result a name.</p>
+          <pre><code>WITH cte_name AS (
+    SELECT ...
+)
+SELECT *
+FROM cte_name;</code></pre>
+          <pre><code>WITH completed_orders AS (
+    SELECT *
+    FROM orders
+    WHERE amount &gt;= 150000
+)
+SELECT order_id, customer, amount
+FROM completed_orders;</code></pre>
+          <p>Step 1: create a temporary result called <code>completed_orders</code>. Step 2: query that temporary result.</p>
+          <div class="output-table"><table><thead><tr><th>order_id</th><th>customer</th><th>amount</th></tr></thead><tbody><tr><td>1001</td><td>ABC Metals</td><td>170000</td></tr><tr><td>1003</td><td>ABC Metals</td><td>160000</td></tr><tr><td>1004</td><td>Eastern Metals</td><td>304500</td></tr></tbody></table></div>
+        </div>
+        <div class="syntax-item">
+          <h3><code>CTE</code></h3>
+          <p>A CTE is a named temporary result that exists only for the current SQL statement.</p>
+          <pre><code>WITH product_totals AS (
+    SELECT product,
+           SUM(quantity) AS total_quantity
+    FROM orders
+    GROUP BY product
+)
+SELECT *
+FROM product_totals
+WHERE total_quantity &gt; 20;</code></pre>
+          <div class="output-table"><table><thead><tr><th>product</th><th>total_quantity</th></tr></thead><tbody><tr><td>Copper</td><td>70</td></tr><tr><td>Aluminum</td><td>50</td></tr></tbody></table></div>
+          <p class="key-point">A CTE makes a multi-step query easier to read. It does not normally create a permanent table.</p>
+        </div>
+      </section>
+
+      <section id="recursive-cte" class="detail-section card" data-summary-topics="25 · Recursive CTE">
+        <div class="eyebrow">04</div>
+        <h2>Recursive CTE</h2>
+        <div class="syntax-item">
+          <h3><code>WITH RECURSIVE</code></h3>
+          <p>A recursive CTE repeatedly uses its own previous result. It is commonly used for organization structures, category trees, and parent-child relationships.</p>
+          <p>Sample <code>employees</code> data:</p>
+          <div class="output-table"><table><thead><tr><th>employee_id</th><th>employee_name</th><th>manager_id</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>NULL</td></tr><tr><td>2</td><td>Bob</td><td>1</td></tr><tr><td>3</td><td>Carol</td><td>1</td></tr><tr><td>4</td><td>David</td><td>2</td></tr></tbody></table></div>
+          <pre><code>WITH RECURSIVE org AS (
+    SELECT employee_id,
+           employee_name,
+           manager_id,
+           1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT e.employee_id,
+           e.employee_name,
+           e.manager_id,
+           org.level + 1
+    FROM employees e
+    JOIN org
+      ON e.manager_id = org.employee_id
+)
+SELECT *
+FROM org;</code></pre>
+          <div class="output-table"><table><thead><tr><th>employee_name</th><th>level</th></tr></thead><tbody><tr><td>Alice</td><td>1</td></tr><tr><td>Bob</td><td>2</td></tr><tr><td>Carol</td><td>2</td></tr><tr><td>David</td><td>3</td></tr></tbody></table></div>
+          <p>The first query finds the starting row. The recursive part finds the next level repeatedly.</p>
+          <p class="warning">Recursive CTE syntax and support can vary by database system.</p>
+        </div>
+      </section>
+
+      <section id="window-functions" class="detail-section card" data-summary-topics="26 · Window Functions">
+        <div class="eyebrow">05</div>
+        <h2>Window Functions</h2>
+        <p class="section-intro">Window functions calculate values across related rows while keeping every original row in the result.</p>
+        <div class="syntax-item">
+          <h3><code>OVER()</code></h3>
+          <p><code>OVER</code> defines the set of rows used by a window function.</p>
+          <pre><code>SELECT order_id,
+       amount,
+       SUM(amount) OVER() AS total_amount
+FROM orders;</code></pre>
+          <p class="result">Every original row remains, and <code>total_amount</code> shows <strong>886000</strong> on each row.</p>
+          <p>Unlike <code>GROUP BY</code>, the original rows are not collapsed.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>PARTITION BY</code></h3>
+          <p><code>PARTITION BY</code> divides rows into groups inside a window calculation.</p>
+          <pre><code>SELECT
+    customer,
+    order_id,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY customer
+    ) AS customer_total
+FROM orders;</code></pre>
+          <div class="output-table"><table><thead><tr><th>customer</th><th>order_id</th><th>amount</th><th>customer_total</th></tr></thead><tbody><tr><td>ABC Metals</td><td>1001</td><td>170000</td><td>330000</td></tr><tr><td>ABC Metals</td><td>1003</td><td>160000</td><td>330000</td></tr><tr><td>Global Trade</td><td>1002</td><td>122500</td><td>251500</td></tr><tr><td>Global Trade</td><td>1005</td><td>129000</td><td>251500</td></tr><tr><td>Eastern Metals</td><td>1004</td><td>304500</td><td>304500</td></tr></tbody></table></div>
+          <p>Each row remains visible. The customer total is repeated for rows in the same customer group.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>ORDER BY in a Window</code></h3>
+          <p><code>ORDER BY</code> inside <code>OVER</code> defines the sequence used by the window calculation.</p>
+          <pre><code>SELECT
+    order_id,
+    amount,
+    ROW_NUMBER() OVER (
+        ORDER BY amount DESC
+    ) AS row_num
+FROM orders;</code></pre>
+          <p class="result">The output ranks the highest amount first: order 1004 is row 1, followed by 1001, 1003, 1005, and 1002.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>ROW_NUMBER()</code></h3>
+          <p><code>ROW_NUMBER</code> assigns a unique sequential number to each row.</p>
+          <pre><code>SELECT
+    customer,
+    order_id,
+    amount,
+    ROW_NUMBER() OVER (
+        PARTITION BY customer
+        ORDER BY amount DESC
+    ) AS row_num
+FROM orders;</code></pre>
+          <p>For ABC Metals:</p><p class="result">1001 | 170000 | 1<br>1003 | 160000 | 2</p>
+          <p>The numbering restarts for each customer because of <code>PARTITION BY</code>.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>RANK()</code></h3>
+          <p><code>RANK</code> assigns ranking numbers and leaves gaps after ties.</p>
+          <pre><code>SELECT amount,
+       RANK() OVER (ORDER BY amount DESC) AS rank_num
+FROM order_amounts;</code></pre>
+          <p class="result">For amounts 200, 200, 150, the ranks are <strong>1, 1, 3</strong>.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>DENSE_RANK()</code></h3>
+          <p><code>DENSE_RANK</code> also gives equal values the same rank but does not leave gaps.</p>
+          <pre><code>SELECT amount,
+       DENSE_RANK() OVER (ORDER BY amount DESC) AS dense_rank_num
+FROM order_amounts;</code></pre>
+          <p class="result">For amounts 200, 200, 150, the dense ranks are <strong>1, 1, 2</strong>.</p>
+          <div class="compare"><div><h4>RANK</h4><p>1, 1, 3</p></div><div><h4>DENSE_RANK</h4><p>1, 1, 2</p></div></div>
+        </div>
+        <div class="syntax-item">
+          <h3><code>LAG()</code></h3>
+          <p><code>LAG</code> returns a value from a previous row in the window order.</p>
+          <pre><code>SELECT
+    trade_date,
+    price,
+    LAG(price) OVER (
+        ORDER BY trade_date
+    ) AS previous_price
+FROM trades;</code></pre>
+          <div class="output-table"><table><thead><tr><th>trade_date</th><th>price</th><th>previous_price</th></tr></thead><tbody><tr><td>2026-09-01</td><td>8500</td><td>NULL</td></tr><tr><td>2026-09-02</td><td>8550</td><td>8500</td></tr><tr><td>2026-09-03</td><td>8600</td><td>8550</td></tr></tbody></table></div>
+        </div>
+        <div class="syntax-item">
+          <h3><code>LEAD()</code></h3>
+          <p><code>LEAD</code> returns a value from a following row.</p>
+          <pre><code>SELECT
+    trade_date,
+    price,
+    LEAD(price) OVER (
+        ORDER BY trade_date
+    ) AS next_price
+FROM trades;</code></pre>
+          <div class="output-table"><table><thead><tr><th>trade_date</th><th>price</th><th>next_price</th></tr></thead><tbody><tr><td>2026-09-01</td><td>8500</td><td>8550</td></tr><tr><td>2026-09-02</td><td>8550</td><td>8600</td></tr><tr><td>2026-09-03</td><td>8600</td><td>NULL</td></tr></tbody></table></div>
+          <p class="key-point"><code>LAG</code> looks backward. <code>LEAD</code> looks forward.</p>
+        </div>
+      </section>
+
+      <section id="partitioned-aggregation" class="detail-section card" data-summary-topics="27 · Partitioned Aggregation">
+        <div class="eyebrow">06</div>
+        <h2>Partitioned Aggregation</h2>
+        <div class="syntax-item">
+          <h3><code>Aggregate Over Partition</code></h3>
+          <p>An aggregate window function calculates totals for a group without reducing the number of rows.</p>
+          <pre><code>SELECT
+    customer,
+    order_id,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY customer
+    ) AS customer_total
+FROM orders;</code></pre>
+          <div class="output-table"><table><thead><tr><th>customer</th><th>order_id</th><th>amount</th><th>customer_total</th></tr></thead><tbody><tr><td>ABC Metals</td><td>1001</td><td>170000</td><td>330000</td></tr><tr><td>ABC Metals</td><td>1003</td><td>160000</td><td>330000</td></tr><tr><td>Global Trade</td><td>1002</td><td>122500</td><td>251500</td></tr><tr><td>Global Trade</td><td>1005</td><td>129000</td><td>251500</td></tr><tr><td>Eastern Metals</td><td>1004</td><td>304500</td><td>304500</td></tr></tbody></table></div>
+          <p>Each order remains visible. The grouped total is added as another column.</p>
+        </div>
+      </section>
+
+      <section id="exists-vs-in" class="detail-section card" data-summary-topics="48 · EXISTS vs IN">
+        <div class="eyebrow">07</div>
+        <h2>EXISTS vs IN</h2>
+        <div class="syntax-item">
+          <h3><code>IN with Subquery</code></h3>
+          <pre><code>SELECT order_id, customer
+FROM orders
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM vip_customers
+);</code></pre>
+          <p><code>IN</code> compares <code>customer_id</code> against a list returned by the subquery.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>EXISTS for Related Data</code></h3>
+          <pre><code>SELECT o.order_id, o.customer
+FROM orders o
+WHERE EXISTS (
+    SELECT 1
+    FROM vip_customers v
+    WHERE v.customer_id = o.customer_id
+);</code></pre>
+          <p><code>EXISTS</code> checks whether a matching row exists.</p>
+          <div class="compare"><div><h4>IN</h4><p>Compare against returned values.</p></div><div><h4>EXISTS</h4><p>Check whether a related row exists.</p></div></div>
+          <p class="key-point">Both can solve similar business problems. Choose the form that makes the query clearest. Do not assume that one form is always faster.</p>
+        </div>
+      </section>
+
+      <section id="group-by-vs-window" class="detail-section card" data-summary-topics="49 · GROUP BY vs Window">
+        <div class="eyebrow">08</div>
+        <h2>GROUP BY vs Window</h2>
+        <div class="syntax-item">
+          <h3><code>GROUP BY</code></h3>
+          <pre><code>SELECT customer,
+       SUM(amount) AS total_amount
+FROM orders
+GROUP BY customer;</code></pre>
+          <div class="output-table"><table><thead><tr><th>customer</th><th>total_amount</th></tr></thead><tbody><tr><td>ABC Metals</td><td>330000</td></tr><tr><td>Global Trade</td><td>251500</td></tr><tr><td>Eastern Metals</td><td>304500</td></tr></tbody></table></div>
+          <p>Several order rows become one row per customer.</p>
+        </div>
+        <div class="syntax-item">
+          <h3><code>Window Function</code></h3>
+          <pre><code>SELECT
+    customer,
+    order_id,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY customer
+    ) AS total_amount
+FROM orders;</code></pre>
+          <p class="result">Output keeps all five order rows and repeats the customer total beside each original order.</p>
+        </div>
+        <div class="compare"><div><h4>GROUP BY</h4><p>Combines rows. One row per group.</p></div><div><h4>Window function</h4><p>Keeps individual rows. One row per original record.</p></div></div>
+      </section>
+
+      <nav class="prevnext" aria-label="Topic navigation">
+        <a href="sql-summary.html#21-cast-convert"><small>Previous</small><br>05 · Expressions &amp; Functions</a>
+        <a href="sql-summary.html#28-insert"><small>Next</small> →<br>07 · Data Modification</a>
+      </nav>
+    </div>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script>
+    const links = [...document.querySelectorAll('.on-page a')];
+    const sections = [...document.querySelectorAll('.detail-section')];
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) links.forEach(link => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
+    }), { rootMargin: '-20% 0px -70%' });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>

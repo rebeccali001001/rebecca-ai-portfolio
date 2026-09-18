@@ -14,6 +14,7 @@
         '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge-summary.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>'
       ].join('');
       headerWrap.append(globalLinks);
+      installSiteSearch(globalLinks);
       const trigger = globalLinks.querySelector('.site-nav-trigger');
       const dropdown = globalLinks.querySelector('.site-nav-dropdown');
       trigger.addEventListener('click', (event) => {
@@ -46,6 +47,39 @@
   if (!mount) {
     installGlobalNav();
     return;
+  }
+
+  function installSiteSearch(globalLinks) {
+    if (globalLinks.querySelector('.site-search')) return;
+    const search = document.createElement('div');
+    search.className = 'site-search';
+    search.innerHTML = '<label class="sr-only" for="site-search-input">Search this site</label><input id="site-search-input" type="search" placeholder="Search this site…" autocomplete="off"><div class="site-search-results" role="listbox" aria-label="Search results"></div>';
+    globalLinks.prepend(search);
+    const input = search.querySelector('input');
+    const results = search.querySelector('.site-search-results');
+    let indexPromise;
+    const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+    const loadIndex = () => indexPromise || (indexPromise = Promise.all([
+      fetch('sidebar.html', { cache: 'no-store' }).then((response) => response.ok ? response.text() : ''),
+      fetch('articles/data/articles.json', { cache: 'no-store' }).then((response) => response.ok ? response.json() : []).catch(() => [])
+    ]).then(([sidebar, articles]) => {
+      const parsed = new DOMParser().parseFromString(sidebar, 'text/html');
+      const entries = [...parsed.querySelectorAll('a[href]')].map((link) => ({ title: link.textContent.trim(), href: link.getAttribute('href'), type: 'Knowledge' }));
+      (Array.isArray(articles) ? articles : []).forEach((article) => { if (article.title && article.path) entries.push({ title: article.title, href: article.path, type: 'Blog', description: article.summary || '' }); });
+      return entries;
+    }));
+    const render = (query) => {
+      const needle = query.trim().toLowerCase();
+      if (!needle) { results.innerHTML = ''; results.classList.remove('is-visible'); return; }
+      loadIndex().then((entries) => {
+        const matches = entries.filter((entry) => `${entry.title} ${entry.description || ''}`.toLowerCase().includes(needle)).slice(0, 8);
+        results.innerHTML = matches.length ? matches.map((entry) => `<a role="option" href="${escape(entry.href)}"><strong>${escape(entry.title)}</strong><small>${escape(entry.type)}${entry.description ? ` · ${escape(entry.description)}` : ''}</small></a>`).join('') : '<div class="site-search-empty">No matching content</div>';
+        results.classList.add('is-visible');
+      });
+    };
+    input.addEventListener('input', () => render(input.value));
+    input.addEventListener('keydown', (event) => { if (event.key === 'Escape') { input.value = ''; render(''); input.blur(); } });
+    document.addEventListener('click', (event) => { if (!search.contains(event.target)) results.classList.remove('is-visible'); });
   }
   mount.classList.add('site-directory');
   const authenticationMapCard = [...document.querySelectorAll('.map-support article')].find((card) => card.textContent.includes('Authentication & Security'));
@@ -312,7 +346,9 @@
       '09 · Cloud & Deployment':['Glossary','Overview','Cloud','Server','Hosting','Deployment','Domain','DNS','IP Address','CDN','Docker','Container','Image','CI','CD','CI/CD','Development','Test','UAT','Staging','Production','Serverless','Environment Variable','Artifact'],
       '10 · Testing & Observability':['Glossary','Overview','Testing','Test Case','Unit Test','Integration Test','E2E Test','Regression Test','QA','Bug','Error','Exception','Log','Log Level','Metric','Monitoring','Alert','Tracing','Observability','Root Cause','Incident']
     };
-    const syntax = {Python:['Summary','Glossary','Overview','01 · Python Basics','02 · Data Types','03 · Collections','04 · Operators','05 · Conditions','06 · Loops','07 · Functions','08 · Strings','09 · Modules & Packages','10 · Files','11 · Exceptions','12 · Classes & Objects','13 · Comprehensions','14 · Iterators & Generators','15 · JSON & CSV','16 · API Requests','17 · Virtual Environments','18 · Useful Libraries'],SQL:['Summary','Glossary','Overview','01 · Query Basics','02 · Filtering','03 · Sorting & Aggregation','04 · Joining Tables','05 · Logic','06 · Data Modification','07 · Database Definition'],Web:['Summary','Overview','__html__'],HTML:['HTML Summary','Overview','01 · Document Structure','02 · Elements & Tags','03 · Attributes','04 · Text & Headings','05 · Links','06 · Images & Media','07 · Lists','08 · Tables','09 · Forms','10 · Semantic HTML','11 · Metadata & Head','12 · IDs & Classes','13 · Data Attributes','14 · Accessibility','15 · HTML Entities'],CSS:['Overview','01 · Selectors','02 · Cascade & Specificity','03 · Box Model','04 · Units','05 · Colors & Backgrounds','06 · Typography','07 · Display','08 · Position','09 · Flexbox','10 · Grid','11 · Spacing & Sizing','12 · Borders & Shadows','13 · Pseudo Classes','14 · Pseudo Elements','15 · Responsive Design','16 · Media Queries','17 · Transitions','18 · Animations','19 · CSS Variables','20 · Functions','21 · Overflow & Z-index','Summary']};
+    const sqlStructure = window.SQL_STRUCTURE || [];
+    const sqlNavigation = ['Summary', ...sqlStructure.map((module) => `${module.id} · ${module.title}`)];
+    const syntax = {Python:['Summary','Glossary','Overview','01 · Python Basics','02 · Data Types','03 · Collections','04 · Operators','05 · Conditions','06 · Loops','07 · Functions','08 · Strings','09 · Modules & Packages','10 · Files','11 · Exceptions','12 · Classes & Objects','13 · Comprehensions','14 · Iterators & Generators','15 · JSON & CSV','16 · API Requests','17 · Virtual Environments','18 · Useful Libraries'],SQL:sqlNavigation,Web:['Summary','Overview','__html__'],HTML:['HTML Summary','Overview','01 · Document Structure','02 · Elements & Tags','03 · Attributes','04 · Text & Headings','05 · Links','06 · Images & Media','07 · Lists','08 · Tables','09 · Forms','10 · Semantic HTML','11 · Metadata & Head','12 · IDs & Classes','13 · Data Attributes','14 · Accessibility','15 · HTML Entities'],CSS:['Overview','01 · Selectors','02 · Cascade & Specificity','03 · Box Model','04 · Units','05 · Colors & Backgrounds','06 · Typography','07 · Display','08 · Position','09 · Flexbox','10 · Grid','11 · Spacing & Sizing','12 · Borders & Shadows','13 · Pseudo Classes','14 · Pseudo Elements','15 · Responsive Design','16 · Media Queries','17 · Transitions','18 · Animations','19 · CSS Variables','20 · Functions','21 · Overflow & Z-index','Summary']};
     syntax.Web = syntax.Web.filter((label) => label !== 'JavaScript');
     if (!syntax.Web.includes('Summary')) syntax.Web.unshift('Summary');
     syntax.JavaScript = ['Summary','Overview','01 · Variables','02 · Data Types','03 · Operators','04 · Conditions','05 · Loops','06 · Functions','07 · Scope','08 · Arrays','09 · Objects','10 · Strings','11 · Numbers & Math','12 · Destructuring','13 · Spread & Rest','14 · DOM','15 · DOM Selection','16 · DOM Manipulation','17 · Events','18 · Forms','19 · JSON','20 · Modules','21 · Errors','22 · Async JavaScript','23 · Promises','24 · Async & Await','25 · Fetch & APIs','26 · Local Storage','27 · Classes','28 · Map & Set','29 · Array Methods','30 · Modern JavaScript'];
@@ -485,8 +521,10 @@
       };
       if (type === 'syntax' && (syntaxPages[label] || moduleName === 'SQL' || (moduleName === 'CSS' && cssPages[label]) || (moduleName === 'JavaScript' && javascriptPages[label]))) {
         const sqlAnchors = {'01 · Query Basics':'01-basic-query','02 · Filtering':'03-filtering','03 · Sorting & Aggregation':'07-sorting','04 · Joining Tables':'12-join-basics','05 · Logic':'04-logical-conditions','06 · Data Modification':'27-data-modification','07 · Database Definition':'35-database-definition'};
-        const page = moduleName === 'JavaScript' ? javascriptPages[label] : moduleName === 'CSS' ? cssPages[label] : moduleName === 'SQL' ? `sql-summary.html#${sqlAnchors[label] || '01-basic-query'}` : syntaxPages[label];
-        return `<li><a href="${page}" class="${pathname.endsWith(`/${page}`) ? 'active' : ''}">${label}</a></li>`;
+        const sqlModule = moduleName === 'SQL' ? sqlStructure.find((module) => `${module.id} · ${module.title}` === label) : null;
+        const page = moduleName === 'JavaScript' ? javascriptPages[label] : moduleName === 'CSS' ? cssPages[label] : moduleName === 'SQL' ? (label === 'Summary' ? 'sql-summary.html' : sqlModule?.page || `sql-summary.html#${sqlAnchors[label] || '01-basic-query'}`) : syntaxPages[label];
+        const pagePath = page.split('#')[0];
+        return `<li><a href="${page}" class="${pathname.endsWith(`/${pagePath}`) ? 'active' : ''}">${label}</a></li>`;
       }
       const moduleId = (moduleName.match(/^\d+/) || [])[0];
       const withModuleContext = (value) => {
@@ -541,7 +579,7 @@
       const linkPath = new URL(resolvedHref, base).pathname.replace(/\/$/, '').replace(/\.html$/, '');
       const pageTitleActive = document.body.dataset.pageTitle && document.body.dataset.pageTitle === label && moduleName === (document.body.dataset.pageModule || moduleName);
       const pathActive = type === 'syntax' && !resolvedHref.startsWith('knowledge-placeholder') && currentPath === linkPath && (new URL(resolvedHref, base).hash === location.hash || (!location.hash && label === 'Summary'));
-      const contextActive = requestedModule ? moduleId === requestedModule && currentPath === linkPath : pathActive || pageTitleActive || resolvedActive || module08Active;
+      const contextActive = requestedModule ? moduleId === requestedModule && currentPath === linkPath : type === 'syntax' ? pathActive || pageTitleActive : pathActive || pageTitleActive || resolvedActive || module08Active;
       const unavailableModule08Topic = moduleName === '08 · Development & Git' && resolvedHref.startsWith('knowledge-placeholder.html');
       return `<li>${unavailableModule08Topic ? `<span>${label}</span>` : `<a href="${contextualHref}" class="${contextActive ? 'active' : ''}">${label}</a>`}</li>`;
     };

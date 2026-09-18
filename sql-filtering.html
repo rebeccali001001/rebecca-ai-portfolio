@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02 · Filtering · Language &amp; Syntax</title><link rel="stylesheet" href="topic.css?v=20260910"><link rel="stylesheet" href="site-directory.css"><script defer src="sql-structure.js"></script><script defer src="sidebar.js?v=20260918-sql-filtering"></script></head><body id="top" class="has-site-directory standard-topic sql-filtering" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div><h1>02 · Filtering</h1><p class="lede">Learn how to filter rows, combine conditions, match ranges and patterns, and handle NULL values in SQL.</p></header><nav class="on-page" aria-label="On This Page"><strong>On This Page</strong><a href="#where">WHERE</a><a href="#comparison">Comparison Operators</a><a href="#logic">AND / OR / NOT</a><a href="#null">NULL</a><a href="#in">IN / NOT IN</a><a href="#between">BETWEEN</a><a href="#like">LIKE</a><a href="#putting-together">Putting It Together</a><a href="#quick-comparison">Quick Comparison</a><a href="#mental-model">Mental Model</a></nav><div class="detail-sections">
+<section id="where" class="card wide topic-section"><div class="eyebrow">01</div><h2>WHERE</h2><p><code>WHERE</code> filters rows based on a condition.</p><h3>Explanation</h3><p>It tells SQL which rows should remain in the result.</p><h3>Common scenarios</h3><ul><li>show confirmed orders</li><li>find one metal</li><li>filter by value, date, or status</li></ul><h3>Syntax</h3><pre><code>SELECT column_name
+FROM table_name
+WHERE condition;</code></pre><h3>Example</h3><pre><code>SELECT order_id, customer_name, metal
+FROM sales_orders
+WHERE status = 'Confirmed';</code></pre><p><strong>What happens:</strong> Only confirmed rows are returned.</p><p><strong>PM takeaway:</strong> <code>WHERE</code> controls which rows appear.</p></section>
+<section id="comparison" class="card wide topic-section"><div class="eyebrow">02</div><h2>Comparison Operators</h2><p>Use <code>=</code>, <code>&lt;&gt;</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code> to compare values.</p><pre><code>SELECT order_id, quantity_mt, price_usd
+FROM sales_orders
+WHERE quantity_mt &gt;= 20
+  AND price_usd &lt; 9000;</code></pre><p><strong>PM takeaway:</strong> Comparison operators turn a business rule into a row-level test.</p></section>
+<section id="logic" class="card wide topic-section"><div class="eyebrow">03</div><h2>AND, OR, NOT, and Parentheses</h2><p><code>AND</code> requires both conditions. <code>OR</code> allows either. <code>NOT</code> reverses a condition. Parentheses make mixed logic explicit.</p><pre><code>SELECT *
+FROM sales_orders
+WHERE (metal = 'Copper' OR metal = 'Aluminum')
+  AND status = 'Confirmed';</code></pre><p><strong>PM takeaway:</strong> Use parentheses when combining alternatives and requirements.</p></section>
+<section id="null" class="card wide topic-section"><div class="eyebrow">04</div><h2>NULL, IS NULL, IS NOT NULL, COALESCE, and NULLIF</h2><p><code>NULL</code> means missing or unknown. It is not zero or an empty string.</p><pre><code>SELECT order_id, price_usd
+FROM sales_orders
+WHERE price_usd IS NULL;
+
+SELECT order_id, price_usd
+FROM sales_orders
+WHERE price_usd IS NOT NULL;</code></pre><p class="warning"><strong>Important:</strong> Use <code>IS NULL</code> or <code>IS NOT NULL</code>, never <code>= NULL</code>.</p><pre><code>SELECT COALESCE(status, 'Unknown'), NULLIF(quantity_mt, 0)
+FROM sales_orders;</code></pre><p><code>COALESCE()</code> returns the first non-NULL value. <code>NULLIF()</code> returns NULL when two values are equal.</p><p><strong>PM takeaway:</strong> Missing-value checks use special NULL syntax.</p></section>
+<section id="in" class="card wide topic-section"><div class="eyebrow">05</div><h2>IN and NOT IN</h2><p><code>IN</code> matches one value from a list and is easier to read than repeated <code>OR</code> conditions.</p><pre><code>SELECT order_id, metal, status
+FROM sales_orders
+WHERE metal IN ('Copper', 'Aluminum');</code></pre><p><code>NOT IN</code> excludes the listed values.</p><p><strong>PM takeaway:</strong> Use <code>IN</code> for a clear set of allowed values.</p></section>
+<section id="between" class="card wide topic-section"><div class="eyebrow">06</div><h2>BETWEEN and NOT BETWEEN</h2><p><code>BETWEEN</code> checks an inclusive range.</p><pre><code>SELECT order_id, price_usd
+FROM sales_orders
+WHERE price_usd BETWEEN 8000 AND 9000;</code></pre><p><code>BETWEEN</code> includes both boundary values. <code>NOT BETWEEN</code> excludes the range.</p><p><strong>PM takeaway:</strong> Use it when both endpoints belong in the result.</p></section>
+<section id="like" class="card wide topic-section"><div class="eyebrow">07</div><h2>LIKE, NOT LIKE, %, and _</h2><p><code>LIKE</code> matches text patterns. <code>%</code> matches zero or more characters; <code>_</code> matches exactly one.</p><pre><code>SELECT order_id, customer_name
+FROM sales_orders
+WHERE customer_name LIKE 'A%';</code></pre><p><code>NOT LIKE</code> excludes matching text.</p><p><strong>PM takeaway:</strong> Wildcards find text when only part of the value is known.</p></section>
+<section id="putting-together" class="card wide topic-section"><div class="eyebrow">08</div><h2>Putting It Together</h2><pre><code>SELECT order_id, customer_name, metal, quantity_mt
+FROM sales_orders
+WHERE metal IN ('Copper', 'Aluminum')
+  AND status = 'Confirmed'
+  AND quantity_mt &gt;= 20;</code></pre><ul><li><code>FROM</code> → source table</li><li><code>WHERE</code> → starts filtering</li><li><code>IN</code> → checks allowed values</li><li><code>AND</code> → requires all conditions</li><li><code>&gt;=</code> → checks minimum quantity</li></ul></section>
+<section id="quick-comparison" class="card wide topic-section"><div class="eyebrow">09</div><h2>Quick Comparison</h2><table><thead><tr><th>Syntax</th><th>Purpose</th></tr></thead><tbody><tr><td>WHERE</td><td>Filter rows</td></tr><tr><td>AND</td><td>Require both conditions</td></tr><tr><td>OR</td><td>Allow either condition</td></tr><tr><td>NOT</td><td>Reverse a condition</td></tr><tr><td>BETWEEN</td><td>Match an inclusive range</td></tr><tr><td>IN</td><td>Match one of several values</td></tr><tr><td>LIKE</td><td>Match a text pattern</td></tr><tr><td>IS NULL</td><td>Find missing values</td></tr><tr><td>IS NOT NULL</td><td>Find non-missing values</td></tr></tbody></table></section>
+<section id="mental-model" class="card wide topic-section"><div class="eyebrow">10</div><h2>How to Think About Filtering</h2><div class="query-flow"><div>Table</div><div><code>WHERE</code> checks each row</div><div>Condition is <code>TRUE</code>?</div><div>Yes → Keep the row</div><div>No → Remove it from the result</div><div>Filtered Result</div></div><p><strong>PM takeaway:</strong> A filter defines which records are allowed into the result.</p></section></div><nav class="prevnext" aria-label="Topic navigation"><a href="sql-query-basics.html">← <small>Previous</small><br>01 · Query Basics</a><a href="sql-summary.html#07-sorting"><small>Next</small> →<br>03 · Sorting &amp; Aggregation</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

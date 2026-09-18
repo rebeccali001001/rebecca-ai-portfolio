@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>07 · Database Definition · Language &amp; Syntax</title><meta name="description" content="Learn how SQL creates and changes database structures such as tables, columns, keys, and constraints."><link rel="stylesheet" href="topic.css?v=20260912"><link rel="stylesheet" href="site-directory.css"><script defer src="sql-structure.js"></script><script defer src="sidebar.js?v=20260918-sql-database-definition"></script><style>
+.sql-dd pre{overflow:auto;padding:16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:#dbe7f4;font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}.sql-dd table{width:100%;border-collapse:collapse}.sql-dd th,.sql-dd td{padding:11px;border-bottom:1px solid #29415a;text-align:left;vertical-align:top}.sql-dd th{color:var(--green);font-size:11px;text-transform:uppercase}.sql-dd td{color:var(--muted)}.sql-dd td:first-child{color:#fff;font-weight:800}.sql-dd .callout{border-left:3px solid var(--green);padding:13px 15px;background:rgba(120,229,189,.07)}.sql-dd .warning{border-left-color:#e6ad5c;background:rgba(230,173,92,.08)}.sql-dd .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.sql-dd .compare div{padding:14px;border:1px solid #29415a;border-radius:10px}.sql-dd .compare b{color:var(--green)}@media(max-width:760px){.sql-dd .compare{grid-template-columns:1fr}}
+</style></head><body id="top" class="has-site-directory standard-topic sql-dd" data-knowledge-type="syntax"><nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav><aside id="site-directory" aria-label="Language and Syntax site directory"></aside><main class="wrap detail-page"><header class="hero"><div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div><h1>07 · Database Definition</h1><p class="lede">Learn how SQL creates and changes database structures such as tables, columns, keys, and constraints.</p></header><nav class="on-page" aria-label="On This Page"><strong>On This Page</strong><a href="#data-vs-structure">Data vs Structure</a><a href="#create-table">CREATE TABLE</a><a href="#data-types">Data Types</a><a href="#constraints">Keys &amp; Constraints</a><a href="#foreign-key">FOREIGN KEY</a><a href="#alter-table">ALTER TABLE</a><a href="#drop-truncate">DROP &amp; TRUNCATE</a><a href="#other-objects">Other Objects</a><a href="#putting-together">Putting It Together</a><a href="#quick-comparison">Quick Comparison</a><a href="#mental-model">Mental Model</a></nav><div class="detail-sections">
+<section id="data-vs-structure" class="card wide topic-section"><div class="eyebrow">01</div><h2>Data vs Database Structure</h2><p><strong>Data Modification</strong> uses <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> to change rows. <strong>Database Definition</strong> uses <code>CREATE</code>, <code>ALTER</code>, and <code>DROP</code> to change database structure.</p><p><code>DML</code> means Data Manipulation Language. <code>DDL</code> means Data Definition Language.</p></section>
+<section id="create-table" class="card wide topic-section"><div class="eyebrow">02</div><h2>CREATE TABLE</h2><p><code>CREATE TABLE</code> creates a new table and defines its columns.</p><pre><code>CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    country VARCHAR(50),
+    customer_type VARCHAR(30)
+);</code></pre><table><thead><tr><th>Part</th><th>Meaning</th></tr></thead><tbody><tr><td>CREATE TABLE</td><td>Creates a new table.</td></tr><tr><td>customers</td><td>Table name.</td></tr><tr><td>customer_id</td><td>Column name.</td></tr><tr><td>INT</td><td>Data type.</td></tr><tr><td>PRIMARY KEY</td><td>Unique row identifier.</td></tr></tbody></table></section>
+<section id="data-types" class="card wide topic-section"><div class="eyebrow">03</div><h2>Common Data Types</h2><p>Data types describe what kind of value a column stores.</p><table><thead><tr><th>Type</th><th>Beginner meaning</th><th>Example</th></tr></thead><tbody><tr><td>INT</td><td>Whole numbers.</td><td><code>quantity INT</code></td></tr><tr><td>VARCHAR</td><td>Text.</td><td><code>customer_name VARCHAR(100)</code></td></tr><tr><td>DECIMAL</td><td>Precise numeric values.</td><td><code>quantity_mt DECIMAL(10,2)</code></td></tr><tr><td>DATE</td><td>Dates.</td><td><code>delivery_date DATE</code></td></tr><tr><td>BOOLEAN</td><td>True or false values.</td><td><code>is_active BOOLEAN</code></td></tr></tbody></table></section>
+<section id="constraints" class="card wide topic-section"><div class="eyebrow">04</div><h2>Keys and Constraints</h2><p>A <strong>PRIMARY KEY</strong> uniquely identifies each row. It should identify one row and is commonly used in relationships.</p><pre><code>customer_id INT PRIMARY KEY
+status VARCHAR(20) DEFAULT 'Pending'</code></pre><table><thead><tr><th>Constraint</th><th>Purpose</th></tr></thead><tbody><tr><td>PRIMARY KEY</td><td>Uniquely identifies a row.</td></tr><tr><td>NOT NULL</td><td>Requires a value.</td></tr><tr><td>UNIQUE</td><td>Prevents duplicate values.</td></tr><tr><td>DEFAULT</td><td>Supplies a value when none is provided.</td></tr><tr><td>FOREIGN KEY</td><td>Connects related tables.</td></tr></tbody></table><p class="callout">A constraint is a rule that helps keep table data valid.</p></section>
+<section id="foreign-key" class="card wide topic-section"><div class="eyebrow">05</div><h2>FOREIGN KEY</h2><p>A foreign key connects related tables. This is the structure that later makes a <code>JOIN</code> between customers and orders meaningful.</p><pre><code>CREATE TABLE sales_orders (
+    order_id VARCHAR(20) PRIMARY KEY,
+    customer_id INT,
+    metal VARCHAR(30),
+    quantity_mt DECIMAL(10,2),
+    FOREIGN KEY (customer_id)
+        REFERENCES customers(customer_id)
+);</code></pre><p class="callout"><code>customers.customer_id</code><br>↑<br><code>sales_orders.customer_id</code></p></section>
+<section id="alter-table" class="card wide topic-section"><div class="eyebrow">06</div><h2>ALTER TABLE</h2><p><code>ALTER TABLE</code> changes the structure of an existing table.</p><pre><code>ALTER TABLE sales_orders
+ADD COLUMN delivery_date DATE;
+
+ALTER TABLE sales_orders
+DROP COLUMN delivery_date;</code></pre></section>
+<section id="drop-truncate" class="card wide topic-section"><div class="eyebrow">07</div><h2>DROP and TRUNCATE</h2><p class="callout warning"><code>DROP TABLE</code> is a structural operation and can be destructive.</p><pre><code>DROP TABLE temporary_orders;
+TRUNCATE TABLE temporary_orders;</code></pre><div class="compare"><div><b>DELETE</b><p>Removes rows.</p></div><div><b>TRUNCATE TABLE</b><p>Removes all rows while keeping the table structure.</p></div><div><b>DROP TABLE</b><p>Removes the table itself.</p></div></div><p>Exact behavior can vary by database system.</p></section>
+<section id="other-objects" class="card wide topic-section"><div class="eyebrow">08</div><h2>Other Structure Operations</h2><p>The Summary also includes databases, schemas, temporary tables, views, indexes, transactions, and database-specific conflict handling.</p><pre><code>CREATE DATABASE trading;
+CREATE SCHEMA reporting;
+CREATE TEMP TABLE temp_orders AS SELECT * FROM sales_orders;
+CREATE VIEW active_orders AS SELECT * FROM sales_orders;
+CREATE INDEX idx_orders_status ON sales_orders(status);
+BEGIN;
+COMMIT;
+ROLLBACK;</code></pre><p>Support and exact syntax vary across database systems.</p></section>
+<section id="putting-together" class="card wide topic-section"><div class="eyebrow">09</div><h2>Putting It Together</h2><pre><code>CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE sales_orders (
+    order_id VARCHAR(20) PRIMARY KEY,
+    customer_id INT,
+    metal VARCHAR(30),
+    quantity_mt DECIMAL(10,2),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);</code></pre><p>Table definition creates the keys and relationship. Later, a <code>JOIN</code> can use that relationship to combine customer and order data.</p></section>
+<section id="quick-comparison" class="card wide topic-section"><div class="eyebrow">10</div><h2>Quick Comparison</h2><table><thead><tr><th>Syntax</th><th>Purpose</th></tr></thead><tbody><tr><td>CREATE TABLE</td><td>Build a table structure.</td></tr><tr><td>PRIMARY KEY</td><td>Identify one row uniquely.</td></tr><tr><td>FOREIGN KEY</td><td>Connect related tables.</td></tr><tr><td>NOT NULL</td><td>Require a value.</td></tr><tr><td>UNIQUE</td><td>Prevent duplicates.</td></tr><tr><td>DEFAULT</td><td>Provide a fallback value.</td></tr><tr><td>ALTER TABLE</td><td>Change table structure.</td></tr><tr><td>ADD COLUMN</td><td>Add a column.</td></tr><tr><td>DROP COLUMN</td><td>Remove a column.</td></tr><tr><td>TRUNCATE TABLE</td><td>Remove all rows while keeping the table.</td></tr><tr><td>DROP TABLE</td><td>Remove the table and its data.</td></tr></tbody></table></section>
+<section id="mental-model" class="card wide topic-section"><div class="eyebrow">11</div><h2>How to Think About Database Definition</h2><div class="query-flow"><div>Database</div><div>Table</div><div>Columns</div><div>Data Types</div><div>Constraints</div><div>Keys</div><div>Relationships</div></div><p><code>CREATE</code> builds structure. <code>ALTER</code> changes structure. <code>DROP</code> removes structure.</p></section></div><nav class="prevnext" aria-label="Topic navigation"><a href="sql-data-modification.html">← <small>Previous</small><br>06 · Data Modification</a><a href="sql-summary.html"><small>Back to</small> →<br>SQL Summary</a></nav></main><a class="back-to-top" href="#top" aria-label="Back to top">↑</a></body></html>

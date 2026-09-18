@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>08 · Database Structure · SQL · Language &amp; Syntax</title>
+  <meta name="description" content="Learn how SQL creates and changes database structures, defines columns and rules, connects tables, and creates reusable database objects.">
+  <link rel="stylesheet" href="topic.css?v=20260912">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sql-structure.js"></script>
+  <script defer src="sidebar.js?v=20260918-sql-structure"></script>
+  <style>
+    .database-structure-page .hero{padding-bottom:24px}
+    .database-structure-page .hero .lede{max-width:900px}
+    .structure-layout{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:22px;align-items:start;margin-top:26px}
+    .structure-toc{position:sticky;top:96px;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(8,20,31,.94)}
+    .structure-toc strong{display:block;margin-bottom:9px;color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .structure-toc a{display:block;padding:5px 0;color:var(--muted);font-size:12px;line-height:1.35}
+    .structure-toc a:hover{color:#fff}
+    .structure-section{margin:0;padding:26px}
+    .structure-section>h2{margin:0 0 8px;font-size:29px}
+    .section-intro{max-width:840px;color:var(--muted);margin:0 0 8px}
+    .syntax-item{padding:21px 0;border-top:1px solid rgba(255,255,255,.1)}
+    .syntax-item:first-of-type{border-top:0}
+    .syntax-item h3{margin:0 0 7px;color:#fff;font-size:21px}
+    .syntax-item h3 code{color:var(--green);font:800 20px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .syntax-item p{max-width:860px;color:var(--muted);margin:7px 0}
+    .syntax-item pre,.structure-section>pre{margin:12px 0;padding:16px;overflow:auto;border:1px solid #38516d;border-radius:11px;background:#050b12;color:#dbe7f4;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .syntax-item pre code,.structure-section>pre code{white-space:pre}
+    .schema-card{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+    .schema-card>div,.relation-card>div,.comparison-card>div{padding:16px;border:1px solid #38516d;border-radius:13px;background:#07111a}
+    .schema-card b,.relation-card b,.comparison-card b{display:block;color:var(--green);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .schema-card code,.relation-card code{display:block;color:#dbe7f4;font:14px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .definition-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:14px}
+    .definition-grid>div{padding:14px;border:1px solid #38516d;border-radius:12px;background:#07111a}
+    .definition-grid b{display:block;color:#fff;font:700 14px ui-monospace,SFMono-Regular,Consolas,monospace;margin-bottom:4px}
+    .definition-grid span{color:var(--muted);font-size:13px}
+    .sample-values{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .sample-values span{padding:6px 9px;border:1px solid #38516d;border-radius:999px;background:#07111a;color:#dbe7f4;font:12px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .callout{margin:14px 0 0;padding:13px 15px;border-left:3px solid var(--green);border-radius:0 9px 9px 0;background:rgba(120,229,189,.07);color:#dbe7f4}
+    .warning{border-left-color:#e6ad5c;background:rgba(230,173,92,.08);color:#ffe0a6}
+    .before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .before-after>div{padding:15px;border:1px solid #38516d;border-radius:12px;background:#07111a}
+    .before-after strong{display:block;color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+    .before-after p{margin:0;color:var(--muted)}
+    .relation-card{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .comparison-card{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .comparison-card p{margin:0;color:var(--muted)}
+    .pager{display:flex;justify-content:space-between;gap:16px;margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+    .pager a{display:flex;flex-direction:column;gap:3px;min-width:190px;color:var(--muted)}
+    .pager a:last-child{align-items:flex-end;text-align:right}
+    .pager a:hover{color:#fff}.pager small{font-size:11px;letter-spacing:.08em;text-transform:uppercase}.pager strong{color:var(--green);font-size:15px}
+    @media(max-width:900px){.structure-layout{grid-template-columns:1fr}.structure-toc{position:relative;top:auto;order:-1}.definition-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.structure-section{padding:21px}.schema-card,.before-after,.relation-card,.comparison-card,.definition-grid{grid-template-columns:1fr}.pager{flex-direction:column}.pager a:last-child{align-items:flex-start;text-align:left}}
+  </style>
+</head>
+<body id="top" class="has-site-directory standard-topic database-structure-page" data-knowledge-type="syntax" data-page-title="08 · Database Structure">
+  <nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="detail-page">
+    <div class="wrap">
+      <a class="back" href="syntax-overview.html">← Language &amp; Syntax</a>
+      <header class="hero">
+        <div class="eyebrow">SQL · LANGUAGE &amp; SYNTAX</div>
+        <h1>08 · Database Structure</h1>
+        <p class="lede">Learn how SQL creates and changes database structures, defines columns and rules, connects tables, and creates reusable database objects.</p>
+      </header>
+
+      <div class="structure-layout">
+        <div class="detail-sections">
+          <section id="create-table" class="card detail-section structure-section">
+            <h2>01 · CREATE TABLE</h2>
+            <p class="section-intro">Create tables, define columns, and choose the data types and constraints that describe each value.</p>
+            <article class="syntax-item">
+              <h3><code>CREATE TABLE</code></h3>
+              <p>CREATE TABLE creates a new table in the database.</p>
+              <pre><code>CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    country VARCHAR(50),
+    email VARCHAR(100)
+);</code></pre>
+              <p>What it means: create a table named <code>customers</code> with four columns.</p>
+              <div class="schema-card" aria-label="Customers table structure">
+                <div><b>customers</b><code>customer_id</code><code>customer_name</code><code>country</code><code>email</code></div>
+                <div><b>Business model</b><p>A customer record has an identifier, name, country, and email address.</p></div>
+              </div>
+            </article>
+            <article class="syntax-item">
+              <h3><code>Column Definition</code></h3>
+              <p>Each column definition usually contains a column name, a data type, and optional constraints.</p>
+              <pre><code>customer_name VARCHAR(100) NOT NULL</code></pre>
+              <div class="definition-grid"><div><b>customer_name</b><span>column name</span></div><div><b>VARCHAR(100)</b><span>data type</span></div><div><b>NOT NULL</b><span>constraint</span></div></div>
+            </article>
+            <article class="syntax-item">
+              <h3><code>Data Type</code></h3>
+              <p>A data type tells the database what kind of value a column stores.</p>
+              <pre><code>price DECIMAL(18,2)</code></pre>
+              <p>The column stores precise decimal numbers.</p>
+            </article>
+          </section>
+
+          <section id="common-data-types" class="card detail-section structure-section">
+            <h2>02 · Common Data Types</h2>
+            <p class="section-intro">Choose a type that matches the values a column should accept. Exact names and behavior can vary between database systems.</p>
+            <article class="syntax-item"><h3><code>INT</code></h3><p>INT stores whole numbers.</p><pre><code>quantity INT</code></pre><div class="sample-values"><span>10</span><span>25</span><span>100</span></div></article>
+            <article class="syntax-item"><h3><code>BIGINT</code></h3><p>BIGINT stores larger whole numbers.</p><pre><code>id BIGINT</code></pre></article>
+            <article class="syntax-item"><h3><code>DECIMAL(p,s)</code></h3><p>DECIMAL stores precise decimal numbers.</p><pre><code>price DECIMAL(18,2)</code></pre><p><code>18</code> is the total number of digits; <code>2</code> is the number of digits after the decimal point.</p><div class="sample-values"><span>8500.25</span></div></article>
+            <article class="syntax-item"><h3><code>NUMERIC(p,s)</code></h3><p>NUMERIC is another precise numeric type.</p><pre><code>amount NUMERIC(18,2)</code></pre></article>
+            <article class="syntax-item"><h3><code>FLOAT</code></h3><p>FLOAT stores approximate numeric values.</p><pre><code>rate FLOAT</code></pre><p class="callout">Use precise decimal types when exact financial values are important.</p></article>
+            <article class="syntax-item"><h3><code>VARCHAR(n)</code></h3><p>VARCHAR stores variable-length text.</p><pre><code>customer VARCHAR(100)</code></pre></article>
+            <article class="syntax-item"><h3><code>CHAR(n)</code></h3><p>CHAR stores fixed-length text.</p><pre><code>country CHAR(2)</code></pre><div class="sample-values"><span>SG</span><span>CN</span><span>JP</span></div></article>
+            <article class="syntax-item"><h3><code>TEXT</code></h3><p>TEXT stores longer text.</p><pre><code>remarks TEXT</code></pre></article>
+            <article class="syntax-item"><h3><code>DATE</code></h3><p>DATE stores a calendar date.</p><pre><code>trade_date DATE</code></pre><div class="sample-values"><span>2026-09-18</span></div></article>
+            <article class="syntax-item"><h3><code>TIME</code></h3><p>TIME stores a time value.</p><pre><code>trade_time TIME</code></pre></article>
+            <article class="syntax-item"><h3><code>TIMESTAMP</code></h3><p>TIMESTAMP stores date and time information.</p><pre><code>created_at TIMESTAMP</code></pre></article>
+            <article class="syntax-item"><h3><code>BOOLEAN</code></h3><p>BOOLEAN stores true / false style values in databases that support it.</p><pre><code>is_active BOOLEAN</code></pre><p class="callout">Exact type names and behavior vary between database systems.</p></article>
+          </section>
+
+          <section id="constraints" class="card detail-section structure-section">
+            <h2>03 · Constraints</h2>
+            <p class="section-intro">Constraints define rules for the data stored in a table.</p>
+            <article class="syntax-item"><h3><code>PRIMARY KEY</code></h3><p>A PRIMARY KEY uniquely identifies each row.</p><pre><code>order_id INT PRIMARY KEY</code></pre><ul><li>Values must uniquely identify rows.</li><li>A table normally has one primary key definition.</li><li>It is commonly used in relationships.</li></ul></article>
+            <article class="syntax-item"><h3><code>FOREIGN KEY</code></h3><p>A FOREIGN KEY links a column to a key in another table.</p><pre><code>FOREIGN KEY (customer_id)
+REFERENCES customers(customer_id)</code></pre><p><code>orders.customer_id</code> references <code>customers.customer_id</code>.</p></article>
+            <article class="syntax-item"><h3><code>REFERENCES</code></h3><p>REFERENCES identifies the table and column that a foreign key points to.</p><pre><code>REFERENCES customers(customer_id)</code></pre></article>
+            <article class="syntax-item"><h3><code>NOT NULL</code></h3><p>NOT NULL requires a value.</p><pre><code>customer_name VARCHAR(100) NOT NULL</code></pre><p>A row cannot leave <code>customer_name</code> as NULL.</p></article>
+            <article class="syntax-item"><h3><code>UNIQUE</code></h3><p>UNIQUE prevents duplicate values in a constrained column or key.</p><pre><code>email VARCHAR(100) UNIQUE</code></pre></article>
+            <article class="syntax-item"><h3><code>DEFAULT</code></h3><p>DEFAULT provides a value when no value is supplied.</p><pre><code>status VARCHAR(20) DEFAULT 'Pending'</code></pre><p>If an INSERT does not provide <code>status</code>, the output value is <code>Pending</code>.</p></article>
+            <article class="syntax-item"><h3><code>CHECK</code></h3><p>CHECK requires data to satisfy a condition.</p><pre><code>CHECK (quantity &gt; 0)</code></pre><p>Quantity must be greater than zero.</p></article>
+          </section>
+
+          <section id="alter-table" class="card detail-section structure-section">
+            <h2>04 · ALTER TABLE</h2>
+            <p class="section-intro">ALTER TABLE changes the structure of an existing table.</p>
+            <article class="syntax-item"><h3><code>ALTER TABLE</code></h3><p>Use ALTER TABLE as the starting point for structural changes.</p><pre><code>ALTER TABLE customers
+ADD COLUMN phone VARCHAR(30);</code></pre></article>
+            <article class="syntax-item"><h3><code>ADD COLUMN</code></h3><p>Add a new column to the table.</p><pre><code>ALTER TABLE customers
+ADD COLUMN phone VARCHAR(30);</code></pre><div class="before-after"><div><strong>Before</strong><p>customer_id · customer_name · country · email</p></div><div><strong>After</strong><p>customer_id · customer_name · country · email · phone</p></div></div></article>
+            <article class="syntax-item"><h3><code>DROP COLUMN</code></h3><p>Remove a column from the table structure.</p><pre><code>ALTER TABLE customers
+DROP COLUMN phone;</code></pre><p>After the statement, <code>phone</code> is removed from the table structure.</p></article>
+            <article class="syntax-item"><h3><code>RENAME COLUMN</code></h3><p>Change a column name.</p><pre><code>ALTER TABLE customers
+RENAME COLUMN customer_name TO name;</code></pre><p class="callout">Exact rename syntax varies between databases.</p></article>
+          </section>
+
+          <section id="drop" class="card detail-section structure-section">
+            <h2>05 · DROP</h2>
+            <p class="section-intro">DROP removes database objects or parts of their structure.</p>
+            <article class="syntax-item"><h3><code>DROP TABLE</code></h3><p>DROP TABLE removes a table object. Its stored rows are also no longer available through that table.</p><pre><code>DROP TABLE temp_orders;</code></pre><p class="callout warning">DROP is a destructive structural operation.</p></article>
+            <article class="syntax-item"><h3><code>DROP VIEW</code></h3><p>Remove the view definition.</p><pre><code>DROP VIEW active_orders;</code></pre></article>
+            <article class="syntax-item"><h3><code>DROP INDEX</code></h3><p>Remove an index.</p><pre><code>DROP INDEX idx_orders_status;</code></pre><p class="callout">Exact DROP INDEX syntax can vary by database.</p></article>
+          </section>
+
+          <section id="view" class="card detail-section structure-section">
+            <h2>06 · VIEW</h2>
+            <p class="section-intro">A view stores a query definition that can be queried like a virtual table.</p>
+            <article class="syntax-item"><h3><code>CREATE VIEW</code></h3><p>Create a reusable named query.</p><pre><code>CREATE VIEW active_orders AS
+SELECT order_id,
+       customer_id,
+       product,
+       status
+FROM orders
+WHERE status = 'Completed';</code></pre></article>
+            <article class="syntax-item"><h3><code>SELECT FROM View</code></h3><p>Read from the view as if it were a table.</p><pre><code>SELECT *
+FROM active_orders;</code></pre><div class="schema-card"><div><b>Sample output</b><code>1001 · C01 · Copper · Completed</code><code>1002 · C02 · Aluminum · Completed</code></div><div><b>Meaning</b><p>The result contains Completed orders exposed by the view.</p></div></div></article>
+            <article class="syntax-item"><h3><code>DROP VIEW</code></h3><p>Remove the view definition.</p><pre><code>DROP VIEW active_orders;</code></pre></article>
+          </section>
+
+          <section id="index" class="card detail-section structure-section">
+            <h2>07 · INDEX</h2>
+            <p class="section-intro">Indexes can help the database find rows more efficiently, depending on the query and the database planner.</p>
+            <article class="syntax-item"><h3><code>CREATE INDEX</code></h3><p>Create an index on a column that is often used for lookups or filtering.</p><pre><code>CREATE INDEX idx_orders_status
+ON orders(status);</code></pre><p>The index is created on the <code>status</code> column.</p></article>
+            <article class="syntax-item"><h3><code>CREATE UNIQUE INDEX</code></h3><p>A unique index also enforces uniqueness for the indexed key.</p><pre><code>CREATE UNIQUE INDEX idx_customers_email
+ON customers(email);</code></pre></article>
+            <article class="syntax-item"><h3><code>DROP INDEX</code></h3><p>Remove an index when it is no longer needed.</p><pre><code>DROP INDEX idx_orders_status;</code></pre><p class="callout">Indexes can improve read performance but use storage and add work to data changes.</p></article>
+          </section>
+
+          <section id="keys" class="card detail-section structure-section">
+            <h2>08 · Primary Key / Foreign Key</h2>
+            <p class="section-intro">Keys identify rows and connect related tables.</p>
+            <article class="syntax-item"><h3><code>Primary Key</code></h3><p>Each order must have a unique identifier.</p><pre><code>PRIMARY KEY (order_id)</code></pre><div class="schema-card"><div><b>orders.order_id</b><code>1001</code><code>1002</code><code>1003</code></div><div><b>Rule</b><p>No duplicate <code>order_id</code> values.</p></div></div></article>
+            <article class="syntax-item"><h3><code>Foreign Key</code></h3><p>The foreign key connects each order to a customer.</p><pre><code>FOREIGN KEY (customer_id)
+REFERENCES customers(customer_id)</code></pre><div class="relation-card"><div><b>customers</b><code>C01 → ABC Metals</code><code>C02 → Global Trade</code></div><div><b>orders</b><code>1001 → C01</code><code>1002 → C02</code></div></div><div class="comparison-card"><div><b>Primary Key</b><p>Identifies a row in its own table.</p></div><div><b>Foreign Key</b><p>References a related row in another table.</p></div></div></article>
+          </section>
+
+          <section id="database-schema" class="card detail-section structure-section">
+            <h2>09 · CREATE DATABASE / SCHEMA</h2>
+            <p class="section-intro">Databases and schemas organize objects, but their behavior varies significantly between SQL systems.</p>
+            <article class="syntax-item"><h3><code>CREATE DATABASE</code></h3><p>CREATE DATABASE creates a new database in systems that support this command.</p><pre><code>CREATE DATABASE trading;</code></pre></article>
+            <article class="syntax-item"><h3><code>CREATE SCHEMA</code></h3><p>CREATE SCHEMA creates a named namespace inside a database.</p><pre><code>CREATE SCHEMA reporting;</code></pre></article>
+            <article class="syntax-item"><h3><code>schema.table</code></h3><p>schema.table identifies a table inside a specific schema.</p><pre><code>reporting.orders
+
+SELECT *
+FROM reporting.orders;</code></pre><div class="definition-grid"><div><b>reporting</b><span>schema</span></div><div><b>orders</b><span>table</span></div><div><b>reporting.orders</b><span>qualified table name</span></div></div><p class="callout">Database and schema behavior varies significantly between SQL systems.</p></article>
+          </section>
+
+          <section id="temporary-table" class="card detail-section structure-section">
+            <h2>10 · Temporary Table</h2>
+            <p class="section-intro">A temporary table stores working data for a limited scope or session.</p>
+            <article class="syntax-item"><h3><code>CREATE TEMP TABLE</code></h3><p>Create a temporary table containing Completed orders.</p><pre><code>CREATE TEMP TABLE temp_orders AS
+SELECT *
+FROM orders
+WHERE status = 'Completed';
+
+SELECT *
+FROM temp_orders;</code></pre><p class="callout">Temporary table syntax and lifetime vary between databases.</p></article>
+          </section>
+
+          <nav class="pager" aria-label="SQL lesson navigation">
+            <a href="sql-summary.html#30-delete"><small>Previous</small><strong>← 07 · Data Modification</strong></a>
+            <a href="sql-summary.html#50-common-query-order"><small>Next</small><strong>09 · SQL Patterns &amp; Reference →</strong></a>
+          </nav>
+        </div>
+
+        <aside class="structure-toc" aria-label="On This Page">
+          <strong>On This Page</strong>
+          <a href="#create-table">CREATE TABLE</a>
+          <a href="#common-data-types">Common Data Types</a>
+          <a href="#constraints">Constraints</a>
+          <a href="#alter-table">ALTER TABLE</a>
+          <a href="#drop">DROP</a>
+          <a href="#view">VIEW</a>
+          <a href="#index">INDEX</a>
+          <a href="#keys">Primary Key / Foreign Key</a>
+          <a href="#database-schema">CREATE DATABASE / SCHEMA</a>
+          <a href="#temporary-table">Temporary Table</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

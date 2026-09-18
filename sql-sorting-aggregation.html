@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03 · Sorting &amp; Aggregation · SQL</title>
+  <meta name="description" content="Learn SQL sorting, aggregate functions, GROUP BY, and HAVING.">
+  <link rel="stylesheet" href="topic.css?v=20260912">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sql-structure.js"></script>
+  <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+  <style>
+    .sql-sorting-page .hero{padding-bottom:10px}
+    .sql-sorting-page .hero h1{margin-bottom:12px}
+    .sql-sorting-page .on-page{margin-top:24px}
+    .sql-sorting-page .sample-card{margin-top:18px}
+    .sql-sorting-page .section-intro{max-width:850px;color:var(--muted);font-size:16px}
+    .sql-sorting-page .syntax-topic{padding:22px 0;border-top:1px solid rgba(255,255,255,.1)}
+    .sql-sorting-page .syntax-topic:first-of-type{border-top:0;padding-top:4px}
+    .sql-sorting-page .syntax-topic h3{margin:0 0 9px;color:var(--green);font:800 27px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:-.02em}
+    .sql-sorting-page .syntax-topic h3.small-title{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:24px;letter-spacing:-.03em}
+    .sql-sorting-page .syntax-topic p{margin:7px 0;color:var(--muted);max-width:860px}
+    .sql-sorting-page .syntax-topic .label{margin:16px 0 6px;color:#fff;font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    .sql-sorting-page pre{margin:10px 0 0;padding:16px;overflow:auto;border:1px solid #38516d;border-radius:12px;background:#050b12;color:#e8f2fb;font:600 13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-sorting-page .output{margin:12px 0 0;padding:13px 15px;border-left:3px solid var(--green);background:rgba(120,229,189,.07);color:#fff;overflow-x:auto}
+    .sql-sorting-page .output code{font:600 13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre}
+    .sql-sorting-page .calculation{color:#dbe7f4!important;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-sorting-page .sql-table{margin-top:14px;min-width:560px}
+    .sql-sorting-page .table-wrap{max-width:100%;overflow-x:auto}
+    .sql-sorting-page .table-wrap .sql-table{margin-top:0}
+    .sql-sorting-page .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+    .sql-sorting-page .comparison>div{padding:16px;border:1px solid #38516d;border-radius:14px;background:#07111a}
+    .sql-sorting-page .comparison h3{margin:0 0 7px;color:#fff;font:800 16px/1.3 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}
+    .sql-sorting-page .comparison p{margin:5px 0;color:var(--muted);font-size:14px}
+    .sql-sorting-page .comparison code{color:#dbe7f4;font:600 12px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-sorting-page .line-explanation{display:grid;gap:6px;margin-top:14px;padding:15px 16px;border:1px solid #38516d;border-radius:12px;background:#07111a;color:var(--muted)}
+    .sql-sorting-page .line-explanation b{color:var(--green);font:800 12px ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-sorting-page .line-explanation span{display:block}
+    .sql-sorting-page .section-number{margin-bottom:5px}
+    @media(max-width:760px){.sql-sorting-page .comparison{grid-template-columns:1fr}.sql-sorting-page .syntax-topic h3{font-size:23px}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory row-page sql-sorting-page" data-knowledge-type="syntax" data-page-title="03 · Sorting &amp; Aggregation">
+  <nav><div class="wrap"><a class="brand" href="syntax-overview.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="sql-summary.html">← SQL Syntax Summary</a>
+    <header class="hero">
+      <div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div>
+      <h1>03 · Sorting &amp; Aggregation</h1>
+      <p class="lede">Learn how SQL sorts query results, calculates summary values, groups rows, and filters aggregated results.</p>
+    </header>
+
+    <nav class="on-page" aria-label="On this page">
+      <b>On This Page</b>
+      <a href="#sorting">Sorting</a>
+      <a href="#aggregate-functions">Aggregate Functions</a>
+      <a href="#group-by">GROUP BY</a>
+      <a href="#having">HAVING</a>
+    </nav>
+
+    <section class="card wide sample-card" aria-labelledby="sample-data-title">
+      <h2 id="sample-data-title">Sample Data</h2>
+      <p class="section-intro">The examples on this page use the same <code>orders</code> table.</p>
+      <div class="table-wrap">
+        <table class="sql-table data-table">
+          <thead><tr><th>order_id</th><th>customer</th><th>product</th><th>quantity</th><th>price</th><th>status</th></tr></thead>
+          <tbody>
+            <tr><td>1001</td><td>ABC Metals</td><td>Copper</td><td>20</td><td>8500</td><td>Completed</td></tr>
+            <tr><td>1002</td><td>Global Trade</td><td>Aluminum</td><td>50</td><td>2450</td><td>Pending</td></tr>
+            <tr><td>1003</td><td>Eastern Metals</td><td>Nickel</td><td>10</td><td>16000</td><td>Completed</td></tr>
+            <tr><td>1004</td><td>Apple Resources</td><td>Copper</td><td>35</td><td>8700</td><td>Completed</td></tr>
+            <tr><td>1005</td><td>Pacific Metals</td><td>Aluminum</td><td>25</td><td>2500</td><td>Completed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="detail-sections">
+      <section id="sorting" class="card wide detail-section">
+        <div class="eyebrow section-number">01</div>
+        <h2>Sorting</h2>
+        <p class="section-intro">Sorting controls the order in which rows appear in a query result.</p>
+
+        <div class="syntax-topic">
+          <h3>ORDER BY</h3>
+          <p>ORDER BY sorts query results using one or more columns.</p>
+          <p class="label">Syntax</p>
+          <pre><code>SELECT columns
+FROM table_name
+ORDER BY column_name;</code></pre>
+          <p class="label">Example 1</p>
+          <pre><code>SELECT order_id, product, price
+FROM orders
+ORDER BY price;</code></pre>
+          <p class="label">What it means</p>
+          <p>Sort the orders by price from low to high.</p>
+          <p class="label">Output</p>
+          <div class="output"><code>1002 | Aluminum | 2450
+1005 | Aluminum | 2500
+1001 | Copper   | 8500
+1004 | Copper   | 8700
+1003 | Nickel   | 16000</code></div>
+          <p class="label">Explain</p>
+          <p>Ascending order is the default.</p>
+          <p class="label">Example 2</p>
+          <pre><code>SELECT customer, quantity
+FROM orders
+ORDER BY quantity;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>10
+20
+25
+35
+50</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>ASC</h3>
+          <p>ASC means ascending order.</p>
+          <p>Numbers go from smaller to larger. Text goes in ascending alphabetical order.</p>
+          <p class="label">Syntax</p>
+          <pre><code>ORDER BY column_name ASC</code></pre>
+          <p class="label">Example</p>
+          <pre><code>SELECT order_id, quantity
+FROM orders
+ORDER BY quantity ASC;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>1003 | 10
+1001 | 20
+1005 | 25
+1004 | 35
+1002 | 50</code></div>
+          <p class="label">Key point</p>
+          <p>ASC is usually the default sorting direction.</p>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>DESC</h3>
+          <p>DESC means descending order.</p>
+          <p class="label">Example 1</p>
+          <pre><code>SELECT order_id, price
+FROM orders
+ORDER BY price DESC;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>1003 | 16000
+1004 | 8700
+1001 | 8500
+1005 | 2500
+1002 | 2450</code></div>
+          <p class="label">Example 2</p>
+          <pre><code>SELECT order_id, quantity
+FROM orders
+ORDER BY quantity DESC;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>50
+35
+25
+20
+10</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3 class="small-title">Multiple-Column Sorting</h3>
+          <p>SQL can sort by more than one column.</p>
+          <p class="label">Syntax</p>
+          <pre><code>ORDER BY column1 ASC, column2 DESC</code></pre>
+          <p class="label">Example</p>
+          <pre><code>SELECT product, order_id, quantity
+FROM orders
+ORDER BY product ASC, quantity DESC;</code></pre>
+          <p class="label">What it means</p>
+          <p>First sort by product. For rows with the same product, sort quantity from high to low.</p>
+          <p class="label">Output</p>
+          <div class="output"><code>Aluminum | 1002 | 50
+Aluminum | 1005 | 25
+Copper   | 1004 | 35
+Copper   | 1001 | 20
+Nickel   | 1003 | 10</code></div>
+        </div>
+      </section>
+
+      <section id="aggregate-functions" class="card wide detail-section">
+        <div class="eyebrow section-number">02</div>
+        <h2>Aggregate Functions</h2>
+        <p class="section-intro">Aggregate functions calculate one summary value from multiple rows.</p>
+
+        <div class="syntax-topic">
+          <h3>COUNT(*)</h3>
+          <p>COUNT(*) counts rows.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT COUNT(*)
+FROM orders;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>5</code></div>
+          <p class="label">Explain</p>
+          <p>The orders table contains five rows.</p>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>COUNT(column)</h3>
+          <p>COUNT(column) counts non-NULL values in a column.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT COUNT(delivery_date)
+FROM orders;</code></pre>
+          <p>If 3 rows have delivery dates:</p>
+          <div class="output"><code>3</code></div>
+          <p>Rows where <code>delivery_date</code> is NULL are not counted.</p>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>COUNT(DISTINCT ...)</h3>
+          <p>COUNT(DISTINCT column) counts unique non-NULL values.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT COUNT(DISTINCT product)
+FROM orders;</code></pre>
+          <p class="label">Products</p>
+          <div class="output"><code>Copper
+Aluminum
+Nickel</code></div>
+          <p class="label">Output</p>
+          <div class="output"><code>3</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>SUM()</h3>
+          <p>SUM adds numeric values together.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT SUM(quantity)
+FROM orders;</code></pre>
+          <p class="label">Calculation</p>
+          <p class="calculation">20 + 50 + 10 + 35 + 25</p>
+          <p class="label">Output</p>
+          <div class="output"><code>140</code></div>
+          <p>The total quantity across all five orders is 140.</p>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>AVG()</h3>
+          <p>AVG calculates the average of numeric values.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT AVG(quantity)
+FROM orders;</code></pre>
+          <p class="label">Calculation</p>
+          <p class="calculation">140 / 5</p>
+          <p class="label">Output</p>
+          <div class="output"><code>28</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>MIN()</h3>
+          <p>MIN returns the smallest value.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT MIN(price)
+FROM orders;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>2450</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3>MAX()</h3>
+          <p>MAX returns the largest value.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT MAX(price)
+FROM orders;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>16000</code></div>
+        </div>
+      </section>
+
+      <section id="group-by" class="card wide detail-section">
+        <div class="eyebrow section-number">03</div>
+        <h2>GROUP BY</h2>
+        <p class="section-intro">GROUP BY combines rows that share the same value so aggregate calculations can be performed for each group.</p>
+
+        <div class="syntax-topic">
+          <h3>GROUP BY</h3>
+          <p>GROUP BY creates groups of rows that share the same value.</p>
+          <p>It is commonly used with aggregate functions such as COUNT, SUM, AVG, MIN, and MAX.</p>
+          <p class="label">Syntax</p>
+          <pre><code>SELECT group_column, aggregate_function(column)
+FROM table_name
+GROUP BY group_column;</code></pre>
+          <p class="label">Example 1</p>
+          <pre><code>SELECT product,
+       SUM(quantity) AS total_quantity
+FROM orders
+GROUP BY product;</code></pre>
+          <p class="label">What it means</p>
+          <p>Create one group for each product and calculate total quantity inside each group.</p>
+          <p class="label">Output</p>
+          <div class="table-wrap">
+            <table class="sql-table">
+              <thead><tr><th>product</th><th>total_quantity</th></tr></thead>
+              <tbody><tr><td>Aluminum</td><td>75</td></tr><tr><td>Copper</td><td>55</td></tr><tr><td>Nickel</td><td>10</td></tr></tbody>
+            </table>
+          </div>
+          <p>The five original rows become three grouped result rows.</p>
+          <p class="label">Example 2</p>
+          <pre><code>SELECT product,
+       COUNT(*) AS order_count
+FROM orders
+GROUP BY product;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>Aluminum | 2
+Copper   | 2
+Nickel   | 1</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3 class="small-title">Multiple GROUP BY Columns</h3>
+          <p>SQL can group rows using more than one column.</p>
+          <p class="label">Example</p>
+          <pre><code>SELECT customer, product, COUNT(*) AS order_count
+FROM orders
+GROUP BY customer, product;</code></pre>
+          <p>Rows are grouped by each unique customer + product combination.</p>
+          <p class="label">Output</p>
+          <div class="output"><code>ABC Metals       | Copper   | 1
+Global Trade     | Aluminum | 1
+Eastern Metals   | Nickel   | 1
+Apple Resources  | Copper   | 1
+Pacific Metals   | Aluminum | 1</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3 class="small-title">Aggregate with GROUP BY</h3>
+          <p class="label">Example</p>
+          <pre><code>SELECT product,
+       SUM(quantity) AS total_quantity,
+       AVG(price) AS average_price
+FROM orders
+GROUP BY product;</code></pre>
+          <p class="label">Output</p>
+          <div class="table-wrap">
+            <table class="sql-table">
+              <thead><tr><th>product</th><th>total_quantity</th><th>average_price</th></tr></thead>
+              <tbody><tr><td>Aluminum</td><td>75</td><td>2475</td></tr><tr><td>Copper</td><td>55</td><td>8600</td></tr><tr><td>Nickel</td><td>10</td><td>16000</td></tr></tbody>
+            </table>
+          </div>
+          <p>GROUP BY defines the groups. Aggregate functions calculate values for each group.</p>
+        </div>
+      </section>
+
+      <section id="having" class="card wide detail-section">
+        <div class="eyebrow section-number">04</div>
+        <h2>HAVING</h2>
+        <p class="section-intro">HAVING filters grouped or aggregated results.</p>
+
+        <div class="syntax-topic">
+          <h3>HAVING</h3>
+          <p>HAVING applies a condition after GROUP BY has created groups.</p>
+          <p class="label">Syntax</p>
+          <pre><code>SELECT group_column,
+       aggregate_function(column)
+FROM table_name
+GROUP BY group_column
+HAVING aggregate_condition;</code></pre>
+          <p class="label">Example 1</p>
+          <pre><code>SELECT product,
+       SUM(quantity) AS total_quantity
+FROM orders
+GROUP BY product
+HAVING SUM(quantity) &gt; 50;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>Aluminum | 75
+Copper   | 55</code></div>
+          <p>Nickel is removed because its total quantity is only 10.</p>
+          <p class="label">Example 2</p>
+          <pre><code>SELECT product,
+       COUNT(*) AS order_count
+FROM orders
+GROUP BY product
+HAVING COUNT(*) &gt;= 2;</code></pre>
+          <p class="label">Output</p>
+          <div class="output"><code>Aluminum | 2
+Copper   | 2</code></div>
+        </div>
+
+        <div class="syntax-topic">
+          <h3 class="small-title">WHERE vs HAVING</h3>
+          <div class="comparison">
+            <div><h3>WHERE</h3><p>Filters individual rows before grouping.</p><p><code>WHERE status = 'Completed'</code></p></div>
+            <div><h3>HAVING</h3><p>Filters groups after aggregation.</p><p><code>HAVING SUM(quantity) &gt; 50</code></p></div>
+          </div>
+          <p class="label">Complete query</p>
+          <pre><code>SELECT product,
+       SUM(quantity) AS total_quantity
+FROM orders
+WHERE status = 'Completed'
+GROUP BY product
+HAVING SUM(quantity) &gt; 30
+ORDER BY total_quantity DESC;</code></pre>
+          <div class="line-explanation">
+            <span><b>WHERE</b> → keeps only Completed rows</span>
+            <span><b>GROUP BY</b> → creates product groups</span>
+            <span><b>SUM</b> → calculates total quantity</span>
+            <span><b>HAVING</b> → removes groups below the threshold</span>
+            <span><b>ORDER BY</b> → sorts the final result</span>
+          </div>
+          <p class="label">Output</p>
+          <div class="output"><code>Copper | 55</code></div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="pager" aria-label="SQL topic navigation">
+      <a href="sql-summary.html#03-filtering"><small>Previous</small><strong>02 · Filtering &amp; Conditions</strong></a>
+      <a href="sql-summary.html#12-join-basics"><small>Next</small><strong>04 · Joining &amp; Combining Data</strong></a>
+    </nav>
+  </main>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05 · Expressions &amp; Functions · Language &amp; Syntax</title>
+  <meta name="description" content="Learn SQL expressions and functions for conditional logic, text, numbers, dates, type conversion, and NULL values.">
+  <link rel="stylesheet" href="topic.css?v=20260910">
+  <link rel="stylesheet" href="site-directory.css">
+  <script defer src="sql-structure.js"></script>
+  <script defer src="sidebar.js?v=20260913-syntax-2"></script>
+  <style>
+    .sql-detail .hero{padding:34px 0 24px}
+    .sql-detail .hero h1{margin:10px 0 12px}
+    .sql-detail .lede{max-width:840px}
+    .sql-detail .detail-sections{max-width:1080px}
+    .sql-sample,.sql-function,.sql-note{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#102032,#0b1622)}
+    .sql-sample{margin-top:22px}
+    .sql-sample h2,.sql-function h3{margin:0 0 12px}
+    .sql-sample p,.sql-function p{max-width:880px;color:var(--muted)}
+    .sql-table-wrap{overflow-x:auto;border:1px solid #29415a;border-radius:12px;background:#07111a}
+    .sql-table{width:100%;min-width:720px;border-collapse:collapse}
+    .sql-table th,.sql-table td{padding:11px 13px;border-bottom:1px solid #29415a;text-align:left;white-space:nowrap}
+    .sql-table th{color:var(--green);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+    .sql-table td{color:var(--muted)}
+    .sql-table td:first-child{color:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-table tr:last-child td{border-bottom:0}
+    .sql-function{margin-top:18px;background:#07111a}
+    .sql-function h3{font-size:clamp(24px,3vw,32px);line-height:1.15;color:#fff}
+    .sql-function h3 code{color:var(--green);font:inherit;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-function h4{margin:18px 0 7px;color:var(--green);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+    .sql-function pre,.sql-sample pre{margin:10px 0 0;padding:16px;overflow:auto;border:1px solid #38516d;border-radius:10px;background:#061019;color:#dbe7f4;font:14px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .sql-output{margin-top:12px;padding:13px 15px;border-left:3px solid var(--green);border-radius:0 9px 9px 0;background:rgba(120,229,189,.07)}
+    .sql-output strong,.key-point strong{color:var(--green)}
+    .sql-output pre{margin:6px 0 0;padding:0;border:0;background:transparent;color:#fff;font:14px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}
+    .key-point{margin:15px 0 0!important;color:#dbe7f4!important}
+    .sql-note{margin-top:18px;border-color:#806642;background:rgba(230,173,92,.08);color:#ffe0a6}
+    .sql-note p{color:#ffe0a6}
+    .sql-note code{color:#fff}
+    .sql-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+    .sql-nav a{display:block;padding:17px 18px;border:1px solid #38516d;border-radius:14px;background:#07111a;color:#dbe7f4}
+    .sql-nav a:last-child{text-align:right}
+    .sql-nav small{display:block;color:var(--green);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+    .sql-nav strong{display:block;margin-top:4px;color:#fff}
+    .sql-nav a:hover{border-color:var(--green)}
+    @media(max-width:760px){.sql-sample,.sql-function,.sql-note{padding:19px 17px}.sql-function pre,.sql-sample pre{font-size:13px}.sql-nav{grid-template-columns:1fr}.sql-nav a:last-child{text-align:left}}
+  </style>
+</head>
+<body id="top" class="standard-topic has-site-directory sql-detail" data-knowledge-type="syntax" data-sql-module="05" data-page-title="05 · Expressions &amp; Functions" data-page-module="SQL">
+  <nav><div class="wrap"><a class="brand" href="index.html">Rebecca <span>Forward-Deployed AI</span></a></div></nav>
+  <aside id="site-directory" aria-label="Language and Syntax site directory"></aside>
+  <main class="wrap detail-page">
+    <a class="back" href="sql-summary.html">← SQL Summary</a>
+    <header class="hero">
+      <div class="eyebrow">LANGUAGE &amp; SYNTAX · SQL</div>
+      <h1>05 · Expressions &amp; Functions</h1>
+      <p class="lede">Learn how SQL applies conditional logic, transforms text and numbers, works with dates, converts data types, and handles NULL values.</p>
+    </header>
+
+    <nav class="on-page" aria-label="On This Page">
+      <b>On This Page</b>
+      <a href="#case">CASE</a>
+      <a href="#string-functions">String Functions</a>
+      <a href="#numeric-functions">Numeric Functions</a>
+      <a href="#date-time">Date / Time</a>
+      <a href="#cast-convert">CAST / CONVERT</a>
+      <a href="#conditional-null">Conditional NULL Functions</a>
+    </nav>
+
+    <section class="sql-sample" aria-labelledby="sample-data-title">
+      <h2 id="sample-data-title">Sample Data</h2>
+      <p>Most examples use the same <code>orders</code> table.</p>
+      <div class="sql-table-wrap">
+        <table class="sql-table">
+          <thead><tr><th>order_id</th><th>customer</th><th>product</th><th>quantity</th><th>price</th><th>status</th><th>trade_date</th></tr></thead>
+          <tbody>
+            <tr><td>1001</td><td>ABC Metals</td><td>Copper</td><td>20</td><td>8500.456</td><td>Completed</td><td>2026-09-01</td></tr>
+            <tr><td>1002</td><td>Global Trade</td><td>Aluminum</td><td>50</td><td>2450.789</td><td>Pending</td><td>2026-09-02</td></tr>
+            <tr><td>1003</td><td>Eastern Metals</td><td>Nickel</td><td>10</td><td>16000.125</td><td>Completed</td><td>2026-09-03</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="detail-sections">
+      <section id="case" class="card detail-section">
+        <h2>01<br>CASE</h2>
+        <div class="sql-function">
+          <h3><code>CASE</code></h3>
+          <p>CASE adds conditional logic to a SQL query.</p>
+          <p>It lets SQL return different values depending on which condition is true.</p>
+          <h4>Syntax</h4>
+          <pre><code>CASE
+    WHEN condition THEN result
+    ELSE result
+END</code></pre>
+          <h4>Example 1</h4>
+          <pre><code>SELECT
+    order_id,
+    quantity,
+    CASE
+        WHEN quantity &gt;= 40 THEN 'Large'
+        ELSE 'Standard'
+    END AS order_size
+FROM orders;</code></pre>
+          <div class="sql-output"><strong>Output</strong><pre>1001 | 20 | Standard
+1002 | 50 | Large
+1003 | 10 | Standard</pre></div>
+          <p class="key-point"><strong>Key point:</strong> SQL checks the condition for every row.</p>
+          <h4>Example 2</h4>
+          <pre><code>SELECT
+    order_id,
+    quantity,
+    CASE
+        WHEN quantity &gt;= 40 THEN 'Large'
+        WHEN quantity &gt;= 20 THEN 'Medium'
+        ELSE 'Small'
+    END AS order_size
+FROM orders;</code></pre>
+          <div class="sql-output"><strong>Output</strong><pre>1001 | 20 | Medium
+1002 | 50 | Large
+1003 | 10 | Small</pre></div>
+          <p class="key-point"><strong>Key point:</strong> SQL evaluates <code>WHEN</code> conditions from top to bottom. The first matching condition determines the result.</p>
+        </div>
+
+        <div class="sql-function">
+          <h3><code>WHEN</code></h3>
+          <p>WHEN defines a condition that SQL should check.</p>
+          <h4>Example</h4>
+          <pre><code>WHEN quantity &gt;= 40</code></pre>
+          <div class="sql-output"><strong>Meaning</strong><pre>Check whether quantity is at least 40.</pre></div>
+        </div>
+
+        <div class="sql-function">
+          <h3><code>THEN</code></h3>
+          <p>THEN defines the result returned when a WHEN condition is true.</p>
+          <h4>Example</h4>
+          <pre><code>WHEN quantity &gt;= 40 THEN 'Large'</code></pre>
+        </div>
+
+        <div class="sql-function">
+          <h3><code>ELSE</code></h3>
+          <p>ELSE provides a fallback result when no previous WHEN condition matches.</p>
+          <h4>Example</h4>
+          <pre><code>ELSE 'Small'</code></pre>
+        </div>
+
+        <div class="sql-function">
+          <h3><code>END</code></h3>
+          <p>END closes the CASE expression.</p>
+          <h4>Example</h4>
+          <pre><code>END AS order_size</code></pre>
+          <p class="key-point"><strong>Key point:</strong> The alias <code>order_size</code> gives the CASE result a readable column name.</p>
+        </div>
+      </section>
+
+      <section id="string-functions" class="card detail-section">
+        <h2>02<br>String Functions</h2>
+        <p>String functions transform or inspect text values.</p>
+
+        <div class="sql-function"><h3><code>UPPER()</code></h3><p>UPPER converts text to uppercase.</p><h4>Example</h4><pre><code>SELECT UPPER(customer)
+FROM orders;</code></pre><div class="sql-output"><strong>Output</strong><pre>ABC METALS
+GLOBAL TRADE
+EASTERN METALS</pre></div></div>
+        <div class="sql-function"><h3><code>LOWER()</code></h3><p>LOWER converts text to lowercase.</p><h4>Example</h4><pre><code>SELECT LOWER(customer)
+FROM orders;</code></pre><div class="sql-output"><strong>Output</strong><pre>abc metals
+global trade
+eastern metals</pre></div></div>
+        <div class="sql-function"><h3><code>TRIM()</code></h3><p>TRIM removes spaces from the beginning and end of text.</p><h4>Sample</h4><pre><code>'  ABC Metals  '</code></pre><h4>Query</h4><pre><code>SELECT TRIM('  ABC Metals  ');</code></pre><div class="sql-output"><strong>Output</strong><pre>ABC Metals</pre></div><p class="key-point"><strong>Key point:</strong> Spaces inside the text are not removed.</p></div>
+        <div class="sql-function"><h3><code>LENGTH()</code></h3><p>LENGTH returns the number of characters in a text value.</p><h4>Example</h4><pre><code>SELECT LENGTH('Copper');</code></pre><div class="sql-output"><strong>Output</strong><pre>6</pre></div><p class="key-point"><strong>Key point:</strong> Some database systems use functions such as <code>LEN</code> instead.</p></div>
+        <div class="sql-function"><h3><code>CONCAT()</code></h3><p>CONCAT joins text values together.</p><h4>Example 1</h4><pre><code>SELECT CONCAT(customer, ' - ', product)
+FROM orders;</code></pre><div class="sql-output"><strong>For order 1001</strong><pre>ABC Metals - Copper</pre></div><h4>Example 2</h4><pre><code>SELECT CONCAT('Order ', order_id)
+FROM orders;</code></pre><div class="sql-output"><strong>Output example</strong><pre>Order 1001</pre></div></div>
+        <div class="sql-function"><h3><code>SUBSTRING()</code></h3><p>SUBSTRING extracts part of a text value.</p><h4>Example</h4><pre><code>SELECT SUBSTRING(order_id, 1, 3)
+FROM orders;</code></pre><p>If <code>order_id</code> is represented as text such as <code>ORD1001</code>:</p><div class="sql-output"><strong>Output</strong><pre>ORD</pre></div><p class="key-point"><strong>Key point:</strong> Exact function syntax can vary slightly between database systems.</p></div>
+        <div class="sql-function"><h3><code>REPLACE()</code></h3><p>REPLACE substitutes one piece of text with another.</p><h4>Example</h4><pre><code>SELECT REPLACE('Pending Order', 'Pending', 'Waiting');</code></pre><div class="sql-output"><strong>Output</strong><pre>Waiting Order</pre></div></div>
+      </section>
+
+      <section id="numeric-functions" class="card detail-section">
+        <h2>03<br>Numeric Functions</h2>
+        <div class="sql-function"><h3><code>ROUND()</code></h3><p>ROUND rounds a numeric value to a specified number of decimal places.</p><h4>Example 1</h4><pre><code>SELECT ROUND(8500.456, 2);</code></pre><div class="sql-output"><strong>Output</strong><pre>8500.46</pre></div><h4>Example 2</h4><pre><code>SELECT order_id,
+       ROUND(price, 2) AS rounded_price
+FROM orders;</code></pre><div class="sql-output"><strong>Output</strong><pre>1001 | 8500.46
+1002 | 2450.79
+1003 | 16000.13</pre></div></div>
+        <div class="sql-function"><h3><code>ABS()</code></h3><p>ABS returns the absolute value of a number.</p><h4>Example 1</h4><pre><code>SELECT ABS(-250);</code></pre><div class="sql-output"><strong>Output</strong><pre>250</pre></div><h4>Example 2</h4><pre><code>SELECT ABS(100);</code></pre><div class="sql-output"><strong>Output</strong><pre>100</pre></div></div>
+        <div class="sql-function"><h3><code>CEILING() / CEIL()</code></h3><p>CEILING or CEIL rounds a number upward to the next whole number.</p><h4>Example</h4><pre><code>SELECT CEIL(8500.1);</code></pre><div class="sql-output"><strong>Output</strong><pre>8501</pre></div><p class="key-point"><strong>Key point:</strong> Function naming can vary by database.</p></div>
+        <div class="sql-function"><h3><code>FLOOR()</code></h3><p>FLOOR rounds a number downward to the previous whole number.</p><h4>Example</h4><pre><code>SELECT FLOOR(8500.9);</code></pre><div class="sql-output"><strong>Output</strong><pre>8500</pre></div></div>
+      </section>
+
+      <section id="date-time" class="card detail-section">
+        <h2>04<br>Date / Time</h2>
+        <p>SQL can return current dates and compare stored date values.</p>
+        <div class="sql-function"><h3><code>CURRENT_DATE</code></h3><p>CURRENT_DATE returns the current date according to the database system.</p><h4>Syntax</h4><pre><code>SELECT CURRENT_DATE;</code></pre><div class="sql-output"><strong>Output format example</strong><pre>2026-09-18</pre></div><p class="key-point"><strong>Key point:</strong> The real value depends on when the query runs.</p></div>
+        <div class="sql-function"><h3><code>CURRENT_TIMESTAMP</code></h3><p>CURRENT_TIMESTAMP returns the current date and time.</p><h4>Example</h4><pre><code>SELECT CURRENT_TIMESTAMP;</code></pre><div class="sql-output"><strong>Example format</strong><pre>2026-09-18 10:30:00</pre></div><p class="key-point"><strong>Key point:</strong> The actual result depends on the database system and execution time.</p></div>
+        <div class="sql-function"><h3><code>DATE</code></h3><p>DATE represents a calendar date.</p><h4>Example</h4><pre><code>SELECT DATE '2026-09-12';</code></pre><div class="sql-output"><strong>Output</strong><pre>2026-09-12</pre></div><p class="key-point"><strong>Key point:</strong> Date literal syntax differs between database systems.</p></div>
+        <div class="sql-function"><h3><code>Date Comparison</code></h3><p>Date values can be used in filtering conditions.</p><h4>Example 1</h4><pre><code>SELECT order_id, trade_date
+FROM orders
+WHERE trade_date &gt;= '2026-09-02';</code></pre><div class="sql-output"><strong>Output</strong><pre>1002 | 2026-09-02
+1003 | 2026-09-03</pre></div><h4>Example 2</h4><pre><code>SELECT order_id
+FROM orders
+WHERE trade_date = '2026-09-01';</code></pre><div class="sql-output"><strong>Output</strong><pre>1001</pre></div><p class="key-point"><strong>Key point:</strong> Date functions differ significantly across SQL databases.</p></div>
+      </section>
+
+      <section id="cast-convert" class="card detail-section">
+        <h2>05<br>CAST / CONVERT</h2>
+        <p>Type conversion changes how SQL treats a value.</p>
+        <div class="sql-function"><h3><code>CAST()</code></h3><p>CAST converts a value from one data type to another.</p><h4>Syntax</h4><pre><code>CAST(value AS data_type)</code></pre><h4>Example 1</h4><pre><code>SELECT CAST(quantity AS DECIMAL(10,2))
+FROM orders;</code></pre><div class="sql-output"><strong>For quantity 20</strong><pre>20.00</pre></div><h4>Example 2</h4><pre><code>SELECT CAST('100' AS INT);</code></pre><div class="sql-output"><strong>Output</strong><pre>100</pre></div><p class="key-point"><strong>Key point:</strong> The text value <code>'100'</code> becomes a numeric value.</p></div>
+        <div class="sql-function"><h3><code>CONVERT()</code></h3><p>CONVERT is another type-conversion function supported by some database systems.</p><h4>Example</h4><pre><code>SELECT CONVERT(VARCHAR, order_id)
+FROM orders;</code></pre><div class="sql-output"><strong>Output</strong><pre>1001
+1002
+1003</pre></div><p class="key-point"><strong>Key point:</strong> The numeric or typed <code>order_id</code> is returned as text. CONVERT syntax is database-specific; CAST is generally more portable across SQL systems.</p></div>
+      </section>
+
+      <section id="conditional-null" class="card detail-section">
+        <h2>06<br>Conditional NULL Functions</h2>
+        <div class="sql-function"><h3><code>COALESCE()</code></h3><p>COALESCE returns the first value that is not NULL.</p><h4>Syntax</h4><pre><code>COALESCE(value1, value2, value3, ...)</code></pre><h4>Sample Data</h4><div class="sql-table-wrap"><table class="sql-table"><thead><tr><th>customer</th><th>phone</th><th>mobile</th></tr></thead><tbody><tr><td>ABC Metals</td><td>NULL</td><td>91234567</td></tr><tr><td>Global Trade</td><td>61234567</td><td>92345678</td></tr><tr><td>Eastern Metals</td><td>NULL</td><td>NULL</td></tr></tbody></table></div><h4>Example</h4><pre><code>SELECT
+    customer,
+    COALESCE(phone, mobile, 'N/A') AS contact_number
+FROM customers;</code></pre><div class="sql-output"><strong>Output</strong><pre>ABC Metals | 91234567
+Global Trade | 61234567
+Eastern Metals | N/A</pre></div><p class="key-point"><strong>Key point:</strong> SQL checks values from left to right and returns the first non-NULL value.</p></div>
+FROM orders;</code></pre><p class="key-point"><strong>Key point:</strong> If <code>quantity</code> is 0, the result becomes NULL.</p></div>
+        <div class="sql-function"><h3><code>NULLIF()</code></h3><p>NULLIF returns NULL when two values are equal. Otherwise, it returns the first value.</p><h4>Example 1</h4><pre><code>SELECT NULLIF(10, 10);</code></pre><div class="sql-output"><strong>Output</strong><pre>NULL</pre></div><h4>Example 2</h4><pre><code>SELECT NULLIF(20, 0);</code></pre><div class="sql-output"><strong>Output</strong><pre>20</pre></div><h4>Example 3</h4><pre><code>SELECT NULLIF(quantity, 0)
+FROM orders;</code></pre><div class="sql-output"><strong>Output for the sample data</strong><pre>20
+50
+10</pre></div><p class="key-point"><strong>Key point:</strong> If <code>quantity</code> is 0, the result becomes NULL.</p></div>
+FROM orders;</code></pre><p class="key-point"><strong>Key point:</strong> If <code>quantity</code> is 0, the result becomes NULL.</p></div>
+        <div class="sql-note"><p><strong>Database-Specific NULL Functions</strong></p><p>Some databases provide additional functions such as <code>NVL</code> and <code>ISNULL</code>. These are not universal SQL syntax. Keep <code>COALESCE</code> as the more portable concept taught here.</p></div>
+      </section>
+    </div>
+
+    <nav class="sql-nav" aria-label="Topic navigation">
+      <a href="sql-summary.html#12-join-basics"><small>Previous</small><strong>← 04 · Joining &amp; Combining Data</strong></a>
+      <a href="sql-summary.html#22-subquery"><small>Next</small><strong>06 · Subqueries &amp; Advanced Queries →</strong></a>
+    </nav>
+    <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  </main>
+</body>
+</html>
