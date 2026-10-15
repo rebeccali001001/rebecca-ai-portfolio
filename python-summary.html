@@ -21,7 +21,8 @@
       }
       .summary-table table {
         width: 100%;
-        min-width: 680px;
+        min-width: 1040px;
+        table-layout: fixed;
         border-collapse: collapse;
         background: #07111a;
       }
@@ -42,6 +43,19 @@
       .summary-table td:first-child {
         color: #fff;
         font-weight: 700;
+      }
+      .summary-table th:nth-child(1) { width: 15%; }
+      .summary-table th:nth-child(2) { width: 20%; }
+      .summary-table th:nth-child(3) { width: 25%; }
+      .summary-table th:nth-child(4) { width: 40%; }
+      .summary-table td { overflow-wrap: anywhere; }
+      .summary-table td code { white-space: pre-wrap; line-height: 1.7; }
+      .summary-table td:nth-child(4) { background: rgba(64, 214, 167, 0.035); }
+      .summary-table td:nth-child(4) code { color: #aeeed8; }
+      @media (max-width: 800px) {
+        .summary-table table { min-width: 0; }
+        .summary-table th, .summary-table td { padding: 9px 6px; font-size: 12px; }
+        .summary-table th { letter-spacing: 0; }
       }
       .summary-table code {
         color: #dce8f7;
@@ -120,9 +134,9 @@
           scripts, automation, APIs, data processing, and real-world projects.
         </p>
         <p>
-          Use this page to quickly identify Python syntax.<br />Syntax → Meaning
-          → Example
+          名称 → 说明 → 语法 → Sample（输入 → 结果）。每行示例独立，Sample 中先说明变量或输入，再展示结果。
         </p>
+        <p class="summary-note">语法列用于识别写法，代码块语法可能只是片段，需放在完整程序中使用。Sample 区分返回值、屏幕输出与原地修改；随机数、时间、路径和网络响应均标明依赖环境。网页不会执行示例，也不会修改文件或发送 API 请求。类型联合与 match / case 以 Python 3.10+ 为准。</p>
         <p>For deeper explanations, open the corresponding Python chapter.</p>
         <div class="summary-table">
           <section id="comments-basic-syntax">
@@ -3229,5 +3243,6 @@
         });
       })();
     </script>
+    <script src="python-summary-examples.js?v=20261015-four-columns"></script>
   </body>
 </html>
