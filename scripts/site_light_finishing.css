@@ -1,0 +1,47 @@
+/* Unified palette and component finishing; layouts remain page owned. */
+html.site-light, html.site-light body {
+  color-scheme: light;
+  --bg: #ffffff !important;
+  --panel: #ffffff !important;
+  --panel2: #f8fafc !important;
+  --text: #171717 !important;
+  --ink: #171717 !important;
+  --muted: #4b5563 !important;
+  --line: #dce3ed !important;
+  --green: #1d4ed8 !important;
+  --blue: #1d4ed8 !important;
+  --accent: #1d4ed8 !important;
+  --accent2: #1d4ed8 !important;
+  --accent3: #92400e !important;
+  --gold: #92400e !important;
+  --danger: #b91c1c !important;
+  background: #ffffff !important;
+  color: #171717 !important;
+}
+html.site-light h1, html.site-light h2, html.site-light h3,
+html.site-light h4, html.site-light h5, html.site-light h6 { color: #171717 !important; }
+html.site-light :is(.grad,.gradient-text) { background: none !important; color: #171717 !important; -webkit-text-fill-color: #171717 !important; }
+html.site-light h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.1; }
+html.site-light :is(.card,.topic-block,.article-card,.article-reading,.topic-definition,.topic-analogy,.topic-process,.topic-example,.topic-comparison,.topic-related,.video-card) { background: #ffffff !important; border-color: #dce3ed !important; }
+html.site-light :is(.step-card,.misconception-card,.concept-tree,pre,.on-page) { background: #f8fafc !important; border-color: #dce3ed !important; }
+html.site-light :is(.eyebrow,.step-card strong,.back,.brand span,.video-label small) { color: #1d4ed8 !important; }
+html.site-light :is(.topic-takeaway,.key-takeaway,.remember) { background: #f3f7ff !important; border-color: #cbdcf6 !important; }
+html.site-light :is(.topic-takeaway p,.key-takeaway p,.remember p,.lede,.muted,.note,.concept-tree) { color: #374151 !important; }
+html.site-light .note { border-left-color: #2563eb !important; }
+html.site-light :is(#site-directory,.site-directory,.sidebar-nav,.topic-sidebar,.directory) { background: #fafbfc !important; border-color: #e2e8f0 !important; box-shadow: none !important; scrollbar-color: #cbd5e1 transparent; }
+html.site-light :is(.sidebar-heading,.sidebar-part > h2,.site-directory summary,.site-directory .module) { color: #1f2937 !important; }
+html.site-light :is(.site-directory a,.sidebar-map,.directory a) { color: #4b5563 !important; }
+html.site-light :is(.site-directory a.active,.site-directory a:hover,.sidebar-map.active,.sidebar-map:hover,.on-page a.active,.chip:hover) { color: #1e40af !important; background: #eaf2ff !important; border-color: #93b4ed !important; }
+html.site-light .site-directory summary::before, html.site-light .site-directory .sidebar-glossary-link { color: #1d4ed8 !important; }
+html.site-light :is(.site-header-nav,.site-nav-menu,.site-search-results,.knowledge-menu-toggle,.back-to-top) { background: #ffffff !important; border-color: #dce3ed !important; color: #1f2937 !important; }
+html.site-light .site-search input { background: #f8fafc !important; color: #171717 !important; border-color: #dce3ed !important; }
+html.site-light :is(input,textarea,select) { color-scheme: light; color: #171717 !important; background-color: #ffffff !important; border-color: #cbd5e1 !important; }
+html.site-light ::placeholder { color: #64748b !important; }
+html.site-light :is(.site-nav-menu a,.site-search-results a) { color: #1f2937 !important; }
+html.site-light :is(.site-nav-menu a:hover,.site-search-results a:hover) { background: #eff6ff !important; color: #1e40af !important; }
+html.site-light :is(th,thead) { background: #f1f5f9 !important; color: #1f2937 !important; }
+html.site-light :is(td,code,pre code,.step-card b,.misconception-card h3) { color: #1f2937 !important; }
+html.site-light a:focus-visible, html.site-light button:focus-visible, html.site-light input:focus-visible { outline: 2px solid #2563eb !important; outline-offset: 3px; }
+html.site-light ::selection { background: #dbeafe; color: #172554; }
+html.site-light svg text { fill: #1f2937 !important; }
+@media(max-width:760px) { html.site-light h1 { font-size: clamp(34px,9vw,48px); } }
