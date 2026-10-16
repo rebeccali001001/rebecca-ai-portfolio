@@ -44,4 +44,16 @@ html.site-light :is(td,code,pre code,.step-card b,.misconception-card h3) { colo
 html.site-light a:focus-visible, html.site-light button:focus-visible, html.site-light input:focus-visible { outline: 2px solid #2563eb !important; outline-offset: 3px; }
 html.site-light ::selection { background: #dbeafe; color: #172554; }
 html.site-light svg text { fill: #1f2937 !important; }
+/* Blog: black reading text with blue titles, including article detail pages. */
+html.site-light body:is(.article-index,.article-page) main,
+html.site-light body:is(.article-index,.article-page) main *,
+html.site-light body:is(.article-index,.article-page) main :is(p,li,td,th,figcaption,blockquote,.article-chip,.article-subtitle,.blog-post-meta,.blog-post-footer,.article-card-summary,.article-meta,.article-status,.article-breadcrumb) {
+  color: #171717 !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+html.site-light body:is(.article-index,.article-page) main :is(h1,h2,h3,h4,h5,h6),
+html.site-light body:is(.article-index,.article-page) main :is(h1,h2,h3,h4,h5,h6) * {
+  color: #1d4ed8 !important;
+  -webkit-text-fill-color: #1d4ed8 !important;
+}
 @media(max-width:760px) { html.site-light h1 { font-size: clamp(34px,9vw,48px); } }
