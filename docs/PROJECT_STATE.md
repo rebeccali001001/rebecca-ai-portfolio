@@ -23,3 +23,6 @@
 
 ## 维护约定
 每个重要工作阶段结束自动合并更新本文件，保留尚未完成事项；写入时检查当前 SHA 防止多窗口覆盖。不要记录密码、Token、客户订单详情。新窗口先读本文件及最新相关提交。
+
+## 2026-10-26 安全通知适用性核查（Asia/Shanghai）
+读取最新main c3c93a3及静态站配置：wrangler.jsonc为Cloudflare静态assets，无构建命令；未发现运行中的Supabase客户端、Render API或PHP/Docker后端依赖。页面对Supabase/Render的技术介绍不等于服务依赖。本次Supabase pailyqpwxdlrhquahokf数据库修复归属English App，未为Rebecca AI绑定数据库或创建服务，未修改本站业务源码。Render账号服务清单尚因连接未安装无法核实，不能把源码检查当平台全账号证明。详细数据库修复与待部署工作记录于English_APP_New的共享状态。
