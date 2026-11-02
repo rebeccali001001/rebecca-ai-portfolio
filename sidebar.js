@@ -1,4 +1,9 @@
 (function () {
+  if (window.parent !== window) {
+        const bridge = document.createElement('script');
+        bridge.src = '/english-learning-bridge.js';
+        document.head.appendChild(bridge);
+  }
   const mount = document.getElementById('site-directory');
   const installGlobalNav = () => {
     const headerNav = document.querySelector('body > nav');
