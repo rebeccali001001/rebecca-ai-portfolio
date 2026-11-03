@@ -30,3 +30,4 @@
 - English App 嵌入的 Rebecca AI 跨域 iframe 桥接脚本新增指针点击命中选区检测；点击选区外发送 dismiss（reason=selection-cleared）。页面外层立即关闭选区卡片并取消待处理查询。
 - 修改前备份：english-learning-bridge.js 与 docs/PROJECT_STATE.md 各自目录下 history/ 中时间戳 20261103_151543、20261103_151653 的副本。
 - node --check english-learning-bridge.js 与 git diff --check 通过。Cloudflare Worker 发布状态待推送后核对。
+- 发布核验补记（2026-11-03）：提交 8f44e0fa3a40df47d29c2d26ec28274b7a4989d8 已推送 main；Cloudflare Worker `/english-learning-bridge.js` HTTP 200，已包含选区外点击的 selection-cleared 通知。
