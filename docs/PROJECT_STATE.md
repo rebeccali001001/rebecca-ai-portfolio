@@ -26,3 +26,7 @@
 
 ## 2026-10-26 安全通知适用性核查（Asia/Shanghai）
 读取最新main c3c93a3及静态站配置：wrangler.jsonc为Cloudflare静态assets，无构建命令；未发现运行中的Supabase客户端、Render API或PHP/Docker后端依赖。页面对Supabase/Render的技术介绍不等于服务依赖。本次Supabase pailyqpwxdlrhquahokf数据库修复归属English App，未为Rebecca AI绑定数据库或创建服务，未修改本站业务源码。Render账号服务清单尚因连接未安装无法核实，不能把源码检查当平台全账号证明。详细数据库修复与待部署工作记录于English_APP_New的共享状态。
+## 2026-11-03 Rebecca AI Knowledge 空白点击关闭选区卡片
+- English App 嵌入的 Rebecca AI 跨域 iframe 桥接脚本新增指针点击命中选区检测；点击选区外发送 dismiss（reason=selection-cleared）。页面外层立即关闭选区卡片并取消待处理查询。
+- 修改前备份：english-learning-bridge.js 与 docs/PROJECT_STATE.md 各自目录下 history/ 中时间戳 20261103_151543、20261103_151653 的副本。
+- node --check english-learning-bridge.js 与 git diff --check 通过。Cloudflare Worker 发布状态待推送后核对。

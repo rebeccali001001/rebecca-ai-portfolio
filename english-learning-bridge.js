@@ -79,6 +79,16 @@
   document.addEventListener('selectionchange', () => { clearTimeout(timer); timer = setTimeout(publishSelection, 250); });
   document.addEventListener('mouseup', publishSelection);
   document.addEventListener('keyup', publishSelection);
+  document.addEventListener('pointerdown', (event) => {
+    if (!enabled) return;
+    const selection = getSelection();
+    if (!selection?.toString().trim() || !selection.rangeCount) return;
+    const x = event.clientX; const y = event.clientY;
+    const clickedSelection = [...selection.getRangeAt(0).getClientRects()].some((rect) =>
+      x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
+    );
+    if (!clickedSelection) send({ type: 'dismiss', reason: 'selection-cleared' });
+  }, true);
   let hoverTimer;
   let lastWord = '';
   document.addEventListener('mousemove', (event) => {
