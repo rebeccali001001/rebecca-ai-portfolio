@@ -54,6 +54,7 @@
   };
   window.addEventListener('message', (event) => {
     if (event.origin !== appOrigin || event.source !== parent || event.data?.channel !== 'rebecca-learning-v1') return;
+    if (enabled && event.data.type === 'clearSelection') { window.getSelection()?.removeAllRanges(); return; }
     if (enabled && event.data.type === 'annotations' && pageKey(event.data.url) === pageKey(location.href) && Array.isArray(event.data.items)) { paint(event.data.items); return; }
     if (event.data.type !== 'connect') return;
     enabled = true;
