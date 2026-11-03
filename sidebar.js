@@ -238,7 +238,7 @@
     softwareTopicSlugs.push('relational-database');
     softwareTopicSlugs.push('main');
     softwareTopicSlugs.push('postgresql');
-  const isSoftwareTopic = softwareTopicSlugs.some((slug) => pathname.endsWith(`/${slug}`) || pathname.endsWith(`/${slug}.html`));
+  const isSoftwareTopic = softwareTopicSlugs.some((slug) => slug !== 'parameters' && (pathname.endsWith(`/${slug}`) || pathname.endsWith(`/${slug}.html`)));
   const pythonSyntaxSlugs = ['python-summary','python-overview','python-basics','data-types','collections','operators','conditions','loops','python-functions','strings','modules-imports','indexing-slicing','comprehensions','files','exceptions','classes-objects','iterators-generators','json','api-requests','paths-os','virtual-environments','useful-standard-libraries'];
   const isPythonSyntaxPage = pythonSyntaxSlugs.some((slug) => pathname.endsWith(`/${slug}.html`));
   const knowledgeType = requestedType || document.body.dataset.forceKnowledgeType || (isPythonSyntaxPage ? 'syntax' : document.body.dataset.knowledgeType || (pathname.includes('software-knowledge') || pathname.includes('software-') || pathname.endsWith('/software.html') || pathname.endsWith('/application.html') || pathname.includes('/software/') || pathname.endsWith('/backend.html') || isSoftwareTopic ? 'software' : pathname.includes('syntax') || pathname.includes('/language/') ? 'syntax' : 'ai'));
