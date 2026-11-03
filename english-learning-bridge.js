@@ -3,6 +3,10 @@
   if (parent === window) return;
   let enabled = false;
   const send = (payload) => parent.postMessage({ channel: 'rebecca-learning-v1', ...payload }, appOrigin);
+  const pageKey = (value) => {
+    const url = new URL(value, location.href);
+    return url.origin + url.pathname.replace(/\.html$/, '');
+  };
   const anchorFor = (range) => {
     const main = document.querySelector('main');
     if (!main?.contains(range.startContainer) || !main.contains(range.endContainer)) return null;
@@ -50,7 +54,7 @@
   };
   window.addEventListener('message', (event) => {
     if (event.origin !== appOrigin || event.source !== parent || event.data?.channel !== 'rebecca-learning-v1') return;
-    if (enabled && event.data.type === 'annotations' && event.data.url === location.origin + location.pathname && Array.isArray(event.data.items)) { paint(event.data.items); return; }
+    if (enabled && event.data.type === 'annotations' && pageKey(event.data.url) === pageKey(location.href) && Array.isArray(event.data.items)) { paint(event.data.items); return; }
     if (event.data.type !== 'connect') return;
     enabled = true;
     document.documentElement.classList.add('english-learning-embedded');
