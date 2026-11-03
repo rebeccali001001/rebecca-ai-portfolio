@@ -3,14 +3,61 @@
   if (parent === window) return;
   let enabled = false;
   const send = (payload) => parent.postMessage({ channel: 'rebecca-learning-v1', ...payload }, appOrigin);
+  const anchorFor = (range) => {
+    const main = document.querySelector('main');
+    if (!main?.contains(range.startContainer) || !main.contains(range.endContainer)) return null;
+    const prefix = document.createRange(); prefix.selectNodeContents(main); prefix.setEnd(range.startContainer, range.startOffset);
+    const quote = range.toString().slice(0, 2000);
+    return { start: prefix.toString().length, end: prefix.toString().length + quote.length, quote };
+  };
+  const paint = (items) => {
+    const main = document.querySelector('main');
+    if (!main) return;
+    main.querySelectorAll('mark[data-rk-highlight]').forEach((mark) => mark.replaceWith(...mark.childNodes));
+    main.normalize();
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+    const nodes = []; let node; let length = 0;
+    while ((node = walker.nextNode())) { nodes.push({ node, start: length, end: length + node.length }); length += node.length; }
+    const text = main.textContent;
+    const ranges = [];
+    for (const item of items.slice(0, 1000)) {
+      const anchor = item.anchor;
+      if (!anchor || typeof anchor.quote !== 'string' || !anchor.quote) continue;
+      let start = anchor.start; let end = anchor.end;
+      if (!Number.isInteger(start) || !Number.isInteger(end) || text.slice(start, end) !== anchor.quote) {
+        start = text.indexOf(anchor.quote); end = start + anchor.quote.length;
+        if (start < 0 || text.indexOf(anchor.quote, start + 1) >= 0) continue;
+      }
+      const first = nodes.find((n) => n.end > start); const last = nodes.find((n) => n.end >= end);
+      if (!first || !last) continue;
+      const range = document.createRange(); range.setStart(first.node, start - first.start); range.setEnd(last.node, end - last.start); ranges.push(range);
+    }
+    if (window.CSS?.highlights && window.Highlight) {
+      CSS.highlights.set('rk-yellow', new Highlight(...ranges));
+    } else {
+      // Work backwards so text splits do not shift the remaining offsets.
+      for (const range of ranges.reverse()) {
+        for (const entry of nodes.slice().reverse()) {
+          if (!range.intersectsNode(entry.node)) continue;
+          const start = entry.node === range.startContainer ? range.startOffset : 0;
+          const end = entry.node === range.endContainer ? range.endOffset : entry.node.length;
+          if (end <= start) continue;
+          const part = document.createRange(); part.setStart(entry.node, start); part.setEnd(entry.node, end);
+          const mark = document.createElement('mark'); mark.dataset.rkHighlight = 'true'; mark.style.backgroundColor = '#fef08a'; part.surroundContents(mark);
+        }
+      }
+    }
+  };
   window.addEventListener('message', (event) => {
-    if (event.origin !== appOrigin || event.source !== parent || event.data?.channel !== 'rebecca-learning-v1' || event.data?.type !== 'connect') return;
+    if (event.origin !== appOrigin || event.source !== parent || event.data?.channel !== 'rebecca-learning-v1') return;
+    if (enabled && event.data.type === 'annotations' && event.data.url === location.origin + location.pathname && Array.isArray(event.data.items)) { paint(event.data.items); return; }
+    if (event.data.type !== 'connect') return;
     enabled = true;
     document.documentElement.classList.add('english-learning-embedded');
     send({ type: 'ready', title: document.title, url: location.href });
   });
   const style = document.createElement('style');
-  style.textContent = '.english-learning-embedded body>nav .brand,.english-learning-embedded .site-global-links>a,.english-learning-embedded .site-nav-dropdown{display:none!important}';
+  style.textContent = '::highlight(rk-yellow){background:#fef08a;color:#111827}.english-learning-embedded body>nav .brand,.english-learning-embedded .site-global-links>a,.english-learning-embedded .site-nav-dropdown{display:none!important}';
   document.head.appendChild(style);
   const publishSelection = () => {
     if (!enabled) return;
@@ -21,7 +68,7 @@
     const element = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
     if (!element?.closest('main') || element.closest('input,textarea,select')) return;
     const box = range.getBoundingClientRect();
-    send({ type: 'selection', text, rect: { left: box.left, top: box.top, bottom: box.bottom }, title: document.title, url: location.href });
+    send({ type: 'selection', text, anchor: anchorFor(range), rect: { left: box.left, top: box.top, bottom: box.bottom }, title: document.title, url: location.href });
   };
   let timer;
   document.addEventListener('selectionchange', () => { clearTimeout(timer); timer = setTimeout(publishSelection, 250); });
@@ -48,7 +95,7 @@
         if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) return;
         if (lastWord === match[0]) return;
         lastWord = match[0];
-        send({ type: 'hover', text: match[0], rect: { left: box.left, top: box.top, bottom: box.bottom }, title: document.title, url: location.href });
+        send({ type: 'hover', text: match[0], anchor: anchorFor(range), rect: { left: box.left, top: box.top, bottom: box.bottom }, title: document.title, url: location.href });
         break;
       }
     }, 450);
