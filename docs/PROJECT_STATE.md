@@ -36,8 +36,3 @@
 - `sidebar.html` 中 Parameters 正确链接至 `parameters.html`（LLMs & Transformers），但 `sidebar.js` 把复数 `parameters` 错列为 Software topic slug，导致页面正文正确、左侧目录错误显示 Software Knowledge。
 - 分类规则排除复数 `parameters`；单数 `parameter.html` 继续归入 Software Knowledge。Node 语法检查、AI/Software 路由分类回归检查通过；本地 `parameters.html` HTTP 200，标题为 “Parameters · LLMs & Transformers”。
 - 修改前备份：`history/sidebar_20261103_153407.js`。代码提交：`fe82100`（rebased onto latest main）。尚未核实 Cloudflare 线上部署。
-
-## 2026-11-09 IT Vocabulary release
-- Added it-vocabulary.html with 13 topic categories and 538 deduplicated terms, English/Chinese toggle, category search, speaker-triggered favorite highlighting, playback speed, and pronunciation/spelling practice. Added an 8px top inset to the term grid so its first row has the same breathing room as subsequent rows; mobile keeps two columns and the category drawer.
-- Added the page to the global Knowledge menu in sidebar.js. The change is staged as a single menu-link hunk; other pre-existing working changes in sidebar.js and sidebar.html are excluded.
-- Release state at commit time: production verification pending; source push should follow the repository's GitHub-connected Cloudflare Pages deployment. Static HTML site has no build command; Node syntax checks and local asset-reference checks passed.
