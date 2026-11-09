@@ -16,7 +16,7 @@
       globalLinks.innerHTML = [
         '<a href="portfolio-home.html#profile">Profile</a>',
         '<a href="articles.html">Blog</a>',
-        '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge-summary.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a></div></div>'
+        '<div class="site-nav-dropdown"><button class="site-nav-trigger" type="button" aria-expanded="false">Knowledge <span aria-hidden="true">▾</span></button><div class="site-nav-menu"><a href="ai-knowledge-summary.html">AI Knowledge</a><a href="software-knowledge.html">Software Knowledge</a><a href="syntax-overview.html">Language &amp; Syntax</a><a href="it-vocabulary.html">IT Vocabulary</a></div></div>'
       ].join('');
       headerWrap.append(globalLinks);
       installSiteSearch(globalLinks);
